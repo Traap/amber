@@ -1,0 +1,20 @@
+# Project: 
+#   bootstrap 
+
+# Purpose: 
+#   This Travis continuous integration file is use to build and test boostrap
+#   software written in Haskell.
+
+sudo: false
+
+language: ruby
+
+# os:
+#   - linux
+
+rvm:
+  - 2.3.3
+
+notifications:
+  email: false
+  slack: allanconsulting:SDtIBjXdzbkBxeprTBsUIRbM

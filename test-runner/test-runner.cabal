@@ -1,0 +1,45 @@
+-- The test-runner package defines a standard set of library functions to run
+-- automated tests.
+
+name:                test-runner
+version:             1.0.0.0
+synopsis:            Test Runner
+license:             AllRightsReserved
+author:              Systems Informatics
+maintainer:          systemsinformatics@amgen.com
+category:            Testing
+build-type:          Simple
+cabal-version:       >=1.10
+
+library
+  exposed-modules:
+        TestRunner.Directory
+      , TestRunner.Environment
+      , TestRunner.Latex
+      , TestRunner.OutputFiles
+      , TestRunner.PrettyPrint
+      , TestRunner.Program
+      , TestRunner.Protocol
+      , TestRunner.RecipeResult
+      , TestRunner.RecipeStep
+      , TestRunner.RecipeTable
+      , TestRunner.Step
+      , TestRunner.Tester
+      , TestRunner.PrepareReportData
+  -- other-modules:
+  -- other-extensions:
+  build-depends:
+        base
+      , directory
+      , filepath
+      , old-locale
+      , pretty
+      , process
+      , regex-posix
+      , system-fileio
+      , text
+      , time
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+  ghc-options:       -Wall -Werror
+

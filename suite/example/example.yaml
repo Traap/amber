@@ -1,0 +1,97 @@
+suite:
+  name: smoke-test
+  purpose: Define the purpose of this test suite.
+  requirement: 123, 456, 789
+  
+  test-cases:
+    before: all
+    steps: 
+      - sudo: true
+        command: which
+        argument: dash
+
+      - sudo: true
+        command: which
+        argument: man 
+
+    after: all
+    steps:
+      - sudo: false
+        command: which
+        argument: ssh
+
+      - sudo: false
+        command: which
+        argument: ls 
+
+    before: each
+    steps:
+      - sudo: true
+        command: which
+        argument: dash
+
+      - sudo: true
+        command: which
+        argument: man 
+
+    after: each
+    steps:
+      - sudo: false
+        command: which
+        argument: ssh
+
+      - sudo: false
+        command: which
+        argument: ls 
+
+    - name: first-test-case
+      purpose: Demonstrate requirement 123 is met.
+      requirement: 123
+      steps:
+        - sudo: true
+          command: which
+          argument: echo
+
+        - sudo: false
+          command: which
+          argument: date
+
+        - sudo: false
+          command: which
+          argument: man
+
+    - name: second-test-case
+      purpose: Demonstrate requirement 456 is met.
+      requirement: 456
+      confirm: Confirm requirement 456 has met its specification. 
+      expected: Requirement 456 specification has been met. 
+      steps:
+        - sudo: true
+          command: which
+          argument: grep
+
+        - sudo: true
+          command: which
+          argument: dumper
+
+        - sudo: true
+          command: which
+          argument: sed
+
+    - name: thirs-test-case
+      purpose: Demonstrate requirement 789 is met.
+      requirement: 789
+      confirm: Confirm requirement 789 has met its specification. 
+      expected: Requirement 789 specification has been met. 
+      steps:
+        - sudo: false
+          command: which
+          argument: nice
+
+        - sudo: true
+          command: which
+          argument: nl
+
+        - sudo: false
+          command: which
+          argument: nroff
