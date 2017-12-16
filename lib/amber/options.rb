@@ -58,16 +58,23 @@ class CommandLineOptions
   end
 
 # ------------------------------------------------------------------------------
-  def self.app_list_option parser
-    parser.on("-a", "--app x,y,x", Array, "App name") do |apps|
-      @options.filename = apps.map! {|a| "app/#{a}/#{a}.yaml"}
+  def self.plan_list_option parser
+    parser.on("-a", "--plan x,y,x", Array, "Plan name") do |apps|
+      @options.filename = plan.map! {|a| "plan/#{a}/#{a}.yaml"}
     end
   end
 
 # ------------------------------------------------------------------------------
-  def self.bundle_list_option parser
-    parser.on("-b", "--bundle x,y,x", Array, "Bundle name") do |bundle|
-      @options.filename = bundle.map! {|b| "bundle/#{b}/#{b}.yaml"}
+  def self.suite_list_option parser
+    parser.on("-a", "--suite x,y,x", Array, "Suite name") do |apps|
+      @options.filename = suite.map! {|a| "suite/#{a}/#{a}.yaml"}
+    end
+  end
+
+# ------------------------------------------------------------------------------
+  def self.case_list_option parser
+    parser.on("-a", "--case x,y,x", Array, "Case name") do |apps|
+      @options.filename = case.map! {|a| "case/#{a}/#{a}.yaml"}
     end
   end
 

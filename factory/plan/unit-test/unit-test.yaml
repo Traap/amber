@@ -1,0 +1,4 @@
+includes:
+  - suite:
+    - name: smoke-test 
+    - name: boundary-test

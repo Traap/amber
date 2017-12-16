@@ -1,0 +1,23 @@
+case:
+  purpose: Demonstrate requirement 789 is met.
+  requirement: 789
+  confirm: Confirm requirement 789 has met its specification.
+  expected: Requirement 789 specification has been met.
+  steps:
+    - sudo: false
+      command: which
+      argument: nice
+
+    - sudo: true
+      command: which
+      argument: nl
+
+    - sudo: false
+      command: which
+      argument: nroff
+      command: which
+      argument: date
+
+    - sudo: false
+      command: which
+      argument: man

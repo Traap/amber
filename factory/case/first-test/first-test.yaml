@@ -1,0 +1,15 @@
+case:
+  purpose: Demonstrate requirement 123 is met.
+  requirement: 123
+  steps:
+    - sudo: true
+      command: which
+      argument: echo
+
+    - sudo: false
+      command: which
+      argument: date
+
+    - sudo: false
+      command: which
+      argument: man

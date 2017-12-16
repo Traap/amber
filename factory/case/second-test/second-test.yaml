@@ -1,0 +1,17 @@
+case:
+  purpose: Demonstrate requirement 456 is met.
+  requirement: 456
+  confirm: Confirm requirement 456 has met its specification.
+  expected: Requirement 456 specification has been met.
+  steps:
+    - sudo: true
+      command: which
+      argument: grep
+
+    - sudo: true
+      command: which
+      argument: dumper
+
+    - sudo: true
+      command: which
+      argument: sed
