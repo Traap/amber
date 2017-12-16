@@ -1,4 +1,4 @@
-module Emend
+module Amber 
 # ------------------------------------------------------------------------------
 class CommandLineOptions
   attr_accessor :verbose, :dryrun, :filename
