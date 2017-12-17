@@ -141,7 +141,7 @@ class Include < Command
 
   def include_this_file(name, opt)
     opt_and_files = "#{opt}=#{name.map{|n| n.values}.join(',')}"
-    @command ="emend #{opt_and_files}"
+    @command ="amber #{opt_and_files}"
     @command.concat " --verbose"  if @options.verbose
     @command.concat " --nodryrun" if !@options.dryrun
     puts "Including #{opt_and_files}"

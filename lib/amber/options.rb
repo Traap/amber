@@ -21,15 +21,16 @@ class CommandLineOptions
 # ------------------------------------------------------------------------------
   def self.option_parser
     @parser ||= OptionParser.new do |parser|
-      parser.banner = "Usage: emend [options]"
+      parser.banner = "Usage: amber [options]"
       parser.separator ""
       parser.separator "Specific options:"
 
       help_option parser
       dryrun_option parser
-      app_list_option parser
-      bundle_list_option parser
-      file_list_option parser
+      plan_option parser
+      suite_option parser
+      case_option parser
+      file_option parser
       verbose_option parser
       version_option parser
     end
@@ -45,42 +46,42 @@ class CommandLineOptions
 
 # ------------------------------------------------------------------------------
   def self.dryrun_option parser
-    parser.on("-n", "--nodryrun", "No Dryrun") do |d|
-      @options.dryrun ^= d
+    parser.on("-n", "--nodryrun", "No Dryrun") do |z|
+      @options.dryrun ^= z
     end
   end
 
 # ------------------------------------------------------------------------------
   def self.verbose_option parser
-    parser.on("-v", "--verbose", "Verbose") do |v|
-      @options.verbose = v
+    parser.on("-v", "--verbose", "Verbose") do |z|
+      @options.verbose = z
     end
   end
 
 # ------------------------------------------------------------------------------
-  def self.plan_list_option parser
-    parser.on("-a", "--plan x,y,x", Array, "Plan name") do |apps|
-      @options.filename = plan.map! {|a| "plan/#{a}/#{a}.yaml"}
+  def self.plan_option parser
+    parser.on("-p", "--plan x,y,x", Array, "Plan name") do |z|
+      @options.filename = z.map! {|a| "plan/#{a}/#{a}.yaml"}
     end
   end
 
 # ------------------------------------------------------------------------------
-  def self.suite_list_option parser
-    parser.on("-a", "--suite x,y,x", Array, "Suite name") do |apps|
-      @options.filename = suite.map! {|a| "suite/#{a}/#{a}.yaml"}
+  def self.suite_option parser
+    parser.on("-s", "--suite x,y,x", Array, "Suite name") do |z|
+      @options.filename = z.map! {|a| "suite/#{a}/#{a}.yaml"}
     end
   end
 
 # ------------------------------------------------------------------------------
-  def self.case_list_option parser
-    parser.on("-a", "--case x,y,x", Array, "Case name") do |apps|
-      @options.filename = case.map! {|a| "case/#{a}/#{a}.yaml"}
+  def self.case_option parser
+    parser.on("-c", "--case x,y,x", Array, "Case name") do |z|
+      @options.filename = z.map! {|a| "case/#{a}/#{a}.yaml"}
     end
   end
 
 # ------------------------------------------------------------------------------
-  def self.file_list_option parser
-    parser.on("-f", "--file x,y,x", Array, "File name") do |file|
+  def self.file_option parser
+    parser.on("-f", "--file x,y,x", Array, "File name") do |z|
       @options.filename = file
     end
   end
@@ -88,7 +89,7 @@ class CommandLineOptions
 # ------------------------------------------------------------------------------
   def self.version_option parser
     parser.on_tail("--version", "Show version") do
-      puts Emend::VERSION
+      puts Amber::VERSION
       exit
     end
   end
