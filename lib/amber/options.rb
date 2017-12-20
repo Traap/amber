@@ -27,12 +27,13 @@ class CommandLineOptions
 
       help_option parser
       dryrun_option parser
-      plan_option parser
-      suite_option parser
-      case_option parser
       file_option parser
       verbose_option parser
       version_option parser
+
+      plan_option parser
+      suite_option parser
+      case_option parser
     end
   end
 
@@ -61,21 +62,21 @@ class CommandLineOptions
 # ------------------------------------------------------------------------------
   def self.plan_option parser
     parser.on("-p", "--plan x,y,x", Array, "Plan name") do |z|
-      @options.filename = z.map! {|a| "plan/#{a}/#{a}.yaml"}
+      @options.filename = z.map! {|a| "factory/plan/#{a}/#{a}.yaml"}
     end
   end
 
 # ------------------------------------------------------------------------------
   def self.suite_option parser
     parser.on("-s", "--suite x,y,x", Array, "Suite name") do |z|
-      @options.filename = z.map! {|a| "suite/#{a}/#{a}.yaml"}
+      @options.filename = z.map! {|a| "factory/suite/#{a}/#{a}.yaml"}
     end
   end
 
 # ------------------------------------------------------------------------------
   def self.case_option parser
     parser.on("-c", "--case x,y,x", Array, "Case name") do |z|
-      @options.filename = z.map! {|a| "case/#{a}/#{a}.yaml"}
+      @options.filename = z.map! {|a| "factory/case/#{a}/#{a}.yaml"}
     end
   end
 
