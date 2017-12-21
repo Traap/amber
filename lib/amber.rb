@@ -17,9 +17,13 @@ require 'amber/initialize'
 module Amber 
   class CLI
     def execute(args)
+      puts "Parsing command line"
       options = CommandLineOptions.parse args
       if options
+        puts "Workflow initialized"
         workflow = Workflow.new(options)
+
+        puts "Workflow orchestration."
         workflow.orchestrate
       end
     end

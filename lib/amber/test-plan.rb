@@ -15,8 +15,6 @@ class TestPlan < Command
     purpose = @data['purpose']
 
     # TODO: should be including test suites.
-
-    end
   end
 
   def install_on_this_os?(os)

@@ -23,20 +23,21 @@ class Workflow
     puts "Parsing #{yaml_file}"
     @commands = []
     @yaml_file = YAML.load(File.open(yaml_file))
+
     @yaml_file.each do |k,v|
-      v.each do |n|
-        case k
-        when "symlinks"
-          @commands << SymLink.new(v, @options)
-        when "repos"
-          @commands << Repo.new(v, @options)
-        when "installations"
-          @commands << Install.new(v, @options)
-        when "includes"
+      case k
+      when "plan"
+        @commands << TestPlan.new(v, @options)
+      when "suite"
+        @commands << TestSuite.new(v, @options)
+      when "case"
+        @commands << TestCase.new(v, @options)
+      when "includes"
+        v.each do |n|
           @commands << Include.new(n, @options)
-        else
-          puts "#{k} is not supported."
         end
+      else
+        puts "#{k} is not supported."
       end
     end
   end

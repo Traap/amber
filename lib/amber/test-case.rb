@@ -16,14 +16,28 @@ class TestCase < Command
     purpose = @data['purpose']
     requirement = @data['requirement']
 
+    echo_test_case_header name, purpose, requirement
+
     @data['steps'].each do |s|
       # TODO: Need list of commands.
       sudo = s['sudo']
       command = s['command']
       argument = s['argument']
 
-      do_command false
+      echo_test_case_command sudo, command, argument
+
+#      do_command false
     end
+  end
+
+  def echo_test_case_header(name, purpose, requirement)
+    puts "           Name: #{name}"
+    puts "        Purpose: #{purpose}"
+    puts "    Requirement: #{requirement}"
+  end
+
+  def echo_test_case_command(sudo, command, argument)
+    puts "        Command: #{sudo} #{command} #{argument}"
   end
 
 

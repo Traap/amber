@@ -17,8 +17,6 @@ class TestSuite < Command
     requirement = @data['requirement']
 
     # TODO: should be including test cases.
-
-    end
   end
 
 end # End TestSuite 
