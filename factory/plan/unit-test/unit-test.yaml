@@ -1,8 +1,8 @@
 plan:
   name: Unit Test Plan 
-  purpose: > This plan uses white box methods.  The output 
-             is sufficient for DHF purposes.  However, thei
-             output is generally only used by engineers. 
+  purpose: > 
+    This plan uses white box methods.  The output is sufficient for DHF
+    purposes.  However, the output is generally only used by engineers. 
 
 includes:
   - suite:

@@ -1,7 +1,8 @@
 suite:
   name: Smoke Test
-  purpose: > This test suite ensures the system has meet the mimimum
-             requirements for further testing.
+  purpose: > 
+      This test suite ensures the system has meet the mimimum requirements for
+      further testing.
   requirement: 123, 456, 789
 
 includes:
