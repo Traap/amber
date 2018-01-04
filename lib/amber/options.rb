@@ -1,12 +1,11 @@
 module Amber 
 # ------------------------------------------------------------------------------
 class CommandLineOptions
-  attr_accessor :verbose, :dryrun, :filename
+  attr_accessor :dryrun, :filename
   attr_reader :parser, :options
 
 # ------------------------------------------------------------------------------
   def initialize
-    self.verbose = false
     self.dryrun = true
     self.filename = []
   end
@@ -28,7 +27,6 @@ class CommandLineOptions
       help_option parser
       dryrun_option parser
       file_option parser
-      verbose_option parser
       version_option parser
 
       plan_option parser
@@ -49,13 +47,6 @@ class CommandLineOptions
   def self.dryrun_option parser
     parser.on("-n", "--nodryrun", "No Dryrun") do |z|
       @options.dryrun ^= z
-    end
-  end
-
-# ------------------------------------------------------------------------------
-  def self.verbose_option parser
-    parser.on("-v", "--verbose", "Verbose") do |z|
-      @options.verbose = z
     end
   end
 
