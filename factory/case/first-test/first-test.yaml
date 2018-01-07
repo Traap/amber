@@ -3,14 +3,23 @@ case:
   purpose: Demonstrate requirement 123 is met.
   requirement: 123
   steps:
-    - sudo: true
+    - confirm: Program echo has installed.
+      expectation: echo installation location is displayed.
+      sudo: true
       command: which
       argument: echo
+      evidence: Starts on next line.
 
-    - sudo: false
+    - confirm: Program date has installed.
+      expectation: date installation location is displayed.
+      sudo: false
       command: which
       argument: date
+      evidence: Starts on next line.
 
-    - sudo: false
+    - confirm: Program man has been installed.
+      expectation: man installation location is displayed.  
+      sudo: false
       command: which
       argument: man
+      evidence: Starts on next line.

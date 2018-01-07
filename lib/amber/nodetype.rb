@@ -9,8 +9,8 @@ module Amber
     end
 
     def echo_to_sysout
-      puts "#{@type}"
-      puts "         Name: #{@name}"
+      name = "#{@type}: ".rjust(15) << "#{@name}"
+      puts "#{name}"
       puts "      Purpose: #{@purpose}"
       puts "  Requirement: #{@requirement}"
     end

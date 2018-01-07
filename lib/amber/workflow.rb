@@ -17,7 +17,6 @@ module Amber
     end
 
     def parse_yaml_file(yaml_file)
-      puts "Parsing #{yaml_file}"
       @node = []
       @yaml_file = YAML.load(File.open(yaml_file))
 

@@ -11,12 +11,18 @@ module Amber
     end
 
     def process
-      @nodetype.echo_to_sysout
+      echo_to_sysout
+      run_command
     end
 
     protected
+    def echo_to_sysout 
+      @nodetype.echo_to_sysout
+    end
+
     def run_command
       begin
+        puts "      Command: #{@command}"
         status = system(@command)
       rescue ShellError
         abort "System command failed: #{status}"

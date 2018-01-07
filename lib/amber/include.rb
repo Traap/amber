@@ -5,7 +5,9 @@ module Amber
       super("Include", data, options)
     end
 
-    def process 
+    def echo_to_sysout; end
+
+    def run_command 
       @data.each do |k,v|
         case k
         when "plan"
@@ -24,9 +26,8 @@ module Amber
       opt_and_files = "#{opt}=#{name.map{|n| n.values}.join(',')}"
       @command ="amber #{opt_and_files}"
       @command.concat " --nodryrun" if !@options.dryrun
-      puts "Including #{opt_and_files}"
-      run_command 
+      method(:run_command).super_method.call
     end
 
   end # Include
-end # Amber 
+end # Amber

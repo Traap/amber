@@ -9,16 +9,26 @@ module Amber
       else
         sudo = nil 
       end
+      @confirm = s['confirm']
+      @expectation = s['expectation']
       @command = "#{sudo}#{s['command']} #{s['argument']}"
+      @evidence = s['evidence']
     end
 
-    def echo_to_sysout
+    def echo_to_sysout(nbr)
+      puts "         Step: #{nbr}"
+      puts "      Confirm: #{@confirm}"
+      puts "  Expectation: #{@expectation}"
       puts "      Command: #{@command}"
     end
 
     def run_command
       begin
+        puts "     Evidence: #{@evidence}"
         status = system(@command)
+        result = status ? "PASS" : "FAIL"
+        puts "  Test Result: #{result}"
+        puts ""
       rescue ShellError
         abort "System command failed: #{status}"
       end

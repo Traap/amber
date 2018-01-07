@@ -5,14 +5,15 @@ module Amber
       super("Test Case", data, options)
     end
 
-    def process
-      method(:process).super_method.call
+    def run_command
+      nbr = 0
       @data['steps'].each do |s|
+        nbr = nbr + 1
         step = Step.new(s)
-        step.echo_to_sysout
+        step.echo_to_sysout nbr
         step.run_command  if !@options.dryrun
       end
     end
 
   end # TestCase
-end # Amber 
+end # Amber

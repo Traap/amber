@@ -5,5 +5,7 @@ module Amber
       super("Test Suite", data, options)
     end
 
+    def run_command; end 
+
   end # TestSuite
 end # Amber 
