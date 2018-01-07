@@ -39,7 +39,7 @@ $ cd $HOME \
 
 ## Install and configure Vim
 ```bash
-amber --verbose --nodryrun --suite=smoke-test
+amber --suite=smoke-test
 ```
 
 ## amber command line
@@ -50,7 +50,9 @@ Usage: amber [options]
 Specific options:
     -n, --nodryrun                   No Dryrun
     -f, --file x,y,x                 File name
+    -s, --plan x,y,x                 Plan name 
     -s, --suite x,y,x                Suite name
+    -s, --case x,y,x                 Name name
     -v, --verbose                    Verbose
     -h, --help                       Show this message
         --version                    Show version
@@ -68,13 +70,57 @@ suite/a-suite/a-suite.yaml.
 ## --file
 A comma-separated list of file names **amber** is to process.
 
-## --verbose
-Echo commands to system output.
-
 ## --help
 Show this message.
+
 ## --version
-1.0.0 is this the current version.
+0.0.36 is this the current version.
+
+# Validating a tool
+Amber automates creating and assembling detailed records intended to provide
+a product or tool has been tested for its intended purpose.  Amber borrows from
+a Ruby-on-Rails convention of convention over configuration.  In this regard,
+amber consumes yaml documents that are placed beneath a factory directory root.
+You are encouraged to review Amber's factory directory because it has been
+designed to demonstrate Amber's capabilities.
+
+## A yaml Plan
+```yaml
+plan:
+  name: A plan name
+  purpose:  The purpose of this test plan.
+includes:
+  - suite:
+    - name: a-suite-name 
+```
+
+## A yaml Suite
+```yaml
+suite:
+  name: A Suite Name 
+  purpose:  The purpose of this test suite.
+  requirement: 1, 2, 3, and 4.
+includes:
+  - case:
+    - name: a-test-case 
+    - name: another-test-case 
+    - name: yet-another-test-case 
+```
+
+## Amber directory convention
+```bash
+../factory
+../factory/plan
+../factory/plan/a-plan-name/a-plan-name.yaml
+
+../factory/suite
+../factory/suite/a-suite-name/a-suite-name.yaml
+
+../factory/case
+../factory/case/a-test-case/a-test-case.yaml
+../factory/case/another-test-case/another-test-case.yaml
+../factory/case/yet-another-test-case/yet-another-test-case.yaml
+```
 
 # Project Management
 The **amber** repository uses a SCRUM framework adapted to standard GitHub
