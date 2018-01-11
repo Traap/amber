@@ -5,7 +5,7 @@ module Amber
 
     def initialize(s)
       if s['sudo'] then
-        sudo = "sudo "
+        sudo = RbConfig::CONFIG['host_os'] = "cygwin" ? nil : "sudo "
       else
         sudo = nil 
       end
@@ -24,12 +24,14 @@ module Amber
 
     def run_command
       begin
-        puts "     Evidence: #{@evidence}"
-        status = system(@command)
+        stdout, stderr, status = Open3.capture3(@command)
         result = status ? "PASS" : "FAIL"
         puts "  Test Result: #{result}"
+        puts "     Evidence: #{@evidence}"
+        puts "#{stdout}"
         puts ""
       rescue ShellError
+        puts "#{stderr}"
         abort "System command failed: #{status}"
       end
     end
