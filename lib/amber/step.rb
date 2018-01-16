@@ -5,7 +5,7 @@ module Amber
 
     def initialize(s)
       if s['sudo'] then
-        sudo = RbConfig::CONFIG['host_os'] = "cygwin" ? nil : "sudo "
+        sudo = RbConfig::CONFIG['host_os'] == "cygwin" ? nil : "sudo "
       else
         sudo = nil 
       end

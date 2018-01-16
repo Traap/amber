@@ -14,6 +14,7 @@ module Amber
           n.process
         end
       end
+      Environment.new().echo_to_sysout
     end
 
     def parse_yaml_file(yaml_file)
