@@ -1,0 +1,7 @@
+# ------------------------------------------------------------------------------
+# tool-validation/factory/requirement/sample/sample.yaml
+# ------------------------------------------------------------------------------
+requirements:
+  - number: IUR-000
+    description: > 
+      As a designer, I want to 
