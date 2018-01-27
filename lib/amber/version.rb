@@ -1,3 +1,3 @@
 module Amber 
-  VERSION = "0.0.51"
+  VERSION = "0.0.55"
 end

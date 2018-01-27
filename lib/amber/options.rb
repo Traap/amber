@@ -1,12 +1,13 @@
 module Amber 
 # ------------------------------------------------------------------------------
 class CommandLineOptions
-  attr_accessor :dryrun, :filename
+  attr_accessor :dryrun, :equipment, :filename
   attr_reader :parser, :options
 
 # ------------------------------------------------------------------------------
   def initialize
     self.dryrun = true
+    self.equipment = true 
     self.filename = []
   end
 
@@ -26,6 +27,7 @@ class CommandLineOptions
 
       help_option parser
       dryrun_option parser
+      equipment_option parser
       file_option parser
       version_option parser
 
@@ -47,6 +49,13 @@ class CommandLineOptions
   def self.dryrun_option parser
     parser.on("-n", "--nodryrun", "No Dryrun") do |z|
       @options.dryrun ^= z
+    end
+  end
+
+# ------------------------------------------------------------------------------
+  def self.equipment_option parser
+    parser.on("-n", "--equipment", "List Equipment") do |z|
+      @options.equipment ^= z
     end
   end
 
@@ -74,7 +83,7 @@ class CommandLineOptions
 # ------------------------------------------------------------------------------
   def self.file_option parser
     parser.on("-f", "--file x,y,x", Array, "File name") do |z|
-      @options.filename = file
+      @options.filename = z.map! {|a| "#{a}"}
     end
   end
 
