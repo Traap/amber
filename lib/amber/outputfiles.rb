@@ -7,7 +7,6 @@ module Amber
       @recipeResults = "recipe-results-"
       @results = "results.tex"
       @stepNbr = "step-"
-      @tmpPath s = s ++ "/"
     end
 
     # Open Recipe File.  Recipe steps are written to the recipe file in a LaTeX
