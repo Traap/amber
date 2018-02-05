@@ -88,11 +88,22 @@ class CommandLineOptions
   end
 
 # ------------------------------------------------------------------------------
+  def self.language_option parser
+    parser.on("-r", "--Language x,y,x", Array, "Langauge name") do |z|
+      @options.language = z.map! {|a| "#{a}"}
+    end
+  end
+
+# ------------------------------------------------------------------------------
   def self.version_option parser
     parser.on_tail("--version", "Show version") do
       puts Amber::VERSION
       exit
     end
+  end
+
+# ------------------------------------------------------------------------------
+  def self.language_option parser
   end
 
 # ------------------------------------------------------------------------------
