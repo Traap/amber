@@ -1,5 +1,5 @@
 module Amber
-  class TestSuite < Node
+  class TestSuite < Test 
 
     def initialize(data, options)
       super("Test Suite", data, options)

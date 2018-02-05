@@ -1,5 +1,5 @@
 module Amber 
-  class NodeType  
+  class TestType  
 
     def initialize(type, data)
       @type = type
@@ -15,5 +15,5 @@ module Amber
       puts "  Requirement: #{@requirement}"
     end
 
-  end # NodeType
+  end # TestType
 end # Amber 

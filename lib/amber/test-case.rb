@@ -1,5 +1,5 @@
 module Amber
-  class TestCase < Node
+  class TestCase < Test 
 
     def initialize(data, options)
       super("Test Case", data, options)

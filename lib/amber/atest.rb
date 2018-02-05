@@ -1,12 +1,12 @@
 module Amber
   class ShellError < StandardError; end
 
-  class Node
+  class Test
 
     def initialize(type, data, options)
       @data = data
       @options = options
-      @nodetype = NodeType.new(type, data)
+      @testtype = TestType.new(type, data)
       @command = nil
     end
 
@@ -17,7 +17,7 @@ module Amber
 
     protected
     def echo_to_sysout 
-      @nodetype.echo_to_sysout
+      @testtype.echo_to_sysout
     end
 
     def run_command
@@ -29,5 +29,5 @@ module Amber
       end
     end
 
-  end # Node
+  end # Test
 end # Amber 
