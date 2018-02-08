@@ -2,11 +2,14 @@ module Amber
   class ShellError < StandardError; end
 
   class Test
+    attr_reader :type, :name, :purpose, :requirement
 
     def initialize(type, data, options)
-      @data = data
+      @type = type
+      @name = data['name']
+      @purpose = data['purpose']
+      @requirement = data['requirement']
       @options = options
-      @testtype = TestType.new(type, data)
       @command = nil
     end
 
@@ -17,7 +20,10 @@ module Amber
 
     protected
     def echo_to_sysout 
-      @testtype.echo_to_sysout
+      name = "#{@type}: ".rjust(15) << "#{@name}"
+      puts "#{name}"
+      puts "      Purpose: #{@purpose}"
+      puts "  Requirement: #{@requirement}"
     end
 
     def run_command
