@@ -1,3 +1,5 @@
+require 'amber/test'
+
 module Amber
   class TestSuite < Test 
 

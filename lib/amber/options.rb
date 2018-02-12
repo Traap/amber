@@ -1,5 +1,6 @@
+require 'amber/version'
+
 module Amber 
-# ------------------------------------------------------------------------------
 class CommandLineOptions
   attr_accessor :dryrun, :equipment, :filename, :writer, :language
   attr_reader :parser, :options
@@ -120,6 +121,4 @@ class CommandLineOptions
 
 # ------------------------------------------------------------------------------
 end # class CommandLineOptions
-# ------------------------------------------------------------------------------
 end # module
-# ------------------------------------------------------------------------------

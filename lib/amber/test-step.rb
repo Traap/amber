@@ -1,7 +1,8 @@
-module Amber 
-  class ShellError < StandardError; end
+require 'amber/test'
 
-  class Step  
+module Amber 
+  class TestStep < Test
+    attr_reader :confirm, :expectation, :command, :evidence
 
     def initialize(s)
       if s['sudo'] then
@@ -15,26 +16,11 @@ module Amber
       @evidence = s['evidence']
     end
 
-    def echo_to_sysout(nbr)
-      puts "         Step: #{nbr}"
-      puts "      Confirm: #{@confirm}"
-      puts "  Expectation: #{@expectation}"
-      puts "      Command: #{@command}"
-    end
+    def echo_to_sysout(nbr); end
 
     def run_command
-      begin
-        stdout, stderr, status = Open3.capture3(@command)
-        result = status ? "PASS" : "FAIL"
-        puts "  Test Result: #{result}"
-        puts "     Evidence: #{@evidence}"
-        puts "#{stdout}"
-        puts ""
-      rescue ShellError
-        puts "#{stderr}"
-        abort "System command failed: #{status}"
-      end
+      stdout, stderr, status = Open3.capture3(@command)
     end
 
-  end # Step
+  end # TestStep
 end # Amber 
