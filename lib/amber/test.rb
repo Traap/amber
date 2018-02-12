@@ -6,6 +6,7 @@ module Amber
 
     def initialize(type, data, options)
       @type = type
+      @data = data
       @name = data['name']
       @purpose = data['purpose']
       @requirement = data['requirement']
@@ -23,7 +24,7 @@ module Amber
     protected
     def setup; end
 
-    def teardonw; end
+    def teardown; end
 
     def echo_to_sysout 
       name = "#{@type}: ".rjust(15) << "#{@name}"

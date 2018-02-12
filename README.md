@@ -31,7 +31,7 @@ $ cd $HOME \
             && bundle install \
             && bundle exec rake \
             && bundle exec rake install
-            && amber --verbose
+            && amber --version
 ```
 
 # Traap/amber-computer

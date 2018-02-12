@@ -8,13 +8,8 @@ module Amber
     end
 
     def echo_to_sysout
-      @adaptee.echo_to_sysout
       method(:echo_to_sysout).super_method.call 
     end
-
-    def run_command 
-      @adaptee.run_command
-    end 
 
   end # LaTeX_TestPlan
 end # Amber 

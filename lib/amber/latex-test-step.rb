@@ -9,8 +9,8 @@ module Amber
       super(adaptee)
     end
 
-    def echo_to_sysout(nbr)
-      puts "         Step: #{nbr}"
+    def echo_to_sysout
+      puts "         Step: #{@adaptee.number}"
       puts "      Confirm: #{@adaptee.confirm}"
       puts "  Expectation: #{@adaptee.expectation}"
       puts "      Command: #{@adaptee.command}"
@@ -29,7 +29,6 @@ module Amber
         puts "#{stderr}"
         abort "System command failed: #{status}"
       end
-      @adaptee.run_command
     end
 
   end # LaTeX_TestStep

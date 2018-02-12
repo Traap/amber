@@ -9,12 +9,13 @@ module Amber
     end
 
     def setup
-      puts "open xxx-test output file"
+      puts "Open [Ascii] xxx-test output file"
     end
 
     def echo_to_sysout
       @adaptee.echo_to_sysout
 
+      puts "Decorated [Ascii] output ..."
       name = "#{@adaptee.type}: ".rjust(15) << "#{@adaptee.name}"
       puts "#{name}"
       puts "      Purpose: #{@adaptee.purpose}"
@@ -25,8 +26,8 @@ module Amber
       @adaptee.run_command
     end 
 
-    def teardonw
-      puts "close xxx-test output file"
+    def teardown
+      puts "Close [Ascii] xxx-test output file"
     end
 
   end # Ascii_Test
