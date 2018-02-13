@@ -1,0 +1,27 @@
+case:
+  name: Second Test Case
+  purpose: Demonstrate requirement 456 is met.
+  requirement: 456
+  confirm: Confirm requirement 456 has met its specification.
+  expected: Requirement 456 specification has been met.
+  steps:
+    - confirm: Program grep has installed.
+      expectation: grep installation location is displayed.
+      sudo: true
+      command: which
+      argument: grep
+      evidence: Starts on next line. 
+
+    - confirm: Program dumper has installed.
+      expectation: dumper installation location is displayed.
+      sudo: false
+      command: which
+      argument: dumper
+      evidence: Starts on next line. 
+
+    - confirm: Program sed has been installed.
+      expectation: sed installation location is displayed.  
+      sudo: false
+      command: which
+      argument: sed
+      evidence: Starts on next line. 

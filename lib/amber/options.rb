@@ -12,6 +12,8 @@ class CommandLineOptions
     self.dryrun = true
     self.equipment = true 
     self.filename = []
+    self.writer = "Ascii"
+    self.language = nil 
   end
 
 # ------------------------------------------------------------------------------
@@ -59,7 +61,7 @@ class CommandLineOptions
 
 # ------------------------------------------------------------------------------
   def self.equipment_option parser
-    parser.on("-n", "--equipment", "List Equipment") do |z|
+    parser.on("-e", "--equipment", "List Equipment") do |z|
       @options.equipment ^= z
     end
   end
@@ -67,21 +69,39 @@ class CommandLineOptions
 # ------------------------------------------------------------------------------
   def self.plan_option parser
     parser.on("-p", "--plan x,y,x", Array, "Plan name") do |z|
-      @options.filename = z.map! {|a| "factory/plan/#{a}/#{a}.yaml"}
+      @options.filename = z.map! do |a|
+        if @options.language.nil? 
+          "factory/plan/#{a}/#{a}.yaml" 
+        else 
+          "#{@options.language}/factory/plan/#{a}/#{a}.yaml"
+        end
+      end 
     end
   end
 
 # ------------------------------------------------------------------------------
   def self.suite_option parser
     parser.on("-s", "--suite x,y,x", Array, "Suite name") do |z|
-      @options.filename = z.map! {|a| "factory/suite/#{a}/#{a}.yaml"}
+      @options.filename = z.map! do |a|
+        if @options.language.nil? 
+          "factory/suite/#{a}/#{a}.yaml"
+        else
+          "#{@options.language}/factory/suite/#{a}/#{a}.yaml"
+        end
+      end 
     end
   end
 
 # ------------------------------------------------------------------------------
   def self.case_option parser
     parser.on("-c", "--case x,y,x", Array, "Case name") do |z|
-      @options.filename = z.map! {|a| "factory/case/#{a}/#{a}.yaml"}
+      @options.filename = z.map! do |a|
+        if @options.language.nil? 
+          "factory/case/#{a}/#{a}.yaml" 
+        else
+          "#{@options.language}/factory/case/#{a}/#{a}.yaml"
+        end
+      end 
     end
   end
 
@@ -96,14 +116,17 @@ class CommandLineOptions
   def self.writer_option parser
     parser.on("-w", "--writer WRITER", String, WRITER_LIST,
               "Select writer", "#{WRITER_LIST}") do |z|
-      @options.writer = z  end
+      @options.writer = z
+    end
   end
 
 # ------------------------------------------------------------------------------
   def self.language_option parser
-    parser.on("-r", "--Language [EN, FR, GR, ...]", 
+    parser.on("-l", "--language [en, fr, gr, ...]", 
               String, "Langauge name") do |z|
-      @options.language = z 
+      @options.language = z
+      puts "language=#{@options.language}"
+      puts "writer=#{@options.writer}"
     end
   end
 
@@ -113,10 +136,6 @@ class CommandLineOptions
       puts Amber::VERSION
       exit
     end
-  end
-
-# ------------------------------------------------------------------------------
-  def self.language_option parser
   end
 
 # ------------------------------------------------------------------------------

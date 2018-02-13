@@ -1,0 +1,5 @@
+includes:
+  - case:
+    - name: first-test
+    - name: second-test
+    - name: third-test
