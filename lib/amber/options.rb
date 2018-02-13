@@ -1,8 +1,11 @@
+require 'amber/version'
+
 module Amber 
-# ------------------------------------------------------------------------------
 class CommandLineOptions
-  attr_accessor :dryrun, :equipment, :filename
+  attr_accessor :dryrun, :equipment, :filename, :writer, :language
   attr_reader :parser, :options
+
+  WRITER_LIST = %w[Ascii LaTeX]
 
 # ------------------------------------------------------------------------------
   def initialize
@@ -29,6 +32,8 @@ class CommandLineOptions
       dryrun_option parser
       equipment_option parser
       file_option parser
+      language_option parser
+      writer_option parser
       version_option parser
 
       plan_option parser
@@ -88,6 +93,21 @@ class CommandLineOptions
   end
 
 # ------------------------------------------------------------------------------
+  def self.writer_option parser
+    parser.on("-w", "--writer WRITER", String, WRITER_LIST,
+              "Select writer", "#{WRITER_LIST}") do |z|
+      @options.writer = z  end
+  end
+
+# ------------------------------------------------------------------------------
+  def self.language_option parser
+    parser.on("-r", "--Language [EN, FR, GR, ...]", 
+              String, "Langauge name") do |z|
+      @options.language = z 
+    end
+  end
+
+# ------------------------------------------------------------------------------
   def self.version_option parser
     parser.on_tail("--version", "Show version") do
       puts Amber::VERSION
@@ -96,7 +116,9 @@ class CommandLineOptions
   end
 
 # ------------------------------------------------------------------------------
+  def self.language_option parser
+  end
+
+# ------------------------------------------------------------------------------
 end # class CommandLineOptions
-# ------------------------------------------------------------------------------
 end # module
-# ------------------------------------------------------------------------------

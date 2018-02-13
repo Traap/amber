@@ -1,5 +1,7 @@
+require 'amber/test'
+
 module Amber 
-  class Include < Node 
+  class Include < Test 
 
     def initialize(data, options)
       super("Include", data, options)

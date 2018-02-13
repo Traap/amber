@@ -1,5 +1,7 @@
+require 'amber/test'
+
 module Amber 
-  class TestPlan < Node 
+  class TestPlan < Test 
 
     def initialize(data, options)
       super("Test Plan", data, options)

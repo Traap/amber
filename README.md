@@ -26,11 +26,12 @@ Copy the text below and paste into a shell.  The commands will:
 ```bash
 $ cd $HOME \
      && git clone http://github.com/Traap/amber.git \
-            && cd amber \
+            ear
+            & cd amber \
             && bundle install \
             && bundle exec rake \
             && bundle exec rake install
-            && amber --verbose
+            && amber --version
 ```
 
 # Traap/amber-computer

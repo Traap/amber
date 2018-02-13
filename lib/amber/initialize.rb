@@ -5,4 +5,4 @@ require 'rbconfig'
 require 'optparse'
 require 'ostruct'
 
-Dir.glob(File.dirname(__FILE__) + '/**/*.rb') { |file| require file }
+#Dir.glob(File.dirname(__FILE__) + '/**/*.rb') { |file| require file }

@@ -1,23 +1,34 @@
 module Amber
   class ShellError < StandardError; end
 
-  class Node
+  class Test
+    attr_reader :type, :name, :purpose, :requirement
 
     def initialize(type, data, options)
+      @type = type
       @data = data
+      @name = data['name']
+      @purpose = data['purpose']
+      @requirement = data['requirement']
       @options = options
-      @nodetype = NodeType.new(type, data)
       @command = nil
     end
 
     def process
+      setup
       echo_to_sysout
       run_command
+      teardown
     end
 
     protected
+    def setup; end
+
+    def teardown; end
+
     def echo_to_sysout 
-      @nodetype.echo_to_sysout
+      name = "#{@type}: ".rjust(15) << "#{@name}"
+      puts "#{name}"
     end
 
     def run_command
@@ -29,5 +40,5 @@ module Amber
       end
     end
 
-  end # Node
+  end # Test
 end # Amber 
