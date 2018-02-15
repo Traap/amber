@@ -30,19 +30,14 @@ module Amber
 
       @yaml_file = YAML.load(File.open(yaml_file))
 
-      tf = TestFactory.new()
-
       @yaml_file.each do |k,v|
         case k
         when "plan"
-          @test << tf.get_test_plan(@options.writer, 
-                                              TestPlan.new(v, @options))
+          @test << Amber::TestFactory.get_test_plan(v, @options)
         when "suite"
-          @test << tf.get_test_suite(@options.writer, 
-                                              TestSuite.new(v, @options))
+          @test << Amber::TestFactory.get_test_suite(v, @options)
         when "case"
-          @test << tf.get_test_case(@options.writer, 
-                                              TestCase.new(v, @options))
+          @test << Amber::TestFactory.get_test_case(v, @options)
         when "includes"
           v.each do |n|
             @test << Include.new(n, @options)

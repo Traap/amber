@@ -26,7 +26,6 @@ Copy the text below and paste into a shell.  The commands will:
 ```bash
 $ cd $HOME \
      && git clone http://github.com/Traap/amber.git \
-            ear
             & cd amber \
             && bundle install \
             && bundle exec rake \
