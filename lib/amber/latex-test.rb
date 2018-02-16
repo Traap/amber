@@ -1,4 +1,5 @@
 require 'amber/test'
+require 'amber/outputfiles'
 
 module Amber 
   class LaTeX_Test < Test
@@ -6,10 +7,11 @@ module Amber
 
     def initialize(adaptee)
       @adaptee = adaptee
+      @handle = nil
     end
 
     def setup
-      puts "Open [LaTeX] xxx-test output file"
+      @handle = Amber::TestEvidence.open_log_file(@adaptee.options.filename)
     end
 
     def echo_to_sysout
@@ -27,7 +29,7 @@ module Amber
     end 
 
     def teardown
-      puts "Close [LaTeX] xxx-test output file"
+      Amber::TestEvidence.close_file(@handle)
     end
 
   end # LaTeX_Test

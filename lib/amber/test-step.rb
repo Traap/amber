@@ -20,7 +20,7 @@ module Amber
     def echo_to_sysout; end
 
     def run_command
-      stdout, stderr, status = Open3.capture3(@command)
+      stdout, stderr, status = Open3.capture3(@command) if !@options.dryrun
     end
 
   end # TestStep

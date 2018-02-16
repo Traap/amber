@@ -2,7 +2,7 @@ module Amber
   class ShellError < StandardError; end
 
   class Test
-    attr_reader :type, :name, :purpose, :requirement
+    attr_reader :type, :name, :purpose, :requirement, :options
 
     def initialize(type, data, options)
       @type = type

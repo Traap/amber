@@ -1,56 +1,61 @@
-module Amber 
-  class OutputFiles 
+require 'fileutils'
 
-    def initialize
-      @equipment = "equipment.tex"
-      @recipe = "recipe.tex"
-      @recipeResults = "recipe-results-"
-      @results = "results.tex"
-      @stepNbr = "step-"
+module Amber
+  module TestEvidence 
+    Test_Output = "test-output/"
+    Log_File_Extension = ".log"
+    Result_File_Extension = ".txt"
+    Step_File = "/step-"
+
+    def TestEvidence.create_directory_when_needed(dir)
+      FileUtils::mkdir_p dir
     end
 
-    # Open Recipe File.  Recipe steps are written to the recipe file in a LaTeX
-    # tabular format.
-    def openRecipeFile
+    def TestEvidence.open_file(file)
+      TestEvidence.create_directory_when_needed(File.dirname(file))
+      File.open(file, 'a')
+    end
+  
+    def TestEvidence.open_log_file(input)
+      file = TestEvidence::Test_Output + 
+             File.dirname(input[0]) +
+             File.basename(input[0], ".*") + 
+             TestEvidence::Log_File_Extension
 
+      TestEvidence.open_file(file)
     end
 
-    # Open Recipe Results File.  Recipe results will be PASS or FAIL when written.
-    def openRecipeResultsFile
+    def TestEvidence.open_result_file(input)
+      file = TestEvidence::Test_Output + 
+             File.dirname(input[0]) +
+             File.basename(input[0], ".*") + 
+             TestEvidence::Result_File_Extension
 
+      TestEvidence.open_file(file)
     end
 
-    # Recipe Results file name:  recipe-results-n.tex
-    def recipeResultsFile
+    def TestEvidence.open_step_log_file(input, nbr)
+      file = TestEvidence::Test_Output + 
+             File.dirname(input[0]) +
+             File.basename(input[0], ".*") + 
+             TestEvidence::Log_File_Extension
 
+      TestEvidence.open_file(file)
     end
 
-    # Open Results File.  The results of running a recipe are written to this
-    # file.
-    def openResultsFile
+    def TestEvidence.open_step_result_file(input, nbr)
+      file = TestEvidence::Test_Output + 
+             File.dirname(input[0]) +
+             File.basename(input[0], ".*") + 
+             Step_File, nbr, 
+             TestEvidence::Result_File_Extension
 
+      TestEvidence.open_file(file)
     end
 
-    # Open Step Results File.  Step results will be PASS or FAIL when written.
-    def openStepResultsFile
-
-    end
-
-    # Step Results fil ename: step-n.tex
-    def stepResultsFile
-
-    end
-
-    # Open Equipment File.  The operating system environment is written to this
-    # file.
-    def openEquipmentFile
-      
-    end
-
-    # Open a file.
-    def openFile
-
+    def TestEvidence.close_file(handle)
+      handle.close
     end
     
-  end # OutputFiles 
+  end # TestEvidence 
 end # Amber

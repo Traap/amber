@@ -14,8 +14,7 @@ module Amber
       @data['steps'].each do |s|
         nbr = nbr + 1
         step = Amber::TestFactory.get_test_step(s, nbr, @options)
-        step.echo_to_sysout
-        step.run_command  if !@options.dryrun
+        step.process
       end
     end
 
