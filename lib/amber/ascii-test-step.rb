@@ -29,6 +29,7 @@ module Amber
         msg = "System command failed: #{status}"
         @handle.write "#{stderr}\n#{msg}\n"
         @handle.flush
+        puts "#{msg}\n" if @options.verbose
         abort msg
       end
     end 

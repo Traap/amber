@@ -43,7 +43,7 @@ module Amber
             @test << Include.new(n, @options)
           end
         else
-          puts "#{k} is not supported."
+          puts "#{k} is not supported." if @options.verbose
         end
       end
     end

@@ -2,13 +2,14 @@ require 'amber/version'
 
 module Amber 
 class CommandLineOptions
-  attr_accessor :dryrun, :equipment, :filename, :writer, :language
+  attr_accessor :verbose, :dryrun, :equipment, :filename, :writer, :language
   attr_reader :parser, :options
 
   WRITER_LIST = %w[Ascii LaTeX]
 
 # ------------------------------------------------------------------------------
   def initialize
+    self.verbose = false
     self.dryrun = true
     self.equipment = true 
     self.filename = []
@@ -36,6 +37,7 @@ class CommandLineOptions
       file_option parser
       language_option parser
       writer_option parser
+      verbose_option parser
       version_option parser
 
       plan_option parser
@@ -56,6 +58,13 @@ class CommandLineOptions
   def self.dryrun_option parser
     parser.on("-n", "--nodryrun", "No Dryrun") do |z|
       @options.dryrun ^= z
+    end
+  end
+
+# ------------------------------------------------------------------------------
+  def self.verbose_option parser
+    parser.on("-v", "--verbose", "Verbose") do |v|
+      @options.verbose = v
     end
   end
 

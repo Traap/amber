@@ -29,16 +29,15 @@ module Amber
 
     def echo_to_sysout 
       name = "#{@type}: ".rjust(15) << "#{@name}"
-      puts "#{name}"
+      puts "#{name}" if @options.verbose
     end
 
     def run_command
       begin
-        puts "      Command: #{@command}"
-        stdout, stderr, status = Open3.capture3(@command)
+        status = system(@command)
       rescue ShellError
         msg = "System command failed: #{status}"
-        puts "#{stderr}\n#{msg}\n"
+        puts "#{msg}\n" if @options.verbose
         abort msg
       end
     end

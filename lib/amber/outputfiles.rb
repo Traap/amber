@@ -11,13 +11,11 @@ module Amber
     end
 
     def TestEvidence.open_file(file)
-      puts "TestEvidence.openfile #{file}"
       TestEvidence.create_directory_when_needed(File.dirname(file))
       File.open(file, 'a')
     end
   
     def TestEvidence.open_log_file(input)
-      puts "TestEvidence.open_log_file #{input}"
       file = TestEvidence::Test_Output + 
              File.dirname(input) +
              File::SEPARATOR + 
