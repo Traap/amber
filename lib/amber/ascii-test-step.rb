@@ -7,6 +7,7 @@ module Amber
 
     def initialize(decoratee)
       super(decoratee)
+      @test_result = "FAIL"
     end
 
     def echo_to_sysout
@@ -20,8 +21,8 @@ module Amber
     def run_command 
       begin
         stdout, stderr, status = @decoratee.run_command 
-        result = status ? "PASS" : "FAIL"
-        @handle.write  "  Test Result: #{result}\n"
+        @test_result = status ? "PASS" : "FAIL"
+        @handle.write  "  Test Result: #{@test_result}\n"
         @handle.write  "     Evidence: #{@decoratee.evidence}\n"
         @handle.write  "#{stdout}\n"
         @handle.flush
@@ -32,6 +33,10 @@ module Amber
         puts "#{msg}\n" if @options.verbose
         abort msg
       end
+
+      Amber::TestEvidence.record_final_test_result(@decoratee.filename, 
+                                                   @decoratee.number, 
+                                                   @test_result)
     end 
 
   end # Ascii_TestStep 

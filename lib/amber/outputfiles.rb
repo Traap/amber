@@ -5,6 +5,7 @@ module Amber
     Test_Output = "test-output" + File::SEPARATOR
     Log_File_Extension = ".log"
     Result_File_Extension = ".txt"
+    Step_File = "step-"
 
     def TestEvidence.create_directory_when_needed(dir)
       FileUtils::mkdir_p dir
@@ -25,25 +26,17 @@ module Amber
       TestEvidence.open_file(file)
     end
 
-    def TestEvidence.open_result_file(input)
+    def TestEvidence.record_final_test_result(input, nbr, test_result)
       file = TestEvidence::Test_Output + 
              File.dirname(input) +
              File::SEPARATOR + 
-             File.basename(input, ".*") + 
+             TestEvidence::Step_File +
+             nbr.to_s + 
              TestEvidence::Result_File_Extension
 
-      TestEvidence.open_file(file)
-    end
-
-    def TestEvidence.open_step_result_file(input, nbr)
-      file = TestEvidence::Test_Output + 
-             File.dirname(input) +
-             File::SEPARATOR + 
-             File.basename(input, ".*") + 
-             Step_File, nbr, 
-             TestEvidence::Result_File_Extension
-
-      TestEvidence.open_file(file)
+      handle = TestEvidence.open_file(file)
+      handle.write(test_result)
+      handle.close
     end
 
     def TestEvidence.close_file(handle)
@@ -51,4 +44,5 @@ module Amber
     end
     
   end # TestEvidence 
+
 end # Amber
