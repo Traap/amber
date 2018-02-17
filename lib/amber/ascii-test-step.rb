@@ -5,29 +5,31 @@ module Amber
 
   class Ascii_TestStep < Ascii_Test
 
-    def initialize(adaptee)
-      super(adaptee)
+    def initialize(decoratee)
+      super(decoratee)
     end
 
     def echo_to_sysout
-      puts "         Step: #{@adaptee.number}"
-      puts "      Confirm: #{@adaptee.confirm}"
-      puts "  Expectation: #{@adaptee.expectation}"
-      puts "      Command: #{@adaptee.command}"
-      @adaptee.echo_to_sysout
+      @handle.write "         Step: #{@decoratee.number}\n"
+      @handle.write "      Confirm: #{@decoratee.confirm}\n"
+      @handle.write "  Expectation: #{@decoratee.expectation}\n"
+      @handle.write "      Command: #{@decoratee.command}\n"
+      @decoratee.echo_to_sysout
     end
 
     def run_command 
       begin
-        stdout, stderr, status = @adaptee.run_command 
+        stdout, stderr, status = @decoratee.run_command 
         result = status ? "PASS" : "FAIL"
-        puts "  Test Result: #{result}"
-        puts "     Evidence: #{@adaptee.evidence}"
-        puts "#{stdout}"
-        puts ""
+        @handle.write  "  Test Result: #{result}\n"
+        @handle.write  "     Evidence: #{@decoratee.evidence}\n"
+        @handle.write  "#{stdout}\n"
+        @handle.flush
       rescue ShellError
-        puts "#{stderr}"
-        abort "System command failed: #{status}"
+        msg = "System command failed: #{status}"
+        @handle.write "#{stderr}\n#{msg}\n"
+        @handle.flush
+        abort msg
       end
     end 
 

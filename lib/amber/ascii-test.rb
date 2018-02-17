@@ -3,33 +3,34 @@ require 'amber/outputfiles'
 
 module Amber 
   class Ascii_Test < Test
-    attr_reader :adaptee
+    attr_reader :decoratee
 
-    def initialize(adaptee)
-      @adaptee = adaptee
+    def initialize(decoratee)
+      @decoratee = decoratee
       @handle = nil
     end
 
     def setup
-      @handle = Amber::TestEvidence.open_log_file(@adaptee.options.filename)
+      @handle = Amber::TestEvidence.open_log_file(@decoratee.filename)
     end
 
     def echo_to_sysout
-      @adaptee.echo_to_sysout
+      @decoratee.echo_to_sysout
 
-      puts "Decorated [Ascii] output ..."
-      name = "#{@adaptee.type}: ".rjust(15) << "#{@adaptee.name}"
-      puts "#{name}"
-      puts "      Purpose: #{@adaptee.purpose}"
-      puts "  Requirement: #{@adaptee.requirement}"
+      name = "#{@decoratee.type}: ".rjust(15) << "#{@decoratee.name}"
+      @handle.write "#{name}\n"
+      @handle.write "      Purpose: #{@decoratee.purpose}\n"
+      @handle.write "  Requirement: #{@decoratee.requirement}\n\n"
+      @handle.flush
     end
 
     def run_command 
-      @adaptee.run_command
+      @decoratee.run_command
     end 
 
     def teardown
       Amber::TestEvidence.close_file(@handle)
+      @handle = nil
     end
 
   end # Ascii_Test

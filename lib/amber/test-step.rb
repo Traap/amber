@@ -4,7 +4,8 @@ module Amber
   class TestStep < Test
     attr_reader :number, :confirm, :expectation, :command, :evidence
 
-    def initialize(step, number)
+    def initialize(filename, data, options, step, number)
+      super("Test Step", filename, data, options)
       if step['sudo'] then
         sudo = RbConfig::CONFIG['host_os'] == "cygwin" ? nil : "sudo "
       else

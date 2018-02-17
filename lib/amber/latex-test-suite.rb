@@ -3,8 +3,8 @@ require 'amber/latex-test'
 module Amber
   class LaTeX_TestSuite < LaTeX_Test 
 
-    def initialize(adaptee)
-      super(adaptee)
+    def initialize(decoratee)
+      super(decoratee)
     end
 
     def echo_to_sysout

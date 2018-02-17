@@ -16,39 +16,39 @@ require 'amber/latex-test-Suite'
 module Amber
   class TestFactory
 
-    def TestFactory.get_test_plan(data, options)
-      adaptee = TestPlan.new(data, options)
+    def TestFactory.get_test_plan(filename, data, options)
+      decoratee = TestPlan.new(filename, data, options)
       if options.writer == "LaTeX"
-        LaTeX_TestPlan.new(adaptee)
+        LaTeX_TestPlan.new(decoratee)
       else
-        Ascii_TestPlan.new(adaptee)
+        Ascii_TestPlan.new(decoratee)
       end
     end
 
-    def TestFactory.get_test_suite(data, options)
-      adaptee = TestSuite.new(data, options)
+    def TestFactory.get_test_suite(filename, data, options)
+      decoratee = TestSuite.new(filename, data, options)
       if options.writer == "LaTeX"
-        LaTeX_TestSuite.new(adaptee)
+        LaTeX_TestSuite.new(decoratee)
       else
-        Ascii_TestSuite.new(adaptee)
+        Ascii_TestSuite.new(decoratee)
       end
     end
 
-    def TestFactory.get_test_case(data, options)
-      adaptee = TestCase.new(data, options)
+    def TestFactory.get_test_case(filename, data, options)
+      decoratee = TestCase.new(filename, data, options)
       if options.writer == "LaTeX"
-        LaTeX_TestCase.new(adaptee)
+        LaTeX_TestCase.new(decoratee)
       else
-        Ascii_TestCase.new(adaptee)
+        Ascii_TestCase.new(decoratee)
       end
     end
 
-    def TestFactory.get_test_step(step, nbr, options)
-      adaptee = TestStep.new(step, nbr)
+    def TestFactory.get_test_step(filename, data, options, step, nbr)
+      decoratee = TestStep.new(filename, data, options, step, nbr)
       if options.writer == "LaTeX"
-        LaTeX_TestStep.new(adaptee)
+        LaTeX_TestStep.new(decoratee)
       else
-        Ascii_TestStep.new(adaptee)
+        Ascii_TestStep.new(decoratee)
       end
     end
 

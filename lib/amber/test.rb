@@ -2,10 +2,11 @@ module Amber
   class ShellError < StandardError; end
 
   class Test
-    attr_reader :type, :name, :purpose, :requirement, :options
+    attr_reader :filename, :type, :name, :purpose, :requirement, :options
 
-    def initialize(type, data, options)
+    def initialize(type, filename, data, options)
       @type = type
+      @filename = filename
       @data = data
       @name = data['name']
       @purpose = data['purpose']
@@ -34,11 +35,13 @@ module Amber
     def run_command
       begin
         puts "      Command: #{@command}"
-        status = system(@command)
+        stdout, stderr, status = Open3.capture3(@command)
       rescue ShellError
-        abort "System command failed: #{status}"
+        msg = "System command failed: #{status}"
+        puts "#{stderr}\n#{msg}\n"
+        abort msg
       end
     end
 
   end # Test
-end # Amber 
+end # Amber orchestrate

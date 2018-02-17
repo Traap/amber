@@ -4,7 +4,7 @@ module Amber
   class Include < Test 
 
     def initialize(data, options)
-      super("Include", data, options)
+      super(nil, "Include", data, options)
     end
 
     def echo_to_sysout; end
@@ -26,8 +26,11 @@ module Amber
 
     def include_this_file(name, opt)
       opt_and_files = "#{opt}=#{name.map{|n| n.values}.join(',')}"
-      @command ="amber #{opt_and_files}"
+      @command ="amber"
       @command.concat " --nodryrun" if !@options.dryrun
+      @command.concat " --writer=#{@options.writer}" if !@options.writer.nil?
+      @command.concat " --language=#{@options.language}" if !@options.language.nil?
+      @command.concat " #{opt_and_files}"
       method(:run_command).super_method.call
     end
 

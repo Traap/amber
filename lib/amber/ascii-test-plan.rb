@@ -3,8 +3,8 @@ require 'amber/ascii-test'
 module Amber 
   class Ascii_TestPlan < Ascii_Test 
 
-    def initialize(adaptee)
-      super(adaptee)
+    def initialize(decoratee)
+      super(decoratee)
     end
 
     def echo_to_sysout

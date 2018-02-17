@@ -3,8 +3,8 @@ require 'amber/test'
 module Amber
   class TestSuite < Test 
 
-    def initialize(data, options)
-      super("Test Suite", data, options)
+    def initialize(filename, data, options)
+      super("Test Suite", filename, data, options)
     end
 
     def run_command; end 
