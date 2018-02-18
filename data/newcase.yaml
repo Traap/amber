@@ -1,0 +1,56 @@
+# ------------------------------------------------------------------------------
+# Example Test Case
+#
+# This comment block may be deleted.
+#
+# YAML Ain't Markup Language (YAML tm) Version 1.2
+# http://www.yaml.org/spec/1.2/spec.html
+# 
+# Keywords.
+#
+# case:                 # No text following the colon.
+#   name:               # The case name.  This string is used on reports.
+#   purpose:            # Describe jjjkpurpose of this plan.
+#   requirements:       # An optional list of requirement numbers.
+#   steps:              # No text following the colon.  Steps follow.
+#     - confirm:        # What this test step is to confirm.
+#       expectation:    # What are the expectations of this test step.
+#       sudo:           # true | false if super user is needed.
+#       command:        # Command line program to run.
+#       argument:       # Arguments to command line program.
+#       evidence:       # Expected evidence. 
+# 
+# Strict file system convention.
+# factory/
+#   plan/
+#     a-plan/
+#       a-plan.yaml
+#   suite
+#     a-suite/
+#       a-suite.yaml
+#     another-suite/
+#       another-suite.yaml
+#   case
+#     a-case/
+#       a-case.yaml
+#     another-case/
+#       another-case.yaml
+# ------------------------------------------------------------------------------
+case:
+  name: Test Case Name
+  purpose: Test Case Purpose 
+  requirement: 123, 124, 125
+  steps:
+    - confirm: Program echo has installed.
+      expectation: echo installation location is displayed.
+      sudo: true
+      command: which
+      argument: echo
+      evidence: Starts on next line.
+
+    - confirm: Program date has installed.
+      expectation: date installation location is displayed.
+      sudo: false
+      command: which
+      argument: date
+      evidence: Starts on next line.

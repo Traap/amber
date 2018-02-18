@@ -1,19 +1,19 @@
 **amber** is a Ruby gem that is used automated testing.  **amber** has been
 tested with cygwin, linix, linux (mint), and wsl.
 
-# Prerequisites 
+## Prerequisites 
 1. git client
 2. ruby 
 
-# Installation
-## Using the gem
+## Installation
+### Using the gem
 ```bash
 $ CD $HOME
 $ gem install amber
 $ gem --verbose --suite=smoke-test
 ```
 
-## Working with source 
+### Working with source 
 Copy the text below and paste into a shell.  The commands will:
 1. Change directory to home
 2. Clone Traap/amber
@@ -33,16 +33,16 @@ $ cd $HOME \
             && amber --version
 ```
 
-# Traap/amber-computer
+## Traap/amber-computer
 [amber-computer](https://github.com/Traap/amber-computer) repository has app
 (applications) and bundles **amber** knows how to install.
 
-## Install and configure Vim
+### Install and configure Vim
 ```bash
 amber --suite=smoke-test
 ```
 
-## amber command line
+### amber command line
 amber --help
 
 Usage: amber [options]
@@ -57,26 +57,26 @@ Specific options:
     -h, --help                       Show this message
         --version                    Show version
 
-## --nodryrun
+### --nodryrun
 By default, **amber** does not run a test suite.  You must explicitly
 use the **--nodryrun** options to cause side effects.  The commands that would
 have been executed are echoed to system out.
 
-## --suite
+### --suite
 A comma-separated list of test suite names **amber** is to process.  The following
 directory and YAML file name convention is mandatory:
 suite/a-suite/a-suite.yaml.
 
-## --file
+### --file
 A comma-separated list of file names **amber** is to process.
 
-## --help
+### --help
 Show this message.
 
-## --version
+### --version
 0.0.36 is this the current version.
 
-# Validating a tool
+## Validating a tool
 Amber automates creating and assembling detailed records intended to provide
 a product or tool has been tested for its intended purpose.  Amber borrows from
 a Ruby-on-Rails convention of convention over configuration.  In this regard,
@@ -84,7 +84,7 @@ amber consumes yaml documents that are placed beneath a factory directory root.
 You are encouraged to review Amber's factory directory because it has been
 designed to demonstrate Amber's capabilities.
 
-## A yaml Plan
+### A yaml Plan
 ```yaml
 plan:
   name: A plan name
@@ -94,7 +94,7 @@ includes:
     - name: a-suite-name 
 ```
 
-## A yaml Suite
+### A yaml Suite
 ```yaml
 suite:
   name: A Suite Name 
@@ -107,7 +107,7 @@ includes:
     - name: yet-another-test-case 
 ```
 
-## Amber directory convention
+### Amber directory convention
 ```bash
 ../factory
 ../factory/plan
@@ -122,7 +122,17 @@ includes:
 ../factory/case/yet-another-test-case/yet-another-test-case.yaml
 ```
 
-# Project Management
+## Add this function to .bashrc
+```bash
+AMBERPATH=${HOME}/git/amber
+export AMBERPATH
+
+function newfactoryitem() {
+  ${AMBERPATH}/bin/newfactoryitem $@
+}
+```
+
+## Project Management
 The **amber** repository uses a SCRUM framework adapted to standard GitHub
 tooling.  **amber** is integrated with Travis-ci.org for continuous
 integration and AllanConsulting.slack.com for centralized notification.

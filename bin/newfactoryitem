@@ -1,0 +1,135 @@
+#!/bin/bash
+# ------------------------------------------------------------------------------
+# This script is used to create an amber factory test plan, test suite, or
+# test case folder and file.
+# ------------------------------------------------------------------------------
+
+# These flags enable optional features.
+planFlag=0    # Create a new amber test plan folder and file.
+suiteFlag=0   # Create a new amber test suite folder and file.
+caseFlag=0    # Create a new amber test case folder and file.
+errorFlag=0;  # A parseOptions error occured.
+helpFlag=1;   # Show help.
+
+# ------------------------------------------------------------------------------
+# Orchestrate the show.
+# ------------------------------------------------------------------------------
+main() {
+  parseOptions $@
+  if [ $helpFlag == 1 -o $errorFlag == 1 ]; then
+    showHelp
+  else
+    if [ $planFlag == 1 ]; then
+      newPlan
+    fi 
+    if [ $suiteFlag == 1 ]; then
+      newSuite
+    fi
+    if [ $caseFlag == 1 ]; then
+      newCase
+    fi
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# Show the help text for the script and then terminate execution.
+# ------------------------------------------------------------------------------
+function showHelp {
+   echo
+   echo "Usage: newcomponent [OPTIONS]"
+   echo "Run newcomponent to create a new amber application folder and file."
+   echo
+   echo "OPTIONS"
+   echo "  --plan         Test plan name to create."
+   echo
+   echo "  --suite        Test suite name to create."
+   echo 
+   echo "  --case         Test case name to create."
+   echo
+   echo "  --help         Display this help message."
+   echo
+}
+
+# ------------------------------------------------------------------------------
+# Parse the command line options.   If the help flag is encountered, or if the
+# command line option is not recognized, then display the help information and
+# terminate gracefully.
+#
+# Arguments:
+# A non-empty array containing the command line options.
+# ------------------------------------------------------------------------------
+function parseOptions {
+    # Iterate through the list of options.
+    for var in "$@"
+    do
+      case $var in
+        --plan=*)
+          PLAN="${var#*=}"
+          helpFlag=0
+          planFlag=1
+          shift
+          ;;
+        --suite=*)
+          SUITE="${var#*=}"
+          suiteFlag=1
+          helpFlag=0
+          shift
+          ;;
+        --case=*)
+          CASE="${var#*=}"
+          caseFlag=1
+          helpFlag=0
+          shift
+          ;;
+        --help)
+          helpFlag=1
+          ;;
+        *)
+          echo "Unknown argument $var"
+          echo
+          errorFlag=1
+          ;;
+      esac
+    done
+}
+
+# ------------------------------------------------------------------------------
+# Create a new test plan. 
+# ------------------------------------------------------------------------------
+newPlan() {
+  newFile "plan" $PLAN
+}
+
+# ------------------------------------------------------------------------------
+# Create a new test suite. 
+# ------------------------------------------------------------------------------
+newSuite() {
+  newFile "suite" $SUITE
+}
+
+# ------------------------------------------------------------------------------
+# Create a new test case. 
+# ------------------------------------------------------------------------------
+newCase() {
+  newFile "case" $CASE
+}
+
+# ------------------------------------------------------------------------------
+# newFile 
+# $1 plan, suite or case
+# $2 filename of plan, suite or case
+# ------------------------------------------------------------------------------
+newFile() {
+ echo "Creating amber test case $2"
+
+  subdir='factory/'"$1"'/'"$2"''
+
+  mkdir -pv ${subdir}
+
+  cp -v ${HOME}/git/amber/data/new$1.yaml ${subdir}/$2.yaml
+}
+
+# ------------------------------------------------------------------------------
+# Kick start this script.
+# ------------------------------------------------------------------------------
+main $@
