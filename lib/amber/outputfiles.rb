@@ -17,24 +17,25 @@ module Amber
     end
   
     def TestEvidence.open_log_file(input)
-      file = TestEvidence::Test_Output + 
+      TestEvidence.open_file(
+             TestEvidence::Test_Output + 
              File.dirname(input) +
              File::SEPARATOR + 
              File.basename(input, ".*") + 
              TestEvidence::Log_File_Extension
-
-      TestEvidence.open_file(file)
+           )
     end
 
     def TestEvidence.record_final_test_result(input, nbr, test_result)
-      file = TestEvidence::Test_Output + 
+      handle = 
+        TestEvidence.open_file(
+             TestEvidence::Test_Output + 
              File.dirname(input) +
              File::SEPARATOR + 
              TestEvidence::Step_File +
              nbr.to_s + 
              TestEvidence::Result_File_Extension
-
-      handle = TestEvidence.open_file(file)
+           )
       handle.write(test_result)
       handle.close
     end
