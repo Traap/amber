@@ -17,10 +17,12 @@ module Amber
     def echo_to_sysout
       @decoratee.echo_to_sysout
       
-      name = "#{@decoratee.type}: ".rjust(15) << "#{@decoratee.name}"
-      @handle.write "#{name}\n"
-      @handle.write "      Purpose: #{@decoratee.purpose}\n"
-      @handle.write "  Requirement: #{@decoratee.requirement}\n\n"
+      name = "#{@decoratee.type}: #{@decoratee.name}"
+      @handle.write "\\subsection{#{name}}\n"
+      @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
+      @handle.write "\\item[Purpose:] #{@decoratee.purpose}\n"
+      @handle.write "\\item[Requirement:] #{@decoratee.requirement}\n"
+      @handle.write "\\end{description}\n"
       @handle.flush
     end
 

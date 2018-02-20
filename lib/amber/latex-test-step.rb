@@ -11,10 +11,11 @@ module Amber
     end
 
     def echo_to_sysout
-      @handle.write "         Step: #{@decoratee.number}\n"
-      @handle.write "      Confirm: #{@decoratee.confirm}\n"
-      @handle.write "  Expectation: #{@decoratee.expectation}\n"
-      @handle.write "      Command: #{@decoratee.command}\n"
+      @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
+      @handle.write "\\item[Step:] #{@decoratee.number}\n"
+      @handle.write "\\item[Confirm:] #{@decoratee.confirm}\n"
+      @handle.write "\\item[Expectation:] #{@decoratee.expectation}\n"
+      @handle.write "\\item[Command:] #{@decoratee.command}\n"
       @decoratee.echo_to_sysout
     end
 
@@ -22,9 +23,12 @@ module Amber
       begin
         stdout, stderr, status = @decoratee.run_command 
         @test_result = status ? "PASS" : "FAIL"
-        @handle.write  "  Test Result: #{@test_result}\n"
-        @handle.write  "     Evidence: #{@decoratee.evidence}\n"
-        @handle.write  "#{stdout}\n"
+        @handle.write "\\item[Test Result:]#{@test_result}\n"
+        @handle.write "\\item[Evidence:]#{@decoratee.evidence}\n"
+        @handle.write "\\end{description}\n"
+        @handle.write "\\begin{lstlisting}[basicstyle=\\tiny, numbers=left]\n"
+        @handle.write "#{stdout}\n"
+        @handle.write "\\end{lstlisting}\n"
         @handle.flush
       rescue ShellError
         msg = "System command failed: #{status}"
