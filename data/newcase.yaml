@@ -41,14 +41,14 @@ case:
   purpose: Test Case Purpose 
   requirement: 123, 124, 125
   steps:
-    - confirm: Program echo has installed.
+    - confirm: Program echo has been installed.
       expectation: echo installation location is displayed.
       sudo: true
       command: which
       argument: echo
       evidence: Starts on next line.
 
-    - confirm: Program date has installed.
+    - confirm: Program date has been installed.
       expectation: date installation location is displayed.
       sudo: false
       command: which

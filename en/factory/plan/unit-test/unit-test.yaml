@@ -6,5 +6,4 @@ plan:
 
 includes:
   - suite:
-    - name: smoke-test 
-    - name: boundary-test
+    - name: unit-test 

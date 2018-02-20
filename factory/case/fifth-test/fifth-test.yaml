@@ -1,0 +1,18 @@
+case:
+  name: Fifth Test Case 
+  purpose: Demonstrate requirement 789 is met. 
+  requirement: 789 
+  steps:
+    - confirm: Program whois has been installed.
+      expectation: whois installation location is displayed.
+      sudo: false 
+      command: which
+      argument: whois 
+      evidence: Starts on next line.
+
+    - confirm: Program yes has been installed.
+      expectation: yes installation location is displayed.
+      sudo: false
+      command: which
+      argument: yes 
+      evidence: Starts on next line.
