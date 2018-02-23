@@ -13,6 +13,10 @@ require 'amber/latex-test-Plan'
 require 'amber/latex-test-Step'
 require 'amber/latex-test-Suite'
 
+require 'amber/environment'
+require 'amber/latex-environment'
+require 'amber/ascii-environment'
+
 module Amber
   class TestFactory
 
@@ -49,6 +53,15 @@ module Amber
         LaTeX_TestStep.new(decoratee)
       else
         Ascii_TestStep.new(decoratee)
+      end
+    end
+
+    def TestFactory.get_equipment(options)
+      decoratee = Environment.new()
+      if options.writer == "LaTeX"
+        LaTeX_Environment.new(decoratee, options.language)
+      else
+        Ascii_Environment.new(decoratee, options.langauge)
       end
     end
 

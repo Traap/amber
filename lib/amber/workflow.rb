@@ -22,7 +22,10 @@ module Amber
           t.process
         end
       end
-      Environment.new().echo_to_sysout if !@options.equipment
+      
+      Amber::TestFactory
+        .get_equipment(@options)
+         .echo_to_sysout if !@options.equipment
     end
 
     def parse_yaml_file(filename)

@@ -6,6 +6,7 @@ module Amber
     Log_File_Extension = ".log"
     Result_File_Extension = ".txt"
     Step_File = "step-"
+    Environment_Log = "factory" + File::SEPARATOR + "environment.log"
 
     def TestEvidence.create_directory_when_needed(dir)
       FileUtils::mkdir_p dir
@@ -24,6 +25,22 @@ module Amber
              File.basename(input, ".*") + 
              TestEvidence::Log_File_Extension
            )
+    end
+
+    def TestEvidence.open_environment_log_file(language)
+      if language.nil? then
+        TestEvidence.open_file(
+             TestEvidence::Test_Output + 
+             TestEvidence::Environment_Log
+           )
+      else
+        TestEvidence.open_file(
+             TestEvidence::Test_Output + 
+             "#{language}" + 
+             File::SEPARATOR + 
+             TestEvidence::Environment_Log
+           )
+      end
     end
 
     def TestEvidence.record_final_test_result(input, nbr, test_result)

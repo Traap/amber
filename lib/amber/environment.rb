@@ -1,8 +1,9 @@
 module Amber 
   class Environment
+    attr_reader :environment
 
     def initialize
-      @enviornment = [
+      @environment = [
         "ALLUSERSPROFILE", "APPDATA", "CLASSPATH", "COMPUTERNAME", "COMSPEC",
         "FP_NO_HOST_CHECK", "GIT_BRANCH", "HOME", "HOMEDRIVE", "HOMEPATH",
         "HOSTNAME", "JRE_HOME", "LANG", "LOCALAPPDATA", "LOGONSERVER",
@@ -18,7 +19,7 @@ module Amber
 
     def echo_to_sysout
       puts "\nSystem Environment"
-      @enviornment.each do |e|
+      @environment.each do |e|
         if e == "PATH" then
           echo_e_to_sysout(e)
         else
@@ -35,5 +36,5 @@ module Amber
       end
     end
 
-  end # enviornment
+  end # Environment
 end # Amber

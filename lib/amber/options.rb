@@ -134,8 +134,6 @@ class CommandLineOptions
     parser.on("-l", "--language [en, fr, gr, ...]", 
               String, "Langauge name") do |z|
       @options.language = z
-      puts "language=#{@options.language}"
-      puts "writer=#{@options.writer}"
     end
   end
 
