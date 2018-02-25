@@ -4,14 +4,14 @@ require 'amber/outputfiles'
 module Amber
   class Ascii_Environment < Environment
 
-    def initialize(decoratee, language)
+    def initialize(decoratee, options)
       @decoratee = decoratee
-      @language = language
+      @options = options 
       @handle = nil  
     end
 
     def echo_to_sysout
-      @handle = TestEvidence::open_environment_log_file @language
+      @handle = TestEvidence::open_environment_log_file(@options)
       @handle.write "System Environment\n"
       @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
 

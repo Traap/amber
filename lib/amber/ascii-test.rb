@@ -11,7 +11,8 @@ module Amber
     end
 
     def setup
-      @handle = Amber::TestEvidence.open_log_file(@decoratee.filename)
+      @handle = Amber::TestEvidence.open_log_file(@decoratee.filename,
+                                                  @decoratee.options)
     end
 
     def echo_to_sysout

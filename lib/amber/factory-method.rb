@@ -59,9 +59,9 @@ module Amber
     def TestFactory.get_equipment(options)
       decoratee = Environment.new()
       if options.writer == "LaTeX"
-        LaTeX_Environment.new(decoratee, options.language)
+        LaTeX_Environment.new(decoratee, options)
       else
-        Ascii_Environment.new(decoratee, options.langauge)
+        Ascii_Environment.new(decoratee, options)
       end
     end
 

@@ -39,7 +39,8 @@ module Amber
 
       Amber::TestEvidence.record_final_test_result(@decoratee.filename, 
                                                    @decoratee.number, 
-                                                   @test_result)
+                                                   @test_result,
+                                                   @decoratee.options)
     end
 
   end # LaTeX_TestStep
