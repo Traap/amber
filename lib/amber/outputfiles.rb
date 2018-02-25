@@ -34,21 +34,11 @@ module Amber
     end
 
     def TestEvidence.open_environment_log_file(options)
-      if options.language.nil? then
         TestEvidence.open_file(
              TestEvidence::Test_Output + 
              TestEvidence::Environment_Log +
              TestEvidence.use_file_extension(options)
            )
-      else
-        TestEvidence.open_file(
-             TestEvidence::Test_Output + 
-             "#{options.language}" + 
-             File::SEPARATOR + 
-             TestEvidence::Environment_Log +
-             TestEvidence.use_file_extension(options)
-           )
-      end
     end
 
     def TestEvidence.record_final_test_result(input, nbr, test_result, options)

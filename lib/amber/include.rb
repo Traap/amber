@@ -29,7 +29,6 @@ module Amber
       @command ="amber"
       @command.concat " --nodryrun" if !@options.dryrun
       @command.concat " --writer=#{@options.writer}" if !@options.writer.nil?
-      @command.concat " --language=#{@options.language}" if !@options.language.nil?
       @command.concat " #{opt_and_files}"
       method(:run_command).super_method.call
     end
