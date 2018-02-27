@@ -19,8 +19,8 @@ module Amber
         if e.downcase.include?("path") then
           echo_e_to_sysout(e)
         else
-          i = replace_underscore_with_hyphen(e)
-          v = replace_backslash_with_forwardslash("#{ENV[e]}")
+          i = replace_characters(e)
+          v = replace_characters("#{ENV[e]}")
           @handle.write "\\item[#{i}:] #{v}\n"
         end
       end
@@ -30,12 +30,12 @@ module Amber
     end
 
     def echo_e_to_sysout(e)
-      i = replace_underscore_with_hyphen(e) 
+      i = replace_characters(e) 
       @handle.write "\\item[#{i}:] See below.\n"
       @handle.write "\\begin{enumerate}\n"
       f = ENV[e].split(':')
       f.each do |g|
-        v = replace_backslash_with_forwardslash(g)
+        v = replace_characters(g)
         @handle.write "\\item #{v}\n"
       end
       @handle.write "\\end{enumerate}\n"
@@ -49,12 +49,16 @@ module Amber
       @handle.write "character throughout this section.\n"
     end
 
+    def replace_characters(text)
+      replace_backslash_with_forwardslash(replace_underscore_with_hyphen(text))
+    end
+
     def replace_underscore_with_hyphen(text)
-      text.tr("_", "-")
+      text.gsub(/_/, '-')
     end
 
     def replace_backslash_with_forwardslash(text)
-      text.tr("\\", "/")
+      text.gsub(/\\/, '/')
     end
 
   end #LaTeX_Environment
