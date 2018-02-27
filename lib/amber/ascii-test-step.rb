@@ -33,11 +33,14 @@ module Amber
         puts "#{msg}\n" if @options.verbose
         abort msg
       end
+    end
 
+    def teardown
       Amber::TestEvidence.record_final_test_result(@decoratee.filename, 
                                                    @decoratee.number, 
                                                    @test_result,
                                                    @decoratee.options)
+      method(:teardown).super_method.call
     end 
 
   end # Ascii_TestStep 

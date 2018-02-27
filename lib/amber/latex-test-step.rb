@@ -36,11 +36,14 @@ module Amber
         @handle.flush
         abort msg
       end
+    end
 
+    def teardown
       Amber::TestEvidence.record_final_test_result(@decoratee.filename, 
                                                    @decoratee.number, 
                                                    @test_result,
                                                    @decoratee.options)
+      method(:teardown).super_method.call
     end
 
   end # LaTeX_TestStep
