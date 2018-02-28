@@ -13,6 +13,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   amber!
@@ -21,4 +22,4 @@ DEPENDENCIES
   test-unit (~> 3.2.3, ~> 3.2)
 
 BUNDLED WITH
-   1.16.0
+   1.16.1

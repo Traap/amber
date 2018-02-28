@@ -1,4 +1,4 @@
-require 'amber/Environment'
+require 'amber/environment'
 require 'amber/factory-method'
 require 'amber/include'
 require 'amber/test-case'
