@@ -3,10 +3,16 @@ require 'amber/outputfiles'
 
 module Amber 
   class Ascii_Test < Test
-    attr_reader :decoratee
+    attr_reader :decoratee, :macro
 
     def initialize(decoratee)
       @decoratee = decoratee
+      if decoratee.type == "Test Step" then
+        @macro = nil
+      else
+         @macro = 
+           decoratee.type + ": " + File.basename(decoratee.filename, ".*") + "\n"
+      end
       @handle = nil
     end
 
@@ -30,6 +36,7 @@ module Amber
     end 
 
     def teardown
+      Amber::TestEvidence.record_test_name(@macro, @decoratee.options) if !@macro.nil?
       Amber::TestEvidence.close_file(@handle)
       @handle = nil
     end

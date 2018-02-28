@@ -1,10 +1,12 @@
 require 'amber/latex-test'
+require 'fileutils'
 
 module Amber
   class LaTeX_TestCase < LaTeX_Test 
 
     def initialize(decoratee)
-      super(decoratee)
+      macro = "\\tco{" + File.basename(decoratee.filename, ".*") + "}\n" 
+      super(decoratee, macro)
     end
 
     def echo_to_sysout

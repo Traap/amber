@@ -3,10 +3,11 @@ require 'amber/outputfiles'
 
 module Amber 
   class LaTeX_Test < Test
-    attr_reader :decoratee
+    attr_reader :decoratee, :macro
 
-    def initialize(decoratee)
+    def initialize(decoratee, macro)
       @decoratee = decoratee
+      @macro = macro
       @handle = nil
     end
 
@@ -32,6 +33,7 @@ module Amber
     end 
 
     def teardown
+      Amber::TestEvidence.record_test_name(@macro, @decoratee.options) if !@macro.nil?
       Amber::TestEvidence.close_file(@handle)
       @handle = nil
     end

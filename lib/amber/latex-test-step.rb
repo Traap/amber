@@ -6,7 +6,7 @@ module Amber
   class LaTeX_TestStep < LaTeX_Test
 
     def initialize(decoratee)
-      super(decoratee)
+      super(decoratee, nil)
       @test_result = "FAIL"
     end
 
