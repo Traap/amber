@@ -22,10 +22,16 @@ module Amber
     def run_command
       begin
         stdout, stderr, status = @decoratee.run_command 
-        @test_result = status ? "PASS" : "FAIL"
+        if status.success? then
+          @test_result = "PASS"
+          output = stdout
+        else
+          @test_result = "FAIL"
+          output = stderr
+        end
         @handle.write "Test Result: #{@test_result}\n"
         @handle.write "   Evidence: #{@decoratee.evidence}\n"
-        @handle.write "#{stdout}\n"
+        @handle.write  "#{output}\n"
         @handle.write "\\end{lstlisting}\n"
         @handle.flush
       rescue ShellError
