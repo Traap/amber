@@ -47,8 +47,8 @@ module Amber
       end
     end
 
-    def TestFactory.get_test_step(filename, data, options, step, nbr)
-      decoratee = TestStep.new(filename, data, options, step, nbr)
+    def TestFactory.get_test_step(filename, data, options, step, nbr, workingdir)
+      decoratee = TestStep.new(filename, data, options, step, nbr, workingdir)
       if options.writer == "LaTeX"
         LaTeX_TestStep.new(decoratee)
       else
@@ -64,6 +64,5 @@ module Amber
         Ascii_Environment.new(decoratee, options)
       end
     end
-
   end # Test Factory
 end # Amber 

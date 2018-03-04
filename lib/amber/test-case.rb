@@ -10,10 +10,16 @@ module Amber
     end
 
     def run_command
+      workingdir = @data['workingdir']
       nbr = 0
       @data['steps'].each do |s|
         nbr = nbr + 1
-        step = Amber::TestFactory.get_test_step(@filename, @data, @options, s, nbr)
+        step = Amber::TestFactory.get_test_step(@filename, 
+                                                @data, 
+                                                @options, 
+                                                s, 
+                                                nbr, 
+                                                workingdir)
         step.process
       end
     end

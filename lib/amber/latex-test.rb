@@ -23,7 +23,7 @@ module Amber
       @handle.write "\\subsection{#{name}}\n"
       @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
       @handle.write "\\item[Purpose:] #{@decoratee.purpose}\n"
-      @handle.write "\\item[Requirement:] #{@decoratee.requirement}\n"
+      @handle.write "\\item[Requirement:] #{@decoratee.requirement}\n" if !@decoratee.requirement.nil?
       @handle.write "\\end{description}\n"
       @handle.flush
     end

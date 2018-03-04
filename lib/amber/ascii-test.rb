@@ -10,8 +10,8 @@ module Amber
       if decoratee.type == "Test Step" then
         @macro = nil
       else
-         @macro = 
-           decoratee.type + ": " + File.basename(decoratee.filename, ".*") + "\n"
+        @macro = decoratee.type + ": " + 
+                 File.basename(decoratee.filename, ".*") + "\n"
       end
       @handle = nil
     end
@@ -27,7 +27,7 @@ module Amber
       name = "#{@decoratee.type}: ".rjust(15) << "#{@decoratee.name}"
       @handle.write "#{name}\n"
       @handle.write "      Purpose: #{@decoratee.purpose}\n"
-      @handle.write "  Requirement: #{@decoratee.requirement}\n\n"
+      @handle.write "  Requirement: #{@decoratee.requirement}\n\n" if !@decoratee.requirement.nil?
       @handle.flush
     end
 

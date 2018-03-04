@@ -34,6 +34,7 @@ module Amber
 
     def run_command
       begin
+        puts "#{@command}" if @options.verbose
         status = system(@command)
       rescue ShellError
         msg = "System command failed: #{status}"
