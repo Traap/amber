@@ -36,7 +36,11 @@ module Amber
 
       # This step will used working directory define at steps level.
       if wd.nil? then
-        wdir = TestEvidence::Temp_Dir + File::SEPARATOR + workingdir 
+        if workingdir.nil? then
+          wdir = TestEvidence::Temp_Dir
+        else 
+          wdir = TestEvidence::Temp_Dir + File::SEPARATOR + workingdir 
+        end
 
       # This step will nullify the working directory defined at the steps level.
       elsif wd == "nil"
