@@ -11,7 +11,7 @@ module Amber
     end
 
     def echo_to_sysout
-      @handle.write "\\begin{lstlisting}[basicstyle=\\tiny, numbers=left]\n"
+      @handle.write "\\begin{lstlisting}[numbers=left]\n"
       @handle.write "       Step: #{@decoratee.number}\n"
       @handle.write "    Confirm: #{@decoratee.confirm}\n"
       @handle.write "Expectation: #{@decoratee.expectation}\n"

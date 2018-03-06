@@ -13,7 +13,7 @@ module Amber
     def echo_to_sysout
       @handle = TestEvidence::open_environment_log_file(@options)
       write_subsection
-      @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
+      @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=5cm]\n"
 
       @decoratee.environment.each do |e|
         if e.downcase.include?("path") then
