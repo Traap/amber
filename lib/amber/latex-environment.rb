@@ -50,7 +50,13 @@ module Amber
     end
 
     def replace_characters(text)
-      replace_backslash_with_forwardslash(replace_underscore_with_hyphen(text))
+      escape_characters(
+        replace_backslash_with_forwardslash(
+          replace_underscore_with_hyphen(text)))
+    end
+
+    def escape_characters(text)
+      text.gsub(/#/, '\#')
     end
 
     def replace_underscore_with_hyphen(text)
