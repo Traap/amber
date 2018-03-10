@@ -88,12 +88,7 @@ module Amber
       pwd = Dir.getwd
       TestEvidence.create_directory_when_needed workingdir
       Dir.chdir workingdir
-      # puts "TestEvidence.rfwd #{workingdir}"
-      # puts "TestEvidence.rfwd #{command}"
       stdout, stderr, status = Open3.capture3 command
-      # puts "TestEvidence.rfwd status: #{status}"
-      # puts "TestEvidence.rfwd stdout: #{stdout}"
-      # puts "TestEvidence.rfwd stderr: #{stderr}"
       Dir.chdir pwd
       return stdout, stderr, status
     end
