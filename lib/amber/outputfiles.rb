@@ -63,7 +63,7 @@ module Amber
              File.dirname(input) +
              File::SEPARATOR +
              TestEvidence::Step_File +
-             nbr.to_s +
+             nbr.to_s.rjust(3, '0') +
              TestEvidence.use_file_extension(options)
            )
       handle.write(test_result)
