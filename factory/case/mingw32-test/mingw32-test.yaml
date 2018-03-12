@@ -1,0 +1,18 @@
+case:
+  name: Mingw32 Test Case
+  purpose: Demonstrate requirement 123 is met.
+  requirement: 123
+  steps:
+    - confirm: A message is echoed to the console.
+      expectation: Step 1 is echoed to the consoe.
+      sudo: true
+      command: echo
+      argument: "Step 1 was echoed and sudo was stripped."
+      evidence: Starts on next line.
+
+    - confirm: A message is echoed to the console.
+      expectation: Step 2 is echoed to the consoe.
+      sudo: false
+      command: echo
+      argument: "Step 2 was echoed and sudo was not used."
+      evidence: Starts on next line.

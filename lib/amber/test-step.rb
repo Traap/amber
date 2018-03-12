@@ -10,7 +10,11 @@ module Amber
       super("Test Step", filename, data, options)
 
       if step['sudo'] then
-        sudo = RbConfig::CONFIG['host_os'] == "cygwin" ? nil : "sudo "
+        if ["cygwin", "mingw32"].include?(RbConfig::CONFIG['host_os']) then
+          sudo = nil
+        else
+          sudo = "sudo "
+        end
       else
         sudo = nil
       end
@@ -38,8 +42,8 @@ module Amber
       if wd.nil? then
         if workingdir.nil? then
           wdir = TestEvidence::Temp_Dir
-        else 
-          wdir = TestEvidence::Temp_Dir + File::SEPARATOR + workingdir 
+        else
+          wdir = TestEvidence::Temp_Dir + File::SEPARATOR + workingdir
         end
 
       # This step will nullify the working directory defined at the steps level.
@@ -48,7 +52,7 @@ module Amber
 
       # This step will use the working directory it defined.
       else
-        wdir = TestEvidence::Temp_Dir + File::SEPARATOR + wd 
+        wdir = TestEvidence::Temp_Dir + File::SEPARATOR + wd
       end
 
       return wdir
