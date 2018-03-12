@@ -6,14 +6,22 @@ module Amber
     attr_reader :decoratee, :macro
 
     def initialize(decoratee)
-      @decoratee = decoratee
       if decoratee.type == "Test Step" then
         @macro = nil
       else
         @macro = decoratee.type + ": " + 
                  File.basename(decoratee.filename, ".*") + "\n"
       end
-      @handle = nil
+      @decoratee   = decoratee
+      @type        = decoratee.type
+      @filename    = decoratee.filename
+      @data        = decoratee.data
+      @name        = decoratee.name
+      @purpose     = decoratee.purpose
+      @requirement = decoratee.requirement
+      @options     = decoratee.options
+      @command     = decoratee.command
+      @handle      = nil
     end
 
     def setup
@@ -32,7 +40,7 @@ module Amber
     end
 
     def run_command 
-      @decoratee.run_command
+      @decoratee.run_command if !@options.dryrun
     end 
 
     def teardown

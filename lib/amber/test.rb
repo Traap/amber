@@ -2,7 +2,8 @@ module Amber
   class ShellError < StandardError; end
 
   class Test
-    attr_reader :filename, :type, :name, :purpose, :requirement, :options
+    attr_reader :type, :filename, :data, :name, :purpose,
+                :requirement, :options, :command
 
     def initialize(type, filename, data, options)
       @type = type
@@ -18,7 +19,7 @@ module Amber
     def process
       setup
       echo_to_sysout
-      run_command
+      run_command if !@options.dryrun
       teardown
     end
 
@@ -27,7 +28,7 @@ module Amber
 
     def teardown; end
 
-    def echo_to_sysout 
+    def echo_to_sysout
       name = "#{@type}: ".rjust(15) << "#{@name}"
       puts "#{name}" if @options.verbose
     end

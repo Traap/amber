@@ -20,6 +20,7 @@ module Amber
 
     def run_command 
       begin
+        stdout, stderr, status = @decoratee.run_command 
         if status.success? then
           @test_result = "PASS"
           output = stdout
