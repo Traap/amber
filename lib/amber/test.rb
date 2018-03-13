@@ -1,19 +1,21 @@
+require 'amber/substitute'
+
 module Amber
   class ShellError < StandardError; end
 
   class Test
-    attr_reader :type, :filename, :data, :name, :purpose,
-                :requirement, :options, :command
+    attr_reader :command, :data, :filename, :name, :options, :purpose,
+                :requirement, :type
 
     def initialize(type, filename, data, options)
-      @type = type
-      @filename = filename
-      @data = data
-      @name = data['name']
-      @purpose = data['purpose']
-      @requirement = data['requirement']
-      @options = options
       @command = nil
+      @data = data
+      @filename = filename
+      @name = Amber::Substitute.strings(options, data['name'])
+      @options = options
+      @purpose = Amber::Substitute.strings(options, data['purpose'])
+      @requirement = Amber::Substitute.strings(options, data['requirement'])
+      @type = type
     end
 
     def process

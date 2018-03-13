@@ -1,5 +1,6 @@
-require 'amber/test'
 require 'amber/outputfiles'
+require 'amber/substitute'
+require 'amber/test'
 
 module Amber
   class TestStep < Test
@@ -19,12 +20,13 @@ module Amber
         sudo = nil
       end
 
-      @number = number
-      @confirm = step['confirm']
-      @expectation = step['expectation']
-      @command = "#{sudo}#{step['command']} #{step['argument']}"
-      @evidence = step['evidence']
-      @workingdir = set_working_dir(step, workingdir)
+      @number      = number
+      @confirm     = Amber::Substitute.strings(options, step['confirm'])
+      @expectation = Amber::Substitute.strings(options, step['expectation'])
+      argument     = Amber::Substitute.strings(options, step['argument'])
+      @command     = "#{sudo}#{step['command']} #{argument}"
+      @evidence    = Amber::Substitute.strings(options, step['evidence'])
+      @workingdir  = set_working_dir(step, workingdir)
     end
 
     def echo_to_sysout; end

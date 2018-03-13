@@ -1,0 +1,19 @@
+case:
+  name: ${file} file, language, browser, and language-code
+
+  purpose: >
+    This test case is used to demonstrate the ${file} page has been translated to
+    ${language} correctly.
+
+  requirement: IUR01
+
+  steps:
+    - confirm: All text objects have correct ${language} translations. 
+      expectation: >
+        All textual inspections are correct, user interface screens are
+        captured, and subsutions for [${file}, ${language}, ${browser}, ${language-code}]
+        are accurate.
+      sudo: false
+      command: echo 
+      argument: gradle test --tests *${file} -Dbrowser=${browser} -Dlanguage=${language-code}
+      evidence: Starts on next line.

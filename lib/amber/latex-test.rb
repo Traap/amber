@@ -1,7 +1,7 @@
 require 'amber/test'
 require 'amber/outputfiles'
 
-module Amber 
+module Amber
   class LaTeX_Test < Test
     attr_reader :decoratee, :macro
 
@@ -26,7 +26,7 @@ module Amber
 
     def echo_to_sysout
       @decoratee.echo_to_sysout
-      
+
       name = "#{@decoratee.type}: #{@decoratee.name}"
       @handle.write "\\subsection{#{name}}\n"
       @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
@@ -36,9 +36,9 @@ module Amber
       @handle.flush
     end
 
-    def run_command 
+    def run_command
       @decoratee.run_command if !@options.dryrun
-    end 
+    end
 
     def teardown
       Amber::TestEvidence.record_test_name(@macro, @decoratee.options) if !@macro.nil?
@@ -47,4 +47,4 @@ module Amber
     end
 
   end # LaTeX_Test
-end # Amber 
+end # Amber

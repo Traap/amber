@@ -1,4 +1,3 @@
-require 'amber/environment'
 require 'amber/factory-method'
 require 'amber/include'
 require 'amber/test-case'
@@ -22,10 +21,6 @@ module Amber
           t.process
         end
       end
-      
-      Amber::TestFactory
-        .get_equipment(@options)
-         .echo_to_sysout if !@options.equipment
     end
 
     def parse_yaml_file(filename)

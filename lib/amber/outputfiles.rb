@@ -27,6 +27,7 @@ module Amber
                                 : TestEvidence::Ascii_File_Extension
     end
 
+
     def TestEvidence.open_log_file(input, options)
       TestEvidence.open_file(
              TestEvidence::Test_Output +
@@ -94,5 +95,4 @@ module Amber
     end
 
   end # TestEvidence
-
 end # Amber

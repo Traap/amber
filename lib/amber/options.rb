@@ -1,19 +1,25 @@
-require 'amber/version'
+require 'amber/version' 
+require 'amber/browser' 
+require 'amber/language' 
+require 'amber/writer' 
 
 module Amber 
-class CommandLineOptions
-  attr_accessor :verbose, :dryrun, :equipment, :filename, :writer
-  attr_reader :parser, :options
 
-  WRITER_LIST = %w[Ascii LaTeX]
+  class CommandLineOptions
+    attr_accessor :browser, :dryrun, :equipment, :filename, :language, :options,
+                  :parser, :verbose, :writer 
 
 # ------------------------------------------------------------------------------
   def initialize
-    self.verbose = false
+    self.browser = Amber::Browser::Default 
     self.dryrun = true
-    self.equipment = true 
+    self.equipment = false 
     self.filename = []
-    self.writer = "Ascii"
+    self.language = Amber::Language::Default
+    self.options = nil
+    self.parser = nil
+    self.verbose = false
+    self.writer = Amber::Writer::Default 
   end
 
 # ------------------------------------------------------------------------------
@@ -30,17 +36,21 @@ class CommandLineOptions
       parser.separator ""
       parser.separator "Specific options:"
 
-      help_option parser
+      browser_option parser
       dryrun_option parser
       equipment_option parser
       file_option parser
-      writer_option parser
+      help_option parser
+      language_option parser
       verbose_option parser
       version_option parser
+      writer_option parser
 
       plan_option parser
       suite_option parser
       case_option parser
+
+      dump_option parser
     end
   end
 
@@ -61,15 +71,15 @@ class CommandLineOptions
 
 # ------------------------------------------------------------------------------
   def self.verbose_option parser
-    parser.on("-v", "--verbose", "Verbose") do |v|
-      @options.verbose = v
+    parser.on("-v", "--verbose", "Verbose") do |z|
+      @options.verbose = z
     end
   end
 
 # ------------------------------------------------------------------------------
   def self.equipment_option parser
     parser.on("-e", "--equipment", "List Equipment") do |z|
-      @options.equipment ^= z
+      @options.equipment = z
     end
   end
 
@@ -104,14 +114,46 @@ class CommandLineOptions
   def self.file_option parser
     parser.on("-f", "--file x,y,x", Array, "File name") do |z|
       @options.filename = z.map! {|a| "#{a}"}
-    end
+    end 
   end
 
 # ------------------------------------------------------------------------------
   def self.writer_option parser
-    parser.on("-w", "--writer WRITER", String, WRITER_LIST,
-              "Select writer", "#{WRITER_LIST}") do |z|
+    parser.on("-w", "--writer WRITER", String, Amber::Writer::Names,
+              "Select writer", "#{Amber::Writer::Names}") do |z|
       @options.writer = z
+    end
+  end
+
+# ------------------------------------------------------------------------------
+  def self.browser_option parser
+    parser.on("-b", "--browser BROWSER", String, Amber::Browser::Names,
+              "Select Browser", "#{Amber::Browser::Names}") do |z|
+      @options.browser = z
+    end
+  end
+
+
+# ------------------------------------------------------------------------------
+  def self.language_option parser
+    parser.on("--language LANGUAGE", 
+              Amber::Language::Names, Amber::Language::Map, 
+              "Select language", "#{Amber::Language::Names}") do |z|
+      @options.language = z
+    end
+  end
+
+# ------------------------------------------------------------------------------
+  def self.dump_option parser
+    parser.on_tail("-d", "--dump", "Dump options (must be last).") do
+      puts "  browser: #{@options.browser}"
+      puts "   dryrun: #{@options.dryrun}"
+      puts "equipment: #{@options.equipment}"
+      puts " filename: #{@options.filename}"
+      puts " language: #{@options.language}"
+      puts "  verbose: #{@options.verbose}"
+      puts "   writer: #{@options.writer}"
+      exit
     end
   end
 
@@ -124,5 +166,5 @@ class CommandLineOptions
   end
 
 # ------------------------------------------------------------------------------
-end # class CommandLineOptions
+  end # class CommandLineOptions
 end # module

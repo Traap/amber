@@ -11,6 +11,8 @@
 # for documented evidence. 
 # ------------------------------------------------------------------------------
 
+require 'amber/environment'
+require 'amber/factory-method'
 require 'amber/initialize'
 require 'amber/options'
 require 'amber/workflow'
@@ -18,13 +20,18 @@ require 'amber/workflow'
 # ------------------------------------------------------------------------------
 module Amber 
   class CLI
+
     def execute(args)
       options = CommandLineOptions.parse args
-      if options
-        workflow = Workflow.new(options)
-        workflow.orchestrate
-      end
+
+      Workflow.new(options)
+        .orchestrate if options
+
+      Amber::TestFactory
+        .get_equipment(options)
+         .echo_to_sysout if !options.equipment
     end
-  end
-end
+
+  end # CLI
+end # Amber
 # ------------------------------------------------------------------------------

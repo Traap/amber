@@ -45,6 +45,6 @@ teardown-after-each:
 
 includes:
   - case:
-    - name: fourth-test
-    - name: fifth-test
-    - name: sixth-test
+    - name: t004 
+    - name: t005 
+    - name: t006 
