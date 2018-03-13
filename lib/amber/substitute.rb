@@ -26,7 +26,7 @@ module Amber
 
     def Substitute.language_code(options, text)
       text.gsub(/\${language-code}/, 
-                "#{Amber::Language::Map.key(options.language)}")
+                "#{Amber::Language::Code.key(options.language)}")
     end
 
   end # Substitute

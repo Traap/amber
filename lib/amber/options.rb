@@ -137,7 +137,7 @@ module Amber
 # ------------------------------------------------------------------------------
   def self.language_option parser
     parser.on("--language LANGUAGE", 
-              Amber::Language::Names, Amber::Language::Map, 
+              Amber::Language::Names, Amber::Language::Code,
               "Select language", "#{Amber::Language::Names}") do |z|
       @options.language = z
     end

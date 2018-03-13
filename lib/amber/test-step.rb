@@ -39,22 +39,23 @@ module Amber
     private
     def set_working_dir(step, workingdir)
       wd = step['workingdir']
+      tmp = TestEvidence::assemble_temp_root(@options)
 
       # This step will used working directory define at steps level.
       if wd.nil? then
         if workingdir.nil? then
-          wdir = TestEvidence::Temp_Dir
+          wdir = tmp 
         else
-          wdir = TestEvidence::Temp_Dir + File::SEPARATOR + workingdir
+          wdir = tmp + File::SEPARATOR + workingdir
         end
 
       # This step will nullify the working directory defined at the steps level.
       elsif wd == "nil"
-        wdir = TestEvidence::Temp_Dir
+        wdir = tmp 
 
       # This step will use the working directory it defined.
       else
-        wdir = TestEvidence::Temp_Dir + File::SEPARATOR + wd
+        wdir = tmp + File::SEPARATOR + wd
       end
 
       return wdir
