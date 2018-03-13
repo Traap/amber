@@ -138,6 +138,7 @@ test-output/factory/case/a-test-case/a-test-case-001.csv.  Multiple csv
 files are supported.
 
 ### amber command line
+```bash
 amber --help
 Usage: amber [options]
 
@@ -159,6 +160,7 @@ Specific options:
     -h, --help                       Show this message
         --version                    Show version
     -d, --dump                       Dump options (must be last).
+```
 
 #### General
 ##### --help
