@@ -1,17 +1,20 @@
-**amber** is a Ruby gem that is used automated testing.  **amber** has been
-tested with cygwin, linix, linux (mint), and wsl.
+### Automated testing 
+**amber** is a Ruby gem that is used automated testing.  **amber** was designed
+to automation various types of testing that require creating and assembling
+detailed records intended to prove a product or tool has been tested for its
+intended purpose.  **amber** borrows from a Ruby-on-Rails concept of convention
+over configuration.  In this regard, amber consumes YAML documents that are
+placed beneath a factory directory root.  You are encouraged to review
+**amber's** factory directory because it has been designed to demonstrate
+**amber's** capabilities.
 
-## Prerequisites 
+### Supported Systems
+**amber** has been tested with cygwin, linix, linux (mint), mingw32, and wsl.
+
+### Prerequisites 
 1. git client
 2. ruby 
-
-## Installation
-### Using the gem
-```bash
-$ CD $HOME
-$ gem install amber
-$ gem --verbose --suite=smoke-test
-```
+3. bundle
 
 ### Working with source 
 Copy the text below and paste into a shell.  The commands will:
@@ -32,60 +35,9 @@ $ cd $HOME \
             && bundle exec rake install
             && amber --version
 ```
-
-## Traap/amber-computer
-[amber-computer](https://github.com/Traap/amber-computer) repository has app
-(applications) and bundles **amber** knows how to install.
-
-### Install and configure Vim
-```bash
-amber --suite=smoke-test
-```
-
-### amber command line
-amber --help
-
-Usage: amber [options]
-
-Specific options:
-    -n, --nodryrun                   No Dryrun
-    -f, --file x,y,x                 File name
-    -s, --plan x,y,x                 Plan name 
-    -s, --suite x,y,x                Suite name
-    -s, --case x,y,x                 Name name
-    -v, --verbose                    Verbose
-    -h, --help                       Show this message
-        --version                    Show version
-
-### --nodryrun
-By default, **amber** does not run a test suite.  You must explicitly
-use the **--nodryrun** options to cause side effects.  The commands that would
-have been executed are echoed to system out.
-
-### --suite
-A comma-separated list of test suite names **amber** is to process.  The following
-directory and YAML file name convention is mandatory:
-suite/a-suite/a-suite.yaml.
-
-### --file
-A comma-separated list of file names **amber** is to process.
-
-### --help
-Show this message.
-
-### --version
-0.0.36 is this the current version.
-
-## Validating a tool
-Amber automates creating and assembling detailed records intended to provide
-a product or tool has been tested for its intended purpose.  Amber borrows from
-a Ruby-on-Rails convention of convention over configuration.  In this regard,
-amber consumes yaml documents that are placed beneath a factory directory root.
-You are encouraged to review Amber's factory directory because it has been
-designed to demonstrate Amber's capabilities.
-
-### A yaml Plan
-```yaml
+### Input Factory
+#### A YAML Plan
+```YAML
 plan:
   name: A plan name
   purpose:  The purpose of this test plan.
@@ -94,35 +46,167 @@ includes:
     - name: a-suite-name 
 ```
 
-### A yaml Suite
-```yaml
+#### A YAML Suite
+```YAML
 suite:
   name: A Suite Name 
   purpose:  The purpose of this test suite.
-  requirement: 1, 2, 3, and 4.
+  requirement: 1, 2, and 3.
 includes:
   - case:
     - name: a-test-case 
     - name: another-test-case 
     - name: yet-another-test-case 
 ```
+#### A YAML Case
+```YAML
+case:
+  name: First Test Case
+  purpose: Demonstrate requirements are met.
+  requirement: 1, 2, and 3 
+  steps:
+    - confirm: Program echo has been installed.
+      expectation: echo installation location is displayed.
+      sudo: true
+      command: which
+      argument: echo
+      evidence: Starts on next line.
 
-### Amber directory convention
+    - confirm: Program date has been installed.
+      expectation: date installation location is displayed.
+      sudo: false
+      command: which
+      argument: date
+      evidence: Starts on next line.
+
+    - confirm: Program man has been installed.
+      expectation: man installation location is displayed.  
+      sudo: false
+      command: which
+      argument: man
+      evidence: Starts on next line.
+```
+
+#### Amber directory convention
 ```bash
 ../factory
 ../factory/plan
-../factory/plan/a-plan-name/a-plan-name.yaml
+../factory/plan/a-plan-name/a-plan-name.YAML
 
 ../factory/suite
-../factory/suite/a-suite-name/a-suite-name.yaml
+../factory/suite/a-suite-name/a-suite-name.YAML
 
 ../factory/case
-../factory/case/a-test-case/a-test-case.yaml
-../factory/case/another-test-case/another-test-case.yaml
-../factory/case/yet-another-test-case/yet-another-test-case.yaml
+../factory/case/a-test-case/a-test-case.YAML
+../factory/case/another-test-case/another-test-case.YAML
+../factory/case/yet-another-test-case/yet-another-test-case.YAML
+```
+### Output Factory
+#### Generated by amber
+```bash
+../test-output/factory
+../test-output/factory/plan
+../test-output/factory/plan/a-plan-name/a-plan-name.tex
+
+../test-output/factory/suite
+../test-output/factory/suite/a-suite-name/a-suite-name.tex
+
+../test-output/factory/case
+../test-output/factory/case/a-test-case/a-test-case.tex
+../test-output/factory/case/a-test-case/step-001.tex
+../test-output/factory/case/a-test-case/step-002.tex
+../test-output/factory/case/a-test-case/step-002.tex
+../test-output/factory/case/a-test-case/step-003.tex
 ```
 
-## Add this function to .bashrc
+##### Console output
+**amber** captures status, system out, and system error and records the results
+to a-test-case.tex file.  
+
+##### Step files
+**amber** records PASS or FAIL for each Test Step.  The result is determined by
+the program that **amber** runs.
+
+##### png files
+Any custom program **amber** invokes can take a screen capture and record them 
+as test-output/factory/case/a-test-case/a-test-case-001.png  Multiple png 
+files are supported.
+
+##### csv files
+Any custom program **amber** invokes can record CSV files as
+test-output/factory/case/a-test-case/a-test-case-001.csv.  Multiple csv 
+files are supported.
+
+### amber command line
+amber --help
+Usage: amber [options]
+
+Specific options:
+    -b, --browser BROWSER            Select Browser
+                                     ["Chrome", "Firefox", "IE"]
+    -n, --nodryrun                   No Dryrun
+    -e, --enviornment                List enviornment
+    -f, --file x,y,x                 File name
+    -l, --language LANGUAGE          Select language
+                                     ["da", "de", "en", "es", "fr-ca", "fr-eu",
+                                     "ge", "it", "ne", "no", "sv"]
+    -v, --verbose                    Verbose
+    -w, --writer WRITER              Select writer
+                                     ["Ascii", "LaTeX"]
+    -p, --plan x,y,x                 Plan name
+    -s, --suite x,y,x                Suite name
+    -c, --case x,y,x                 Case name
+    -h, --help                       Show this message
+        --version                    Show version
+    -d, --dump                       Dump options (must be last).
+
+#### General
+##### --help
+Show this message.
+
+##### --version
+0.0.118 is this the current version.
+
+#### Input Factory
+##### --plan
+A comma-separated list of test plan names **amber** is to process.  The following
+directory and YAML file name convention is mandatory:
+factory/plan/a-plan/a-aplan.YAML.
+
+##### --suite
+A comma-separated list of test suite names **amber** is to process.  The
+following directory and YAML file name convention is mandatory:
+factory/suite/a-suite/a-suite.YAML.
+
+##### --case
+A comma-separated list of test case names **amber** is to process.  The
+following directory and YAML file name convention is mandatory:
+factory/case/suite/a-case/a-case.YAML.
+
+##### --file
+A comma-separated list of file names **amber** is to process.
+
+#### Substitution
+##### --browser
+**amber** uses Chrome by default.  Your Test Plan, Test Suite, and Test Case
+must be written to reference a program that uses Web test driver.
+
+##### --language
+**amber** uses en by default.  Your Test Plan, Test Suite, and Test Case must be
+written to reference a program the requires internationalization and
+localization.
+
+#### Output Factory
+##### --nodryrun
+By default, **amber** does not run a test suite.  You must explicitly
+use the **--nodryrun** options to cause side effects.  The commands that would
+have been executed are echoed to system out.
+
+##### --environment
+A list of environment variables **amber** records in the output factory.  See
+(environment.rb)[ https://github.com/Traap/amber/blob/master/lib/amber/environment.rb] for a complete listing of files.
+
+### Add these function to .bashrc
 ```bash
 AMBERPATH=${HOME}/git/amber
 export AMBERPATH
@@ -130,9 +214,23 @@ export AMBERPATH
 function newfactoryitem() {
   ${AMBERPATH}/bin/newfactoryitem $@
 }
+
+
+function check-test-output() {
+  echo grep -rw --include=\s*.* test-output/ -e $1
+  grep -rw --include=\s*.* test-output/ -e $1
+}
+
+function pass() {
+  check-test-output PASS
+}
+
+function fail() {
+  check-test-output FAIL
+}
 ```
 
-## Project Management
+### Project Management
 The **amber** repository uses a SCRUM framework adapted to standard GitHub
 tooling.  **amber** is integrated with Travis-ci.org for continuous
 integration and AllanConsulting.slack.com for centralized notification.
