@@ -206,7 +206,7 @@ have been executed are echoed to system out.
 
 ##### --environment
 A list of environment variables **amber** records in the output factory.  See
-(environment.rb)[ https://github.com/Traap/amber/blob/master/lib/amber/environment.rb] for a complete listing of files.
+[environment.rb](https://github.com/Traap/amber/blob/master/lib/amber/environment.rb) for a complete listing of files.
 
 ### Add these function to .bashrc
 ```bash
@@ -216,7 +216,6 @@ export AMBERPATH
 function newfactoryitem() {
   ${AMBERPATH}/bin/newfactoryitem $@
 }
-
 
 function check-test-output() {
   echo grep -rw --include=\s*.* test-output/ -e $1
