@@ -6,9 +6,10 @@
 # (tco) Test Case Output
 #
 # When browser and language are present:
-#    \tpo{Chrome}{en}{About}
-#    \tso{Chrome}{en}{About}
-#    \tco{Chrome}{en}{About}
+# Note C:  three parameters.  C is third letter of English alphabet.
+#    \tpoC{Chrome}{en}{About}
+#    \tsoC{Chrome}{en}{About}
+#    \tcoC{Chrome}{en}{About}
 #
 # When browser and language are NOT present:
 #    \tpo{About}
@@ -36,7 +37,7 @@ module Amber
       macro = LaTeX_Utility.append_filename(macro, decoratee)
     end
 
-    def LaTeX_Utility.get_plan_macro(decoratee)
+    def LaTeX_Utility.get_case_macro(decoratee)
       macro = "\\tco"
       macro = LaTeX_Utility.append_browser_and_language(macro, decoratee)
       macro = LaTeX_Utility.append_filename(macro, decoratee)
@@ -48,7 +49,7 @@ module Amber
       code     = Amber::Language::Code.key(language)
 
       if !browser.nil? && !language.nil?
-        macro << "{" << browser <<  "}{" << code << "}"
+        macro << "C{" << browser <<  "}{" << code << "}"
       end
 
       return macro

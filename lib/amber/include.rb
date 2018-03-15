@@ -1,3 +1,4 @@
+require 'amber/language'
 require 'amber/test'
 
 module Amber 
@@ -25,10 +26,13 @@ module Amber
     end
 
     def include_this_file(name, opt)
+      code     = Amber::Language::Code.key(@options.language)
       opt_and_files = "#{opt}=#{name.map{|n| n.values}.join(',')}"
       @command ="amber"
       @command.concat " --nodryrun" if !@options.dryrun
-      @command.concat " --writer=#{@options.writer}" if !@options.writer.nil?
+      @command.concat " --writer=#{@options.writer}"   if !@options.writer.nil?
+      @command.concat " --browser=#{@options.browser}" if !@options.browser.nil?
+      @command.concat " --language=#{code}"            if !code.nil?
       @command.concat " #{opt_and_files}"
       method(:run_command).super_method.call
     end

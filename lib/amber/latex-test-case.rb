@@ -6,7 +6,7 @@ module Amber
   class LaTeX_TestCase < LaTeX_Test 
 
     def initialize(decoratee)
-      macro = LaTeX_Utility.get_plan_macro(decoratee)
+      macro = LaTeX_Utility.get_case_macro(decoratee)
       super(decoratee, macro)
     end
 
