@@ -1,0 +1,17 @@
+\subsection{Test Case: substitute file, language, browser, and language-code}
+\begin{description}[align=right,leftmargin=*,labelindent=3cm]
+\item[Purpose:] This test case is used to demonstrate the substitute page has been translated to Italiano correctly.
+
+\item[Requirement:] IUR01
+\end{description}
+\begin{lstlisting}[numbers=left]
+       Step: 1
+    Confirm: All text objects have correct Italiano translations.
+Expectation: All textual inspections are correct, user interface screens are captured, and subsutions for [substitute, Italiano, Firefox, it] are accurate.
+
+    Command: echo gradle test --tests *substitute -Dbrowser=Firefox -Dlanguage=it
+Test Result: PASS
+   Evidence: Starts on next line.
+gradle test --tests *substitute -Dbrowser=Firefox -Dlanguage=it
+
+\end{lstlisting}

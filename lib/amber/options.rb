@@ -6,14 +6,14 @@ require 'amber/writer'
 module Amber 
 
   class CommandLineOptions
-    attr_accessor :browser, :dryrun, :equipment, :filename, :language, :options,
+    attr_accessor :browser, :dryrun, :environment, :filename, :language, :options,
                   :parser, :verbose, :writer 
 
 # ------------------------------------------------------------------------------
   def initialize
     self.browser = Amber::Browser::Default 
     self.dryrun = true
-    self.equipment = false 
+    self.environment = false 
     self.filename = []
     self.language = Amber::Language::Default
     self.options = nil
@@ -38,7 +38,7 @@ module Amber
 
       browser_option parser
       dryrun_option parser
-      equipment_option parser
+      environment_option parser
       file_option parser
       help_option parser
       language_option parser
@@ -77,9 +77,9 @@ module Amber
   end
 
 # ------------------------------------------------------------------------------
-  def self.equipment_option parser
-    parser.on("-e", "--equipment", "List Equipment") do |z|
-      @options.equipment = z
+  def self.environment_option parser
+    parser.on("-e", "--environment", "List environment") do |z|
+      @options.environment = z
     end
   end
 
@@ -136,7 +136,7 @@ module Amber
 
 # ------------------------------------------------------------------------------
   def self.language_option parser
-    parser.on("--language LANGUAGE", 
+    parser.on("-l", "--language LANGUAGE", 
               Amber::Language::Names, Amber::Language::Code,
               "Select language", "#{Amber::Language::Names}") do |z|
       @options.language = z
@@ -146,13 +146,13 @@ module Amber
 # ------------------------------------------------------------------------------
   def self.dump_option parser
     parser.on_tail("-d", "--dump", "Dump options (must be last).") do
-      puts "  browser: #{@options.browser}"
-      puts "   dryrun: #{@options.dryrun}"
-      puts "equipment: #{@options.equipment}"
-      puts " filename: #{@options.filename}"
-      puts " language: #{@options.language}"
-      puts "  verbose: #{@options.verbose}"
-      puts "   writer: #{@options.writer}"
+      puts "    browser: #{@options.browser}"
+      puts "     dryrun: #{@options.dryrun}"
+      puts "environment: #{@options.environment}"
+      puts "   filename: #{@options.filename}"
+      puts "   language: #{@options.language}"
+      puts "    verbose: #{@options.verbose}"
+      puts "     writer: #{@options.writer}"
       exit
     end
   end

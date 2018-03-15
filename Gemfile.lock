@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    amber (0.0.117)
+    amber (0.0.118)
 
 GEM
   remote: https://rubygems.org/

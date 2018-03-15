@@ -28,8 +28,8 @@ module Amber
         .orchestrate if options
 
       Amber::TestFactory
-        .get_equipment(options)
-         .echo_to_sysout if !options.equipment
+        .get_environment(options)
+         .echo_to_sysout if !options.environment
     end
 
   end # CLI

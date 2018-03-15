@@ -56,7 +56,7 @@ module Amber
       end
     end
 
-    def TestFactory.get_equipment(options)
+    def TestFactory.get_environment(options)
       decoratee = Environment.new()
       if options.writer == "LaTeX"
         LaTeX_Environment.new(decoratee, options)
