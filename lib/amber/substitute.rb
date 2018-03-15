@@ -6,10 +6,14 @@ module Amber
   module Substitute
 
     def Substitute.strings(options, text)
-      Substitute.file(options,
-        Substitute.browser(options,
-          Substitute.language(options,
-            Substitute.language_code(options, text))))
+      if !text.nil? then
+        Substitute.file(options,
+          Substitute.browser(options,
+            Substitute.language(options,
+              Substitute.language_code(options, text))))
+      else 
+        nil
+      end
     end
 
     def Substitute.file(options, text)

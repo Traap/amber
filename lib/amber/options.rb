@@ -26,6 +26,7 @@ module Amber
   def self.parse args
     @options = CommandLineOptions.new
     option_parser.parse! args
+    nil_browser_and_language_when_defaults
     @options
   end
 
@@ -162,6 +163,16 @@ module Amber
     parser.on_tail("--version", "Show version") do
       puts Amber::VERSION
       exit
+    end
+  end
+
+# ------------------------------------------------------------------------------
+
+  def self.nil_browser_and_language_when_defaults
+    if @options.browser.eql?(Amber::Browser::Default) ||
+        @options.browser.eql?(Amber::Language::Default) then
+      @options.browser = nil
+      @options.language = nil
     end
   end
 
