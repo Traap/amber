@@ -7,8 +7,8 @@ module Amber
     Test_Output = TestEvidence::Test_Output_Dir + File::SEPARATOR
     Result_File_Extension = ".txt"
     Step_File = "step-"
-    Environment_Log = "factory" + File::SEPARATOR + "environment"
-    Test_Results_Log = "factory" + File::SEPARATOR + "test-results"
+    Environment_Log = TestEvidence::Test_Output + "environment"
+    Test_Results_Log = TestEvidence::Test_Output + "test-results"
     LaTeX_File_Extension = ".tex"
     Ascii_File_Extension = ".txt"
 
@@ -66,7 +66,6 @@ module Amber
 
     def TestEvidence.open_environment_log_file(options)
       TestEvidence.open_file(
-        TestEvidence.assemble_test_output_root(options) +
         TestEvidence::Environment_Log +
         TestEvidence.use_file_extension(options)
       )
@@ -77,7 +76,6 @@ module Amber
     def TestEvidence.record_test_name(name, options)
       handle =
         TestEvidence.open_file(
-          TestEvidence.assemble_test_output_root(options) +
           TestEvidence::Test_Results_Log +
           TestEvidence.use_file_extension(options)
         )
@@ -99,18 +97,6 @@ module Amber
         )
       handle.write(test_result)
       TestEvidence.close_file(handle)
-    end
-
-    # --------------------------------------------------------------------------
-
-    def TestEvidence.open_test_results(options)
-      TestEvidence.open_file(
-        TestEvidence.assemble_test_output_root(options) +
-        File.dirname(input) +
-        File::SEPARATOR +
-        TestEvidence::Test_Results_File +
-        TestEvidence.use_file_extension(options)
-      )
     end
 
     # --------------------------------------------------------------------------

@@ -1,11 +1,12 @@
 require 'amber/latex-test'
+require 'amber/latex-utility'
 require 'fileutils'
 
 module Amber
   class LaTeX_TestPlan < LaTeX_Test
 
     def initialize(decoratee)
-      macro = "\\tpo{" + File.basename(decoratee.filename, ".*") + "}\n"
+      macro = LaTeX_Utility.get_plan_macro(decoratee)
       super(decoratee, macro)
     end
 
