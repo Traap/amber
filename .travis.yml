@@ -2,7 +2,7 @@
 #   amber 
 
 # Purpose: 
-#   This Travis continuous integration file is use to build and test abmber 
+#   This Travis continuous integration file is use to build and test amber 
 #   software written in Ruby.
 
 language: ruby
@@ -18,10 +18,10 @@ rvm:
   - 2.3.4
 
 before_script:
-    - bundle exec rake clean assets:precompile
+    - bundle exec rake clean
 
 script:
-    - bundle exec rake spec
+    - bundle exec rake
 
 # We will deploy the pdf file(s) back to a GitHub releases.
 deploy:
@@ -37,4 +37,4 @@ deploy:
 
 notifications:
   email: false
-  slack: allanconsulting:2yTeZCzKcjDkrGsiTQ4zxmHV
+  slack: allanconsulting:PbXITWcTKTr1Rk2CbFzCN7ra
