@@ -1,3 +1,4 @@
+#Project: amber
 language: ruby
 cache:
   bundler: true
@@ -11,10 +12,13 @@ script:
 - bundle exec rake
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: lHBZLPv6a7xdtDs/CpcOaBnx/1iicfuxQfK3+I9hvf29/nEgPinfYuGkf5lu+Cwz3Im5yJZCpnLq+lyLkx+Wd/z1PtUEU/j97AekIXtRksHx16Bim1hHW+Xco3lyRRw25GbVsbuGm1GT0wM59kOtUysi8ufnqo5drc6AfN0neryEtnjeK7Rl6PuGeg0761rgYSFP7KesaFutgKf+emfk6HNmxN9yTALJYBAAgCAEbHLV4hyKan64Ob23cAK2ClTHSXN5Mc716Syz23VfLlj2gJzS1TroXNSnipbGmo1w0d4BZxodi5SWzxiv/QgwTfGVfyY220NM+LK5P6w9OCPM4AIbw1vVhkj1t8L8ivfeJu5ABkYWxZEvG97vAD4Eu5skArqJP5BKceyevJhhlv9ti+Hwrm6V7cBVyIVURRT5/8kcC3T7AnIg/Qwg8TMySV1MaPX+8pOBzv+Z2Q2/1lfYVJL/yX37lGr8v5HNkB1w8La0pySxN7OALG43X6xwMMceg523z8YHAqsCwC1La5dLiRCbcQ9gpgUGtSTreWAx/v7iew0L7Fc7mB4juASBruj/AOcw1Gf67nmMTLPX28dte9OA4J3GT1TKBH6ln2MVDnhPoTFFdikx4+g1n7WCD/5azSEax+KT309TOeg3984mHeBhhn2pZ2zA2PVFIGsUTZI=
   file: README.md 
   on:
+    tags: true
+    branch: master
     repo: Traap/amber
 notifications:
   email: false
