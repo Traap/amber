@@ -29,7 +29,7 @@ module Amber
       code     = Amber::Language::Code.key(@options.language)
       opt_and_files = "#{opt}=#{name.map{|n| n.values}.join(',')}"
       @command ="amber"
-      @command.concat " --nodryrun" if !@options.dryrun
+      @command.concat " --nodryrun"                    if !@options.dryrun
       @command.concat " --writer=#{@options.writer}"   if !@options.writer.nil?
       @command.concat " --browser=#{@options.browser}" if !@options.browser.nil?
       @command.concat " --language=#{code}"            if !code.nil?

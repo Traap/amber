@@ -24,12 +24,20 @@ module Amber
     def execute(args)
       options = CommandLineOptions.parse args
 
-      Workflow.new(options)
-        .orchestrate if options
+      if options then 
 
-      Amber::TestFactory
-        .get_environment(options)
-         .echo_to_sysout if !options.environment
+        Workflow.new(options).orchestrate
+
+        if options.environment then
+
+          Amber::TestFactory
+          .get_environment(options)
+            .echo_to_sysout
+
+        end
+
+      end
+
     end
 
   end # CLI

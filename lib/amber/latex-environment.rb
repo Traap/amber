@@ -33,10 +33,14 @@ module Amber
       i = replace_characters(e) 
       @handle.write "\\item[#{i}:] See below.\n"
       @handle.write "\\begin{enumerate}\n"
-      f = ENV[e].split(':')
-      f.each do |g|
-        v = replace_characters(g)
-        @handle.write "\\item #{v}\n"
+      if ENV[e].nil? then
+        @handle.write "\\item nil\n"
+      else
+        f = ENV[e].split(':')
+        f.each do |g|
+          v = replace_characters(g)
+          @handle.write "\\item #{v}\n"
+        end
       end
       @handle.write "\\end{enumerate}\n"
     end
