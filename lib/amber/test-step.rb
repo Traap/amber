@@ -23,7 +23,7 @@ module Amber
       @number      = number
       @confirm     = Amber::Substitute.strings(options, step['confirm'])
       @expectation = Amber::Substitute.strings(options, step['expectation'])
-      argument     = Amber::Substitute.strings(options, step['argument'])
+      argument     = File.expand_path(Amber::Substitute.strings(options, step['argument']))
       @command     = "#{sudo}#{step['command']} #{argument}"
       @evidence    = Amber::Substitute.strings(options, step['evidence'])
       @workingdir  = set_working_dir(step, workingdir)
