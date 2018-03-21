@@ -18,30 +18,25 @@ module Amber
     end
 
     def Substitute.file(options, text)
-      text.gsub(/\${file}/, "#{File.basename(options.filename.first, ".*")}")
-      text.gsub(/\${FILE}/, "#{File.basename(options.filename.first, ".*")}")
+      text.gsub(/(\${file}|\${FILE})/, 
+                "#{File.basename(options.filename.first, ".*")}")
     end
 
     def Substitute.browser(options, text)
-      text.gsub(/\${browser}/, "#{options.browser}")
-      text.gsub(/\${BROWSER}/, "#{options.browser}")
+      text.gsub(/(\${browser}|\${BROWSER})/, "#{options.browser}")
     end
 
     def Substitute.language(options, text)
-      text.gsub(/\${language}/, "#{options.language}")
-      text.gsub(/\${LANGUAGE}/, "#{options.language}")
+      text.gsub(/(\${language}|\${LANGUAGE})/, "#{options.browser}")
     end
 
     def Substitute.language_code(options, text)
-      text.gsub(/\${language-code}/, 
-                "#{Amber::Language::Code.key(options.language)}")
-      text.gsub(/\${LANGUAGE-CODE}/, 
+      text.gsub(/(\${language-code}|\${LANGUAGE-CODE})/, 
                 "#{Amber::Language::Code.key(options.language)}")
     end
 
     def Substitute.home(text)
-      text.gsub(/\${home}/, "~")
-      text.gsub(/\${HOME}/, "~")
+      text.gsub(/(\${home}|\${HOME})/, "~")
     end
 
     def Substitute.expand_path(text)
