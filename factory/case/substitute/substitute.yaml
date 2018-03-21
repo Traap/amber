@@ -11,9 +11,29 @@ case:
     - confirm: All text objects have correct ${language} translations. 
       expectation: >
         All textual inspections are correct, user interface screens are
-        captured, and subsutions for [${file}, ${language}, ${browser}, ${language-code}]
-        are accurate.
+        captured, and subsutions for [${file}, ${language}, ${browser},
+        ${language-code}, ${home}] are accurate.
       sudo: false
       command: echo 
-      argument: gradle test --tests *${file} -Dbrowser=${browser} -Dlanguage=${language-code}
+      argument: >
+        gradle -p ~/git/ui-automation-centerium 
+        test --tests 
+        *${file} 
+        -Dbrowser=${browser} 
+        -Dlanguage=${language-code}
+      evidence: Starts on next line.
+
+    - confirm: All text objects have correct ${LANGUAGE} translations. 
+      expectation: >
+        All textual inspections are correct, user interface screens are
+        captured, and subsutions for [${FILE}, ${LANGUAGE}, ${BROWSER},
+        ${LANGUAGE-CODE}, ${HOME}] are accurate.
+      sudo: false
+      command: echo 
+      argument: >
+        gradle -p ${HOME}/git/ui-automation-centerium 
+        test --tests 
+        *${FILE} 
+        -Dbrowser=${BROWSER} 
+        -Dlanguage=${LANGUAGE-CODE}
       evidence: Starts on next line.

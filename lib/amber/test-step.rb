@@ -23,8 +23,15 @@ module Amber
       @number      = number
       @confirm     = Amber::Substitute.strings(options, step['confirm'])
       @expectation = Amber::Substitute.strings(options, step['expectation'])
-      argument     = File.expand_path(Amber::Substitute.strings(options, step['argument']))
-      @command     = "#{sudo}#{step['command']} #{argument}"
+
+      command      = Amber::Substitute.expand_path(
+                     Amber::Substitute.strings(options, step['command']))
+      
+      argument     = Amber::Substitute.expand_path(
+                     Amber::Substitute.strings(options, step['argument']))
+
+      @command     = "#{sudo}#{command} #{argument}"
+
       @evidence    = Amber::Substitute.strings(options, step['evidence'])
       @workingdir  = set_working_dir(step, workingdir)
     end
@@ -33,15 +40,18 @@ module Amber
 
     def run_command
       stdout, stderr, status =
-        TestEvidence.run_from_temp_directory(@command, @workingdir) if !@options.dryrun
+        TestEvidence.run_from_temp_directory(
+          @command, @workingdir) if !@options.dryrun
     end
 
     private
     def set_working_dir(step, workingdir)
       wd = step['workingdir']
+      wd = Amber::Substitute.expand_path(wd) if !wd.nil?
+
       tmp = TestEvidence::assemble_temp_root(@options)
 
-      # This step will used working directory define at steps level.
+      # This step will used working directory define at test case level.
       if wd.nil? then
         if workingdir.nil? then
           wdir = tmp 
@@ -53,7 +63,7 @@ module Amber
       elsif wd == "nil"
         wdir = tmp 
 
-      # This step will use the working directory it defined.
+      # This step will use the working directory defined at the step level. 
       else
         wdir = tmp + File::SEPARATOR + wd
       end
