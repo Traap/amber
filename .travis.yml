@@ -22,4 +22,4 @@ deploy:
     repo: Traap/amber
 notifications:
   email: false
-  slack: allanconsulting:PbXITWcTKTr1Rk2CbFzCN7ra
+  slack: allanconsulting:EmHXAakvTUf7qbih0blfDdKs
