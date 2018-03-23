@@ -5,10 +5,10 @@ require 'amber/language'
 module Amber
   module Substitute
 
-    def Substitute.strings(options, text)
+    def Substitute.strings(filename, options, text)
       if !text.nil? then
         Substitute.home(
-          Substitute.file(options,
+          Substitute.file(filename,
             Substitute.browser(options,
               Substitute.language(options,
                 Substitute.language_code(options, text)))))
@@ -17,9 +17,8 @@ module Amber
       end
     end
 
-    def Substitute.file(options, text)
-      text.gsub(/(\${file}|\${FILE})/, 
-                "#{File.basename(options.filename.first, ".*")}")
+    def Substitute.file(filename, text)
+      text.gsub(/(\${file}|\${FILE})/, File.basename(filename, ".*"))
     end
 
     def Substitute.browser(options, text)
@@ -27,7 +26,7 @@ module Amber
     end
 
     def Substitute.language(options, text)
-      text.gsub(/(\${language}|\${LANGUAGE})/, "#{options.browser}")
+      text.gsub(/(\${language}|\${LANGUAGE})/, "#{options.language}")
     end
 
     def Substitute.language_code(options, text)

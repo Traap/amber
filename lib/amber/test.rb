@@ -11,10 +11,10 @@ module Amber
       @command = nil
       @data = data
       @filename = filename
-      @name = Amber::Substitute.strings(options, data['name'])
+      @name = Amber::Substitute.strings(@filename, options, data['name'])
       @options = options
-      @purpose = Amber::Substitute.strings(options, data['purpose'])
-      @requirement = Amber::Substitute.strings(options, data['requirement'])
+      @purpose = Amber::Substitute.strings(@filename, options, data['purpose'])
+      @requirement = Amber::Substitute.strings(@filename, options, data['requirement'])
       @type = type
     end
 

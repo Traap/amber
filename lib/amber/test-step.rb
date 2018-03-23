@@ -21,18 +21,18 @@ module Amber
       end
 
       @number      = number
-      @confirm     = Amber::Substitute.strings(options, step['confirm'])
-      @expectation = Amber::Substitute.strings(options, step['expectation'])
+      @confirm     = Amber::Substitute.strings(@filename, options, step['confirm'])
+      @expectation = Amber::Substitute.strings(@filename, options, step['expectation'])
 
       command      = Amber::Substitute.expand_path(
-                     Amber::Substitute.strings(options, step['command']))
+                     Amber::Substitute.strings(@filename, options, step['command']))
       
       argument     = Amber::Substitute.expand_path(
-                     Amber::Substitute.strings(options, step['argument']))
+                     Amber::Substitute.strings(@filename, options, step['argument']))
 
       @command     = "#{sudo}#{command} #{argument}"
 
-      @evidence    = Amber::Substitute.strings(options, step['evidence'])
+      @evidence    = Amber::Substitute.strings(@filename, options, step['evidence'])
       @workingdir  = set_working_dir(step, workingdir)
     end
 
