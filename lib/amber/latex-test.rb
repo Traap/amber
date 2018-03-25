@@ -24,11 +24,11 @@ module Amber
                                                   @decoratee.options)
     end
 
-    def echo_to_sysout
+    def echo_to_sysout(outline_level)
       @decoratee.echo_to_sysout
 
       name = "#{@decoratee.type}: #{@decoratee.name}"
-      @handle.write "\\subsection{#{name}}\n"
+      @handle.write "\\#{outline_level}{#{name}}\n"
       @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
       @handle.write "\\item[Purpose:] #{@decoratee.purpose}\n"
       @handle.write "\\item[Requirement:] #{@decoratee.requirement}\n" if !@decoratee.requirement.nil?

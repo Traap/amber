@@ -11,7 +11,7 @@ module Amber
     end
 
     def echo_to_sysout
-      method(:echo_to_sysout).super_method.call 
+      method(:echo_to_sysout).super_method.call("paragraph")
     end
 
   end # LaTeX_TestCase
