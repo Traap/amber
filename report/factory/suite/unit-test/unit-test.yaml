@@ -1,9 +1,9 @@
 suite:
-  name: Smoke Test
+  name: ${file} 
   purpose: > 
       This test suite ensures the system has meet the mimimum requirements for
       further testing.
-  requirement: 123, 456, 789
+  requirement: R123, R456, R789
 
 includes:
   - case:

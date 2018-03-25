@@ -1,7 +1,7 @@
 suite:
   name: Boundary Test
   purpose: This test suite ensures all lower and upper limit boundaries are checked. 
-  requirement: 123, 456, 789
+  requirement: R123, R456, R789
 
 setup-before-all:
   steps:

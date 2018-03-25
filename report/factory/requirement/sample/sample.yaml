@@ -1,7 +1,5 @@
-# ------------------------------------------------------------------------------
-# tool-validation/factory/requirement/sample/sample.yaml
-# ------------------------------------------------------------------------------
 requirements:
   - number: IUR-000
     description: > 
-      As a designer, I want to 
+      As a designer, I want to demonstrate Amber works correctly so that Amber
+      will be used by other people.

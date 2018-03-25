@@ -1,18 +1,18 @@
 case:
-  name: Fifth Test Case 
-  purpose: Demonstrate requirement 789 is met. 
-  requirement: 789 
+  name: ${file} 
+  purpose: Demonstrate requirement R987 is met.
+  requirement: R789
   steps:
     - confirm: Program whois has been installed.
       expectation: whois installation location is displayed.
       sudo: false 
       command: which
-      argument: whois 
+      argument: whois
       evidence: Starts on next line.
 
-    - confirm: Program yes has been installed.
-      expectation: yes installation location is displayed.
+    - confirm: Program ypcat has been installed.
+      expectation: ypcat installation location is displayed.
       sudo: false
       command: which
-      argument: yes 
+      argument: ypcat 
       evidence: Starts on next line.

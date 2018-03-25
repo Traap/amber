@@ -1,5 +1,5 @@
 plan:
-  name: Boundary Test Plan 
+  name: ${file} 
   purpose: >
     This plan uses white box methods.  The output is sufficient for DHF
     purposes.  However, the output is generally only used by engineers.
