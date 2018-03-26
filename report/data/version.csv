@@ -1,2 +1,2 @@
-company          | product | version | releaseDate      | status
-Allan Consulting | Amber   | v1.0.0  | March 24th, 2018 | Engineering Draft
+version | data             | status   | institution | permission
+v1.0.0 1| March 25th, 2018 | RELEASED | Traap       | BSD-3-Clause
