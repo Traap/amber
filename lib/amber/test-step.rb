@@ -68,7 +68,7 @@ module Amber
         wdir = tmp + File::SEPARATOR + wd
       end
 
-      return wdir
+      return wdir.strip
     end
 
   end # TestStep
