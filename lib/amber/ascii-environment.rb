@@ -3,27 +3,26 @@ require 'amber/outputfiles'
 
 module Amber
   class Ascii_Environment < Environment
-
     def initialize(decoratee, options)
       @decoratee = decoratee
-      @options = options 
-      @handle = nil  
+      @options = options
+      @handle = nil
     end
 
     def echo_to_sysout
-      @handle = TestEvidence::open_environment_log_file(@options)
+      @handle = TestEvidence.open_environment_log_file(@options)
       @handle.write "System Environment\n"
       @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
 
       @decoratee.environment.each do |e|
-        if e == "PATH" then
+        if e == 'PATH'
           echo_e_to_sysout(e)
         else
           @handle.write "  #{e} = #{ENV[e]}\n"
         end
       end
 
-      TestEvidence::close_file @handle
+      TestEvidence.close_file @handle
     end
 
     def echo_e_to_sysout(e)
@@ -34,6 +33,5 @@ module Amber
       end
       @handle.write "\n"
     end
-
-  end #Ascii_Environment
-end #Amber
+  end # Ascii_Environment
+end # Amber

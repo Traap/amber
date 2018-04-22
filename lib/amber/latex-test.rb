@@ -31,20 +31,19 @@ module Amber
       @handle.write "\\#{outline_level}{#{name}}\n"
       @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
       @handle.write "\\item[Purpose:] #{@decoratee.purpose}\n"
-      @handle.write "\\item[Requirement:] #{@decoratee.requirement}\n" if !@decoratee.requirement.nil?
+      @handle.write "\\item[Requirement:] #{@decoratee.requirement}\n" unless @decoratee.requirement.nil?
       @handle.write "\\end{description}\n"
       @handle.flush
     end
 
     def run_command
-      @decoratee.run_command if !@options.dryrun
+      @decoratee.run_command unless @options.dryrun
     end
 
     def teardown
-      Amber::TestEvidence.record_test_name(@macro, @decoratee.options) if !@macro.nil?
+      Amber::TestEvidence.record_test_name(@macro, @decoratee.options) unless @macro.nil?
       Amber::TestEvidence.close_file(@handle)
       @handle = nil
     end
-
   end # LaTeX_Test
 end # Amber

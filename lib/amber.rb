@@ -8,7 +8,7 @@
 #
 # Amber process YAML files to run test plans, test suites, and test cases in
 # order to assemble records that meet Quality Systems Regulations requirements
-# for documented evidence. 
+# for documented evidence.
 # ------------------------------------------------------------------------------
 
 require 'amber/environment'
@@ -18,28 +18,25 @@ require 'amber/options'
 require 'amber/workflow'
 
 # ------------------------------------------------------------------------------
-module Amber 
+module Amber
   class CLI
-
     def execute(args)
       options = CommandLineOptions.parse args
 
-      if options then 
+      if options
 
         Workflow.new(options).orchestrate
 
-        if options.environment then
+        if options.environment
 
           Amber::TestFactory
-          .get_environment(options)
+            .get_environment(options)
             .echo_to_sysout
 
         end
 
       end
-
     end
-
   end # CLI
 end # Amber
 # ------------------------------------------------------------------------------

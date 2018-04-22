@@ -7,28 +7,27 @@ module Amber
     attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir
 
     def initialize(filename, data, options, step, number, workingdir)
+      super('Test Step', filename, data, options)
 
-      super("Test Step", filename, data, options)
-
-      if step['sudo'] then
-        if ["cygwin", "mingw32"].include?(RbConfig::CONFIG['host_os']) then
-          sudo = nil
-        else
-          sudo = "sudo "
-        end
-      else
-        sudo = nil
-      end
+      sudo = if step['sudo']
+               if %w[cygwin mingw32].include?(RbConfig::CONFIG['host_os'])
+                 nil
+               else
+                 'sudo '
+                      end
+             end
 
       @number      = number
       @confirm     = Amber::Substitute.strings(@filename, options, step['confirm'])
       @expectation = Amber::Substitute.strings(@filename, options, step['expectation'])
 
       command      = Amber::Substitute.expand_path(
-                     Amber::Substitute.strings(@filename, options, step['command']))
-      
-      argument     = Amber::Substitute.expand_path(
-                     Amber::Substitute.strings(@filename, options, step['argument']))
+        Amber::Substitute.strings(@filename, options, step['command'])
+      )
+
+      argument = Amber::Substitute.expand_path(
+        Amber::Substitute.strings(@filename, options, step['argument'])
+      )
 
       @command     = "#{sudo}#{command} #{argument}"
 
@@ -39,37 +38,40 @@ module Amber
     def echo_to_sysout; end
 
     def run_command
-      stdout, stderr, status =
-        TestEvidence.run_from_temp_directory(
-          @command, @workingdir) if !@options.dryrun
+      unless @options.dryrun
+        stdout, stderr, status =
+          TestEvidence.run_from_temp_directory(
+            @command, @workingdir
+          )
+      end
     end
 
     private
+
     def set_working_dir(step, workingdir)
       wd = step['workingdir']
-      wd = Amber::Substitute.expand_path(wd) if !wd.nil?
+      wd = Amber::Substitute.expand_path(wd) unless wd.nil?
 
-      tmp = TestEvidence::assemble_temp_root(@options)
+      tmp = TestEvidence.assemble_temp_root(@options)
 
       # This step will used working directory define at test case level.
-      if wd.nil? then
-        if workingdir.nil? then
-          wdir = tmp 
-        else
-          wdir = tmp + File::SEPARATOR + workingdir
-        end
+      if wd.nil?
+        wdir = if workingdir.nil?
+                 tmp
+               else
+                 tmp + File::SEPARATOR + workingdir
+               end
 
       # This step will nullify the working directory defined at the steps level.
-      elsif wd == "nil"
-        wdir = tmp 
+      elsif wd == 'nil'
+        wdir = tmp
 
-      # This step will use the working directory defined at the step level. 
+      # This step will use the working directory defined at the step level.
       else
         wdir = tmp + File::SEPARATOR + wd
       end
 
-      return wdir.strip
+      wdir.strip
     end
-
   end # TestStep
 end # Amber

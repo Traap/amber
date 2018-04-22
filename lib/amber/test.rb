@@ -21,30 +21,28 @@ module Amber
     def process
       setup
       echo_to_sysout
-      run_command if !@options.dryrun
+      run_command unless @options.dryrun
       teardown
     end
 
     protected
+
     def setup; end
 
     def teardown; end
 
     def echo_to_sysout
-      name = "#{@type}: ".rjust(15) << "#{@name}"
-      puts "#{name}" if @options.verbose
+      name = "#{@type}: ".rjust(15) << @name.to_s
+      puts name.to_s if @options.verbose
     end
 
     def run_command
-      begin
-        puts "#{@command}" if @options.verbose
-        status = system(@command)
-      rescue ShellError
-        msg = "System command failed: #{status}"
-        puts "#{msg}\n" if @options.verbose
-        abort msg
-      end
+      puts @command.to_s if @options.verbose
+      status = system(@command)
+    rescue ShellError
+      msg = "System command failed: #{status}"
+      puts "#{msg}\n" if @options.verbose
+      abort msg
     end
-
   end # Test
 end # Amber orchestrate

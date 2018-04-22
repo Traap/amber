@@ -24,40 +24,38 @@ require 'amber/options'
 
 module Amber
   module LaTeX_Utility
-
-    def LaTeX_Utility.get_plan_macro(decoratee)
-      macro = "\\tpo"
+    def self.get_plan_macro(decoratee)
+      macro = '\\tpo'
       macro = LaTeX_Utility.append_browser_and_language(macro, decoratee)
       macro = LaTeX_Utility.append_filename(macro, decoratee)
     end
 
-    def LaTeX_Utility.get_suite_macro(decoratee)
-      macro = "\\tso"
+    def self.get_suite_macro(decoratee)
+      macro = '\\tso'
       macro = LaTeX_Utility.append_browser_and_language(macro, decoratee)
       macro = LaTeX_Utility.append_filename(macro, decoratee)
     end
 
-    def LaTeX_Utility.get_case_macro(decoratee)
-      macro = "\\tco"
+    def self.get_case_macro(decoratee)
+      macro = '\\tco'
       macro = LaTeX_Utility.append_browser_and_language(macro, decoratee)
       macro = LaTeX_Utility.append_filename(macro, decoratee)
     end
 
-    def LaTeX_Utility.append_browser_and_language(macro, decoratee)
+    def self.append_browser_and_language(macro, decoratee)
       browser  = decoratee.options.browser
       language = decoratee.options.language
       code     = Amber::Language::Code.key(language)
 
       if !browser.nil? && !language.nil?
-        macro << "C{" << browser <<  "}{" << code << "}"
+        macro << 'C{' << browser << '}{' << code << '}'
       end
 
-      return macro
+      macro
     end
 
-    def LaTeX_Utility.append_filename(macro, decoratee)
-      macro << "{" + File.basename(decoratee.filename, ".*") + "}\n"
+    def self.append_filename(macro, decoratee)
+      macro << '{' + File.basename(decoratee.filename, '.*') + "}\n"
     end
-
   end # Writer
 end # Amber

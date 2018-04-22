@@ -1,4 +1,4 @@
-$:.unshift File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift File.expand_path('lib', __dir__)
 require 'amber/version'
 
 Gem::Specification.new do |s|
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.files         = Dir['lib/**/*']
   s.test_files    = Dir['text/**/*.rb']
 
-  s.executables   = %w(amber)
+  s.executables   = %w[amber]
 
   s.required_ruby_version = '>= 1.9.3'
 
