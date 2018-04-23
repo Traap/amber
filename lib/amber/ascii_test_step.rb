@@ -1,11 +1,11 @@
 require 'amber/ascii_test'
 
 module Amber
-  # ShellError 
+  # ShellError
   class ShellError < StandardError; end
 
   # Decorate test step output with Ascii text.
-  class Ascii_TestStep < Ascii_Test
+  class AsciiTestStep < AsciiTest
     def initialize(decoratee)
       super(decoratee)
       @test_result = 'FAIL'
@@ -21,13 +21,7 @@ module Amber
 
     def run_command
       stdout, stderr, status = @decoratee.run_command
-      if status.success?
-        @test_result = 'PASS'
-        output = stdout
-      else
-        @test_result = 'FAIL'
-        output = stderr
-      end
+      @test_result, output = check_status(stdout, stderr, status)
       @handle.write  "  Test Result: #{@test_result}\n"
       @handle.write  "     Evidence: #{@decoratee.evidence}\n"
       @handle.write  "#{output}\n"
@@ -38,6 +32,17 @@ module Amber
       @handle.flush
       puts "#{msg}\n" if @options.verbose
       abort msg
+    end
+
+    def check_status(stdout, stderr, status)
+      if status.success?
+        @test_result = 'PASS'
+        output = stdout
+      else
+        @test_result = 'FAIL'
+        output = stderr
+      end
+      [@test_result, output]
     end
 
     def teardown

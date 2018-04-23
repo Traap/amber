@@ -1,4 +1,4 @@
-_ LaTeX_Utility assembles the strings listed below which represent macros
+# LaTeX_Utility assembles the strings listed below which represent macros
 # autodoc expands into the locations of files created by amber.
 #
 # (tpo) Test Plan Output
@@ -18,7 +18,7 @@ _ LaTeX_Utility assembles the strings listed below which represent macros
 #
 # ------------------------------------------------------------------------------
 
-require 'amber/latex-test'
+require 'amber/latex_test'
 require 'amber/language'
 require 'amber/options'
 

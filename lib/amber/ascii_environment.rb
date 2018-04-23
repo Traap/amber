@@ -3,7 +3,7 @@ require 'amber/outputfiles'
 
 module Amber
   # Decorate environment output with Ascii text.
-  class Ascii_Environment < Environment
+  class AsciiEnvironment < Environment
     def initialize(decoratee, options)
       @decoratee = decoratee
       @options = options
@@ -13,24 +13,22 @@ module Amber
     def echo_to_sysout
       @handle = TestEvidence.open_environment_log_file(@options)
       @handle.write "System Environment\n"
-      @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
 
-      @decoratee.environment.each do |e|
-        if e == 'PATH'
-          echo_e_to_sysout(e)
+      @decoratee.environment.each do |env|
+        if env == 'PATH'
+          echo_split_path_to_sysout(env)
         else
-          @handle.write "  #{e} = #{ENV[e]}\n"
+          @handle.write "  #{env} = #{ENV[env]}\n"
         end
       end
 
       TestEvidence.close_file @handle
     end
 
-    def echo_e_to_sysout(e)
-      @handle.write "  #{e} = "
-      f = ENV[e].split(':')
-      f.each do |g|
-        @handle.write "         #{g}"
+    def echo_split_path_to_sysout(path)
+      @handle.write "  #{path} = "
+      ENV[path].split(':').each do |ggg|
+        @handle.write "         #{ggg}"
       end
       @handle.write "\n"
     end

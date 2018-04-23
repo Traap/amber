@@ -2,7 +2,7 @@ require 'amber/ascii_test'
 
 module Amber
   # Decorate test case output with Ascii text.
-  class Ascii_TestCase < Ascii_Test
+  class AsciiTestCase < AsciiTest
     def initialize(decoratee)
       super(decoratee)
     end

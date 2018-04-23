@@ -1,7 +1,7 @@
 # The types of output Writers.  The default is LaTeX.
 module Amber
   module Writer
-    Names = %w[Ascii LaTeX].freeze
-    Default = 'LaTeX'.freeze
+    NAMES = %w[Ascii LaTeX].freeze
+    DEFAULT = 'LaTeX'.freeze
   end
 end

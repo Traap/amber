@@ -11,15 +11,15 @@ module Amber
 
     # ------------------------------------------------------------------------------
     def initialize
-      self.browser = Amber::Browser::Default
+      self.browser = Amber::Browser::DEFAULT
       self.dryrun = true
       self.environment = false
       self.filename = []
-      self.language = Amber::Language::Default
+      self.language = Amber::Language::DEFAULT
       self.options = nil
       self.parser = nil
       self.verbose = false
-      self.writer = Amber::Writer::Default
+      self.writer = Amber::Writer::DEFAULT
     end
 
     # ------------------------------------------------------------------------------
@@ -120,16 +120,16 @@ module Amber
 
     # ------------------------------------------------------------------------------
     def self.writer_option(parser)
-      parser.on('-w', '--writer WRITER', String, Amber::Writer::Names,
-                'Select writer', Amber::Writer::Names.to_s) do |z|
+      parser.on('-w', '--writer WRITER', String, Amber::Writer::NAMES,
+                'Select writer', Amber::Writer::NAMES.to_s) do |z|
         @options.writer = z
       end
     end
 
     # ------------------------------------------------------------------------------
     def self.browser_option(parser)
-      parser.on('-b', '--browser BROWSER', String, Amber::Browser::Names,
-                'Select Browser', Amber::Browser::Names.to_s) do |z|
+      parser.on('-b', '--browser BROWSER', String, Amber::Browser::NAMES,
+                'Select Browser', Amber::Browser::NAMES.to_s) do |z|
         @options.browser = z
       end
     end
@@ -137,8 +137,8 @@ module Amber
     # ------------------------------------------------------------------------------
     def self.language_option(parser)
       parser.on('-l', '--language LANGUAGE',
-                Amber::Language::Names, Amber::Language::Code,
-                'Select language', Amber::Language::Names.to_s) do |z|
+                Amber::Language::NAMES, Amber::Language::CODE,
+                'Select language', Amber::Language::NAMES.to_s) do |z|
         @options.language = z
       end
     end
@@ -168,8 +168,8 @@ module Amber
     # ------------------------------------------------------------------------------
 
     def self.nil_browser_and_language_when_defaults
-      if @options.browser.eql?(Amber::Browser::Default) ||
-         @options.browser.eql?(Amber::Language::Default)
+      if @options.browser.eql?(Amber::Browser::DEFAULT) ||
+         @options.browser.eql?(Amber::Language::DEFAULT)
         @options.browser = nil
         @options.language = nil
       end

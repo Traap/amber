@@ -14,12 +14,9 @@ module Amber
       nbr = 0
       @data['steps'].each do |s|
         nbr += 1
-        step = Amber::TestFactory.get_test_step(@filename,
-                                                @data,
-                                                @options,
-                                                s,
-                                                nbr,
-                                                workingdir)
+        step = Amber::TestFactory.get_test_step(
+          @filename, @data, @options, s, nbr, workingdir
+        )
         step.process
       end
     end

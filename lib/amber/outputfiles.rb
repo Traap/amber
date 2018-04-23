@@ -32,24 +32,24 @@ require 'fileutils'
 
 module Amber
   module TestEvidence
-    Test_Output_Dir = 'test-output'.freeze
-    Test_Output = TestEvidence::Test_Output_Dir + File::SEPARATOR
-    Result_File_Extension = '.txt'.freeze
-    Step_File = 'step-'.freeze
-    Environment_Log = TestEvidence::Test_Output + 'environment'
-    Test_Results_Log = TestEvidence::Test_Output + 'test-results'
-    LaTeX_File_Extension = '.tex'.freeze
-    Ascii_File_Extension = '.txt'.freeze
+    TEST_OUTPUT_DIR = 'test-output'.freeze
+    TEST_OUTPUT = TestEvidence::TEST_OUTPUT_DIR + File::SEPARATOR
+    RESULT_FILE_EXTENSION = '.txt'.freeze
+    STEP_FILE = 'step-'.freeze
+    ENVIRONMENT_LOG = TestEvidence::TEST_OUTPUT + 'environment'
+    TEST_RESULTS_LOG = TestEvidence::TEST_OUTPUT + 'test-results'
+    LATEX_FILE_EXTENSION = '.tex'.freeze
+    ASCII_FILE_EXTENSION = '.txt'.freeze
 
     # --------------------------------------------------------------------------
 
     def self.assemble_test_output_root(options)
       if options.browser.nil? || options.language.nil?
-        TestEvidence::Test_Output
+        TestEvidence::TEST_OUTPUT
       else
-        TestEvidence::Test_Output +
+        TestEvidence::TEST_OUTPUT +
           options.browser + File::SEPARATOR +
-          Amber::Language::Code.key(options.language) + File::SEPARATOR
+          Amber::Language::CODE.key(options.language) + File::SEPARATOR
       end
     end
 
@@ -75,8 +75,12 @@ module Amber
     # --------------------------------------------------------------------------
 
     def self.use_file_extension(options)
-      options.writer == 'LaTeX' ? TestEvidence::LaTeX_File_Extension
-                                : TestEvidence::Ascii_File_Extension
+      # rubocop:disable Style/MultilineTernaryOperator
+
+      options.writer == 'LaTeX' ? TestEvidence::LATEX_FILE_EXTENSION
+                                : TestEvidence::ASCII_FILE_EXTENSION
+
+      # rubocop:enablj Style/MultilineTernaryOperator
     end
 
     # --------------------------------------------------------------------------
@@ -95,7 +99,7 @@ module Amber
 
     def self.open_environment_log_file(options)
       TestEvidence.open_file(
-        TestEvidence::Environment_Log +
+        TestEvidence::ENVIRONMENT_LOG +
         TestEvidence.use_file_extension(options)
       )
     end
@@ -105,7 +109,7 @@ module Amber
     def self.record_test_name(name, options)
       handle =
         TestEvidence.open_file(
-          TestEvidence::Test_Results_Log +
+          TestEvidence::TEST_RESULTS_LOG +
           TestEvidence.use_file_extension(options)
         )
       handle.write(name)
@@ -120,7 +124,7 @@ module Amber
           TestEvidence.assemble_test_output_root(options) +
           File.dirname(input) +
           File::SEPARATOR +
-          TestEvidence::Step_File +
+          TestEvidence::STEP_FILE +
           nbr.to_s.rjust(3, '0') +
           TestEvidence.use_file_extension(options)
         )

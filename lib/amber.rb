@@ -12,7 +12,7 @@
 # ------------------------------------------------------------------------------
 
 require 'amber/environment'
-require 'amber/factory-method'
+require 'amber/factory_method'
 require 'amber/initialize'
 require 'amber/options'
 require 'amber/workflow'
@@ -23,21 +23,9 @@ module Amber
   # workflow, and record the environment Amber was run with.
   class CLI
     def execute(args)
-      options = CommandLineOptions.parse args
-
-      if options
-
-        Workflow.new(options).orchestrate
-
-        if options.environment
-
-          Amber::TestFactory
-            .get_environment(options)
-            .echo_to_sysout
-
-        end
-
-      end
+      opt = CommandLineOptions.parse args
+      Workflow.new(opt).orchestrate
+      Amber::TestFactory.get_environment(opt).echo_to_sysout if opt.environment
     end
   end
 end

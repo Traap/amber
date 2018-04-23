@@ -1,9 +1,9 @@
 # Languages that Amber support.
 module Amber
   module Language
-    Names = %w[zz da de en es fr-ca fr-eu it ne no sv].freeze
+    NAMES = %w[zz da de en es fr-ca fr-eu it ne no sv].freeze
 
-    Code = { 'zz' => 'n/a',
+    CODE = { 'zz' => 'n/a',
              'da' => 'Dansk',
              'de' => 'Deutsch',
              'en' => 'English',
@@ -15,6 +15,6 @@ module Amber
              'no' => 'Norsk',
              'sv' => 'Svenska' }.freeze
 
-    Default = 'zz'.freeze
+    DEFAULT = 'zz'.freeze
   end
 end

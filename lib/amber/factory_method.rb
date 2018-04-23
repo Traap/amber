@@ -17,6 +17,7 @@ require 'amber/environment'
 require 'amber/latex_environment'
 require 'amber/ascii_environment'
 
+# Amber is the primary module.
 module Amber
   # Factory methods used to instantiate Test Plan, Test Suite, Test Cases, Test
   # Steps, and system environment LaTeX or Ascii decorator objects.
@@ -24,45 +25,45 @@ module Amber
     def self.get_test_plan(filename, data, options)
       decoratee = TestPlan.new(filename, data, options)
       if options.writer == 'LaTeX'
-        LaTeX_TestPlan.new(decoratee)
+        LaTeXTestPlan.new(decoratee)
       else
-        Ascii_TestPlan.new(decoratee)
+        AsciiTestPlan.new(decoratee)
       end
     end
 
     def self.get_test_suite(filename, data, options)
       decoratee = TestSuite.new(filename, data, options)
       if options.writer == 'LaTeX'
-        LaTeX_TestSuite.new(decoratee)
+        LaTeXTestSuite.new(decoratee)
       else
-        Ascii_TestSuite.new(decoratee)
+        AsciiTestSuite.new(decoratee)
       end
     end
 
     def self.get_test_case(filename, data, options)
       decoratee = TestCase.new(filename, data, options)
       if options.writer == 'LaTeX'
-        LaTeX_TestCase.new(decoratee)
+        LaTeXTestCase.new(decoratee)
       else
-        Ascii_TestCase.new(decoratee)
+        AsciiTestCase.new(decoratee)
       end
     end
 
     def self.get_test_step(filename, data, options, step, nbr, workingdir)
       decoratee = TestStep.new(filename, data, options, step, nbr, workingdir)
       if options.writer == 'LaTeX'
-        LaTeX_TestStep.new(decoratee)
+        LaTeXTestStep.new(decoratee)
       else
-        Ascii_TestStep.new(decoratee)
+        AsciiTestStep.new(decoratee)
       end
     end
 
     def self.get_environment(options)
       decoratee = Environment.new
       if options.writer == 'LaTeX'
-        LaTeX_Environment.new(decoratee, options)
+        LaTeXEnvironment.new(decoratee, options)
       else
-        Ascii_Environment.new(decoratee, options)
+        AsciiEnvironment.new(decoratee, options)
       end
     end
   end
