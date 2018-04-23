@@ -4,9 +4,9 @@ require 'fileutils'
 
 module Amber
   # Decorate test plan output with LaTeX text.
-  class LaTeX_TestPlan < LaTeX_Test
+  class LaTeXTestPlan < LaTeXTest
     def initialize(decoratee)
-      macro = LaTeX_Utility.get_plan_macro(decoratee)
+      macro = LaTeXUtility.get_plan_macro(decoratee)
       super(decoratee, macro)
     end
 

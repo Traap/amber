@@ -26,7 +26,7 @@ module Amber
     end
 
     def include_this_file(name, opt)
-      code = Amber::Language::Code.key(@options.language)
+      code = Amber::Language::CODE.key(@options.language)
       opt_and_files = "#{opt}=#{name.map(&:values).join(',')}"
       @command = 'amber'
       @command.concat ' --nodryrun'                    unless @options.dryrun

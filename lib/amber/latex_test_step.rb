@@ -5,7 +5,7 @@ module Amber
   class ShellError < StandardError; end
 
   # Decorate test step output with LaTeX text.
-  class LaTeX_TestStep < LaTeX_Test
+  class LaTeXTestStep < LaTeXTest
     def initialize(decoratee)
       super(decoratee, nil)
       @test_result = 'FAIL'

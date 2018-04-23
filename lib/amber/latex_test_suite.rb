@@ -4,9 +4,9 @@ require 'fileutils'
 
 module Amber
   # Decorate test suite output with LaTeX text.
-  class LaTeX_TestSuite < LaTeX_Test
+  class LaTeXTestSuite < LaTeXTest
     def initialize(decoratee)
-      macro = LaTeX_Utility.get_suite_macro(decoratee)
+      macro = LaTeXUtility.get_suite_macro(decoratee)
       super(decoratee, macro)
     end
 

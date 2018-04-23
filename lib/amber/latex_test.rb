@@ -3,7 +3,7 @@ require 'amber/outputfiles'
 
 module Amber
   # Base class used to decorate output with LaTeX text.
-  class LaTeX_Test < Test
+  class LaTeXTest < Test
     attr_reader :decoratee, :macro
 
     def initialize(decoratee, macro)

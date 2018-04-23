@@ -3,7 +3,7 @@ require 'amber/outputfiles'
 
 module Amber
   # Decorate environment output with LaTeX text.
-  class LaTeX_Environment < Environment
+  class LaTeXEnvironment < Environment
     def initialize(decoratee, options)
       @decoratee = decoratee
       @options = options

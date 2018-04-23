@@ -52,7 +52,7 @@ module Amber
 
     def self.language_code(options, text)
       text.gsub(/(\${language-code}|\${LANGUAGE-CODE})/,
-                Amber::Language::Code.key(options.language).to_s)
+                Amber::Language::CODE.key(options.language).to_s)
     end
 
     def self.home(text)

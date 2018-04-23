@@ -4,9 +4,9 @@ require 'fileutils'
 
 module Amber
   # Decorate Test Case output with LaTeX text.
-  class LaTeX_TestCase < LaTeX_Test
+  class LaTeXTestCase < LaTeXTest
     def initialize(decoratee)
-      macro = LaTeX_Utility.get_case_macro(decoratee)
+      macro = LaTeXUtility.get_case_macro(decoratee)
       super(decoratee, macro)
     end
 
