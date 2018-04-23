@@ -1,6 +1,7 @@
-require 'amber/ascii-test'
+require 'amber/ascii_test'
 
 module Amber
+  # Decorate test plan output with Ascii text.
   class Ascii_TestPlan < Ascii_Test
     def initialize(decoratee)
       super(decoratee)

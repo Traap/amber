@@ -1,4 +1,4 @@
-# LaTeX_Utility assembles the strings listed below which represent macros
+_ LaTeX_Utility assembles the strings listed below which represent macros
 # autodoc expands into the locations of files created by amber.
 #
 # (tpo) Test Plan Output

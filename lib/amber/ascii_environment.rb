@@ -2,6 +2,7 @@ require 'amber/environment'
 require 'amber/outputfiles'
 
 module Amber
+  # Decorate environment output with Ascii text.
   class Ascii_Environment < Environment
     def initialize(decoratee, options)
       @decoratee = decoratee

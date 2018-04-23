@@ -19,6 +19,8 @@ require 'amber/workflow'
 
 # ------------------------------------------------------------------------------
 module Amber
+  # Command Line Interface is used to parse command line options, run the Amber
+  # workflow, and record the environment Amber was run with.
   class CLI
     def execute(args)
       options = CommandLineOptions.parse args

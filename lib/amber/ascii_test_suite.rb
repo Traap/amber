@@ -1,7 +1,8 @@
-require 'amber/ascii-test'
+require 'amber/ascii_test'
 
 module Amber
-  class Ascii_TestCase < Ascii_Test
+  # Decorate test suite output with Ascii text.
+  class Ascii_TestSuite < Ascii_Test
     def initialize(decoratee)
       super(decoratee)
     end

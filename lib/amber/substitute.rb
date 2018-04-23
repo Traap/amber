@@ -1,3 +1,26 @@
+# Amber Substitute the following strings when process a YAML files.
+#
+#   The name of the YAML file.
+#     ${file}
+#     ${FILE}
+#
+#   The name of hte browers.
+#     ${browser}
+#     ${BROWSER}
+#
+#   The name of the language.
+#     ${language}
+#     ${LANGUAGE}
+#
+#   The language code.
+#     {language-code}
+#     ${language-code}
+#
+#   The home directory
+#     ~
+#     ${home}
+#     {$HOME}
+#
 require 'fileutils'
 require 'amber/options'
 require 'amber/language'
@@ -7,10 +30,10 @@ module Amber
     def self.strings(filename, options, text)
       unless text.nil?
         Substitute.home(
-          Substitute.file(filename,
-                          Substitute.browser(options,
-                                             Substitute.language(options,
-                                                                 Substitute.language_code(options, text))))
+         Substitute.file(filename,
+          Substitute.browser(options,
+           Substitute.language(options,
+             Substitute.language_code(options, text))))
         )
       end
     end

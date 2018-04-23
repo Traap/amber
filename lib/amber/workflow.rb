@@ -1,11 +1,12 @@
-require 'amber/factory-method'
+require 'amber/factory_method'
 require 'amber/include'
-require 'amber/test-case'
-require 'amber/test-plan'
-require 'amber/test-suite'
+require 'amber/test_case'
+require 'amber/test_plan'
+require 'amber/test_suite'
 require 'amber/workflow'
 
 module Amber
+  # Run the Amber workflow.
   class Workflow
     def initialize(options)
       @options = options

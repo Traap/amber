@@ -1,8 +1,10 @@
-require 'amber/latex-test'
+require 'amber/latex_test'
 
 module Amber
+  # Shell 
   class ShellError < StandardError; end
 
+  # Decorate test step output with LaTeX text.
   class LaTeX_TestStep < LaTeX_Test
     def initialize(decoratee)
       super(decoratee, nil)

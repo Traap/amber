@@ -1,8 +1,23 @@
 require 'amber/substitute'
 
 module Amber
+  # Shell Error
   class ShellError < StandardError; end
 
+  # The base class for all Test.  Amber process YAML files such as:
+  #   Test Plan
+  #     A plan typically references one or more Test Suites.
+  #
+  #   Test Suite
+  #     A suite will reference one or more Test Cases.
+  #
+  #   Test Case
+  #     A test case has one or more test step.  A test step may invoke an
+  #     external command.
+  #
+  #   Include
+  #     A reference to a YAML file somewhere in your path.
+  #
   class Test
     attr_reader :command, :data, :filename, :name, :options, :purpose,
                 :requirement, :type

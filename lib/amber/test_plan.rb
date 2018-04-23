@@ -1,6 +1,7 @@
 require 'amber/test'
 
 module Amber
+  # Decorate test plan output with LaTeX text.
   class TestPlan < Test
     def initialize(filename, data, options)
       super('Test Plan', filename, data, options)

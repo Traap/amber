@@ -4,6 +4,7 @@ require 'amber/language'
 require 'amber/writer'
 
 module Amber
+  # Command Line Parser
   class CommandLineOptions
     attr_accessor :browser, :dryrun, :environment, :filename, :language, :options,
                   :parser, :verbose, :writer

@@ -1,4 +1,5 @@
 module Amber
+  # System Enviornment values written to output file.
   class Environment
     attr_reader :environment
 

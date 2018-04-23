@@ -2,6 +2,7 @@ require 'amber/test'
 require 'amber/outputfiles'
 
 module Amber
+  # Base class used to decorate output with Ascii text.
   class Ascii_Test < Test
     attr_reader :decoratee, :macro
 

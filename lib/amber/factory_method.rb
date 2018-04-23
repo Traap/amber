@@ -1,23 +1,25 @@
-require 'amber/test-case'
-require 'amber/test-plan'
-require 'amber/test-step'
-require 'amber/test-suite'
+require 'amber/test_case'
+require 'amber/test_plan'
+require 'amber/test_step'
+require 'amber/test_suite'
 
-require 'amber/ascii-test-case'
-require 'amber/ascii-test-plan'
-require 'amber/ascii-test-step'
-require 'amber/ascii-test-suite'
+require 'amber/ascii_test_case'
+require 'amber/ascii_test_plan'
+require 'amber/ascii_test_step'
+require 'amber/ascii_test_suite'
 
-require 'amber/latex-test-case'
-require 'amber/latex-test-plan'
-require 'amber/latex-test-step'
-require 'amber/latex-test-suite'
+require 'amber/latex_test_case'
+require 'amber/latex_test_plan'
+require 'amber/latex_test_step'
+require 'amber/latex_test_suite'
 
 require 'amber/environment'
-require 'amber/latex-environment'
-require 'amber/ascii-environment'
+require 'amber/latex_environment'
+require 'amber/ascii_environment'
 
 module Amber
+  # Factory methods used to instantiate Test Plan, Test Suite, Test Cases, Test
+  # Steps, and system environment LaTeX or Ascii decorator objects.
   class TestFactory
     def self.get_test_plan(filename, data, options)
       decoratee = TestPlan.new(filename, data, options)

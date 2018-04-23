@@ -1,8 +1,10 @@
-require 'amber/ascii-test'
+require 'amber/ascii_test'
 
 module Amber
+  # ShellError 
   class ShellError < StandardError; end
 
+  # Decorate test step output with Ascii text.
   class Ascii_TestStep < Ascii_Test
     def initialize(decoratee)
       super(decoratee)

@@ -1,3 +1,4 @@
+# Languages that Amber support.
 module Amber
   module Language
     Names = %w[zz da de en es fr-ca fr-eu it ne no sv].freeze

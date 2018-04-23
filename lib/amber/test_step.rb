@@ -3,6 +3,7 @@ require 'amber/substitute'
 require 'amber/test'
 
 module Amber
+  # Decorate test step output with LaTeX text.
   class TestStep < Test
     attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir
 

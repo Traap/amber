@@ -1,3 +1,33 @@
+# Test Output Factory the file system amber creats when running Test Suites,
+# Test Plans, Test Cases, and Test Steps.  The output factor has two formats:
+#
+# 1) Without Browers and Languages
+#   test-output/
+#     factory/
+#       plan/
+#       suite/
+#       case/
+#         about/
+#           about.tex
+#           step-001.tex
+#
+# 2) With Browers and Languages
+#   test-output/
+#     chrome/
+#       fr/
+#         factory/
+#           plan/
+#           suite/
+#           case/
+#             about/
+#               about.tex
+#               step-001.tex
+#               about-001.png
+#               about-001.csv
+#
+# Amber creates either LaTeX (tex) or Ascii (txt) files.  png and csv files are
+# created by the program Amber invokes.
+#
 require 'fileutils'
 
 module Amber

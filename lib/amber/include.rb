@@ -2,6 +2,7 @@ require 'amber/language'
 require 'amber/test'
 
 module Amber
+  # A YAML directive to include another file.
   class Include < Test
     def initialize(data, options)
       super(nil, 'Include', data, options)
