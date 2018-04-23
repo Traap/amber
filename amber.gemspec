@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
 
   s.executables   = %w[amber]
 
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.1'
 
   s.add_development_dependency 'bundler', '~> 1.16'
   s.add_development_dependency 'rake', '~> 10.0'
