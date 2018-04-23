@@ -35,5 +35,5 @@ module Amber
       @command.concat " #{opt_and_files}"
       method(:run_command).super_method.call
     end
-  end # Include
-end # Amber
+  end
+end

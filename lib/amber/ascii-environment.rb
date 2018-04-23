@@ -33,5 +33,5 @@ module Amber
       end
       @handle.write "\n"
     end
-  end # Ascii_Environment
-end # Amber
+  end
+end

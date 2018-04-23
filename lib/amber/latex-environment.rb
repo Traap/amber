@@ -72,5 +72,5 @@ module Amber
     def replace_backslash_with_forwardslash(text)
       text.tr('\\', '/')
     end
-  end # LaTeX_Environment
-end # Amber
+  end
+end

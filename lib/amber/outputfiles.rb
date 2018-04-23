@@ -116,5 +116,5 @@ module Amber
     end
 
     # --------------------------------------------------------------------------
-  end # TestEvidence
-end # Amber
+  end
+end

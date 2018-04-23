@@ -45,5 +45,5 @@ module Amber
                                                    @decoratee.options)
       method(:teardown).super_method.call
     end
-  end # Ascii_TestStep
-end # Amber
+  end
+end

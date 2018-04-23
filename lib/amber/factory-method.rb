@@ -63,5 +63,5 @@ module Amber
         Ascii_Environment.new(decoratee, options)
       end
     end
-  end # Test Factory
-end # Amber
+  end
+end

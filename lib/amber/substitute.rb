@@ -52,5 +52,5 @@ module Amber
         expanded_text
       end
     end
-  end # Substitute
-end # Amber
+  end
+end

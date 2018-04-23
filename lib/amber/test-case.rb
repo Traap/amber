@@ -22,5 +22,5 @@ module Amber
         step.process
       end
     end
-  end # TestCase
-end # Amber
+  end
+end

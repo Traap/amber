@@ -7,5 +7,5 @@ module Amber
     end
 
     def run_command; end
-  end # TestSuite
-end # Amber
+  end
+end

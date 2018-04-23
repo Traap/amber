@@ -175,5 +175,5 @@ module Amber
     end
 
     # ------------------------------------------------------------------------------
-  end # class CommandLineOptions
-end # module
+  end
+end

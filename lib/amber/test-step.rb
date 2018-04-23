@@ -73,5 +73,5 @@ module Amber
 
       wdir.strip
     end
-  end # TestStep
-end # Amber
+  end
+end

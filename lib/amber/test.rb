@@ -44,5 +44,5 @@ module Amber
       puts "#{msg}\n" if @options.verbose
       abort msg
     end
-  end # Test
-end # Amber orchestrate
+  end
+end

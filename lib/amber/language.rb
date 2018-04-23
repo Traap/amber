@@ -15,5 +15,5 @@ module Amber
              'sv' => 'Svenska' }.freeze
 
     Default = 'zz'.freeze
-  end # Language
-end # Amber
+  end
+end

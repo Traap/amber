@@ -42,5 +42,5 @@ module Amber
         end
       end
     end
-  end # Workflow
-end # Amber
+  end
+end

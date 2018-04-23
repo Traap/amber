@@ -35,5 +35,5 @@ module Amber
         puts "         #{g}"
       end
     end
-  end # Environment
-end # Amber
+  end
+end

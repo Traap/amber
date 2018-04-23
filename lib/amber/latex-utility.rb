@@ -57,5 +57,5 @@ module Amber
     def self.append_filename(macro, decoratee)
       macro << '{' + File.basename(decoratee.filename, '.*') + "}\n"
     end
-  end # Writer
-end # Amber
+  end
+end

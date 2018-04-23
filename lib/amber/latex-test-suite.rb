@@ -12,5 +12,5 @@ module Amber
     def echo_to_sysout
       method(:echo_to_sysout).super_method.call('subsubsection')
     end
-  end # LaTeX_TestSuite
-end # Amber
+  end
+end

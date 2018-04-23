@@ -45,5 +45,5 @@ module Amber
       Amber::TestEvidence.close_file(@handle)
       @handle = nil
     end
-  end # LaTeX_Test
-end # Amber
+  end
+end

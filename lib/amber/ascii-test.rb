@@ -48,5 +48,5 @@ module Amber
       Amber::TestEvidence.close_file(@handle)
       @handle = nil
     end
-  end # Ascii_Test
-end # Amber
+  end
+end
