@@ -80,7 +80,7 @@ module Amber
       options.writer == 'LaTeX' ? TestEvidence::LATEX_FILE_EXTENSION
                                 : TestEvidence::ASCII_FILE_EXTENSION
 
-      # rubocop:enablj Style/MultilineTernaryOperator
+      # rubocop:enable Style/MultilineTernaryOperator
     end
 
     # --------------------------------------------------------------------------
