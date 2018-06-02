@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    amber (0.0.143)
+    amber (1.0.144)
 
 GEM
   remote: https://rubygems.org/
@@ -22,4 +22,4 @@ DEPENDENCIES
   test-unit (~> 3.2.3, ~> 3.2)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
