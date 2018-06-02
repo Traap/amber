@@ -1,6 +1,10 @@
 suite:
   name: Boundary Test
-  purpose: This test suite ensures all lower and upper limit boundaries are checked. 
+  purpose: >
+    This test suite ensures all lower and upper limit boundaries are checked.
+    Keep in mind these tests and requirements are not real.  They are used to
+    simply show how amber process YAML documents and converts them to \LaTeX.
+
   requirement: R123, R456, R789
 
 setup-before-all:
