@@ -26,7 +26,7 @@ has been provided to demonstrates the automation framework components amber,
 gem install amber
 ```
 
-### Optional are **only** needed if you want to rebuild [example.pdf](https://github.com/Traap/amber/blob/master/doc/example.pdf) 
+### Optional components  are **only** needed if you want to rebuild [example.pdf](https://github.com/Traap/amber/blob/master/doc/example.pdf) 
 1. [MiKTeX](https://miktex.org/download)
 2. [autodoc](https://github.com/Traap/autodoc)
 3. [docbld](https://github.com/Traap/docbld)
