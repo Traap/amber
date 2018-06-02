@@ -5,16 +5,32 @@ detailed records intended to prove a product or tool has been tested for its
 intended purpose.  **amber** borrows from a Ruby-on-Rails concept of convention
 over configuration.  In this regard, amber consumes YAML documents that are
 placed beneath a factory directory root.  You are encouraged to review
-**amber's** factory directory because it has been designed to demonstrate
-**amber's** capabilities.
+**amber's** report directory because it has been designed to demonstrate
+**amber's** capabilities.  [example.pdf](https://github.com/Traap/amber/blob/master/doc/example.pdf) 
+has been provided to demonstrates the automation framework components amber,
+[autodoc](https://github.com/Traap/autodoc),
+[docbld](https://github.com/Traap/docbld), and
+[tlc-article](https://github.com/Traap/tlc-article).
+
 
 ### Supported Systems
-**amber** has been tested with cygwin, linix, linux (mint), mingw32, and wsl.
+**amber** has been tested with cygwin, linux (mint), mingw32, and wsl.
 
 ### Prerequisites 
-1. git client
-2. ruby 
-3. bundle
+1. [Ruby](https://www.ruby-lang.org/en)
+2. [Bundler](https://bundler.io)
+3. [Rake](https://ruby/rake)
+
+### Installing amger
+```bash
+gem install abmer
+```
+
+### Optional are **only** needed if you want to rebuild [example.pdf](https://github.com/Traap/amber/blob/master/doc/example.pdf) 
+1. [MiKTeX](https://miktex.org/download)
+2. [autodoc](https://github.com/Traap/autodoc)
+3. [docbld](https://github.com/Traap/docbld)
+4. [tlc-article](https://github.com/Traap/tlc-article)
 
 ### Working with source 
 Copy the text below and paste into a shell.  The commands will:
@@ -144,13 +160,14 @@ Usage: amber [options]
 
 Specific options:
     -b, --browser BROWSER            Select Browser
-                                     ["Chrome", "Firefox", "IE"]
+                                     ["None", "Chrome", "Edge", "Firefox", "IE", 
+                                     "Opera"]
     -n, --nodryrun                   No Dryrun
     -e, --enviornment                List enviornment
     -f, --file x,y,x                 File name
     -l, --language LANGUAGE          Select language
-                                     ["da", "de", "en", "es", "fr-ca", "fr-eu",
-                                     "ge", "it", "ne", "no", "sv"]
+                                     ["zz", "da", "de", "en", "es", "fr-ca", 
+                                     "fr-eu", ""it", "ne", "no", "sv"]
     -v, --verbose                    Verbose
     -w, --writer WRITER              Select writer
                                      ["Ascii", "LaTeX"]
@@ -167,7 +184,15 @@ Specific options:
 Show this message.
 
 ##### --version
-0.0.118 is this the current version.
+1.0.144 is this the current version.
+
+#### --verbose
+Log the commands what will be run when --nodryrun is used.  **NOTE:** This
+option write nurfed because amber writes the commands to the test output
+factory.  This occurs because amber is capturing standard input, standard
+output, and standard error.  Amber conditionally writes either standard output
+or standard error to the test output factor based on the exit status of the
+program ran.
 
 #### Input Factory
 ##### --plan
@@ -200,7 +225,7 @@ localization.
 
 #### Output Factory
 ##### --nodryrun
-By default, **amber** does not run a test suite.  You must explicitly
+By default, **amber** does not have side-effects when run.  You must explicitly
 use the **--nodryrun** options to cause side effects.  The commands that would
 have been executed are echoed to system out.
 
