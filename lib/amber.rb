@@ -24,8 +24,9 @@ module Amber
   class CLI
     def execute(args)
       opt = CommandLineOptions.parse args
+      Amber::TestEvidence.obliterate_test_output(opt) if opt.okay_to_obliterate?
       Workflow.new(opt).orchestrate
-      Amber::TestFactory.get_environment(opt).echo_to_sysout if opt.environment
+      Amber::TestFactory.get_environment(opt).echo_to_sysout if opt.okay_to_echo_env?
     end
   end
 end

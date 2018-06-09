@@ -6,8 +6,8 @@ require 'amber/writer'
 module Amber
   # Options the user has chosen.
   class Options
-    attr_accessor :browser, :dryrun,  :environment, :filename, :language, 
-                  :parser, :simulate, :verbose,  :writer
+    attr_accessor :browser, :dryrun, :environment, :filename, :language, 
+                  :parser, :obliterate, :simulate, :verbose, :writer
     def initialize
       @browser = Amber::Browser::DEFAULT
       @dryrun = true
@@ -15,6 +15,7 @@ module Amber
       @filename = []
       @language = Amber::Language::DEFAULT
       @parser = nil
+      @obliterate = false 
       @simulate = false
       @verbose = false
       @writer = Amber::Writer::DEFAULT
@@ -28,6 +29,14 @@ module Amber
       else
         false
       end
+    end
+
+    def okay_to_echo_env?
+      @environment && okay_to_run?
+    end
+
+    def okay_to_obliterate?
+      @obliterate
     end
   end
 
@@ -63,6 +72,7 @@ module Amber
         language_option parser
         verbose_option parser
         simulate_option parser
+        obliterate_option parser
         version_option parser
         writer_option parser
 
@@ -95,6 +105,15 @@ module Amber
                 '--simulate', 
                 'Simulate run to create Test Output Factory') do |z|
         @clo.options.simulate = z
+      end
+    end
+
+    # --------------------------------------------------------------------------
+    def self.obliterate_option(parser)
+      parser.on('-O', 
+                '--obliterate', 
+                'Obliterate Test Output Factory before Test Execution') do |z|
+        @clo.options.obliterate = z
       end
     end
 
@@ -179,6 +198,7 @@ module Amber
         puts "environment: #{@clo.options.environment}"
         puts "   filename: #{@clo.options.filename}"
         puts "   language: #{@clo.options.language}"
+        puts " obliterate: #{@clo.options.obliterate}"
         puts "   simulate: #{@clo.options.simulate}"
         puts "    verbose: #{@clo.options.verbose}"
         puts "     writer: #{@clo.options.writer}"

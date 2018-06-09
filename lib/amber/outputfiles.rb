@@ -43,6 +43,12 @@ module Amber
 
     # --------------------------------------------------------------------------
 
+    def self.obliterate_test_output(options)
+      FileUtils.remove_dir(TestEvidence::TEST_OUTPUT_DIR, true)
+    end
+
+    # --------------------------------------------------------------------------
+
     def self.assemble_test_output_root(options)
       if options.browser.nil? || options.language.nil?
         TestEvidence::TEST_OUTPUT
