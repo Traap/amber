@@ -30,6 +30,7 @@ module Amber
       opt_and_files = "#{opt}=#{name.map(&:values).join(',')}"
       @command = 'amber'
       @command.concat ' --nodryrun'                    unless @options.dryrun
+      @command.concat ' --simulate'                    if @options.simulate
       @command.concat " --writer=#{@options.writer}"   unless @options.writer.nil?
       @command.concat " --browser=#{@options.browser}" unless @options.browser.nil?
       @command.concat " --language=#{code}"            unless code.nil?

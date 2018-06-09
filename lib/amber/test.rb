@@ -1,4 +1,5 @@
 require 'amber/substitute'
+require 'amber/options'
 
 module Amber
   # Shell Error
@@ -36,7 +37,7 @@ module Amber
     def process
       setup
       echo_to_sysout
-      run_command unless @options.dryrun
+      run_command if @options.okay_to_run?
       teardown
     end
 
