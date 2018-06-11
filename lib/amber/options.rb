@@ -103,7 +103,7 @@ module Amber
     def self.simulate_option(parser)
       parser.on('-S', 
                 '--simulate', 
-                'Simulate run to create Test Output Factory') do |z|
+                'Simulate run to create Test Output direcotry') do |z|
         @clo.options.simulate = z
       end
     end
@@ -112,7 +112,7 @@ module Amber
     def self.obliterate_option(parser)
       parser.on('-O', 
                 '--obliterate', 
-                'Obliterate Test Output Factory before Test Execution') do |z|
+                'Obliterate Test Output directory before Test Execution') do |z|
         @clo.options.obliterate = z
       end
     end

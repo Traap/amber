@@ -49,7 +49,6 @@ $ cd $HOME \
             && bundle install \
             && bundle exec rake \
             && bundle exec rake install
-            && amber --version
 ```
 ### Input Factory
 #### A YAML Plan
@@ -220,6 +219,10 @@ Specific options:
                                      ["zz", "da", "de", "en", "es", "fr-ca", 
                                      "fr-eu", ""it", "ne", "no", "sv"]
     -v, --verbose                    Verbose
+    -S, --simulate                   Simulate run to create Test Output
+                                     directory.
+    -O, --obliterate                 Obliterate Test Output directory before Test
+                                     Execution.
     -w, --writer WRITER              Select writer
                                      ["Ascii", "LaTeX"]
     -p, --plan x,y,x                 Plan name
@@ -235,7 +238,7 @@ Specific options:
 Show this message.
 
 ##### --version
-1.0.144 is this the current version.
+1.1.166 is this the current version.
 
 #### --verbose
 Log the commands what will be run when --nodryrun is used.  **NOTE:** This
@@ -279,6 +282,14 @@ localization.
 By default, **amber** does not have side-effects when run.  You must explicitly
 use the **--nodryrun** options to cause side effects.  The commands that would
 have been executed are echoed to system out.
+
+##### --simulate
+The simulate option is used to create a Test Output directory so that you can
+design your report.  Each command defined in your Test Case YAML file **echo**
+echoed to the Test Output directory Test Case file.
+
+##### --obliterate
+The Test Output directory is obliterated before running any Tests.
 
 ##### --environment
 A list of environment variables **amber** records in the output factory.  See
