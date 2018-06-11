@@ -38,7 +38,7 @@ module Amber
     end
 
     def run_command
-      @decoratee.run_command unless @options.dryrun
+      @decoratee.run_command if @options.okay_to_run?
     end
 
     def teardown

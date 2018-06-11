@@ -4,33 +4,60 @@ require 'amber/language'
 require 'amber/writer'
 
 module Amber
-  # Command Line Parser
-  class CommandLineOptions
-    attr_accessor :browser, :dryrun, :environment, :filename, :language, :options,
-                  :parser, :verbose, :writer
-
-    # ------------------------------------------------------------------------------
+  # Options the user has chosen.
+  class Options
+    attr_accessor :browser, :dryrun, :environment, :filename, :language, 
+                  :parser, :obliterate, :simulate, :verbose, :writer
     def initialize
-      self.browser = Amber::Browser::DEFAULT
-      self.dryrun = true
-      self.environment = false
-      self.filename = []
-      self.language = Amber::Language::DEFAULT
-      self.options = nil
-      self.parser = nil
-      self.verbose = false
-      self.writer = Amber::Writer::DEFAULT
+      @browser = Amber::Browser::DEFAULT
+      @dryrun = true
+      @environment = false
+      @filename = []
+      @language = Amber::Language::DEFAULT
+      @parser = nil
+      @obliterate = false 
+      @simulate = false
+      @verbose = false
+      @writer = Amber::Writer::DEFAULT
     end
 
-    # ------------------------------------------------------------------------------
+    def okay_to_run?
+      if @simulate
+        true
+      elsif !@dryrun
+        true
+      else
+        false
+      end
+    end
+
+    def okay_to_echo_env?
+      @environment && okay_to_run?
+    end
+
+    def okay_to_obliterate?
+      @obliterate
+    end
+  end
+
+  # Command Line Options 
+  class CommandLineOptions
+    attr_accessor :clo, :options
+
+    # --------------------------------------------------------------------------
+    def initialize
+      @options = Options.new
+    end
+
+    # --------------------------------------------------------------------------
     def self.parse(args)
-      @options = CommandLineOptions.new
+      @clo = CommandLineOptions.new
       option_parser.parse! args
       nil_browser_and_language_when_defaults
-      @options
+      @clo.options
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.option_parser
       @parser ||= OptionParser.new do |parser|
         parser.banner = 'Usage: amber [options]'
@@ -44,6 +71,8 @@ module Amber
         help_option parser
         language_option parser
         verbose_option parser
+        simulate_option parser
+        obliterate_option parser
         version_option parser
         writer_option parser
 
@@ -55,7 +84,7 @@ module Amber
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.help_option(parser)
       parser.on_tail('-h', '--help', 'Show this message') do
         puts parser
@@ -63,101 +92,121 @@ module Amber
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.dryrun_option(parser)
       parser.on('-n', '--nodryrun', 'No Dryrun') do |z|
-        @options.dryrun ^= z
+        @clo.options.dryrun ^= z
+      end
+    end
+    
+    # --------------------------------------------------------------------------
+    def self.simulate_option(parser)
+      parser.on('-S', 
+                '--simulate', 
+                'Simulate run to create Test Output direcotry') do |z|
+        @clo.options.simulate = z
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
+    def self.obliterate_option(parser)
+      parser.on('-O', 
+                '--obliterate', 
+                'Obliterate Test Output directory before Test Execution') do |z|
+        @clo.options.obliterate = z
+      end
+    end
+
+    # --------------------------------------------------------------------------
     def self.verbose_option(parser)
       parser.on('-v', '--verbose', 'Verbose') do |z|
-        @options.verbose = z
+        @clo.options.verbose = z
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.environment_option(parser)
       parser.on('-e', '--environment', 'List environment') do |z|
-        @options.environment = z
+        @clo.options.environment = z
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.plan_option(parser)
       parser.on('-p', '--plan x,y,x', Array, 'Plan name') do |z|
-        @options.filename = z.map! do |a|
+        @clo.options.filename = z.map! do |a|
           "factory/plan/#{a}/#{a}.yaml"
         end
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.suite_option(parser)
       parser.on('-s', '--suite x,y,x', Array, 'Suite name') do |z|
-        @options.filename = z.map! do |a|
+        @clo.options.filename = z.map! do |a|
           "factory/suite/#{a}/#{a}.yaml"
         end
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.case_option(parser)
       parser.on('-c', '--case x,y,x', Array, 'Case name') do |z|
-        @options.filename = z.map! do |a|
+        @clo.options.filename = z.map! do |a|
           "factory/case/#{a}/#{a}.yaml"
         end
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.file_option(parser)
       parser.on('-f', '--file x,y,x', Array, 'File name') do |z|
-        @options.filename = z.map!(&:to_s)
+        @clo.options.filename = z.map!(&:to_s)
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.writer_option(parser)
       parser.on('-w', '--writer WRITER', String, Amber::Writer::NAMES,
                 'Select writer', Amber::Writer::NAMES.to_s) do |z|
-        @options.writer = z
+        @clo.options.writer = z
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.browser_option(parser)
       parser.on('-b', '--browser BROWSER', String, Amber::Browser::NAMES,
                 'Select Browser', Amber::Browser::NAMES.to_s) do |z|
-        @options.browser = z
+        @clo.options.browser = z
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.language_option(parser)
       parser.on('-l', '--language LANGUAGE',
                 Amber::Language::NAMES, Amber::Language::CODE,
                 'Select language', Amber::Language::NAMES.to_s) do |z|
-        @options.language = z
+        @clo.options.language = z
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.dump_option(parser)
       parser.on_tail('-d', '--dump', 'Dump options (must be last).') do
-        puts "    browser: #{@options.browser}"
-        puts "     dryrun: #{@options.dryrun}"
-        puts "environment: #{@options.environment}"
-        puts "   filename: #{@options.filename}"
-        puts "   language: #{@options.language}"
-        puts "    verbose: #{@options.verbose}"
-        puts "     writer: #{@options.writer}"
+        puts "    browser: #{@clo.options.browser}"
+        puts "     dryrun: #{@clo.options.dryrun}"
+        puts "environment: #{@clo.options.environment}"
+        puts "   filename: #{@clo.options.filename}"
+        puts "   language: #{@clo.options.language}"
+        puts " obliterate: #{@clo.options.obliterate}"
+        puts "   simulate: #{@clo.options.simulate}"
+        puts "    verbose: #{@clo.options.verbose}"
+        puts "     writer: #{@clo.options.writer}"
         exit
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
     def self.version_option(parser)
       parser.on_tail('--version', 'Show version') do
         puts Amber::VERSION
@@ -165,16 +214,15 @@ module Amber
       end
     end
 
-    # ------------------------------------------------------------------------------
-
+    # --------------------------------------------------------------------------
     def self.nil_browser_and_language_when_defaults
-      if @options.browser.eql?(Amber::Browser::DEFAULT) ||
-         @options.browser.eql?(Amber::Language::DEFAULT)
-        @options.browser = nil
-        @options.language = nil
+      if @clo.options.browser.eql?(Amber::Browser::DEFAULT) ||
+         @clo.options.browser.eql?(Amber::Language::DEFAULT)
+        @clo.options.browser = nil
+        @clo.options.language = nil
       end
     end
 
-    # ------------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
   end
 end

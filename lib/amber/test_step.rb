@@ -15,7 +15,7 @@ module Amber
                  nil
                else
                  'sudo '
-                      end
+               end
              end
 
       @number      = number
@@ -30,7 +30,8 @@ module Amber
         Amber::Substitute.strings(@filename, options, step['argument'])
       )
 
-      @command     = "#{sudo}#{command} #{argument}"
+      echo = @options.simulate ? 'echo ' : nil
+      @command     = "#{echo}#{sudo}#{command} #{argument}"
 
       @evidence    = Amber::Substitute.strings(@filename, options, step['evidence'])
       @workingdir  = set_working_dir(step, workingdir)
@@ -39,11 +40,10 @@ module Amber
     def echo_to_sysout; end
 
     def run_command
-      unless @options.dryrun
-        stdout, stderr, status =
-          TestEvidence.run_from_temp_directory(
+      if @options.okay_to_run?
+        stdout, stderr, status = TestEvidence.run_from_temp_directory(
             @command, @workingdir
-          )
+        )
       end
     end
 
