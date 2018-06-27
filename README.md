@@ -216,8 +216,8 @@ Specific options:
     -e, --enviornment                List enviornment
     -f, --file x,y,x                 File name
     -l, --language LANGUAGE          Select language
-                                     ["zz", "da", "de", "en", "es", "fr-ca", 
-                                     "fr-eu", ""it", "ne", "no", "sv"]
+                                     ["zz", "cs", "da", "de", "en", "es", "fr-ca", 
+                                     "fr-eu", "it", "ne", "no", "pl", "ro", "sv"]
     -v, --verbose                    Verbose
     -S, --simulate                   Simulate run to create Test Output
                                      directory.
