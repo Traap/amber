@@ -7,7 +7,7 @@ over configuration.  In this regard, amber consumes YAML documents that are
 placed beneath a factory directory root.  You are encouraged to review
 **amber's** report directory because it has been designed to demonstrate
 **amber's** capabilities.  [example.pdf](https://github.com/Traap/amber/blob/master/doc/example.pdf) 
-has been provided to demonstrates the automation framework components amber,
+has been provided to demonstrate the automation framework components amber,
 [autodoc](https://github.com/Traap/autodoc),
 [docbld](https://github.com/Traap/docbld), and
 [tlc-article](https://github.com/Traap/tlc-article).
@@ -279,12 +279,12 @@ localization.
 
 #### Output Factory
 ##### --nodryrun
-By default, **amber** does not have side-effects when run.  You must explicitly
+By default, **amber** does not have side effects when run.  You must explicitly
 use the **--nodryrun** options to cause side effects.  The commands that would
 have been executed are echoed to system out.
 
 ##### --simulate
-The simulate option is used to create a Test Output directory so that you can
+The Simulate option is used to create a Test Output directory so that you can
 design your report.  Each command defined in your Test Case YAML file **echo**
 echoed to the Test Output directory Test Case file.
 
