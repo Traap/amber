@@ -1,11 +1,10 @@
 require 'rspec'
 require_relative '../lib/amber/options'
-
+# ------------------------------------------------------------------------------
+# environments options
+# [-e | --environment]
+# ------------------------------------------------------------------------------
 describe 'amber' do
-  # ----------------------------------------------------------------------------
-  # environments options
-  # [-e | --environment]
-  # ----------------------------------------------------------------------------
   describe 'no -e' do 
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV) 
@@ -28,5 +27,4 @@ describe 'amber' do
       expect(options.environment).to be(true)
     end
   end
-
 end

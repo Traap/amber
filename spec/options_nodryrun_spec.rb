@@ -1,11 +1,10 @@
 require 'rspec'
 require_relative '../lib/amber/options'
-
+# ------------------------------------------------------------------------------
+# nodryrun options
+# [-v | --verbose]
+# ------------------------------------------------------------------------------
 describe 'amber' do
-  # ----------------------------------------------------------------------------
-  # nodryrun options
-  # [-v | --verbose]
-  # ----------------------------------------------------------------------------
   describe 'no -n' do 
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV) 
@@ -28,5 +27,4 @@ describe 'amber' do
       expect(options.dryrun).to be(false)
     end
   end
-
 end

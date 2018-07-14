@@ -1,30 +1,30 @@
 require 'rspec'
 require_relative '../lib/amber/options'
 # ------------------------------------------------------------------------------
-# verbose options
-# [-v | --verbose]
+# simulate options
+# [-S | --simulate]
 # ------------------------------------------------------------------------------
 describe 'amber' do
-  describe 'no -v' do 
+  describe 'no -S' do 
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV) 
-      expect(options.verbose).to be(false)
+      expect(options.simulate).to be(false)
     end
   end
 
-  describe '-v' do 
+  describe '-S' do 
     it 'has been used from the command line.' do
-      ARGV.replace ['-v']
+      ARGV.replace ['-S']
       options = Amber::CommandLineOptions.parse(ARGV) 
-      expect(options.verbose).to be(true)
+      expect(options.simulate).to be(true)
     end
   end
 
-  describe '--verbose' do 
+  describe '--simulate' do 
     it 'has been used from the command line.' do
-      ARGV.replace ['--verbose']
+      ARGV.replace ['--simulate']
       options = Amber::CommandLineOptions.parse(ARGV) 
-      expect(options.verbose).to be(true)
+      expect(options.simulate).to be(true)
     end
   end
 end
