@@ -38,6 +38,15 @@ module Amber
     def okay_to_obliterate?
       @obliterate
     end
+    
+    def has_language?
+      @language.eql?(Amber::Language::DEFAULT) ? false : true 
+    end
+
+    def has_browser?
+      @browser.eql?(Amber::Browser::DEFAULT) ? false : true 
+    end
+
   end
 
   # Command Line Options 
@@ -53,7 +62,6 @@ module Amber
     def self.parse(args)
       @clo = CommandLineOptions.new
       option_parser.parse! args
-      nil_browser_and_language_when_defaults
       @clo.options
     end
 
@@ -211,15 +219,6 @@ module Amber
       parser.on_tail('--version', 'Show version') do
         puts Amber::VERSION
         exit
-      end
-    end
-
-    # --------------------------------------------------------------------------
-    def self.nil_browser_and_language_when_defaults
-      if @clo.options.browser.eql?(Amber::Browser::DEFAULT) ||
-         @clo.options.browser.eql?(Amber::Language::DEFAULT)
-        @clo.options.browser = nil
-        @clo.options.language = nil
       end
     end
 

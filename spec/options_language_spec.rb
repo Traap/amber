@@ -11,6 +11,7 @@ describe 'amber' do
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.language).to eq('zz')
+      expect(options.has_language?).to be(false)
     end
   end
 
@@ -19,6 +20,7 @@ describe 'amber' do
       ARGV.replace ['--language=cs']
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.language).to eq('Czech')
+      expect(options.has_language?).to be(true)
     end
   end
 

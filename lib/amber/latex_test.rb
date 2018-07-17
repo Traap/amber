@@ -21,6 +21,7 @@ module Amber
     end
 
     def setup
+      Amber::TestEvidence.record_test_name(@macro, @decoratee.options) unless @macro.nil?
       @handle = Amber::TestEvidence.open_log_file(@decoratee.filename,
                                                   @decoratee.options)
     end
@@ -42,7 +43,6 @@ module Amber
     end
 
     def teardown
-      Amber::TestEvidence.record_test_name(@macro, @decoratee.options) unless @macro.nil?
       Amber::TestEvidence.close_file(@handle)
       @handle = nil
     end

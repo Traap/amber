@@ -32,8 +32,8 @@ module Amber
       @command.concat ' --nodryrun'                    unless @options.dryrun
       @command.concat ' --simulate'                    if @options.simulate
       @command.concat " --writer=#{@options.writer}"   unless @options.writer.nil?
-      @command.concat " --browser=#{@options.browser}" unless @options.browser.nil?
-      @command.concat " --language=#{code}"            unless code.nil?
+      @command.concat " --browser=#{@options.browser}" if @options.has_browser?
+      @command.concat " --language=#{code}"            if @options.has_language? 
       @command.concat " #{opt_and_files}"
       method(:run_command).super_method.call
     end

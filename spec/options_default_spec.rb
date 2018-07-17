@@ -17,6 +17,8 @@ describe 'amber' do
       expect(options.simulate).to be(false)
       expect(options.verbose).to be(false)
       expect(options.writer).to eq(Amber::Writer::DEFAULT)
+      expect(options.has_browser?).to be(false)
+      expect(options.has_language?).to be(false)
     end
   end
 end
