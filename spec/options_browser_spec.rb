@@ -7,12 +7,12 @@ require_relative '../lib/amber/options'
 # [None | Chrome | Edge | Firefox | IE | Opera]
 # ------------------------------------------------------------------------------
 describe 'amber' do
-  describe 'no -b' do
-    it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.browser).to eq('None')
-    end
-  end
+  # describe 'no -b' do
+  #   it 'has not been used.' do
+  #     options = Amber::CommandLineOptions.parse(ARGV)
+  #     expect(options.browser).to eq('None')
+  #   end
+  # end
 
   describe '--browser=Chrome' do
     it 'has been used from the command line.' do
