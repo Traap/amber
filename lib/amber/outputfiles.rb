@@ -50,12 +50,12 @@ module Amber
     # --------------------------------------------------------------------------
 
     def self.assemble_test_output_root(options)
-      if options.browser.nil? || options.language.nil?
-        TestEvidence::TEST_OUTPUT
-      else
+      if options.has_browser? && options.has_language?
         TestEvidence::TEST_OUTPUT +
           options.browser + File::SEPARATOR +
           Amber::Language::CODE.key(options.language) + File::SEPARATOR
+      else
+        TestEvidence::TEST_OUTPUT
       end
     end
 

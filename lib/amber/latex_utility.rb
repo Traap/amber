@@ -43,11 +43,10 @@ module Amber
     end
 
     def self.append_browser_and_language(macro, decoratee)
-      browser  = decoratee.options.browser
-      language = decoratee.options.language
-      code     = Amber::Language::CODE.key(language)
-
-      if !browser.nil? && !language.nil?
+      if decoratee.options.has_browser? && decoratee.options.has_language?
+        browser  = decoratee.options.browser
+        language = decoratee.options.language
+        code     = Amber::Language::CODE.key(language)
         macro << 'C{' << browser << '}{' << code << '}'
       end
 
