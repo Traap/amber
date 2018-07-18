@@ -7,7 +7,7 @@ module Amber
   # Options the user has chosen.
   class Options
     attr_accessor :browser, :dryrun, :environment, :filename, :language, 
-                  :parser, :obliterate, :simulate, :verbose, :writer
+                  :parser, :obliterate, :simulate, :verbose, :version, :writer
     def initialize
       @browser = Amber::Browser::DEFAULT
       @dryrun = true
@@ -18,6 +18,7 @@ module Amber
       @obliterate = false 
       @simulate = false
       @verbose = false
+      @version = Amber::VERSION
       @writer = Amber::Writer::DEFAULT
     end
 
@@ -217,8 +218,7 @@ module Amber
     # --------------------------------------------------------------------------
     def self.version_option(parser)
       parser.on_tail('--version', 'Show version') do
-        puts Amber::VERSION
-        exit
+        puts @clo.options.version 
       end
     end
 
