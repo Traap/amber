@@ -46,7 +46,6 @@ module Amber
     end
 
     def teardown
-      Amber::TestEvidence.record_test_name(@macro, @decoratee.options) unless @macro.nil?
       Amber::TestEvidence.close_file(@handle)
       @handle = nil
     end

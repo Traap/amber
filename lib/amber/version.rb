@@ -9,5 +9,5 @@
 #     The next integer.  This number never resets.
 #
 module Amber
-  VERSION = '1.2.173'.freeze
+  VERSION = '1.2.174'.freeze
 end
