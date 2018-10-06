@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) Gary Allan Howard aka Traap.
 # License BSD-3-Clause
 #
@@ -11,11 +13,11 @@
 # for documented evidence.
 # ------------------------------------------------------------------------------
 
-require 'amber/environment'
-require 'amber/factory_method'
+require 'amber/cli/environment'
+require 'amber/cli/options'
 require 'amber/initialize'
-require 'amber/options'
 require 'amber/workflow'
+require 'amber/tof/writers/writer_factory'
 
 # ------------------------------------------------------------------------------
 module Amber

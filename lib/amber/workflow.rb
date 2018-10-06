@@ -1,8 +1,10 @@
-require 'amber/factory_method'
-require 'amber/include'
-require 'amber/test_case'
-require 'amber/test_plan'
-require 'amber/test_suite'
+# frozen_string_literal: true
+
+require 'amber/tif/test/case'
+require 'amber/tif/test/include'
+require 'amber/tif/test/plan'
+require 'amber/tif/test/suite'
+require 'amber/tof/writers/writer_factory'
 require 'amber/workflow'
 
 module Amber

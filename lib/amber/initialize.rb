@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Gems need throughout Amber.
 require 'pp'
 require 'yaml'
