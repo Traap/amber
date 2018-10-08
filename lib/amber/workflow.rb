@@ -31,11 +31,11 @@ module Amber
       @yaml_file.each do |k, v|
         case k
         when 'plan'
-          @test << Amber::TestFactory.get_test_plan(filename, v, @options)
+          @test << Amber::WriterFactory.get_test_plan(filename, v, @options)
         when 'suite'
-          @test << Amber::TestFactory.get_test_suite(filename, v, @options)
+          @test << Amber::WriterFactory.get_test_suite(filename, v, @options)
         when 'case'
-          @test << Amber::TestFactory.get_test_case(filename, v, @options)
+          @test << Amber::WriterFactory.get_test_case(filename, v, @options)
         when 'includes'
           v.each do |n|
             @test << Include.new(n, @options)

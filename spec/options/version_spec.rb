@@ -16,7 +16,7 @@ describe 'amber' do
     it 'has been used from the command line.' do
       ARGV.replace ['--version']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.version).to eql('1.2.175')
+      expect(options.version).to eql('1.2.179')
       expect(options.version).to eql(Amber::VERSION)
     end
   end

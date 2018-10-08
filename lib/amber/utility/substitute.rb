@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Amber Substitute the following strings when process a YAML files.
 #
 #   The name of the YAML file.
@@ -32,11 +30,10 @@ module Amber
     def self.strings(filename, options, text)
       unless text.nil?
         Substitute.home(
-          Substitute.file(filename,
-                          Substitute.browser(options,
-                                             Substitute.language(options,
-                                                                 Substitute.language_code(options, text))))
-        )
+         Substitute.file(filename,
+          Substitute.browser(options,
+           Substitute.language(options,
+            Substitute.language_code(options, text)))))
       end
     end
 

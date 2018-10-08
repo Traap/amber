@@ -23,7 +23,7 @@ require 'amber/tof/writers/ascii/environment'
 module Amber
   # Factory methods used to instantiate Test Plan, Test Suite, Test Cases, Test
   # Steps, and system environment LaTeX or Ascii decorator objects.
-  class TestFactory
+  class WriterFactory
     def self.get_test_plan(filename, data, options)
       decoratee = TestPlan.new(filename, data, options)
       if options.writer == 'LaTeX'

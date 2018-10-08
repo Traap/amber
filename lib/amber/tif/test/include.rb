@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'amber/cli/language'
 require 'amber/tif/test'
 

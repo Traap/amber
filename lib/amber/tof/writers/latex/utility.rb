@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # LaTeX_Utility assembles the strings listed below which represent macros
 # autodoc expands into the locations of files created by amber.
 #
