@@ -1,47 +1,20 @@
-# ------------------------------------------------------------------------------
-# Example Test Suite 
-
-# This comment block may be deleted.
-#
-# YAML Ain't Markup Language (YAML tm) Version 1.2
-# http://www.yaml.org/spec/1.2/spec.html
-# 
-# Keywords.
-#
-# suite:                # No text following the colon.
-#   name:               # The suite name.  This string is used on reports.
-#   purpose:            # Describe the purpose of this suite.
-#   requirements:       # An optional list of requirement numbers.
-# includes:             # Denotes - suite or - case follows.
-#   - case:             # No text follows the colon.  Suite names follow.
-#     - name:           # The name of a case to include. 
-#     - name:           # The name of another case to include. 
-#     - name:           # etc. 
-# 
-# Strict file system convention.
-# factory/
-#   plan/
-#     a-plan/
-#       a-plan.yaml
-#   suite
-#     a-suite/
-#       a-suite.yaml
-#     another-suite/
-#       another-suite.yaml
-#   case
-#     a-case/
-#       a-case.yaml
-#     another-case/
-#       another-case.yaml
-# ------------------------------------------------------------------------------
 suite:
-  name: Smoke Test
+  name: ${file} 
   purpose: > 
       This test suite ensures the system has meet the minimum requirements for
       further testing.
+
+  # It is optional to list requriement numbers.
   requirement: 123, 456, 789
 
 includes:
+  # Default. Non-nested Test Cases. 
   - case:
     - name: a-case 
     - name: another-case 
+
+  # Nested Test Cases.
+  - folder: a-folder-name-when-needed
+    - case:
+      - name: a-case 
+      - name: another-case 

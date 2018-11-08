@@ -10,6 +10,7 @@ suiteFlag=0   # Create a new amber test suite folder and file.
 caseFlag=0    # Create a new amber test case folder and file.
 errorFlag=0;  # A parseOptions error occured.
 helpFlag=1;   # Show help.
+debugFlag=0;  # Show parameters when set but do not create files.
 
 # ------------------------------------------------------------------------------
 # Orchestrate the show.
@@ -36,8 +37,8 @@ main() {
 # ------------------------------------------------------------------------------
 function showHelp {
    echo
-   echo "Usage: newcomponent [OPTIONS]"
-   echo "Run newcomponent to create a new amber application folder and file."
+   echo "Usage: newfactory [OPTIONS]"
+   echo "Run newfactory to create a new amber application folder and file."
    echo
    echo "OPTIONS"
    echo "  --plan         Test plan name to create."
@@ -63,6 +64,10 @@ function parseOptions {
     for var in "$@"
     do
       case $var in
+        --debug)
+          debugFlag=1
+          shift
+          ;;
         --plan=*)
           PLAN="${var#*=}"
           helpFlag=0
@@ -120,13 +125,34 @@ newCase() {
 # $2 filename of plan, suite or case
 # ------------------------------------------------------------------------------
 newFile() {
- echo "Creating amber test case $2"
 
   subdir='factory/'"$1"'/'"$2"''
+  fn=$(basename -- "${subdir}/$2.yaml")
+  filename=${fn##*/}
 
-  mkdir -pv ${subdir}
+  if [ $debugFlag == 0 ]; then
+    if [[ -d factory ]]; then
+      echo "Creating amber test case $2"
+      mkdir -pv ${subdir}
+      cp -v ${HOME}/git/amber/data/new$1.yaml ${subdir}/${filename}
+    else
+      echo "Aborting because a factory folder is missing."
+      exit 1;
+    fi
+  else
+    debugMode
+  fi
+}
 
-  cp -v ${HOME}/git/amber/data/new$1.yaml ${subdir}/$2.yaml
+# ------------------------------------------------------------------------------
+# debugMode shows the user what would happen when the command is run without
+# the --debug flag.
+# ------------------------------------------------------------------------------
+debugMode() {
+  echo "Debug mode."
+  echo "       subdir [${subdir}]"
+  echo "     filename [${filename}]"
+  echo "full filename [${subdir}/${filename}]"
 }
 
 # ------------------------------------------------------------------------------
