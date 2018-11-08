@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) Gary Allan Howard aka Traap.
 # License BSD-3-Clause
 #
@@ -11,11 +13,11 @@
 # for documented evidence.
 # ------------------------------------------------------------------------------
 
-require 'amber/environment'
-require 'amber/factory_method'
+require 'amber/cli/environment'
+require 'amber/cli/options'
 require 'amber/initialize'
-require 'amber/options'
 require 'amber/workflow'
+require 'amber/tof/writers/writer_factory'
 
 # ------------------------------------------------------------------------------
 module Amber
@@ -26,7 +28,7 @@ module Amber
       opt = CommandLineOptions.parse args
       Amber::TestEvidence.obliterate_test_output(opt) if opt.okay_to_obliterate?
       Workflow.new(opt).orchestrate
-      Amber::TestFactory.get_environment(opt).echo_to_sysout if opt.okay_to_echo_env?
+      Amber::WriterFactory.get_environment(opt).echo_to_sysout if opt.okay_to_echo_env?
     end
   end
 end
