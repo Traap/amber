@@ -1,31 +1,30 @@
 require 'rspec'
-require_relative '../../lib/amber/cli/options'
-require_relative '../../lib/amber/cli/command_line_options'
+require 'amber'
 # ------------------------------------------------------------------------------
-# obliterate options
-# [-O | --obliterate]
+# nodryrun options
+# [-v | --verbose]
 # ------------------------------------------------------------------------------
 describe 'amber' do
-  describe 'no -O' do
+  describe 'no -n' do
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.obliterate).to be(false)
+      expect(options.dryrun).to be(true)
     end
   end
 
-  describe '-O' do
+  describe '-n' do
     it 'has been used from the command line.' do
-      ARGV.replace ['-O']
+      ARGV.replace ['-n']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.obliterate).to be(true)
+      expect(options.dryrun).to be(false)
     end
   end
 
-  describe '--obliterate' do
+  describe '--nodryrun' do
     it 'has been used from the command line.' do
-      ARGV.replace ['--obliterate']
+      ARGV.replace ['--nodryrun']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.obliterate).to be(true)
+      expect(options.dryrun).to be(false)
     end
   end
 end

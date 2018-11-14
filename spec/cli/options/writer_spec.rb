@@ -1,31 +1,32 @@
 require 'rspec'
-require_relative '../../lib/amber/cli/options'
-require_relative '../../lib/amber/cli/command_line_options'
+require 'amber'
 # ------------------------------------------------------------------------------
-# nodryrun options
-# [-v | --verbose]
+# writer options
+# [-w | --writer]
+#
+# [Ascii | LaTeX]
 # ------------------------------------------------------------------------------
 describe 'amber' do
-  describe 'no -n' do
+  describe 'no -w' do
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.dryrun).to be(true)
+      expect(options.writer).to eq('LaTeX')
     end
   end
 
-  describe '-n' do
+  describe '--writer Ascii' do
     it 'has been used from the command line.' do
-      ARGV.replace ['-n']
+      ARGV.replace ['--writer=Ascii']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.dryrun).to be(false)
+      expect(options.writer).to eq('Ascii')
     end
   end
 
-  describe '--nodryrun' do
+  describe '--writer LaTeX' do
     it 'has been used from the command line.' do
-      ARGV.replace ['--nodryrun']
+      ARGV.replace ['--writer=LaTeX']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.dryrun).to be(false)
+      expect(options.writer).to eq('LaTeX')
     end
   end
 end

@@ -1,33 +1,30 @@
 require 'rspec'
-require_relative '../../lib/amber/cli/options'
-require_relative '../../lib/amber/cli/command_line_options'
+require 'amber'
 # ------------------------------------------------------------------------------
-# file options
-# [-f | --file]
-#
-# [a.yaml | b.yaml
+# verbose options
+# [-v | --verbose]
 # ------------------------------------------------------------------------------
 describe 'amber' do
-  describe 'no -f' do
+  describe 'no -v' do
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq([])
+      expect(options.verbose).to be(false)
     end
   end
 
-  describe '-fa.yaml' do
+  describe '-v' do
     it 'has been used from the command line.' do
-      ARGV.replace ['-fa.yaml']
+      ARGV.replace ['-v']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['a.yaml'])
+      expect(options.verbose).to be(true)
     end
   end
 
-  describe '--file=b.yaml' do
+  describe '--verbose' do
     it 'has been used from the command line.' do
-      ARGV.replace ['--file=b.yaml']
+      ARGV.replace ['--verbose']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['b.yaml'])
+      expect(options.verbose).to be(true)
     end
   end
 end

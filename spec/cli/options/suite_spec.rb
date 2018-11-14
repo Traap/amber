@@ -1,54 +1,53 @@
 require 'rspec'
-require_relative '../../lib/amber/cli/options'
-require_relative '../../lib/amber/cli/command_line_options'
+require 'amber'
 # ------------------------------------------------------------------------------
-# case options
-# [-c | --case
+# suite options
+# [-s | --suite
 #
 # [foo | bar | baz]
 #
 # Fully-qualified extention at runtime:
-#   factory/case/foo/foo.yaml
-#   factory/case/bar/bar.yaml
-#   factory/case/baz/baz.yaml
+#   factory/suite/foo/foo.yaml
+#   factory/suite/bar/bar.yaml
+#   factory/suite/baz/baz.yaml
 # ------------------------------------------------------------------------------
 describe 'amber' do
-  describe 'no -c' do
+  describe 'no -s' do
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.filename).to eq([])
     end
   end
 
-  describe '--case=foo' do
+  describe '--suite=foo' do
     it 'has been used from the command line.' do
-      ARGV.replace ['--case=foo']
+      ARGV.replace ['--suite=foo']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/case/foo/foo.yaml'])
+      expect(options.filename).to eq(['factory/suite/foo/foo.yaml'])
     end
   end
 
-  describe '-cbar' do
+  describe '-sbar' do
     it 'has been used from the command line.' do
-      ARGV.replace ['-cbar']
+      ARGV.replace ['-sbar']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/case/bar/bar.yaml'])
+      expect(options.filename).to eq(['factory/suite/bar/bar.yaml'])
     end
   end
 
-  describe '--case baz' do
+  describe '--suite baz' do
     it 'has been used from the command line.' do
-      ARGV.replace ['--case', 'baz']
+      ARGV.replace ['--suite', 'baz']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/case/baz/baz.yaml'])
+      expect(options.filename).to eq(['factory/suite/baz/baz.yaml'])
     end
   end
 
-  describe '-c foobar' do
+  describe '-s foobar' do
     it 'has been used from the command line.' do
-      ARGV.replace ['-c', 'foobar']
+      ARGV.replace ['-s', 'foobar']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/case/foobar/foobar.yaml'])
+      expect(options.filename).to eq(['factory/suite/foobar/foobar.yaml'])
     end
   end
 end

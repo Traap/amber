@@ -1,33 +1,30 @@
 require 'rspec'
-require_relative '../../lib/amber/cli/options'
-require_relative '../../lib/amber/cli/command_line_options'
+require 'amber'
 # ------------------------------------------------------------------------------
-# writer options
-# [-w | --writer]
-#
-# [Ascii | LaTeX]
+# simulate options
+# [-S | --simulate]
 # ------------------------------------------------------------------------------
 describe 'amber' do
-  describe 'no -w' do
+  describe 'no -S' do
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.writer).to eq('LaTeX')
+      expect(options.simulate).to be(false)
     end
   end
 
-  describe '--writer Ascii' do
+  describe '-S' do
     it 'has been used from the command line.' do
-      ARGV.replace ['--writer=Ascii']
+      ARGV.replace ['-S']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.writer).to eq('Ascii')
+      expect(options.simulate).to be(true)
     end
   end
 
-  describe '--writer LaTeX' do
+  describe '--simulate' do
     it 'has been used from the command line.' do
-      ARGV.replace ['--writer=LaTeX']
+      ARGV.replace ['--simulate']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.writer).to eq('LaTeX')
+      expect(options.simulate).to be(true)
     end
   end
 end
