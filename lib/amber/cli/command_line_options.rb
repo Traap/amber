@@ -4,6 +4,7 @@ require 'amber/version'
 require 'amber/cli/browser'
 require 'amber/cli/language'
 require 'amber/cli/writer'
+require 'amber/tif/structure/factory_structure'
 
 module Amber
   class CommandLineOptions
@@ -99,7 +100,7 @@ module Amber
     def self.plan_option(parser)
       parser.on('-p', '--plan x,y,x', Array, 'Plan name') do |z|
         @clo.options.filename = z.map! do |a|
-          "factory/plan/#{a}/#{a}.yaml"
+          Amber::FactoryStructure.plan_name(a)
         end
       end
     end
@@ -108,7 +109,7 @@ module Amber
     def self.suite_option(parser)
       parser.on('-s', '--suite x,y,x', Array, 'Suite name') do |z|
         @clo.options.filename = z.map! do |a|
-          "factory/suite/#{a}/#{a}.yaml"
+          Amber::FactoryStructure.suite_name(a)
         end
       end
     end
@@ -117,7 +118,7 @@ module Amber
     def self.case_option(parser)
       parser.on('-c', '--case x,y,x', Array, 'Case name') do |z|
         @clo.options.filename = z.map! do |a|
-          "factory/case/#{a}/#{a}.yaml"
+          Amber::FactoryStructure.case_name(a)
         end
       end
     end
