@@ -1,5 +1,6 @@
 require 'rspec'
 require_relative '../../lib/amber/cli/options'
+require_relative '../../lib/amber/cli/command_line_options'
 # ------------------------------------------------------------------------------
 # verbose options
 # [-v | --verbose]
