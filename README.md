@@ -6,7 +6,7 @@ intended purpose.  **amber** borrows from a Ruby-on-Rails concept of convention
 over configuration.  In this regard, amber consumes YAML documents that are
 placed beneath a factory directory root.  You are encouraged to review
 **amber's** report directory because it has been designed to demonstrate
-**amber's** capabilities.  [example.pdf](https://github.com/Traap/amber/blob/master/doc/example.pdf) 
+**amber's** capabilities.  [example.pdf](https://bitbucket-vial.intra.fresenius.com/projects/SOUP/repos/amber/browse/doc/example.pdf) 
 has been provided to demonstrate the automation framework components amber,
 [autodoc](https://bitbucket-vial.intra.fresenius.com/scm/soup/autodoc.git),
 [docbld](https://bitbucket-vial.intra.fresenius.com/scm/soup/docbld.git), and
@@ -26,7 +26,7 @@ has been provided to demonstrate the automation framework components amber,
 gem install amber
 ```
 
-### Optional components  are **only** needed if you want to rebuild [example.pdf](https://github.com/Traap/amber/blob/master/doc/example.pdf) 
+### Optional components  are **only** needed if you want to rebuild [example.pdf](https://bitbucket-vial.intra.fresenius.com/projects/SOUP/repos/amber/browse/doc/example.pdf) 
 1. [MiKTeX](https://miktex.org/download)
 2. [autodoc](https://bitbucket-vial.intra.fresenius.com/scm/soup/autodoc.git)
 3. [docbld](https://bitbucket-vial.intra.fresenius.com/scm/soup/docbld.git)
