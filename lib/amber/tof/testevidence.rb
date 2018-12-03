@@ -45,7 +45,7 @@ module Amber
 
     # --------------------------------------------------------------------------
 
-    def self.obliterate_test_output(_options)
+    def self.obliterate_test_output()
       FileUtils.remove_dir(TestEvidence::TEST_OUTPUT_DIR, true)
     end
 
