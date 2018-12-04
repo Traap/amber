@@ -1,0 +1,53 @@
+suite:
+  name: ${file} 
+
+  purpose: > 
+    Don't expect this Test Suite to do anything useful.  Unless, you count 
+    demonstrating Amber is capable of supporting nexted folders.
+
+  requirement: R2018-12-04
+
+includes:
+
+  # ----------------------------------------------------------------------------
+  # Test cases within a folder named factory/case/foo/{name}/{name}.yaml
+  #
+  - folder: foo
+    case:
+      - name: t001 
+      - name: t002 
+      - name: t003 
+
+  # ----------------------------------------------------------------------------
+  # Test cases within a folder named factory/case/bar/baz/{name}/{name}.yaml
+  #
+  - folder: bar/baz
+    case:
+      - name: t011 
+      - name: t012 
+      - name: t013 
+
+  # ----------------------------------------------------------------------------
+  # Test cases within a folder named factory/case/{name}/{name}.yaml
+  #
+  - case:
+      - name: t021 
+      - name: t022 
+      - name: t023 
+
+  # ----------------------------------------------------------------------------
+  # Test cases within a folder named factory/case/a/b/c/d/e/{name}/{name}.yaml
+  #
+  - folder: a/b/c/d/e
+    case:
+      - name: t031 
+      - name: t032 
+      - name: t033 
+
+  # ----------------------------------------------------------------------------
+  # Test cases within a folder named factory/case/{name}/{name}.yaml
+  #
+  - case:
+      - name: t041 
+      - name: t042 
+      - name: t043 
