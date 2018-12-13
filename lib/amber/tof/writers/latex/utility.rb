@@ -58,7 +58,6 @@ module Amber
             << File.dirname(decoratee.filename) \
             << '/' \
             << File.basename(decoratee.filename, '.*') \
-            << '.tex' \
             << '}' \
             << "\n"
     end
