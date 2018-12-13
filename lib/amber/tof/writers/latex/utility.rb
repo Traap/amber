@@ -7,14 +7,14 @@
 #
 # When browser and language are present:
 # Note C:  three parameters.  C is third letter of English alphabet.
-#    \tpoC{Chrome}{en}{About}
-#    \tsoC{Chrome}{en}{About}
-#    \tcoC{Chrome}{en}{About}
+#    \tpoC{Chrome}{en}{factory/plan/About/About.tex}
+#    \tsoC{Chrome}{en}{factory/suite/About/About.tex}
+#    \tcoC{Chrome}{en}{factory/case/About/About.tex}
 #
 # When browser and language are NOT present:
-#    \tpo{About}
-#    \tso{About}
-#    \tco{About}
+#    \tpo{factory/plan/About/About.tex}
+#    \tso{factory/suite/About/About.tex}
+#    \tco{factory/case/About/About.tex}
 #
 # ------------------------------------------------------------------------------
 
@@ -54,7 +54,13 @@ module Amber
     end
 
     def self.append_filename(macro, decoratee)
-      macro << '{' + File.basename(decoratee.filename, '.*') + "}\n"
+      macro << '{' \
+            << File.dirname(decoratee.filename) \
+            << '/' \
+            << File.basename(decoratee.filename, '.*') \
+            << '.tex' \
+            << '}' \
+            << "\n"
     end
   end
 end

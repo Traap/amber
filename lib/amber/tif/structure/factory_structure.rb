@@ -6,7 +6,7 @@ module Amber
   module FactoryStructure
 
     def self.plan_name(file)
-      dirname, basename = Amber::FactoryStructure.fileparts(file)
+      dirname, basename = fileparts(file)
       "factory/plan/#{dirname}/#{basename}.yaml"
     end
 
