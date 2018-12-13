@@ -7,3 +7,4 @@ plan:
 includes:
   - suite:
     - name: unit-test 
+    - name: yamler
