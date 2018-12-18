@@ -1,8 +1,8 @@
 require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
-#  
-#
+# These Rspecs demonstrate nesting a Test Plan, Test Suite, or Test Case YAML
+# file.
 # ------------------------------------------------------------------------------
 describe 'Factory Structure' do
   describe 'Test Plan Name' do
