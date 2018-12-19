@@ -13,13 +13,13 @@
 #     ${LANGUAGE}
 #
 #   The language code.
-#     {language-code}
+#     ${language-code}
 #     ${language-code}
 #
 #   The home directory
 #     ~
 #     ${home}
-#     {$HOME}
+#     ${HOME}
 #
 require 'fileutils'
 require 'amber/cli/options'
