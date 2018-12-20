@@ -1,0 +1,23 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case is used to demonstrate the tilda marker is properly
+    substituted by Amber.
+
+  requirement: AMBER-IUR-004 and AMBER-IUR-005
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber properly substutes the tilda marker correctly for the operating
+        system. 
+
+      expectation: >
+        Rpec output shows Amber::Substitute.extend_path substutited ~
+        to the home direcory. 
+
+      command: rspec --format documentation -e 'YAML Extend Path Substitutions'
+
+      evidence: Starts on next line.

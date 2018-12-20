@@ -1,0 +1,22 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case is used to demonstrate the {browser} keyword is properly
+    substituted by Amber.
+
+  requirement: AMBER-IUR-004 and AMBER-IUR-005
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber properly substutes the {browser} keyword for all brower types. 
+
+      expectation: >
+        Rpec output shows Amber::Substitute.browser properly substutited
+        {browser} and {BROWSER} keywords to Chrome, Firefox, Edge, and IE.
+
+      command: rspec --format documentation -e 'YAML Browser Substitutions'
+
+      evidence: Starts on next line.

@@ -1,0 +1,24 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case is used to demonstrate the {language} keyword is properly
+    substituted by Amber.
+
+  requirement: AMBER-IUR-004 and AMBER-IUR-005
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber properly substutes the {language} keyword for all supported
+        languages.
+
+      expectation: >
+        Rpec output shows Amber::Substitute.language properly substutited
+        {language} and {LANGUAGE} keywords to zz, cs, da, de, en, es, fr-ca,
+        fr-eu, it, ne, no, pl, so, and sv. 
+
+      command: rspec --format documentation -e 'YAML Language Substitutions'
+
+      evidence: Starts on next line.

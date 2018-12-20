@@ -1,0 +1,17 @@
+plan:
+  name: ${file} 
+  purpose: > 
+    This plan uses white box methods.  The output is sufficient for DHF
+    purposes.  However, the output is generally only used by engineers. 
+
+includes:
+  - suite:
+
+    # An Amber test suite that is intended to show Amber can be validated.
+    - name: intended-use
+    
+    # A placeholde for a future concept. 
+    # - name: advanced-concepts 
+
+    # A test suite that demonstrates nested test cases.
+    # - name: yamler
