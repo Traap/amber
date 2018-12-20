@@ -15,7 +15,7 @@ case:
         system. 
 
       expectation: >
-        Rpec output shows Amber::Substitute.extend_path substutited ~
+        Rspec output shows Amber::Substitute.extend_path substutited ~
         to the home direcory. 
 
       command: rspec --format documentation -e 'YAML Extend Path Substitutions'

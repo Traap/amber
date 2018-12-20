@@ -21,3 +21,7 @@ includes:
       - name: language
       - name: language-code
       - name: strings
+
+  - folder: tif/structure 
+    case:
+      - name: factory 

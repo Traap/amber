@@ -14,7 +14,7 @@ case:
         Amber properly substutes all keywords in a data stream. 
 
       expectation: >
-        Rpec output shows Amber::Substitute.strings substitued all keywords
+        Rspec output shows Amber::Substitute.strings substitued all keywords
         without encountering an error. 
 
       command: rspec --format documentation -e 'YAML Strings Substitutions'
