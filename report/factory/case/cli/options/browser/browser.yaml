@@ -15,9 +15,8 @@ case:
 
       expectation: >
         Rspec output shows Amber::CommandLineOptions.browser_option handles
-        argument values Chrome, Firefox, Edge, and IE.
+        supported argument formats.
 
       command: rspec --format documentation -e 'Amber Browser'
 
       evidence: Starts on next line.
-

@@ -4,7 +4,7 @@ require 'amber'
 # version options
 # [--version]
 # ------------------------------------------------------------------------------
-describe 'amber' do
+describe 'Amber Version' do
 
   before(:all) do
     @version = '1.3.192'

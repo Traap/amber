@@ -6,10 +6,11 @@ require 'amber'
 #
 # [a.yaml | b.yaml
 # ------------------------------------------------------------------------------
-describe 'amber' do
+describe 'Amber File' do
+
   describe 'no -f' do
     it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
+      options = Amber::Options.new 
       expect(options.filename).to eq([])
     end
   end
@@ -29,4 +30,13 @@ describe 'amber' do
       expect(options.filename).to eq(['b.yaml'])
     end
   end
+
+  describe '--file c.yaml' do
+    it 'has been used from the command line.' do
+      ARGV.replace ['--file', 'c.yaml']
+      options = Amber::CommandLineOptions.parse(ARGV)
+      expect(options.filename).to eq(['c.yaml'])
+    end
+  end
+
 end

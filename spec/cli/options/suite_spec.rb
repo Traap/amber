@@ -11,10 +11,11 @@ require 'amber'
 #   factory/suite/bar/bar.yaml
 #   factory/suite/baz/baz.yaml
 # ------------------------------------------------------------------------------
-describe 'amber' do
+describe 'Amber Suite' do
+
   describe 'no -s' do
     it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
+      options = Amber::Options.new
       expect(options.filename).to eq([])
     end
   end
@@ -50,4 +51,5 @@ describe 'amber' do
       expect(options.filename).to eq(['factory/suite/foobar/foobar.yaml'])
     end
   end
+
 end

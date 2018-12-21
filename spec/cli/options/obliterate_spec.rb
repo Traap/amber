@@ -4,10 +4,11 @@ require 'amber'
 # obliterate options
 # [-O | --obliterate]
 # ------------------------------------------------------------------------------
-describe 'amber' do
+describe 'Amber Obliterate' do
+
   describe 'no -O' do
     it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
+      options = Amber::Options.new
       expect(options.obliterate).to be(false)
     end
   end

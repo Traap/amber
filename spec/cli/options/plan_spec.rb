@@ -11,10 +11,11 @@ require 'amber'
 #   factory/plan/bar/bar.yaml
 #   factory/plan/baz/baz.yaml
 # ------------------------------------------------------------------------------
-describe 'amber' do
+describe 'Amber Plan' do
+
   describe 'no -p' do
     it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
+      options = Amber::Options.new
       expect(options.filename).to eq([])
     end
   end

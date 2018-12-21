@@ -6,10 +6,11 @@ require 'amber'
 #
 # [zz | cs | da | de | en | es | fr-ca | fr-eu | it | ne | no | pl | ro | sv]
 # ------------------------------------------------------------------------------
-describe 'amber' do
+describe 'Amber Language' do
+
   describe 'no -l' do
     it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
+      options = Amber::Options.new
       expect(options.language).to eq('zz')
       expect(options.has_language?).to be(false)
     end

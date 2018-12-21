@@ -1,11 +1,17 @@
 plan:
   name: ${file} 
   purpose: > 
-    This plan uses white box methods.  The output is sufficient for DHF
-    purposes.  However, the output is generally only used by engineers. 
+    This plan demonstrates Ruby gem Amber functions correctly.  This plan uses
+    shows that Amber has met the intended-use requirements as defined by the
+    designer.  
 
 includes:
 
+  # Command Line Interface
+  - folder: cli
+    suite:
+      - name: options 
+    
   # Utility suite.
   - folder: utility
     suite:

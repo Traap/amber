@@ -4,10 +4,11 @@ require 'amber'
 # verbose options
 # [-v | --verbose]
 # ------------------------------------------------------------------------------
-describe 'amber' do
+describe 'Amber Verbose' do
+
   describe 'no -v' do
     it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
+      options = Amber::Options.new
       expect(options.verbose).to be(false)
     end
   end
@@ -27,4 +28,5 @@ describe 'amber' do
       expect(options.verbose).to be(true)
     end
   end
+
 end

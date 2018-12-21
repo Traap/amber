@@ -1,0 +1,22 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case is used to demonstrate Amber properly constructs a default
+    Amber::Options object. 
+
+  requirement: AMBER-IUR-001, AMBER-IUR-002 and AMBER-IUR-003
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber properly consructs a default Amber::Options object.
+
+      expectation: >
+        Rspec output shows Amber::Options object is initialized 
+        correctly.
+
+      command: rspec --format documentation -e 'Amber Defaults'
+
+      evidence: Starts on next line.

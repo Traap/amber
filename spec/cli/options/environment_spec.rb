@@ -4,10 +4,11 @@ require 'amber'
 # environments options
 # [-e | --environment]
 # ------------------------------------------------------------------------------
-describe 'amber' do
+describe 'Amber Environment' do
+
   describe 'no -e' do
     it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
+      options = Amber::Options.new
       expect(options.environment).to be(false)
     end
   end

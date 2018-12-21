@@ -1,8 +1,7 @@
 suite: 
   name: ${file} 
 
-  purpose: | 
-    
+  purpose: > 
     This test suite demonstrated Amber's ability to locate a nested Test
     Plan, Test Suite, or Test Case YAML file.
 

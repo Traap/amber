@@ -4,10 +4,11 @@ require 'amber'
 # simulate options
 # [-S | --simulate]
 # ------------------------------------------------------------------------------
-describe 'amber' do
+describe 'Amber Simulate' do
+
   describe 'no -S' do
     it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
+      options = Amber::Options.new 
       expect(options.simulate).to be(false)
     end
   end
@@ -27,4 +28,5 @@ describe 'amber' do
       expect(options.simulate).to be(true)
     end
   end
+
 end
