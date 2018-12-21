@@ -5,14 +5,17 @@ plan:
     purposes.  However, the output is generally only used by engineers. 
 
 includes:
+
+  # Utility suite.
   - folder: utility
     suite:
       - name: substitute
     
+  # Test Input Factory suite.
   - folder: tif 
     suite:
       - name: structure 
 
   # A placeholde for a future concept. 
-  # - suite
-    # - name: advanced-concepts 
+  # - suite:
+  #     - name: advanced-concept 

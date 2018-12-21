@@ -1,0 +1,23 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case is used to demonstrate Amber properly uses the --browser
+    command line option.
+
+  requirement: AMBER-IUR-001, AMBER-IUR-002 and AMBER-IUR-003
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber properly consumes the command line argument --browser. 
+
+      expectation: >
+        Rspec output shows Amber::CommandLineOptions.browser_option handles
+        argument values Chrome, Firefox, Edge, and IE.
+
+      command: rspec --format documentation -e 'Amber Browser'
+
+      evidence: Starts on next line.
+

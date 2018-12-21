@@ -11,13 +11,7 @@ require 'amber'
 #   factory/case/bar/bar.yaml
 #   factory/case/baz/baz.yaml
 # ------------------------------------------------------------------------------
-describe 'amber' do
-  describe 'no -c' do
-    it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq([])
-    end
-  end
+describe 'Amber Case' do
 
   describe '--case=foo' do
     it 'has been used from the command line.' do
@@ -27,27 +21,44 @@ describe 'amber' do
     end
   end
 
-  describe '-cbar' do
+  describe '--case foo' do
     it 'has been used from the command line.' do
-      ARGV.replace ['-cbar']
+      ARGV.replace ['--case','foo']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/case/bar/bar.yaml'])
+      expect(options.filename).to eq(['factory/case/foo/foo.yaml'])
     end
   end
 
-  describe '--case baz' do
+  describe '-cfoo' do
     it 'has been used from the command line.' do
-      ARGV.replace ['--case', 'baz']
+      ARGV.replace ['-c', 'foo']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/case/baz/baz.yaml'])
+      expect(options.filename).to eq(['factory/case/foo/foo.yaml'])
     end
   end
 
-  describe '-c foobar' do
+  describe '--case=foo/baz' do
     it 'has been used from the command line.' do
-      ARGV.replace ['-c', 'foobar']
+      ARGV.replace ['--case=foo/baz']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/case/foobar/foobar.yaml'])
+      expect(options.filename).to eq(['factory/case/foo/baz/baz.yaml'])
     end
   end
+
+  describe '--case foo/baz' do
+    it 'has been used from the command line.' do
+      ARGV.replace ['--case', 'foo/baz']
+      options = Amber::CommandLineOptions.parse(ARGV)
+      expect(options.filename).to eq(['factory/case/foo/baz/baz.yaml'])
+    end
+  end
+
+  describe '--coo/baz' do
+    it 'has been used from the command line.' do
+      ARGV.replace ['-c', 'foo/baz']
+      options = Amber::CommandLineOptions.parse(ARGV)
+      expect(options.filename).to eq(['factory/case/foo/baz/baz.yaml'])
+    end
+  end
+
 end
