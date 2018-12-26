@@ -1,0 +1,24 @@
+suite: 
+  name: ${file} 
+
+  purpose: > 
+    This test suite demonstrats Amber consumes and uses command line arguments
+    properly. 
+
+includes:
+  - folder: cli/options 
+    case:
+      - name: browser 
+      - name: case 
+      - name: default 
+      - name: environment 
+      - name: file 
+      - name: language 
+      - name: nodryrun 
+      - name: obliterate 
+      - name: plan 
+      - name: simulate 
+      - name: suite
+      - name: verbose
+      - name: version
+      - name: writer

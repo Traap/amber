@@ -1,0 +1,22 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case is used to demonstrate Amber properly uses the --simulate
+    command line option.
+
+  requirement: AMBER-IUR-001, AMBER-IUR-002 and AMBER-IUR-003
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber properly consumes the command line argument --simulate. 
+
+      expectation: >
+        Rspec output shows Amber::CommandLineOptions.simulate_option handles
+        supported argument formats.
+
+      command: rspec --format documentation -e 'Amber Simulate'
+
+      evidence: Starts on next line.

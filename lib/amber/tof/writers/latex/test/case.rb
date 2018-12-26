@@ -13,7 +13,7 @@ module Amber
     end
 
     def echo_to_sysout
-      method(:echo_to_sysout).super_method.call('paragraph')
+      method(:echo_to_sysout).super_method.call('subsubsection')
     end
   end
 end

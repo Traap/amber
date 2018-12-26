@@ -1,0 +1,21 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case demonstrates that Amber can record the operational environment 
+    in which it was used.
+
+  requirement: AMBER-IUR-001, AMBER-IUR-002 and AMBER-IUR-003
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber understands when to record the operational environment. 
+
+      expectation: >
+        Rspec output shows Amber's understanding of the enviornment option. 
+
+      command: rspec --format documentation -e 'Amber Environment'
+
+      evidence: Starts on next line.

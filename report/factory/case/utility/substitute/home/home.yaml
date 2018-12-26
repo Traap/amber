@@ -1,0 +1,22 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case is used to demonstrate the {home} keyword is properly
+    substituted by Amber.
+
+  requirement: AMBER-IUR-004 and AMBER-IUR-005
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber properly substutes the {home} keyword for all brower types. 
+
+      expectation: >
+        Rpec output shows Amber::Substitute.home properly substutited
+        {home} and {HOME} keywords specific to this operating system. 
+
+      command: rspec --format documentation -e 'YAML Home Substitutions'
+
+      evidence: Starts on next line.

@@ -1,46 +1,17 @@
-# ------------------------------------------------------------------------------
-# Example Test Plan 
-#
-# This comment block may be deleted.
-#
-# YAML Ain't Markup Language (YAML tm) Version 1.2
-# http://www.yaml.org/spec/1.2/spec.html
-# 
-# Keywords.
-#
-# plan:                 # No text following the colon.
-#   name:               # The plan name.  This string is used on reports.
-#   purpose:            # Describe the purpose of this plan.
-#   requirements:       # An optional list of requirement numbers.
-# includes:             # Denotes - suite or - case follows.
-#   - suite:            # No text follows the colon.  Suite names follow.
-#     - name:           # The name of a suite to include. 
-#     - name:           # The name of another suite to include. 
-#     - name:           # etc. 
-# 
-# Strict file system convention.
-# factory/
-#   plan/
-#     a-plan/
-#       a-plan.yaml
-#   suite
-#     a-suite/
-#       a-suite.yaml
-#     another-suite/
-#       another-suite.yaml
-#   case
-#     a-case/
-#       a-case.yaml
-#     another-case/
-#       another-case.yaml
-# ------------------------------------------------------------------------------
 plan:
-  name: Test Plan Name
+  name: ${file} 
   purpose: >
     This plan uses white box methods.  The output is sufficient for DHF
     purposes.  However, the output is generally only used by engineers.
 
 includes:
-  - suite:
-    - name: a-suite
+  # Default.  Non-nested Test Plans.
+  - suite: 
+    - name: a-sutie
     - name: another-suite
+
+  # Nested Test Plans.
+  - folder: a-folder-name-when-needed
+    - suite:
+      - name: a-suite
+      - name: another-suite
