@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Major, Minor, Patch.
 #   Major
 #     Interface and backward compatibility is not guaranteed.
@@ -9,5 +11,5 @@
 #     The next integer.  This number never resets.
 #
 module Amber
-  VERSION = '1.2.173'.freeze
+  VERSION = '1.3.192'.freeze
 end

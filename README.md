@@ -1,20 +1,20 @@
 ### Automated testing 
-**amber** is a Ruby gem that is used for automated testing. amber was designed
-to automate various types of testing that require creating and assembling
-detailed records intended to prove a product or tool has been tested for its
-intended purpose.  amber borrows from a Ruby-on-Rails concept of convention
-over configuration.  In this regard, amber consumes YAML documents that are
-placed beneath a factory directory root.  You are encouraged to review
-amber's report directory because it has been designed to demonstrate
-amber's capabilities.  [example.pdf](https://bitbucket-vial.intra.fresenius.com/projects/SOUP/repos/amber/browse/doc/example.pdf) 
-has been provided to demonstrate the automation framework components amber,
-[autodoc](https://bitbucket-vial.intra.fresenius.com/scm/soup/autodoc.git),
-[docbld](https://bitbucket-vial.intra.fresenius.com/scm/soup/docbld.git), and
-[tlc-article](https://bitbucket-vial.intra.fresenius.com/scm/soup/tlc-article.git).
-
+**amber** is a Ruby gem that is used to coordinate automated testing.  **amber**
+was designed to automation various types of testing that require creating and
+assembling detailed records intended to prove a product or tool has been tested
+for its intended purpose.  **amber** borrows from a Ruby-on-Rails concept of
+convention over configuration.  In this regard, amber consumes YAML documents
+that are placed beneath a factory directory root.  You are encouraged to review
+**amber's** report directory because it has been designed to demonstrate
+**amber's** capabilities.
+[example.pdf](https://github.com/Traap/amber/blob/master/doc/example.pdf) has
+been provided to demonstrate the automation framework components amber,
+[autodoc](https://github.com/Traap/autodoc),
+[docbld](https://github.com/Traap/docbld), and
+[tlc-article](https://github.com/Traap/tlc-article).
 
 ### Supported Systems
-amber has been tested with cygwin, linux (mint), mingw32, and wsl.
+**amber** has been tested with cygwin, linux (mint), mingw32/64, Windows 10 and
 
 ### Prerequisites 
 1. [Ruby](https://www.ruby-lang.org/en)
@@ -141,11 +141,11 @@ case:
 ```
 ##### LaTeX test-results output
 ```bash
-\tpo{unit-test}
-\tso{unit-test}
-\tco{t001}
-\tco{t002}
-\tco{t003}
+\tpo{factory/plan/a-plan-name/a-plan-nam}
+\tso{factory/suite/a-suite-name/a-suite-nam}
+\tco{factory/case/t001/t001}
+\tco{factory/case/t002/t002}
+\tco{factory/case/t003/t003}
 ```
 ##### LaTeX macros
 test plan output (tpo), test suite output (tso), and test case output (tco) are
@@ -175,11 +175,11 @@ consumed.
 
 ##### LaTeX test-results output
 ```bash
-\tpoC{Chrome}{fr-eu}{unit-test}
-\tsoC{Chrome}{fr-eu}{unit-test}
-\tcoC{Chrome}{fr-eu}{t001}
-\tcoC{Chrome}{fr-eu}{t002}
-\tcoC{Chrome}{fr-eu}{t003}
+\tpoC{Chrome}{fr-eu}{factory/plan/a-plan-name/a-plan-name}
+\tsoC{Chrome}{fr-eu}{factory/suite/a-suite-name/a-suite-nam}
+\tcoC{Chrome}{fr-eu}{factory/case/t001/t001}
+\tcoC{Chrome}{fr-eu}{factory/case/t002/t002}
+\tcoC{Chrome}{fr-eu}{factory/case/t003/t003}
 ```
 
 ##### LaTeX macros
@@ -243,8 +243,7 @@ Specific options:
 ##### --help
 Show this message.
 
-##### --version
-1.2.167 is the current version.
+1.3.192 is this the current version.
 
 #### --verbose
 Log the commands what will be run when --nodryrun is used.  **NOTE:** This
@@ -258,7 +257,7 @@ program ran.
 ##### --plan
 A comma-separated list of test plan names amber is to process.  The following
 directory and YAML file name convention is mandatory:
-factory/plan/a-plan/a-plan.YAML.
+factory/plan/a-plan/a-a-plan.YAML.
 
 ##### --suite
 A comma-separated list of test suite names amber is to process.  The
@@ -323,4 +322,10 @@ function pass() {
 function fail() {
   check-test-output FAIL
 }
+
+function requirements() {
+  echo grep -rw --include=\*.yaml factory/ -e 'requirement:' 
+  grep -rw --include=\*.yaml factory/ -e 'requirement:' 
+}
+
 ```

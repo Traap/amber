@@ -1,0 +1,23 @@
+suite: 
+  name: ${file} 
+
+  purpose: | 
+    
+    This test suite demonstrates Amber's runtime substitution capabilities.
+    Amber has been designed to translate the keywords below.
+
+      1) {browser}       or {BROWSER}
+      2) {file}          or {FILE}
+      3) {language}      or {LANGUAGE} 
+      4) {language-code} or {LANGUAGE-CODE}
+      5) {home}          or {HOME} or ~
+
+includes:
+  - folder: utility/substitute
+    case:
+      - name: browser 
+      - name: extend-path 
+      - name: home
+      - name: language
+      - name: language-code
+      - name: strings

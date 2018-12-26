@@ -1,0 +1,29 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case is used to demonstrate Amber can properly locate a
+    nested Test Plan, Test Suite, or Test Case.
+
+  requirement: AMBER-IUR-004
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber properly locates nested Test Plan, Test Suite, and Test Case names.
+
+      expectation: |
+
+        Rspec output shows Amber::FactoryStrucutre properly locates the YAML file
+        below.
+        1) Test Plan foo
+        2) Nested Test Plan baz
+        3) Test Suite foo
+        4) Nested Test Suite name baz
+        5) Test Case foo
+        6) Nested Test Case name baz
+        
+      command: rspec --format documentation -e 'Factory Structure'
+
+      evidence: Starts on next line.

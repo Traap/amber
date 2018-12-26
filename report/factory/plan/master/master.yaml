@@ -1,0 +1,27 @@
+plan:
+  name: ${file} 
+  purpose: > 
+    This plan demonstrates Ruby gem Amber functions correctly.  This plan uses
+    shows that Amber has met the intended-use requirements as defined by the
+    designer.  
+
+includes:
+
+  # Command Line Interface
+  - folder: cli
+    suite:
+      - name: options 
+    
+  # Utility suite.
+  - folder: utility
+    suite:
+      - name: substitute
+    
+  # Test Input Factory suite.
+  - folder: tif 
+    suite:
+      - name: structure 
+
+  # A placeholde for a future concept. 
+  # - suite:
+  #     - name: advanced-concept 
