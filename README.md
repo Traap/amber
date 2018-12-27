@@ -243,7 +243,7 @@ Specific options:
 ##### --help
 Show this message.
 
-1.3.192 is this the current version.
+1.3.193 is the current version.
 
 #### --verbose
 Log the commands what will be run when --nodryrun is used.  **NOTE:** This
@@ -257,7 +257,7 @@ program ran.
 ##### --plan
 A comma-separated list of test plan names amber is to process.  The following
 directory and YAML file name convention is mandatory:
-factory/plan/a-plan/a-a-plan.YAML.
+factory/plan/a-plan/-plan.YAML.
 
 ##### --suite
 A comma-separated list of test suite names amber is to process.  The
