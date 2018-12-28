@@ -1,0 +1,11 @@
+suite: 
+  name: ${file} 
+
+  purpose: > 
+    This test suite demonstrated Amber's ability to locate a nested Test
+    Plan, Test Suite, or Test Case YAML file.
+
+includes:
+  - folder: tif/structure 
+    case:
+      - name: factory 

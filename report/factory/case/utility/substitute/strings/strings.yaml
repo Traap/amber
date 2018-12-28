@@ -1,0 +1,22 @@
+case:
+  name: ${file}
+
+  purpose: >
+    This test case is used to demonstrate the Amber substitutes multiple
+    keywords in data stream. 
+
+  requirement: AMBER-IUR-004 and AMBER-IUR-005
+
+  workingdir: ../../..
+
+  steps:
+    - confirm: >
+        Amber properly substutes all keywords in a data stream. 
+
+      expectation: >
+        Rspec output shows Amber::Substitute.strings substitued all keywords
+        without encountering an error. 
+
+      command: rspec --format documentation -e 'YAML Strings Substitutions'
+
+      evidence: Starts on next line.

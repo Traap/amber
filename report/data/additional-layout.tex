@@ -3,10 +3,14 @@
 \def\autodocDir{../../autodoc}
 
 % ------------------------------------------------------------------------------
+% Hook into automation documentation additional layout. 
+\input{\autodocDir/boilerplate/data/additional-layout.tex}
+
+% ------------------------------------------------------------------------------
 % Hook into boilerplate definitions.
 \input{\autodocDir/boilerplate/project-directories.tex}
 
 % ------------------------------------------------------------------------------
 % Set table of contents depth.   The standard is three and I want four. 
-\setcounter{tocdepth}{4}
+% \setcounter{tocdepth}{4}
 % ------------------------------------------------------------------------------
