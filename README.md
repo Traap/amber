@@ -257,7 +257,7 @@ program ran.
 ##### --plan
 A comma-separated list of test plan names amber is to process.  The following
 directory and YAML file name convention is mandatory:
-factory/plan/a-plan/-plan.YAML.
+factory/plan/a-plan/a-plan.YAML.
 
 ##### --suite
 A comma-separated list of test suite names amber is to process.  The
