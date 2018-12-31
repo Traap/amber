@@ -28,9 +28,9 @@ gem install amber
 
 ### Optional components  are **only** needed if you want to rebuild [example.pdf](https://bitbucket-vial.intra.fresenius.com/projects/SOUP/repos/amber/browse/doc/example.pdf) 
 1. [MiKTeX](https://miktex.org/download)
-2. [autodoc](https://bitbucket-vial.intra.fresenius.com/scm/soup/autodoc.git)
-3. [docbld](https://bitbucket-vial.intra.fresenius.com/scm/soup/docbld.git)
-4. [tlc-article](https://bitbucket-vial.intra.fresenius.com/scm/soup/tlc-article.git)
+2. [autodoc](https://github.com/Traap/autodoc)
+3. [docbld](https://github.com/Traap/docbld)
+4. [tlc-article](https://github.com/Traap/tlc-article.git)
 
 ### Working with source 
 Copy the text below and paste into a shell.  The commands will:
