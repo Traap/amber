@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-# Test Output Factory the file system amber creats when running Test Suites,
-# Test Plans, Test Cases, and Test Steps.  The output factor has two formats:
+# Test Output Factory is the files amber creats when running Test Suites,
+# Test Plans, Test Cases, and Test Steps.  The output factory has two formats:
 #
 # 1) Without Browers and Languages
 #   test-output/
+#     test-results.tex
+#     requirements.csv
 #     factory/
 #       plan/
 #       suite/
@@ -15,6 +17,8 @@
 #
 # 2) With Browers and Languages
 #   test-output/
+#     test-results.tex
+#     requirements.csv
 #     chrome/
 #       fr/
 #         factory/
@@ -42,6 +46,7 @@ module Amber
     TEST_RESULTS_LOG = TestEvidence::TEST_OUTPUT + 'test-results'
     LATEX_FILE_EXTENSION = '.tex'.freeze
     ASCII_FILE_EXTENSION = '.txt'.freeze
+    REQUIREMENTS_LOG = TestEvidence::TEST_OUTPUT + 'requirements.csv'.freeze
 
     # --------------------------------------------------------------------------
 
@@ -155,6 +160,21 @@ module Amber
       stdout, stderr, status = Open3.capture3 command
       Dir.chdir pwd
       [stdout, stderr, status]
+    end
+
+    # --------------------------------------------------------------------------
+
+    def self.record_requirements_tested(name, requirements)
+      reqs = Amber::Requirement.to_array(requirements)
+      unless reqs.nil?
+        skip_header = File.file?(TestEvidence::REQUIREMENTS_LOG)
+        handle = TestEvidence.open_file(TestEvidence::REQUIREMENTS_LOG)
+        handle.write "requirement | test\n".freeze unless skip_header
+        reqs.each do |req|
+          handle.write(req + " | " +  name + "\n")
+        end
+        TestEvidence.close_file(handle)
+      end
     end
 
     # --------------------------------------------------------------------------

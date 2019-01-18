@@ -8,8 +8,9 @@
 #     Interface may change and backward compatibility is guaranteed.
 #
 #   Patch
-#     The next integer.  This number never resets.
+#     The next integer.  This number never resets.  Not all patches are
+#     released.
 #
 module Amber
-  VERSION = '1.3.193'.freeze
+  VERSION = '1.4.213'.freeze
 end
