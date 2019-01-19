@@ -47,6 +47,7 @@ module Amber
     LATEX_FILE_EXTENSION = '.tex'.freeze
     ASCII_FILE_EXTENSION = '.txt'.freeze
     REQUIREMENTS_LOG = TestEvidence::TEST_OUTPUT + 'requirements.csv'.freeze
+    COMMAND_LOG = TestEvidence::TEST_OUTPUT + 'commands.log'.freeze
 
     # --------------------------------------------------------------------------
 
@@ -164,7 +165,7 @@ module Amber
 
     # --------------------------------------------------------------------------
 
-    def self.record_requirements_tested(name, requirements)
+    def self.record_requirement_tested(name, requirements)
       reqs = Amber::Requirement.to_array(requirements)
       unless reqs.nil?
         skip_header = File.file?(TestEvidence::REQUIREMENTS_LOG)
@@ -173,6 +174,16 @@ module Amber
         reqs.each do |req|
           handle.write(req + " | " +  name + "\n")
         end
+        TestEvidence.close_file(handle)
+      end
+    end
+
+    # --------------------------------------------------------------------------
+
+    def self.record_amber_command(name)
+      unless false 
+        handle = TestEvidence.open_file(TestEvidence::COMMAND_LOG)
+        handle.write(name + "\n")
         TestEvidence.close_file(handle)
       end
     end

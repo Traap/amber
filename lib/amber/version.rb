@@ -8,9 +8,12 @@
 #     Interface may change and backward compatibility is guaranteed.
 #
 #   Patch
-#     The next integer.  This number never resets.  Not all patches are
-#     released.
+#     The patch number is incremented each time the amber gem is built and
+#     installed.  This number never resets.  Not all patches are released to the
+#     public domain.
 #
+# ------------------------------------------------------------------------------
 module Amber
-  VERSION = '1.4.213'.freeze
+  VERSION = '1.4.236'.freeze
 end
+# ------------------------------------------------------------------------------

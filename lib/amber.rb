@@ -8,7 +8,7 @@
 # Amber provides a robust reporting mechanism that is used to product objective
 # evidence a component has met its intended use.
 #
-# Amber process YAML files to run test plans, test suites, and test cases in
+# Amber processes YAML files to run test plans, test suites, and test cases in
 # order to assemble records that meet Quality Systems Regulations requirements
 # for documented evidence.
 # ------------------------------------------------------------------------------

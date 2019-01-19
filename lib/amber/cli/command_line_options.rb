@@ -1,10 +1,14 @@
 # frozen_string_literal: true
+# frozen_string_literal: true
+# ------------------------------------------------------------------------------
 
 require 'amber/version'
 require 'amber/cli/browser'
 require 'amber/cli/language'
 require 'amber/cli/writer'
 require 'amber/tif/structure/factory_structure'
+
+# ------------------------------------------------------------------------------
 
 module Amber
   class CommandLineOptions
@@ -36,6 +40,8 @@ module Amber
         help_option parser
         language_option parser
         verbose_option parser
+        log_command_option parser
+        log_requirement_option parser
         simulate_option parser
         obliterate_option parser
         version_option parser
@@ -65,11 +71,25 @@ module Amber
     end
 
     # --------------------------------------------------------------------------
+    def self.log_command_option(parser)
+      parser.on('-L', '--log-command', 'Log Command') do |z|
+        @clo.options.log_command ^= z
+      end
+    end
+
+    # --------------------------------------------------------------------------
+    def self.log_requirement_option(parser)
+      parser.on('-r', '--log-requirement', 'Log Requirement') do |z|
+        @clo.options.log_requirement ^= z
+      end
+    end
+
+    # --------------------------------------------------------------------------
     def self.simulate_option(parser)
       parser.on('-S',
                 '--simulate',
                 'Simulate run to create Test Output direcotry') do |z|
-        @clo.options.simulate = z
+        @clo.options.simulate ^= z
       end
     end
 
@@ -78,21 +98,21 @@ module Amber
       parser.on('-O',
                 '--obliterate',
                 'Obliterate Test Output directory before Test Execution') do |z|
-        @clo.options.obliterate = z
+        @clo.options.obliterate ^= z
       end
     end
 
     # --------------------------------------------------------------------------
     def self.verbose_option(parser)
       parser.on('-v', '--verbose', 'Verbose') do |z|
-        @clo.options.verbose = z
+        @clo.options.verbose ^= z
       end
     end
 
     # --------------------------------------------------------------------------
     def self.environment_option(parser)
       parser.on('-e', '--environment', 'List environment') do |z|
-        @clo.options.environment = z
+        @clo.options.environment ^= z
       end
     end
 
@@ -158,15 +178,25 @@ module Amber
     # --------------------------------------------------------------------------
     def self.dump_option(parser)
       parser.on_tail('-d', '--dump', 'Dump options (must be last).') do
+        puts "Command Line Option values:"
         puts "    browser: #{@clo.options.browser}"
         puts "     dryrun: #{@clo.options.dryrun}"
         puts "environment: #{@clo.options.environment}"
         puts "   filename: #{@clo.options.filename}"
         puts "   language: #{@clo.options.language}"
+        puts "log-command: #{@clo.options.log_command}"
         puts " obliterate: #{@clo.options.obliterate}"
+        puts "requirement: #{@clo.options.requirement}"
         puts "   simulate: #{@clo.options.simulate}"
         puts "    verbose: #{@clo.options.verbose}"
         puts "     writer: #{@clo.options.writer}"
+        puts "Command Line Option function values:"
+        puts "             okay_to_run?: #{@clo.options.okay_to_run?}"
+        puts "      okay_to_obliterate?: #{@clo.options.okay_to_obliterate?}"
+        puts "okay_to_list_requirement?: #{@clo.options.okay_to_list_requirement?}"
+        puts "     okay_to_log_command?: #{@clo.options.okay_to_log_command?}"
+        puts "            has_language?: #{@clo.options.has_language?}"
+        puts "             has_browser?: #{@clo.options.has_browser?}"
         exit
       end
     end
