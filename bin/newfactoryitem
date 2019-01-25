@@ -5,6 +5,7 @@
 # ------------------------------------------------------------------------------
 
 # These flags enable optional features.
+factoryFlag=0 # Create a new amber test factory. 
 planFlag=0    # Create a new amber test plan folder and file.
 suiteFlag=0   # Create a new amber test suite folder and file.
 caseFlag=0    # Create a new amber test case folder and file.
@@ -20,6 +21,16 @@ main() {
   if [ $helpFlag == 1 -o $errorFlag == 1 ]; then
     showHelp
   else
+    # Save current working directory.
+    cwd=$(pwd)
+
+    # Move to AMBERPATH
+    cd ${AMBERPATH}
+
+    # Process the requests.
+    if [ $factoryFlag == 1 ]; then
+      newFactory
+    fi 
     if [ $planFlag == 1 ]; then
       newPlan
     fi 
@@ -29,6 +40,9 @@ main() {
     if [ $caseFlag == 1 ]; then
       newCase
     fi
+
+    # Return to saved working directory.
+    cd ${cwd}
   fi
 }
 
@@ -37,18 +51,21 @@ main() {
 # ------------------------------------------------------------------------------
 function showHelp {
    echo
-   echo "Usage: newfactory [OPTIONS]"
+   echo "Usage: newfactoryitem [OPTIONS]"
    echo "Run newfactory to create a new amber application folder and file."
    echo
    echo "OPTIONS"
-   echo "  --plan         Test plan name to create."
+   echo "  --factory=path/to/dir      Tell amber where to create the factory."
+   echo ""
+   echo "  --plan=name                Test plan name to create."
    echo
-   echo "  --suite        Test suite name to create."
+   echo "  --suite=name               Test suite name to create."
    echo 
-   echo "  --case         Test case name to create."
+   echo "  --case=name                Test case name to create."
    echo
-   echo "  --help         Display this help message."
+   echo "  --help                      Display this help message."
    echo
+   checkForAmberPath
 }
 
 # ------------------------------------------------------------------------------
@@ -66,6 +83,12 @@ function parseOptions {
       case $var in
         --debug)
           debugFlag=1
+          shift
+          ;;
+        --factory=*)
+          FACTORY="${var#*=}"
+          helpFlag=0
+          factoryFlag=1
           shift
           ;;
         --plan=*)
@@ -99,6 +122,15 @@ function parseOptions {
 }
 
 # ------------------------------------------------------------------------------
+# Create a new test factory. 
+# ------------------------------------------------------------------------------
+newFactory() {
+  factoryDir=''"${cwd}"'/'"${FACTORY}"''/factory
+  msg "Creating document directory ${factoryDir}"
+  mkdir -p ${factoryDir}
+}
+
+# ------------------------------------------------------------------------------
 # Create a new test plan. 
 # ------------------------------------------------------------------------------
 newPlan() {
@@ -126,22 +158,43 @@ newCase() {
 # ------------------------------------------------------------------------------
 newFile() {
 
-  subdir='factory/'"$1"'/'"$2"''
-  fn=$(basename -- "${subdir}/$2.yaml")
+  tofDir=''"${factoryDir}"'/'"$1"'/'"$2"''
+  fn=$(basename -- "${tofDir}/$2.yaml")
   filename=${fn##*/}
 
   if [ $debugFlag == 0 ]; then
-    if [[ -d factory ]]; then
-      echo "Creating amber test case $2"
-      mkdir -pv ${subdir}
-      cp -v ${HOME}/git/amber/data/new$1.yaml ${subdir}/${filename}
+    if [[ -d ${factoryDir} ]]; then
+      # Don't overwrite an existing file.
+      if [ ! -f "${tofDir}/${filename}" ]; then
+        msg "Creating amber test case ${tofDir}/${filename}"
+        mkdir -pv ${tofDir}
+        cp -v ${AMBERPATH}/data/new$1.yaml ${tofDir}/${filename}
+      fi
     else
-      echo "Aborting because a factory folder is missing."
-      exit 1;
+      msg "Aborting because a factory folder is missing."
     fi
   else
     debugMode
   fi
+}
+
+
+# ------------------------------------------------------------------------------
+# check for AMBERPATH 
+# ------------------------------------------------------------------------------
+checkForAmberPath() {
+  if [ ! -d ${AMBERPATH} ]; then
+    msg "AMBERPATH [${AMBERPATH}] must be defined.  Aborting!"
+    exit
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# msg is used to format strings to the console. 
+# ------------------------------------------------------------------------------
+msg() {
+  echo ""
+  echo $1
 }
 
 # ------------------------------------------------------------------------------
@@ -150,9 +203,10 @@ newFile() {
 # ------------------------------------------------------------------------------
 debugMode() {
   echo "Debug mode."
-  echo "       subdir [${subdir}]"
+  echo "   factoryDir [${factoryDir}]"
+  echo "       tofDir [${tofDir}]"
   echo "     filename [${filename}]"
-  echo "full filename [${subdir}/${filename}]"
+  echo "full filename [${factoryDir}/${filename}]"
 }
 
 # ------------------------------------------------------------------------------
