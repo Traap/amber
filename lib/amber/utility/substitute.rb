@@ -74,5 +74,6 @@ module Amber
         expanded_text
       end
     end
+
   end
 end

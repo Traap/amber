@@ -61,6 +61,6 @@ module Amber
     def has_browser?
       @browser.eql?(Amber::Browser::DEFAULT) ? false : true
     end
-  end
 
+  end
 end

@@ -76,7 +76,12 @@ module Amber
     # --------------------------------------------------------------------------
 
     def self.create_directory_when_needed(dir)
-      FileUtils.mkdir_p dir
+      begin
+        FileUtils.mkdir_p dir
+      rescue
+        msg = "Could not create: #{dir}"
+        abort msg 
+      end
     end
 
     # --------------------------------------------------------------------------
