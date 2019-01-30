@@ -17,8 +17,7 @@
 #
 # 2) With Browers and Languages
 #   test-output/
-#     test-results.tex
-#     requirements.csv
+#     test-results.tex     requirements.csv
 #     chrome/
 #       fr/
 #         factory/
@@ -128,12 +127,7 @@ module Amber
           TestEvidence::TEST_RESULTS_LOG +
           TestEvidence.use_file_extension(options)
         )
-     
-      handle.write(
-        FileUtils.pwd() + File::SEPARATOR + 
-        TestEvidence::TEST_RESULTS_LOG + File::SEPARATOR +
-        name)
-
+      handle.write(name)
       TestEvidence.close_file(handle)
     end
 

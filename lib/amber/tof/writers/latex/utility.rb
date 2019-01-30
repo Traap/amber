@@ -7,14 +7,14 @@
 #
 # When browser and language are present:
 # Note C:  three parameters.  C is third letter of English alphabet.
-#    \tpoC{Chrome}{en}{factory/plan/About/About.tex}
-#    \tsoC{Chrome}{en}{factory/suite/About/About.tex}
-#    \tcoC{Chrome}{en}{factory/case/About/About.tex}
+#    \tpoC{Chrome}{en}{full-path-to/factory/plan/About/About.tex}
+#    \tsoC{Chrome}{en}{full-path-to/factory/suite/About/About.tex}
+#    \tcoC{Chrome}{en}{full-path-to/factory/case/About/About.tex}
 #
 # When browser and language are NOT present:
-#    \tpo{factory/plan/About/About.tex}
-#    \tso{factory/suite/About/About.tex}
-#    \tco{factory/case/About/About.tex}
+#    \tpo{full-path-to/factory/plan/About/About.tex}
+#    \tso{full-path-to/factory/suite/About/About.tex}
+#    \tco{full-path-to/factory/case/About/About.tex}
 #
 # ------------------------------------------------------------------------------
 
@@ -54,9 +54,11 @@ module Amber
     end
 
     def self.append_filename(macro, decoratee)
+      pwd = FileUtils.pwd()
       macro << '{' \
-            << File.dirname(decoratee.filename) \
-            << '/' \
+            << pwd << File::SEPARATOR \
+            << TestEvidence::TEST_RESULTS_LOG << File::SEPARATOR \
+            << File.dirname(decoratee.filename) << File::SEPARATOR \
             << File.basename(decoratee.filename, '.*') \
             << '}' \
             << "\n"

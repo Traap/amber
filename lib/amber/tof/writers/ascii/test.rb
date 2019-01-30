@@ -16,15 +16,48 @@ module Amber
                    File.basename(decoratee.filename, '.*') + "\n"
                end
       @decoratee   = decoratee
-      @type        = decoratee.type
-      @filename    = decoratee.filename
-      @data        = decoratee.data
-      @name        = decoratee.name
-      @purpose     = decoratee.purpose
-      @requirement = decoratee.requirement
-      @options     = decoratee.options
-      @command     = decoratee.command
       @handle      = nil
+
+      # @command     = decoratee.command
+      # @data        = decoratee.data
+      # @filename    = decoratee.filename
+      # @name        = decoratee.name
+      # @options     = decoratee.options
+      # @purpose     = decoratee.purpose
+      # @requirement = decoratee.requirement
+      # @type        = decoratee.type
+    end
+
+    def command
+      @decoratee.command
+    end
+
+    def data
+      @decoratee.data
+    end
+
+    def filename
+      @decoratee.filename
+    end
+
+    def name
+      @decoratee.name
+    end
+
+    def options
+      @decoratee.options
+    end
+
+    def purpose
+      @decoratee.purpose
+    end
+
+    def requirement
+      @decoratee.requirement
+    end
+
+    def type
+      @decoratee.type
     end
 
     def setup
