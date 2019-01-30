@@ -13,6 +13,10 @@ require 'amber'
 # ------------------------------------------------------------------------------
 describe 'Amber Suite' do
 
+  before(:all) do
+    @pwd = FileUtils.pwd()
+  end
+
   describe 'no -s' do
     it 'has not been used.' do
       options = Amber::Options.new
@@ -24,7 +28,7 @@ describe 'Amber Suite' do
     it 'has been used from the command line.' do
       ARGV.replace ['--suite=foo']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/suite/foo/foo.yaml'])
+      expect(options.filename).to eq(["#{@pwd}/factory/suite/foo/foo.yaml"])
     end
   end
 
@@ -32,7 +36,7 @@ describe 'Amber Suite' do
     it 'has been used from the command line.' do
       ARGV.replace ['-sbar']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/suite/bar/bar.yaml'])
+      expect(options.filename).to eq(["#{@pwd}/factory/suite/bar/bar.yaml"])
     end
   end
 
@@ -40,7 +44,7 @@ describe 'Amber Suite' do
     it 'has been used from the command line.' do
       ARGV.replace ['--suite', 'baz']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/suite/baz/baz.yaml'])
+      expect(options.filename).to eq(["#{@pwd}/factory/suite/baz/baz.yaml"])
     end
   end
 
@@ -48,7 +52,7 @@ describe 'Amber Suite' do
     it 'has been used from the command line.' do
       ARGV.replace ['-s', 'foobar']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/suite/foobar/foobar.yaml'])
+      expect(options.filename).to eq(["#{@pwd}/factory/suite/foobar/foobar.yaml"])
     end
   end
 
