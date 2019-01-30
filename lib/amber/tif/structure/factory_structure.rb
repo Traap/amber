@@ -6,21 +6,21 @@ module Amber
   module FactoryStructure
 
     def self.plan_name(file)
-      Amber::FactoryStructure.full_path_to_dir(file, 'plan')
+      Amber::FactoryStructure.path_to_factory(file, 'plan')
     end
 
     def self.suite_name(file)
-      Amber::FactoryStructure.full_path_to_dir(file, 'suite')
+      Amber::FactoryStructure.path_to_factory(file, 'suite')
     end
 
     def self.case_name(file)
-      Amber::FactoryStructure.full_path_to_dir(file, 'case')
+      Amber::FactoryStructure.path_to_factory(file, 'case')
     end
 
     private
-    def self.full_path_to_dir(file, type)
+    def self.path_to_factory(file, type)
       dirname, basename = Amber::FactoryStructure.fileparts(file)
-      FileUtils.pwd() + "/factory/#{type}/#{dirname}/#{basename}.yaml"
+      "factory/#{type}/#{dirname}/#{basename}.yaml"
     end
 
     def self.fileparts(file)

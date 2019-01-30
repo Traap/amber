@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    amber (1.4.240)
+    amber (1.4.242)
 
 GEM
   remote: https://rubygems.org/
@@ -36,11 +36,11 @@ PLATFORMS
 
 DEPENDENCIES
   amber!
-  bundler (~> 1.17)
-  rake (~> 12.3)
+  bundler
+  rake
   require_all
-  rspec (~> 3.8)
-  simplecov (~> 0.16)
+  rspec
+  simplecov
 
 BUNDLED WITH
-   1.17.2
+   2.0.1

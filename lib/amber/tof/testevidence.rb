@@ -100,9 +100,7 @@ module Amber
                                 : TestEvidence::ASCII_FILE_EXTENSION
 
       # rubocop:enable Style/MultilineTernaryOperator
-    end
-
-    # --------------------------------------------------------------------------
+    end # --------------------------------------------------------------------------
 
     def self.open_log_file(input, options)
       TestEvidence.open_file(
@@ -112,8 +110,7 @@ module Amber
         File.basename(input, '.*') +
         TestEvidence.use_file_extension(options)
       )
-    end
-
+    end 
     # --------------------------------------------------------------------------
 
     def self.open_environment_log_file(options)
@@ -131,7 +128,12 @@ module Amber
           TestEvidence::TEST_RESULTS_LOG +
           TestEvidence.use_file_extension(options)
         )
-      handle.write(name)
+     
+      handle.write(
+        FileUtils.pwd() + File::SEPARATOR + 
+        TestEvidence::TEST_RESULTS_LOG + File::SEPARATOR +
+        name)
+
       TestEvidence.close_file(handle)
     end
 

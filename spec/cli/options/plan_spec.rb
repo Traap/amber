@@ -13,10 +13,6 @@ require 'amber'
 # ------------------------------------------------------------------------------
 describe 'Amber Plan' do
 
-  before(:all) do
-    @pwd = FileUtils.pwd()
-  end
-
   describe 'no -p' do
     it 'has not been used.' do
       options = Amber::Options.new
@@ -28,7 +24,7 @@ describe 'Amber Plan' do
     it 'has been used from the command line.' do
       ARGV.replace ['--plan=foo']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(["#{@pwd}/factory/plan/foo/foo.yaml"])
+      expect(options.filename).to eq(['factory/plan/foo/foo.yaml'])
     end
   end
 
@@ -36,7 +32,7 @@ describe 'Amber Plan' do
     it 'has been used from the command line.' do
       ARGV.replace ['-pbar']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(["#{@pwd}/factory/plan/bar/bar.yaml"])
+      expect(options.filename).to eq(['factory/plan/bar/bar.yaml'])
     end
   end
 
@@ -44,7 +40,7 @@ describe 'Amber Plan' do
     it 'has been used from the command line.' do
       ARGV.replace ['--plan', 'baz']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(["#{@pwd}/factory/plan/baz/baz.yaml"])
+      expect(options.filename).to eq(['factory/plan/baz/baz.yaml'])
     end
   end
 
@@ -52,7 +48,7 @@ describe 'Amber Plan' do
     it 'has been used from the command line.' do
       ARGV.replace ['-p', 'foobar']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(["#{@pwd}/factory/plan/foobar/foobar.yaml"])
+      expect(options.filename).to eq(['factory/plan/foobar/foobar.yaml'])
     end
   end
 end
