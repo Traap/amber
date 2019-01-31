@@ -18,46 +18,14 @@ module Amber
       @decoratee   = decoratee
       @handle      = nil
 
-      # @command     = decoratee.command
-      # @data        = decoratee.data
-      # @filename    = decoratee.filename
-      # @name        = decoratee.name
-      # @options     = decoratee.options
-      # @purpose     = decoratee.purpose
-      # @requirement = decoratee.requirement
-      # @type        = decoratee.type
-    end
-
-    def command
-      @decoratee.command
-    end
-
-    def data
-      @decoratee.data
-    end
-
-    def filename
-      @decoratee.filename
-    end
-
-    def name
-      @decoratee.name
-    end
-
-    def options
-      @decoratee.options
-    end
-
-    def purpose
-      @decoratee.purpose
-    end
-
-    def requirement
-      @decoratee.requirement
-    end
-
-    def type
-      @decoratee.type
+      @command     = decoratee.command
+      @data        = decoratee.data
+      @filename    = decoratee.filename
+      @name        = decoratee.name
+      @options     = decoratee.options
+      @purpose     = decoratee.purpose
+      @requirement = decoratee.requirement
+      @type        = decoratee.type
     end
 
     def setup
