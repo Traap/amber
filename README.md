@@ -44,7 +44,7 @@ Copy the text below and paste into a shell.  The commands will:
 
 ```bash
 $ cd $GIT_HOME \
-     && git clone https://bitbucket-vial.intra.fresenius.com/scm/soup/amber.git \
+     && git clone https://github.com/traap/abmer.git \
             && cd amber \
             && bundle install \
             && bundle exec rake \

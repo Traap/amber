@@ -47,11 +47,11 @@ module Amber
     end
 
     def okay_to_log_command?
-      @log_command || @dryrun
+      @log_command
     end
 
     def okay_to_log_requirement?
-      @log_requirement || @simulate
+      @log_requirement
     end
 
     def has_language?

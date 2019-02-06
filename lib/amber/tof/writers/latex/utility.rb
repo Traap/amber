@@ -27,6 +27,7 @@ module Amber
     # --------------------------------------------------------------------------
 
     def self.get_plan_macro(decoratee)
+      macro = ""
       macro << '\\tpo' \
             << LaTeXUtility.append_browser_and_language(decoratee) \
             << LaTeXUtility.append_filename(decoratee)
@@ -35,17 +36,19 @@ module Amber
     # --------------------------------------------------------------------------
 
     def self.get_suite_macro(decoratee)
+      macro = ""
       macro << '\\tso' \
             << LaTeXUtility.append_browser_and_language(decoratee) \
-            << LaTeXUtility.append_filename(macro, decoratee)
+            << LaTeXUtility.append_filename(decoratee)
     end
 
     # --------------------------------------------------------------------------
 
     def self.get_case_macro(decoratee)
+      macro = ""
       macro << '\\tco' \
             << LaTeXUtility.append_browser_and_language(decoratee) \
-            << LaTeXUtility.append_filename(macro, decoratee)
+            << LaTeXUtility.append_filename(decoratee)
     end
 
     # --------------------------------------------------------------------------
@@ -61,8 +64,10 @@ module Amber
 
     # --------------------------------------------------------------------------
 
-    def self.append_browser_and_language(macro, decoratee)
+    # def self.append_browser_and_language(macro, decoratee)
+    def self.append_browser_and_language(decoratee)
       browser, code = Amber::LaTeXUtility.gather_browser_and_language(decoratee)
+      macro = ""
       unless browser.nil? && code.nil? then
         macro << 'C{' << browser << '}{' << code << '}'
       end
@@ -75,6 +80,7 @@ module Amber
     def self.append_filename(decoratee)
       pwd = FileUtils.pwd()
       browser, code = Amber::LaTeXUtility.gather_browser_and_language(decoratee)
+      macro = ""
 
       macro << '{' \
             << pwd << File::SEPARATOR \
@@ -84,7 +90,8 @@ module Amber
 
       macro << "#{code}" << File::SEPARATOR unless code.nil? 
 
-      macro << File.dirname(decoratee.filename) << File::SEPARATOR \
+      macro << 'factory' << File::SEPARATOR \
+            << File.dirname(decoratee.filename) << File::SEPARATOR \
             << File.basename(decoratee.filename, '.*') \
             << '}' \
             << "\n"
