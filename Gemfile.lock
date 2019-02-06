@@ -37,6 +37,7 @@ PLATFORMS
 DEPENDENCIES
   amber!
   bundler
+  json
   rake
   require_all
   rspec
