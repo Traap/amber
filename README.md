@@ -225,6 +225,8 @@ Specific options:
                                      ["zz", "cs", "da", "de", "en", "es", "fr-ca", 
                                      "fr-eu", "it", "ne", "no", "pl", "ro", "sv"]
     -v, --verbose                    Verbose
+    -L, --log-command                Log Command
+    -r, --log-requirement            Log Requirement
     -S, --simulate                   Simulate run to create Test Output
                                      directory.
     -O, --obliterate                 Obliterate Test Output directory before Test
@@ -278,11 +280,19 @@ amber uses Chrome by default.  Your Test Plan, Test Suite, and Test Case
 must be written to reference a program that uses Web test driver.
 
 ##### --language
-amber uses english(en) by default.  Your Test Plan, Test Suite, and Test Case must be
-written to reference a program the requires internationalization and
+amber uses english(en) by default.  Your Test Plan, Test Suite, and Test Case
+must be written to reference a program the requires internationalization and
 localization.
 
 #### Output Factory
+##### --log-command
+Amber recursively calls Amber.  test-output/commands.log show each Amber
+invocation.
+
+##### --log-requirement
+test-output/requirements.log is used to record each requirement and YAML
+file that references a requirement.
+
 ##### --nodryrun
 By default, amber does not have side effects when run.  You must explicitly
 use the **--nodryrun** options to cause side effects.  The commands that would
