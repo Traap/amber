@@ -90,8 +90,7 @@ module Amber
 
       macro << "#{code}" << File::SEPARATOR unless code.nil? 
 
-      macro << 'factory' << File::SEPARATOR \
-            << File.dirname(decoratee.filename) << File::SEPARATOR \
+      macro << File.dirname(decoratee.filename) << File::SEPARATOR \
             << File.basename(decoratee.filename, '.*') \
             << '}' \
             << "\n"
