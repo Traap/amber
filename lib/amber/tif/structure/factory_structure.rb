@@ -2,7 +2,7 @@
 
 module Amber
   # FactoryStructure assembles Test Plan, Test Suite, and Test Case file names
-  # in accordance with the conventions Amber expects.
+  # follwing the conventions Amber expects.
   module FactoryStructure
 
     def self.plan_name(file)
