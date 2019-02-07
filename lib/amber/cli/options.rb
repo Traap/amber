@@ -8,14 +8,18 @@ require 'amber/cli/writer'
 module Amber
   # Options the user has chosen.
   class Options
-    attr_accessor :browser, :dryrun, :environment, :filename, :language,
-                  :parser, :obliterate, :simulate, :verbose, :version, :writer
+    attr_accessor :browser, :dryrun, :environment, :filename, :language, 
+                  :log_command, :log_requirement,  :parser, :obliterate, 
+                  :simulate, :verbose, :version, :writer
+
     def initialize
       @browser = Amber::Browser::DEFAULT
       @dryrun = true
       @environment = false
       @filename = []
       @language = Amber::Language::DEFAULT
+      @log_command = false 
+      @log_requirement = false
       @parser = nil
       @obliterate = false
       @simulate = false
@@ -42,6 +46,14 @@ module Amber
       @obliterate
     end
 
+    def okay_to_log_command?
+      @log_command
+    end
+
+    def okay_to_log_requirement?
+      @log_requirement
+    end
+
     def has_language?
       @language.eql?(Amber::Language::DEFAULT) ? false : true
     end
@@ -49,6 +61,6 @@ module Amber
     def has_browser?
       @browser.eql?(Amber::Browser::DEFAULT) ? false : true
     end
-  end
 
+  end
 end

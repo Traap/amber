@@ -40,6 +40,7 @@ module Amber
       setup
       echo_to_sysout
       run_command if @options.okay_to_run?
+      record_requirements if @options.okay_to_log_requirement?
       teardown
     end
 
@@ -62,5 +63,12 @@ module Amber
       puts "#{msg}\n" if @options.verbose
       abort msg
     end
+
+    def record_requirements
+      unless requirement.nil?
+        Amber::TestEvidence.record_requirement_tested(filename, requirement)
+      end
+    end
+
   end
 end

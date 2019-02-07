@@ -7,7 +7,7 @@ require 'amber'
 describe 'Amber Version' do
 
   before(:all) do
-    @version = '1.3.193'
+    @version = '1.4.256'
   end
 
   describe '--version' do
@@ -33,6 +33,5 @@ describe 'Amber Version' do
       expect(Amber::VERSION).to eql(@version)
     end
   end
-
 
 end
