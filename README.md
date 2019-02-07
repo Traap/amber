@@ -352,13 +352,12 @@ commands will demonstrate producing example.pdf.
 2. -e, --environment
 3. -L, --log-command
 4. -r, --log-requirement
-5. -S, --simulate
 6. -O, --obliterate
 7. -p, --plan
 
 ```
 cd git/amber/report
-amber -n -e -L -r -S -O -pmaster
+amber -n -e -L -r -O -pmaster
 docbld
 ```
 
