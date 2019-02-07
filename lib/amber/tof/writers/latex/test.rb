@@ -11,17 +11,18 @@ module Amber
     def initialize(decoratee, macro)
       @macro       = macro
       @decoratee   = decoratee
-      @type        = decoratee.type
-      @filename    = decoratee.filename
+      @handle      = nil
+
+      @command     = decoratee.command
       @data        = decoratee.data
+      @filename    = decoratee.filename
       @name        = decoratee.name
+      @options     = decoratee.options
       @purpose     = decoratee.purpose
       @requirement = decoratee.requirement
-      @options     = decoratee.options
-      @command     = decoratee.command
-      @handle      = nil
+      @type        = decoratee.type
     end
-
+    
     def setup
       Amber::TestEvidence.record_test_name(@macro, @decoratee.options) unless @macro.nil?
       @handle = Amber::TestEvidence.open_log_file(@decoratee.filename,

@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-# Test Output Factory the file system amber creats when running Test Suites,
-# Test Plans, Test Cases, and Test Steps.  The output factor has two formats:
+# Test Output Factory is the files amber creats when running Test Suites,
+# Test Plans, Test Cases, and Test Steps.  The output factory has two formats:
 #
 # 1) Without Browers and Languages
 #   test-output/
+#     test-results.tex
+#     requirements.csv
 #     factory/
 #       plan/
 #       suite/
@@ -15,6 +17,7 @@
 #
 # 2) With Browers and Languages
 #   test-output/
+#     test-results.tex     requirements.csv
 #     chrome/
 #       fr/
 #         factory/
@@ -42,6 +45,8 @@ module Amber
     TEST_RESULTS_LOG = TestEvidence::TEST_OUTPUT + 'test-results'
     LATEX_FILE_EXTENSION = '.tex'.freeze
     ASCII_FILE_EXTENSION = '.txt'.freeze
+    REQUIREMENTS_LOG = TestEvidence::TEST_OUTPUT + 'requirements.csv'.freeze
+    COMMAND_LOG = TestEvidence::TEST_OUTPUT + 'commands.log'.freeze
 
     # --------------------------------------------------------------------------
 
@@ -70,7 +75,12 @@ module Amber
     # --------------------------------------------------------------------------
 
     def self.create_directory_when_needed(dir)
-      FileUtils.mkdir_p dir
+      begin
+        FileUtils.mkdir_p dir
+      rescue
+        msg = "Could not create: #{dir}"
+        abort msg 
+      end
     end
 
     # --------------------------------------------------------------------------
@@ -89,9 +99,7 @@ module Amber
                                 : TestEvidence::ASCII_FILE_EXTENSION
 
       # rubocop:enable Style/MultilineTernaryOperator
-    end
-
-    # --------------------------------------------------------------------------
+    end # --------------------------------------------------------------------------
 
     def self.open_log_file(input, options)
       TestEvidence.open_file(
@@ -101,8 +109,7 @@ module Amber
         File.basename(input, '.*') +
         TestEvidence.use_file_extension(options)
       )
-    end
-
+    end 
     # --------------------------------------------------------------------------
 
     def self.open_environment_log_file(options)
@@ -155,6 +162,31 @@ module Amber
       stdout, stderr, status = Open3.capture3 command
       Dir.chdir pwd
       [stdout, stderr, status]
+    end
+
+    # --------------------------------------------------------------------------
+
+    def self.record_requirement_tested(name, requirements)
+      reqs = Amber::Requirement.to_array(requirements)
+      unless reqs.nil?
+        skip_header = File.file?(TestEvidence::REQUIREMENTS_LOG)
+        handle = TestEvidence.open_file(TestEvidence::REQUIREMENTS_LOG)
+        handle.write "requirement | test\n".freeze unless skip_header
+        reqs.each do |req|
+          handle.write(req + " | " +  name + "\n")
+        end
+        TestEvidence.close_file(handle)
+      end
+    end
+
+    # --------------------------------------------------------------------------
+
+    def self.record_amber_command(name)
+      unless false 
+        handle = TestEvidence.open_file(TestEvidence::COMMAND_LOG)
+        handle.write(name + "\n")
+        TestEvidence.close_file(handle)
+      end
     end
 
     # --------------------------------------------------------------------------
