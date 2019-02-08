@@ -5,6 +5,7 @@
 # ------------------------------------------------------------------------------
 
 # These flags enable optional features.
+factoryFlag=0 # Create a new amber test factory. 
 planFlag=0    # Create a new amber test plan folder and file.
 suiteFlag=0   # Create a new amber test suite folder and file.
 caseFlag=0    # Create a new amber test case folder and file.
@@ -17,18 +18,10 @@ debugFlag=0;  # Show parameters when set but do not create files.
 # ------------------------------------------------------------------------------
 main() {
   parseOptions $@
-  if [ $helpFlag == 1 -o $errorFlag == 1 ]; then
+  if [[ $helpFlag == 1 ]] || [[ $errorFlag == 1 ]]; then
     showHelp
   else
-    if [ $planFlag == 1 ]; then
-      newPlan
-    fi 
-    if [ $suiteFlag == 1 ]; then
-      newSuite
-    fi
-    if [ $caseFlag == 1 ]; then
-      newCase
-    fi
+    makeDoc
   fi
 }
 
@@ -37,18 +30,21 @@ main() {
 # ------------------------------------------------------------------------------
 function showHelp {
    echo
-   echo "Usage: newfactory [OPTIONS]"
+   echo "Usage: newfactoryitem --factor=path/to/dir [other options] "
    echo "Run newfactory to create a new amber application folder and file."
    echo
    echo "OPTIONS"
-   echo "  --plan         Test plan name to create."
+   echo "  --factory=path/to/dir      Factory location."
+   echo ""
+   echo "  --plan=name                Test plan name to create."
    echo
-   echo "  --suite        Test suite name to create."
+   echo "  --suite=name               Test suite name to create."
    echo 
-   echo "  --case         Test case name to create."
+   echo "  --case=name                Test case name to create."
    echo
-   echo "  --help         Display this help message."
+   echo "  --help                     Display this help message."
    echo
+   checkForAmberPath
 }
 
 # ------------------------------------------------------------------------------
@@ -60,42 +56,116 @@ function showHelp {
 # A non-empty array containing the command line options.
 # ------------------------------------------------------------------------------
 function parseOptions {
-    # Iterate through the list of options.
-    for var in "$@"
-    do
-      case $var in
-        --debug)
-          debugFlag=1
-          shift
-          ;;
-        --plan=*)
-          PLAN="${var#*=}"
-          helpFlag=0
-          planFlag=1
-          shift
-          ;;
-        --suite=*)
-          SUITE="${var#*=}"
-          suiteFlag=1
-          helpFlag=0
-          shift
-          ;;
-        --case=*)
-          CASE="${var#*=}"
-          caseFlag=1
-          helpFlag=0
-          shift
-          ;;
-        --help)
-          helpFlag=1
-          ;;
-        *)
-          echo "Unknown argument $var"
-          echo
-          errorFlag=1
-          ;;
-      esac
-    done
+  # Iterate through the list of options.
+  for var in "$@"
+  do
+    case $var in
+      --debug)
+        debugFlag=1
+        shift
+        ;;
+      --factory=*)
+        FACTORY="${var#*=}"
+        helpFlag=0
+        factoryFlag=1
+        shift
+        ;;
+      --plan=*)
+        PLAN="${var#*=}"
+        helpFlag=0
+        planFlag=1
+        shift
+        ;;
+      --suite=*)
+        SUITE="${var#*=}"
+        suiteFlag=1
+        helpFlag=0
+        shift
+        ;;
+      --case=*)
+        CASE="${var#*=}"
+        caseFlag=1
+        helpFlag=0
+        shift
+        ;;
+      --help)
+        helpFlag=1
+        ;;
+      *)
+        echo "Unknown argument $var"
+        echo
+        errorFlag=1
+        ;;
+    esac
+  done
+}
+# ------------------------------------------------------------------------------
+# makeDoc orchestrates setting up the scaffolding needed for a new Amber
+# Test Input Factory.
+#
+# This function is the workflow.  Each function called determines whether or not
+# it has work.  Each function will setup environment variables that other 
+# functions may use.
+# ------------------------------------------------------------------------------
+makeDoc() {
+  # AMBERPATH must be defined.
+  if [[ $debugFlag == 0 ]]; then
+    checkForAmberPath
+    checkForValidFlags
+  fi
+
+  # Save current working directory.
+  cwd=$(pwd)
+
+  # Move to AMBERPATH
+  cd ${AMBERPATH}
+
+  # Process the requests.
+  if [[ $factoryFlag == 1 ]]; then
+    newFactory
+  fi 
+
+  if [[ $planFlag == 1 ]]; then
+    newPlan
+  fi 
+
+  if [[ $suiteFlag == 1 ]]; then
+    newSuite
+  fi
+
+  if [[ $caseFlag == 1 ]]; then
+    newCase
+  fi
+
+  # Return to saved working directory.
+  cd ${cwd}
+}
+
+# ------------------------------------------------------------------------------
+# check for AMBERPATH 
+# ------------------------------------------------------------------------------
+checkForAmberPath() {
+  if [[ ! -d ${AMBERPATH} ]]; then
+    abort "AMBERPATH must be defined."
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# check for valid command line flags.   
+# ------------------------------------------------------------------------------
+checkForValidFlags() {
+  if [[ $factoryFlag == 0 ]]; then
+    abort "--factory option must be used."
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# Create a new test factory. 
+# ------------------------------------------------------------------------------
+newFactory() {
+  factoryDir=''"${cwd}"'/'"${FACTORY}"''/factory
+  msg "Creating document directory ${factoryDir}"
+  mkdir -p ${factoryDir}
 }
 
 # ------------------------------------------------------------------------------
@@ -126,22 +196,50 @@ newCase() {
 # ------------------------------------------------------------------------------
 newFile() {
 
-  subdir='factory/'"$1"'/'"$2"''
-  fn=$(basename -- "${subdir}/$2.yaml")
+  tifDir=''"${factoryDir}"'/'"$1"'/'"$2"''
+  fn=$(basename -- "${tifDir}/$2.yaml")
   filename=${fn##*/}
 
-  if [ $debugFlag == 0 ]; then
-    if [[ -d factory ]]; then
-      echo "Creating amber test case $2"
-      mkdir -pv ${subdir}
-      cp -v ${HOME}/git/amber/data/new$1.yaml ${subdir}/${filename}
+  if [[ $debugFlag == 0 ]]; then
+    if [[ -d ${factoryDir} ]]; then
+      # Don't overwrite an existing file.
+      if [[ ! -f "${tifDir}/${filename}" ]]; then
+        msg "Creating amber test case ${tifDir}/${filename}"
+        mkdir -pv ${tifDir}
+        cp -v ${AMBERPATH}/data/new$1.yaml ${tifDir}/${filename}
+      fi
     else
-      echo "Aborting because a factory folder is missing."
-      exit 1;
+      abort "The factory folder is missing."
     fi
   else
     debugMode
   fi
+}
+
+
+# ------------------------------------------------------------------------------
+# check for AMBERPATH 
+# ------------------------------------------------------------------------------
+checkForAmberPath() {
+  if [[ ! -d ${AMBERPATH} ]]; then
+    abort "AMBERPATH [[${AMBERPATH}]] must be defined.  Aborting!"
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# Aborting this procedure. 
+# ------------------------------------------------------------------------------
+abort() {
+  msg "Aborting: ${1}"
+  exit
+}
+
+# ------------------------------------------------------------------------------
+# msg is used to format strings to the console. 
+# ------------------------------------------------------------------------------
+msg() {
+  echo ""
+  echo $1
 }
 
 # ------------------------------------------------------------------------------
@@ -150,9 +248,10 @@ newFile() {
 # ------------------------------------------------------------------------------
 debugMode() {
   echo "Debug mode."
-  echo "       subdir [${subdir}]"
-  echo "     filename [${filename}]"
-  echo "full filename [${subdir}/${filename}]"
+  echo "   factoryDir [[${factoryDir}]]"
+  echo "       tifDir [[${tifDir}]]"
+  echo "     filename [[${filename}]]"
+  echo "full filename [[${factoryDir}/${filename}]]"
 }
 
 # ------------------------------------------------------------------------------

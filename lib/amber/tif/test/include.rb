@@ -66,12 +66,15 @@ module Amber
     def assemble_amber_command(opt_and_files)
       cmd = 'amber'
       cmd.concat ' --nodryrun'                           unless @options.dryrun
+      cmd.concat ' --log-command'                        if @options.okay_to_log_command?
+      cmd.concat ' --log-requirement'                    if @options.okay_to_log_requirement?
       cmd.concat ' --simulate'                           if @options.simulate
       cmd.concat " --writer=#{@options.writer}"          unless @options.writer.nil?
       cmd.concat " --browser=#{@options.browser}"        if @options.has_browser?
       lng = Amber::Language::CODE.key(@options.language) if @options.has_language?
       cmd.concat " --language=#{lng}"                    if @options.has_language?
       cmd.concat " #{opt_and_files}"
+      Amber::TestEvidence.record_amber_command(cmd)      if @options.okay_to_log_command?
       cmd
     end
 

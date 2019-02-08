@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.1'
 
   s.add_development_dependency 'bundler'
+  s.add_development_dependency 'json'
   s.add_development_dependency 'rake'
   s.add_development_dependency 'require_all'
   s.add_development_dependency 'rspec'
