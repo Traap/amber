@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::CommandLineOptions.file_option handles
         supported argument formats. 
 
-      command: rspec --format documentation -e 'Amber File'
+      command: rspec --format documentation -e 'Amber CLO File'
 
       evidence: Starts on next line.

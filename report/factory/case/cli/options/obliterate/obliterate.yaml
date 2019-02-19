@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::CommandLineOptions.obliterate_option handles
         supported argument formats.
 
-      command: rspec --format documentation -e 'Amber Obliterate'
+      command: rspec --format documentation -e 'Amber CLO Obliterate'
 
       evidence: Starts on next line.

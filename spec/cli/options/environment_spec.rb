@@ -4,7 +4,7 @@ require 'amber'
 # environments options
 # [-e | --environment]
 # ------------------------------------------------------------------------------
-describe 'Amber Environment' do
+describe 'Amber CLO Environment' do
 
   describe 'no -e' do
     it 'has not been used.' do

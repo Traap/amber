@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::CommandLineOptions.writer_option handles
         supported argument formats.
 
-      command: rspec --format documentation -e 'Amber Writer'
+      command: rspec --format documentation -e 'Amber CLO Writer'
 
       evidence: Starts on next line.

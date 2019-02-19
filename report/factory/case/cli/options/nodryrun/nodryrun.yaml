@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::CommandLineOptions.nodryrun_option handles
         supported argument formats.
 
-      command: rspec --format documentation -e 'Amber NoDryRun'
+      command: rspec --format documentation -e 'Amber CLO NoDryRun'
 
       evidence: Starts on next line.

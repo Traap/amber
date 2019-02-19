@@ -6,7 +6,7 @@ require 'amber'
 #
 # [zz | cs | da | de | en | es | fr-ca | fr-eu | it | ne | no | pl | ro | sv]
 # ------------------------------------------------------------------------------
-describe 'Amber Language' do
+describe 'Amber CLO Language' do
 
   describe 'no -l' do
     it 'has not been used.' do
@@ -232,4 +232,5 @@ describe 'Amber Language' do
       expect(options.language).to eq('Svenska')
     end
   end
+
 end

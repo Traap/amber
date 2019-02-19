@@ -4,7 +4,7 @@ require 'amber'
 # Requirement options
 # [--requirement | -r]
 # ------------------------------------------------------------------------------
-describe 'Amber Logging' do
+describe 'Amber CLO Logging' do
 
   describe '--log-requirement' do
     it 'was not used.' do
