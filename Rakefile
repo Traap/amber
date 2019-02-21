@@ -27,12 +27,12 @@ namespace :validate do
 
   reportDir = ENV['AMBERPATH'] + '/report'
   validateCmd = 'amber --nodryrun --environment --obliterate --plan=master'
-  pdfCmd = 'latexmk -pdf -silent example.texx'
+  pdfCmd = 'rake --rakefile ' + ENV['DOCBLDPATH'] + '/Rakefile'
   pwd = ''
 
-  task :amber => [:save_dir, :report_dir, :run_validation, :make_pdf]
+  task :amber => [:save_wd, :report_dir, :do_validation, :restore_wd, :docbld]
 
-  task :save_dir do
+  task :save_wd do
     pwd = Dir.getwd
   end
 
@@ -40,25 +40,29 @@ namespace :validate do
     Dir.chdir reportDir 
   end
 
-  task :return_to_dir do
+  task :restore_wd do
     Dir.chdir pwd
   end
 
-  task :run_validation do
-    puts "#{validateCmd}"
+  task :do_validation do
     begin
+      puts "#{validateCmd}"
       _stdout, stderr, _status = Open3.capture3 validateCmd 
     rescue StandardError => e 
       echo_exception(stderr, e)
     end
   end
 
-  task :make_pdf do
-    puts "#{pdfCmd}"
-    begin
-      _stdout, stderr, _status = Open3.capture3 pdfCmd 
-    rescue StandardError => e 
-      echo_exception(stderr, e)
+  task :docbld do
+    if ENV['DOCBLDPATH'].length > 0
+      begin
+        puts "docbld"
+        _stdout, stderr, _status = Open3.capture3 pdfCmd 
+      rescue StandardError => e 
+        echo_exception(stderr, e)
+      end
+    else
+      puts "WARNING: docbld is not installed."
     end
   end
 
