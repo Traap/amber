@@ -27,7 +27,7 @@ namespace :validate do
 
   reportDir = ENV['AMBERPATH'] + '/report'
   validateCmd = 'amber --nodryrun --environment --obliterate --plan=master'
-  pdfCmd = 'latexmk -c -pdf -silent example.texx'
+  pdfCmd = 'latexmk -pdf -silent example.texx'
   pwd = ''
 
   task :amber => [:save_dir, :report_dir, :run_validation, :make_pdf]
