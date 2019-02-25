@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Languages that are support.  The default is zz.
+# Languages that are supported.  The default is zz.
 module Amber
   module Language
     NAMES = %w[zz cs da de en es fr-ca fr-eu it ne no pl ro sv].freeze

@@ -23,7 +23,8 @@ describe 'Amber CLO Defaults' do
 
   describe 'for environment' do
     it 'has been provided.' do
-      expect(@options.environment).to be(false) end end
+      expect(@options.environment).to be(false) end
+  end
 
   describe 'for filename' do
     it 'has been provided.' do

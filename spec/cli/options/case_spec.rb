@@ -2,7 +2,7 @@ require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # case options
-# [-s | --case
+# [-c | --case
 #
 # [foo | bar | baz]
 #
