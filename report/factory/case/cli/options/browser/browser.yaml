@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::CommandLineOptions.browser_option handles
         supported argument formats.
 
-      command: rspec --format documentation -e 'Amber Browser'
+      command: rspec --format documentation -e 'Amber CLO Browser'
 
       evidence: Starts on next line.

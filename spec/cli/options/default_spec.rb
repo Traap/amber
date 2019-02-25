@@ -3,7 +3,7 @@ require 'amber'
 # ------------------------------------------------------------------------------
 # default options
 # ------------------------------------------------------------------------------
-describe 'Amber Defaults' do
+describe 'Amber CLO Defaults' do
 
   before(:all) do
     @options = Amber::Options.new
@@ -23,8 +23,7 @@ describe 'Amber Defaults' do
 
   describe 'for environment' do
     it 'has been provided.' do
-      expect(@options.environment).to be(false)
-    end
+      expect(@options.environment).to be(false) end
   end
 
   describe 'for filename' do
@@ -35,7 +34,7 @@ describe 'Amber Defaults' do
 
   describe 'for language' do
     it 'has been provided.' do
-      expect(@options.language).to eq('zz')
+      expect(@options.language).to eq(Amber::Language::DEFAULT)
     end
   end
 

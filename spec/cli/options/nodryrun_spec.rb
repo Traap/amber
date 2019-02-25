@@ -4,7 +4,7 @@ require 'amber'
 # nodryrun options
 # [-v | --verbose]
 # ------------------------------------------------------------------------------
-describe 'Amber NoDryRun' do
+describe 'Amber CLO NoDryRun' do
 
   describe 'no -n' do
     it 'has not been used.' do

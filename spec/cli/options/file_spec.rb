@@ -6,7 +6,7 @@ require 'amber'
 #
 # [a.yaml | b.yaml
 # ------------------------------------------------------------------------------
-describe 'Amber File' do
+describe 'Amber CLO File' do
 
   describe 'no -f' do
     it 'has not been used.' do

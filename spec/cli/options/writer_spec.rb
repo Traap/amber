@@ -6,7 +6,7 @@ require 'amber'
 #
 # [Ascii | LaTeX]
 # ------------------------------------------------------------------------------
-describe 'Amber Writer' do
+describe 'Amber CLO Writer' do
 
   describe 'no -w' do
     it 'has not been used.' do

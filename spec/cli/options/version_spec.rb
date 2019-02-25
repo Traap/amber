@@ -1,16 +1,17 @@
 require 'rspec'
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # version options
 # [--version]
 # ------------------------------------------------------------------------------
-describe 'Amber Version' do
+describe 'Amber CLO Version' do
 
   before(:all) do
-    @version = '1.4.256'
+    @version = '1.4.258'
   end
 
-  describe '--version' do
+  describe 'no --version' do
     it "was not used. However the version number must match #{Amber::VERSION}" do
       expect(Amber::VERSION).to eql(@version)
     end

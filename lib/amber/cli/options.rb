@@ -20,8 +20,8 @@ module Amber
       @language = Amber::Language::DEFAULT
       @log_command = false 
       @log_requirement = false
-      @parser = nil
       @obliterate = false
+      @parser = nil
       @simulate = false
       @verbose = false
       @version = Amber::VERSION

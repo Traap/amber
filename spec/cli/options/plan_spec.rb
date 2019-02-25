@@ -11,7 +11,7 @@ require 'amber'
 #   factory/plan/bar/bar.yaml
 #   factory/plan/baz/baz.yaml
 # ------------------------------------------------------------------------------
-describe 'Amber Plan' do
+describe 'Amber CLO Plan' do
 
   describe 'no -p' do
     it 'has not been used.' do

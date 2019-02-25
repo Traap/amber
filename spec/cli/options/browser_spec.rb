@@ -6,7 +6,7 @@ require 'amber'
 #
 # [None | Chrome | Edge | Firefox | IE | Opera]
 # ------------------------------------------------------------------------------
-describe 'Amber Browser' do
+describe 'Amber CLO Browser' do
 
   describe '--browser=Chrome' do
     it 'has been used from the command line.' do
