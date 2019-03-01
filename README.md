@@ -45,7 +45,7 @@ Copy the text below and paste into a shell.  The commands will:
 
 ```bash
 $ cd $GIT_HOME \
-     && git clone https://github.com/traap/abmer.git \
+     && git clone https://github.com/traap/amber.git \
             && rake gem:build 
 
 ```
