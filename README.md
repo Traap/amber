@@ -46,11 +46,7 @@ Copy the text below and paste into a shell.  The commands will:
 ```bash
 $ cd $GIT_HOME \
      && git clone https://github.com/traap/abmer.git \
-            && cd amber \
-            && bundle install \
-            && bundle exec rake \
-            && bundle exec rake install \
-                && amber --version
+            && rake gem:build 
 
 ```
 ### Input Factory
@@ -357,8 +353,7 @@ commands will demonstrate producing example.pdf.
 
 ```
 cd git/amber/report
-amber -n -e -L -r -O -pmaster
-docbld
+rake validate:amber
 ```
 
 #### Amber demonstration output

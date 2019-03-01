@@ -3,6 +3,24 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 
 # ------------------------------------------------------------------------------
+# Prerequisite checks. 
+# ------------------------------------------------------------------------------
+
+if ENV['AMBERPATH'].nil?
+  puts "WARNING: Amber is not installed."
+  abort = true
+end
+
+if ENV['DOCBLDPATH'].nil?
+  puts "WARNING: docbld is not installed."
+  abort = true
+end
+
+exit if abort
+
+# ------------------------------------------------------------------------------
+# Run rspecs.
+# ------------------------------------------------------------------------------
 
 begin
   RSpec::Core::RakeTask.new(:spec)
@@ -11,6 +29,8 @@ rescue StandardError
   puts 'RSpec is not supported on this system.'
 end
 
+# ------------------------------------------------------------------------------
+# Build Amber. 
 # ------------------------------------------------------------------------------
 
 namespace :gem do
@@ -21,6 +41,8 @@ namespace :gem do
   end
 end
 
+# ------------------------------------------------------------------------------
+# Validate Amber. 
 # ------------------------------------------------------------------------------
 
 namespace :validate do
@@ -54,15 +76,11 @@ namespace :validate do
   end
 
   task :docbld do
-    if ENV['DOCBLDPATH'].length > 0
-      begin
-        puts "docbld"
-        _stdout, stderr, _status = Open3.capture3 pdfCmd 
-      rescue StandardError => e 
-        echo_exception(stderr, e)
-      end
-    else
-      puts "WARNING: docbld is not installed."
+    begin
+      puts "docbld"
+      _stdout, stderr, _status = Open3.capture3 pdfCmd 
+    rescue StandardError => e 
+      echo_exception(stderr, e)
     end
   end
 
