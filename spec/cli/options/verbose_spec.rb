@@ -4,7 +4,7 @@ require 'amber'
 # verbose options
 # [-v | --verbose]
 # ------------------------------------------------------------------------------
-describe 'Amber Verbose' do
+describe 'Amber CLO Verbose' do
 
   describe 'no -v' do
     it 'has not been used.' do

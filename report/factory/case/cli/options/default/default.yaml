@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::Options object is initialized 
         correctly.
 
-      command: rspec --format documentation -e 'Amber Defaults'
+      command: rspec --format documentation -e 'Amber CLO Defaults'
 
       evidence: Starts on next line.

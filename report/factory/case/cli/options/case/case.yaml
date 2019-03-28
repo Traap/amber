@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::CommandLineOptions.case_option handles
         supported argument formats.
 
-      command: rspec --format documentation -e 'Amber Case'
+      command: rspec --format documentation -e 'Amber CLO Case'
 
       evidence: Starts on next line.

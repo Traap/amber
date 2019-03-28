@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::CommandLineOptions.verbose_option handles
         supported argument formats.
 
-      command: rspec --format documentation -e 'Amber Verbose'
+      command: rspec --format documentation -e 'Amber CLO Verbose'
 
       evidence: Starts on next line.

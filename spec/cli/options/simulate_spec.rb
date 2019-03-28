@@ -4,7 +4,7 @@ require 'amber'
 # simulate options
 # [-S | --simulate]
 # ------------------------------------------------------------------------------
-describe 'Amber Simulate' do
+describe 'Amber CLO Simulate' do
 
   describe 'no -S' do
     it 'has not been used.' do

@@ -16,6 +16,6 @@ case:
       expectation: >
         Rspec output shows Amber's understanding of the enviornment option. 
 
-      command: rspec --format documentation -e 'Amber Environment'
+      command: rspec --format documentation -e 'Amber CLO Environment'
 
       evidence: Starts on next line.

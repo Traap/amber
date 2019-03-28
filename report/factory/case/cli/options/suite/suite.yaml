@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::CommandLineOptions.suite_option handles
         supported argument formats.
 
-      command: rspec --format documentation -e 'Amber Suite'
+      command: rspec --format documentation -e 'Amber CLO Suite'
 
       evidence: Starts on next line.

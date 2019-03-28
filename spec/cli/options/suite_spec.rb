@@ -11,7 +11,7 @@ require 'amber'
 #   factory/suite/bar/bar.yaml
 #   factory/suite/baz/baz.yaml
 # ------------------------------------------------------------------------------
-describe 'Amber Suite' do
+describe 'Amber CLO Suite' do
 
   describe 'no -s' do
     it 'has not been used.' do

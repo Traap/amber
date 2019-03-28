@@ -4,7 +4,7 @@ require 'amber'
 # Log Command options 
 # [--log-command | -L]
 # ------------------------------------------------------------------------------
-describe 'Amber Logging' do
+describe 'Amber CLO Logging' do
 
   describe '--log-command' do
     it 'was not used.' do

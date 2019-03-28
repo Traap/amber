@@ -17,6 +17,6 @@ case:
         Rspec output shows Amber::CommandLineOptions.plan_option handles
         supported argument formats.
 
-      command: rspec --format documentation -e 'Amber Plan'
+      command: rspec --format documentation -e 'Amber CLO Plan'
 
       evidence: Starts on next line.

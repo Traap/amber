@@ -4,7 +4,7 @@ require 'amber'
 # obliterate options
 # [-O | --obliterate]
 # ------------------------------------------------------------------------------
-describe 'Amber Obliterate' do
+describe 'Amber CLO Obliterate' do
 
   describe 'no -O' do
     it 'has not been used.' do
