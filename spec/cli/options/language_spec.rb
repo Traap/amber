@@ -36,15 +36,7 @@ shared_examples 'CLO language parameter' do |code, language_name|
     end
   end
 
-  # This example always fails with ['-l=#{code}'] as invalid parameter for some reason.
-  # context "-l=#{code}" do
-  #   it "returns #{language_name} when run with dash and equal sign" do
-  #     ARGV.replace ['-l', code]  # <-- Not really running with the -l=code version here...
-  #     options = Amber::CommandLineOptions.parse(ARGV)
-  #     expect(options.language).to eq(language_name)
-  #     expect(options.has_language?).to be(true)
-  #   end
-  # end
+  # The "-l=#{code}" examples fail in rspec with ['-l=#{code}'] as invalid parameter. They have been removed.
 
   context "-l #{code}" do
     it "returns #{language_name} when run with dash and a space" do

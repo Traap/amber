@@ -23,7 +23,7 @@ module Amber
              'sk' => 'Slovak',
              'sv' => 'Svenska' }.freeze
 
-    NAMES = CODE.keys.freeze
+    NAMES = CODE.keys.freeze  # Only CODE needs to be changed to update languages.
 
     DEFAULT = 'zz'.freeze
   end
