@@ -66,6 +66,33 @@ describe 'Amber CLO Language' do
     end
   end
 
+  describe 'with unknown language' do
+    context "--language XX" do
+      it "raises an invalid argument exception" do
+        ARGV.replace ['--language', 'XX']
+        expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
+      end
+    end
+    context "--language=XX" do
+      it "raises an invalid argument exception" do
+        ARGV.replace ['--language=XX']
+        expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
+      end
+    end
+    context "--l XX" do
+      it "raises an invalid argument exception" do
+        ARGV.replace ['--l', 'XX']
+        expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
+      end
+    end
+    context "--lXX" do
+      it "raises an invalid argument exception" do
+        ARGV.replace ['--lXX']
+        expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
+      end
+    end
+  end
+
   Amber::Language::CODE.each do |code, language_name|
     it_behaves_like 'CLO language parameter', code, language_name
   end

@@ -3,8 +3,6 @@
 # Languages that are supported.  The default is zz.
 module Amber
   module Language
-    NAMES = %w[zz cs da de en en-US es fr fr-ca fr-eu hu it ne no pl pt ro sk sv].freeze
-
     CODE = { 'zz' => 'n/a',
              'cs' => 'Czech',
              'da' => 'Dansk',
@@ -24,6 +22,8 @@ module Amber
              'ro' => 'Romanian',
              'sk' => 'Slovak',
              'sv' => 'Svenska' }.freeze
+
+    NAMES = CODE.keys.freeze
 
     DEFAULT = 'zz'.freeze
   end
