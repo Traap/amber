@@ -79,15 +79,15 @@ describe 'Amber CLO Language' do
         expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
       end
     end
-    context "--l XX" do
+    context "-l XX" do
       it "raises an invalid argument exception" do
-        ARGV.replace ['--l', 'XX']
+        ARGV.replace ['-l', 'XX']
         expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
       end
     end
-    context "--lXX" do
+    context "-lXX" do
       it "raises an invalid argument exception" do
-        ARGV.replace ['--lXX']
+        ARGV.replace ['-lXX']
         expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
       end
     end
