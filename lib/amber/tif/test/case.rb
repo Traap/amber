@@ -13,6 +13,8 @@ module Amber
 
     def run_command
       workingdir = @data['workingdir']
+      workingdir += "/.." if @options.has_language?
+      workingdir += "/.." if @options.has_browser?
       nbr = 0
       @data['steps'].each do |s|
         nbr += 1

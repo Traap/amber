@@ -4,8 +4,51 @@ require 'amber'
 # language options
 # [-l | --language]
 #
-# [zz | cs | da | de | en | es | fr-ca | fr-eu | it | ne | no | pl | ro | sv]
+# [zz | cs | da | de | en | en-US | es | fr-ca | fr-eu | hu | it | ne | no | pl | pt| ro | sk | sv]
 # ------------------------------------------------------------------------------
+describe 'Amber Language' do
+
+shared_examples 'CLO language parameter' do |code, language_name|
+  # 5 possible language option permutations:
+  context "--language=#{code}" do
+    it "returns #{language_name} when run with double dash and equal sign" do
+      ARGV.replace ["--language=#{code}"]
+      options = Amber::CommandLineOptions.parse(ARGV)
+      expect(options.language).to eq(language_name)
+      expect(options.has_language?).to be(true)
+    end
+  end
+
+  context "--language #{code}" do
+    it "returns #{language_name} when run with double dash and a space" do
+      ARGV.replace ['--language', code]
+      options = Amber::CommandLineOptions.parse(ARGV)
+      expect(options.language).to eq(language_name)
+      expect(options.has_language?).to be(true)
+    end
+  end
+
+  context "-l#{code}" do
+    it "returns #{language_name} when run with dash and no space" do
+      ARGV.replace ["-l#{code}"]
+      options = Amber::CommandLineOptions.parse(ARGV)
+      expect(options.language).to eq(language_name)
+      expect(options.has_language?).to be(true)
+    end
+  end
+
+  # The "-l=#{code}" examples fail in rspec with ['-l=#{code}'] as invalid parameter. They have been removed.
+
+  context "-l #{code}" do
+    it "returns #{language_name} when run with dash and a space" do
+      ARGV.replace ['-l', code]
+      options = Amber::CommandLineOptions.parse(ARGV)
+      expect(options.language).to eq(language_name)
+      expect(options.has_language?).to be(true)
+    end
+  end
+end
+
 describe 'Amber CLO Language' do
 
   describe 'no -l' do
@@ -16,221 +59,35 @@ describe 'Amber CLO Language' do
     end
   end
 
-  describe '--language=cs' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language=cs']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Czech')
-      expect(options.has_language?).to be(true)
+  describe 'with unknown language' do
+    context "--language XX" do
+      it "raises an invalid argument exception" do
+        ARGV.replace ['--language', 'XX']
+        expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
+      end
+    end
+    context "--language=XX" do
+      it "raises an invalid argument exception" do
+        ARGV.replace ['--language=XX']
+        expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
+      end
+    end
+    context "-l XX" do
+      it "raises an invalid argument exception" do
+        ARGV.replace ['-l', 'XX']
+        expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
+      end
+    end
+    context "-lXX" do
+      it "raises an invalid argument exception" do
+        ARGV.replace ['-lXX']
+        expect { Amber::CommandLineOptions.parse(ARGV) }.to raise_exception(RuntimeError, /invalid argument/)
+      end
     end
   end
 
-  describe '--language cs' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language', 'cs']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Czech')
-    end
-  end
-
-  describe '-lda' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-lda']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Dansk')
-    end
-  end
-
-  describe '-l=da' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-l', 'da']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Dansk')
-    end
-  end
-
-  describe '--language=de' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language=de']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Deutsch')
-    end
-  end
-
-  describe '--language de' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language', 'de']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Deutsch')
-    end
-  end
-
-  describe '--language=en' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language=en']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('English')
-    end
-  end
-
-  describe '--language en' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language', 'en']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('English')
-    end
-  end
-
-  describe '--language=es' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language=es']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Espanol')
-    end
-  end
-
-  describe '--language es' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language', 'es']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Espanol')
-    end
-  end
-
-  describe '--language=fr-ca' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language=fr-ca']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('CA French - Canadian')
-    end
-  end
-
-  describe '--language fr-ca' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language', 'fr-ca']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('CA French - Canadian')
-    end
-  end
-
-  describe '-lfr-eu' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-lfr-eu']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('EU French - European')
-    end
-  end
-
-  describe '-l fr-eu' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-l', 'fr-eu']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('EU French - European')
-    end
-  end
-
-  describe '--language=it' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language=it']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Italiano')
-    end
-  end
-
-  describe '--language it' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language', 'it']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Italiano')
-    end
-  end
-
-  describe '-lne' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-lne']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Nederlands')
-    end
-  end
-
-  describe '-l=ne' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-l', 'ne']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Nederlands')
-    end
-  end
-
-  describe '--language=no' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language=no']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Norsk')
-    end
-  end
-
-  describe '--language no' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language', 'no']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Norsk')
-    end
-  end
-
-  describe '-lpl' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-lpl']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Polish')
-    end
-  end
-
-  describe '-l=pl' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-l', 'pl']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Polish')
-    end
-  end
-
-  describe '--language=ro' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language=ro']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Romanian')
-    end
-  end
-
-  describe '--language ro' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--language', 'ro']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Romanian')
-    end
-  end
-
-  describe '-lsv' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-lsv']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Svenska')
-    end
-  end
-
-  describe '-l=sv' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-l', 'sv']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Svenska')
-    end
-  end
-
-  describe '-l sv' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-l', 'sv']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.language).to eq('Svenska')
-    end
+  Amber::Language::CODE.each do |code, language_name|
+    it_behaves_like 'CLO language parameter', code, language_name
   end
 
 end
