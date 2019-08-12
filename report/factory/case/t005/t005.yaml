@@ -10,9 +10,9 @@ case:
       argument: whois
       evidence: Starts on next line.
 
-    - confirm: Program ypcat has been installed.
-      expectation: ypcat installation location is displayed.
+    - confirm: Program zip has been installed.
+      expectation: sip installation location is displayed.
       sudo: false
       command: which
-      argument: ypcat 
+      argument: zip 
       evidence: Starts on next line.

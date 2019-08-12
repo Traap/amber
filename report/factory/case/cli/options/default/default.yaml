@@ -11,7 +11,7 @@ case:
 
   steps:
     - confirm: >
-        Amber properly consructs a default Amber::Options object.
+        Amber properly constructs a default Amber::Options object.
 
       expectation: >
         Rspec output shows Amber::Options object is initialized 

@@ -10,9 +10,9 @@ case:
       argument: yacc 
       evidence: Starts on next line.
 
-    - confirm: Program xip has been installed.
+    - confirm: Program xxd has been installed.
       expectation: xip installation location is displayed.
       sudo: false
       command: which
-      argument: xip 
+      argument: xxd
       evidence: Starts on next line.
