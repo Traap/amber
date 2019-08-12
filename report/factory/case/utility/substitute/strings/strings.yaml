@@ -11,10 +11,10 @@ case:
 
   steps:
     - confirm: >
-        Amber properly substutes all keywords in a data stream. 
+        Amber properly substrates all keywords in a data stream. 
 
       expectation: >
-        Rspec output shows Amber::Substitute.strings substitued all keywords
+        Rspec output shows Amber::Substitute.strings substituted all keywords
         without encountering an error. 
 
       command: rspec --format documentation -e 'YAML Strings Substitutions'
