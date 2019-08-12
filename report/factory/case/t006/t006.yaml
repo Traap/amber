@@ -11,7 +11,7 @@ case:
       evidence: Starts on next line.
 
     - confirm: Program xxd has been installed.
-      expectation: xip installation location is displayed.
+      expectation: xxd installation location is displayed.
       sudo: false
       command: which
       argument: xxd
