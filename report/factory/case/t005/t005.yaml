@@ -11,7 +11,7 @@ case:
       evidence: Starts on next line.
 
     - confirm: Program zip has been installed.
-      expectation: sip installation location is displayed.
+      expectation: zip installation location is displayed.
       sudo: false
       command: which
       argument: zip 
