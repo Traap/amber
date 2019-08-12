@@ -11,11 +11,11 @@ case:
 
   steps:
     - confirm: >
-        Amber properly substutes the {language-code} keyword for all supported
+        Amber properly substitutes the {language-code} keyword for all supported
         languages.
 
       expectation: >
-        Rspec output shows Amber::Substitute.language-code properly substutited
+        Rspec output shows Amber::Substitute.language-code properly substituted
         {language-code} and {LANGUAGE-CODE} keywords to n/a, Czech, Dansk,
         Deutsch, English, Espanol, CA French - Canadian, EU French - European,
         Italiano, Nederlands, Norsk, Polish, Romanian, and Svenska.

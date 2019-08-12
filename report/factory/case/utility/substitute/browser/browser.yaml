@@ -11,10 +11,10 @@ case:
 
   steps:
     - confirm: >
-        Amber properly substutes the {browser} keyword for all brower types. 
+        Amber properly substitutes the {browser} keyword for all browser types. 
 
       expectation: >
-        Rspec output shows Amber::Substitute.browser properly substutited
+        RSpec output shows Amber::Substitute.browser properly substituted
         {browser} and {BROWSER} keywords to Chrome, Firefox, Edge, and IE.
 
       command: rspec --format documentation -e 'YAML Browser Substitutions'

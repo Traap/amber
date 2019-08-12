@@ -2,7 +2,7 @@ case:
   name: ${file}
 
   purpose: >
-    This test case is used to demonstrate the tilda marker is properly
+    This test case is used to demonstrate the tilde marker is properly
     substituted by Amber.
 
   requirement: AMBER-IUR-004 and AMBER-IUR-005
@@ -11,12 +11,12 @@ case:
 
   steps:
     - confirm: >
-        Amber properly substutes the tilda marker correctly for the operating
+        Amber properly substitutes the tilde marker correctly for the operating
         system. 
 
       expectation: >
-        Rspec output shows Amber::Substitute.extend_path substutited ~
-        to the home direcory. 
+        Rspec output shows Amber::Substitute.extend_path substituted ~
+        to the home directory. 
 
       command: rspec --format documentation -e 'YAML Extend Path Substitutions'
 
