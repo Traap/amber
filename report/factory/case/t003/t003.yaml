@@ -27,7 +27,7 @@ case:
       evidence: Starts on next line. 
 
     - confirm: Program latexmk has been installed.
-      expectation: ed installation location is displayed.  
+      expectation: latexmk installation location is displayed.  
       sudo: false
       command: which
       argument: latexmk 
