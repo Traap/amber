@@ -11,7 +11,7 @@ case:
 
   steps:
     - confirm: >
-        Amber properly substrates all keywords in a data stream. 
+        Amber properly substitutes all keywords in a data stream. 
 
       expectation: >
         Rspec output shows Amber::Substitute.strings substituted all keywords
