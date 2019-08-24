@@ -33,8 +33,8 @@ end
 # Build Amber. 
 # ------------------------------------------------------------------------------
 
-namespace :gem do
-  task :build do
+namespace :build do
+  task :amber do
     system "bundle install"
     system "bundle exec rake"
     system "bundle exec rake install"
