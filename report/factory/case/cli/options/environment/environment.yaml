@@ -14,7 +14,7 @@ case:
         Amber understands when to record the operational environment. 
 
       expectation: >
-        Rspec output shows Amber's understanding of the enviornment option. 
+        Rspec output shows Amber's understanding of the environment option. 
 
       command: rspec --format documentation -e 'Amber CLO Environment'
 

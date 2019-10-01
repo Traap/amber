@@ -6,7 +6,6 @@ require 'amber'
 #
 # [zz | cs | da | de | en | en-US | es | fr-ca | fr-eu | hu | it | ne | no | pl | pt| ro | sk | sv]
 # ------------------------------------------------------------------------------
-describe 'Amber Language' do
 
 shared_examples 'CLO language parameter' do |code, language_name|
   # 5 possible language option permutations:
@@ -89,5 +88,4 @@ describe 'Amber CLO Language' do
   Amber::Language::CODE.each do |code, language_name|
     it_behaves_like 'CLO language parameter', code, language_name
   end
-
 end

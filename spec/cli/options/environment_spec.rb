@@ -14,7 +14,7 @@ describe 'Amber CLO Environment' do
   end
 
   describe '-e' do
-    it 'has been used erom the command line.' do
+    it 'has been used from the command line.' do
       ARGV.replace ['-e']
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.environment).to be(true)
