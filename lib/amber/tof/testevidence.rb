@@ -13,7 +13,8 @@
 #       case/
 #         about/
 #           about.tex
-#           step-001.tex
+#           about-step-001-log.tex
+#           about-step-001-status.tex
 #
 # 2) With Browers and Languages
 #   test-output/
@@ -26,9 +27,22 @@
 #           case/
 #             about/
 #               about.tex
-#               step-001.tex
-#               about-001.png
-#               about-001.csv
+#
+#           Upgrade option #1
+#               about-step-001-log.tex
+#               about-step-001-status.tex
+#               about-001-001.png
+#               about-001-001.csv
+#               about-001-002.png
+#               about-001-002.csv
+#
+#           Upgrade option #2
+#               about-step-001-log.tex
+#               about-step-001-status.tex
+#               about-step-001-png-001.png
+#               about-step-001-csv-001.csv
+#               about-step-001-png-002.png
+#               about-step-001-csv-002.csv
 #
 # Amber creates either LaTeX (tex) or Ascii (txt) files.  png and csv files are
 # created by the program Amber invokes.

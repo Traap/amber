@@ -42,9 +42,7 @@ module Amber
 
     def run_command
       if @options.okay_to_run?
-        stdout, stderr, status = TestEvidence.run_from_temp_directory(
-          @command, @workingdir
-        )
+        _o, _e, _s = TestEvidence.run_from_temp_directory(@command, @workingdir)
       end
     end
 
@@ -62,13 +60,15 @@ module Amber
                  tmp
                else
                  tmp + File::SEPARATOR + workingdir
-                      end
+               end
 
-             # This step will nullify the working directory defined at the steps level.
+             # This step will nullify the working directory defined at the steps
+             # level.
              elsif wd == 'nil'
                tmp
 
-             # This step will use the working directory defined at the step level.
+             # This step will use the working directory defined at the step
+             # level.
              else
                tmp + File::SEPARATOR + wd
              end

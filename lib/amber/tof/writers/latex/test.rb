@@ -34,7 +34,7 @@ module Amber
 
       name = "#{@decoratee.type}: #{@decoratee.name}"
       @handle.write "\\#{outline_level}{#{name}}\n"
-      @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
+      @handle.write "\\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]\n"
       @handle.write "\\item[Purpose:] #{@decoratee.purpose}\n"
       @handle.write "\\item[Requirement:] #{@decoratee.requirement}\n" unless @decoratee.requirement.nil?
       @handle.write "\\end{description}\n"
