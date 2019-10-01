@@ -22,6 +22,6 @@ includes:
     suite:
       - name: structure 
 
-  # A placeholde for a future concept. 
+  # A placeholder for a future concept. 
   # - suite:
   #     - name: advanced-concept 

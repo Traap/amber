@@ -11,10 +11,10 @@ case:
 
   steps:
     - confirm: >
-        Amber properly substutes the {home} keyword for all brower types. 
+        Amber properly substitutes the {home} keyword for all browser types. 
 
       expectation: >
-        Rpec output shows Amber::Substitute.home properly substutited
+        Rpec output shows Amber::Substitute.home properly substituted
         {home} and {HOME} keywords specific to this operating system. 
 
       command: rspec --format documentation -e 'YAML Home Substitutions'

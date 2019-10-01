@@ -2,7 +2,7 @@ suite:
   name: ${file} 
 
   purpose: > 
-    This test suite demonstrats Amber consumes and uses command line arguments
+    This test suite demonstrates Amber consumes and uses command line arguments
     properly. 
 
 includes:

@@ -6,9 +6,9 @@ suite:
     concepts include the items below.
 
     1) setup-before-all are Test Steps that are run before all Test Cases.
-    2) setup-before-each are Test Steps that are run befor each Test Case.
+    2) setup-before-each are Test Steps that are run before each Test Case.
     3) teardown-after-all are Test Steps that are run before all Test Cases.
-    4) teardoen-after-each are Test Steps that are run before each Test Case.
+    4) teardown-after-each are Test Steps that are run before each Test Case.
 
   requirement: AMBER-IUR-nnn
 
@@ -17,7 +17,7 @@ setup-before-all:
   steps:
     - sudo: true
       command: which
-      argument: dash
+      argument: echo 
 
     - sudo: false 
       command: which
@@ -35,7 +35,7 @@ setup-before-each:
       argument: egrep 
 
 # ------------------------------------------------------------------------------
-teardown-afer-all:
+teardown-after-all:
   steps:
     - sudo: false
       command: which
@@ -50,11 +50,11 @@ teardown-after-each:
   steps:
     - sudo: false
       command: which
-      argument: ssh
+      argument: wget 
 
     - sudo: false
       command: which
-      argument: ls
+      argument:  awk
 
 # ------------------------------------------------------------------------------
 includes:

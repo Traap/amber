@@ -1,16 +1,17 @@
 % ------------------------------------------------------------------------------
-% projectDir MUST point to your github/traap/autodoc location.
-\def\autodocDir{../../autodoc}
+% Your system environment variable AUTODOCPATH MUST be declared and you MUST
+% define autodocDir first.  These two mandatory requirements must be met so
+% that your customizations work.
+\input{data/find-autodoc.tex}%
+\tlcGetEnv[\autodocDir]{AUTODOCPATH}%
 
 % ------------------------------------------------------------------------------
 % Hook into automation documentation additional layout. 
 \input{\autodocDir/boilerplate/data/additional-layout.tex}
 
 % ------------------------------------------------------------------------------
-% Hook into boilerplate definitions.
+% Hook into automation documentation boilerplate definitions.
 \input{\autodocDir/boilerplate/project-directories.tex}
 
 % ------------------------------------------------------------------------------
-% Set table of contents depth.   The standard is three and I want four. 
-% \setcounter{tocdepth}{4}
-% ------------------------------------------------------------------------------
+% Your additional layout, packages, etc. are declared now. 
