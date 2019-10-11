@@ -27,22 +27,12 @@
 #           case/
 #             about/
 #               about.tex
-#
-#           Upgrade option #1
 #               about-step-001-log.tex
 #               about-step-001-status.tex
 #               about-001-001.png
 #               about-001-001.csv
 #               about-001-002.png
 #               about-001-002.csv
-#
-#           Upgrade option #2
-#               about-step-001-log.tex
-#               about-step-001-status.tex
-#               about-step-001-png-001.png
-#               about-step-001-csv-001.csv
-#               about-step-001-png-002.png
-#               about-step-001-csv-002.csv
 #
 # Amber creates either LaTeX (tex) or Ascii (txt) files.  png and csv files are
 # created by the program Amber invokes.
@@ -51,20 +41,20 @@ require 'fileutils'
 
 module Amber
   module TestEvidence
-    TEST_OUTPUT_DIR = 'test-output'.freeze
+    TEST_OUTPUT_DIR = 'test-output'
     TEST_OUTPUT = TestEvidence::TEST_OUTPUT_DIR + File::SEPARATOR
-    RESULT_FILE_EXTENSION = '.txt'.freeze
-    STEP_FILE = 'step-'.freeze
+    RESULT_FILE_EXTENSION = '.txt'
+    STEP_FILE = 'step-'
     ENVIRONMENT_LOG = TestEvidence::TEST_OUTPUT + 'environment'
     TEST_RESULTS_LOG = TestEvidence::TEST_OUTPUT + 'test-results'
-    LATEX_FILE_EXTENSION = '.tex'.freeze
-    ASCII_FILE_EXTENSION = '.txt'.freeze
-    REQUIREMENTS_LOG = TestEvidence::TEST_OUTPUT + 'requirements.csv'.freeze
-    COMMAND_LOG = TestEvidence::TEST_OUTPUT + 'commands.log'.freeze
+    LATEX_FILE_EXTENSION = '.tex'
+    ASCII_FILE_EXTENSION = '.txt'
+    REQUIREMENTS_LOG = TestEvidence::TEST_OUTPUT + 'requirements.csv'
+    COMMAND_LOG = TestEvidence::TEST_OUTPUT + 'commands.log'
 
     # --------------------------------------------------------------------------
 
-    def self.obliterate_test_output()
+    def self.obliterate_test_output
       FileUtils.remove_dir(TestEvidence::TEST_OUTPUT_DIR, true)
     end
 
@@ -93,7 +83,7 @@ module Amber
         FileUtils.mkdir_p dir
       rescue
         msg = "Could not create: #{dir}"
-        abort msg 
+        abort msg
       end
     end
 
@@ -182,15 +172,15 @@ module Amber
 
     def self.record_requirement_tested(name, requirements)
       reqs = Amber::Requirement.to_array(requirements)
-      unless reqs.nil?
-        skip_header = File.file?(TestEvidence::REQUIREMENTS_LOG)
-        handle = TestEvidence.open_file(TestEvidence::REQUIREMENTS_LOG)
-        handle.write "requirement | test\n".freeze unless skip_header
-        reqs.each do |req|
-          handle.write(req + " | " +  name + "\n")
-        end
-        TestEvidence.close_file(handle)
+      return if reqs.nil?
+
+      skip_header = File.file?(TestEvidence::REQUIREMENTS_LOG)
+      handle = TestEvidence.open_file(TestEvidence::REQUIREMENTS_LOG)
+      handle.write 'requirement | test\n' unless skip_header
+      reqs.each do |req|
+        handle.write(req + ' | ' + name + '\n')
       end
+      TestEvidence.close_file(handle)
     end
 
     # --------------------------------------------------------------------------
