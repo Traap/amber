@@ -15,7 +15,7 @@ module Amber
              'fr' => 'French',
              'fr-ca' => 'CA French - Canadian',
              'fr-eu' => 'EU French - European',
-             'ga' => 'Gaeilge'
+             'ga' => 'Gaeilge',
              'hu' => 'Hungarian',
              'it' => 'Italiano',
              'nl' => 'Nederlands',

@@ -54,6 +54,8 @@ namespace :validate do
 
   task :amber => [:save_wd, :report_dir, :do_validation, :restore_wd, :docbld]
 
+  task :iotest => [:save_wd, :report_dir, :do_validation, :restore_wd]
+
   task :save_wd do
     pwd = Dir.getwd
   end

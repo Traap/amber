@@ -321,8 +321,8 @@ function newfactoryitem() {
 }
 
 function check-test-output() {
-  echo grep -rw --include=\s*.* test-output/ -e $1
-  grep -rw --include=\s*.* test-output/ -e $1
+  echo grep -rw --include=\*step*.* test-output/ -e $1
+  grep -rw --include=\*step*.* test-output/ -e $1
 }
 
 function pass() {

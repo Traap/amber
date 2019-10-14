@@ -13,6 +13,16 @@ module Amber
       @test_result = 'FAIL'
     end
 
+    def setup
+      @handle = TestEvidence.open_file(
+        Amber::TestEvidence.get_test_case_log(
+          @decoratee.filename, 
+          @decoratee.number,
+          @decoratee.options
+        )
+      )
+    end
+
     def echo_to_sysout
       @handle.write "\\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]\n"
       @handle.write "\\item[Step:] #{@decoratee.number}\n"
@@ -49,10 +59,9 @@ module Amber
     end
 
     def teardown
-      Amber::TestEvidence.record_final_test_result(@decoratee.filename,
-                                                   @decoratee.number,
-                                                   @test_result,
-                                                   @decoratee.options)
+      Amber::TestEvidence.record_test_case_status(
+        @decoratee.filename, @decoratee.number, @test_result, @decoratee.options
+      )
       method(:teardown).super_method.call
     end
   end

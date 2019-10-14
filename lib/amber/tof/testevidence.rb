@@ -44,7 +44,9 @@ module Amber
     TEST_OUTPUT_DIR = 'test-output'
     TEST_OUTPUT = TestEvidence::TEST_OUTPUT_DIR + File::SEPARATOR
     RESULT_FILE_EXTENSION = '.txt'
-    STEP_FILE = 'step-'
+    STEP_FILE = '-step-'
+    STEP_LOG = '-log'
+    STEP_STATUS = '-status'
     ENVIRONMENT_LOG = TestEvidence::TEST_OUTPUT + 'environment'
     TEST_RESULTS_LOG = TestEvidence::TEST_OUTPUT + 'test-results'
     LATEX_FILE_EXTENSION = '.tex'
@@ -103,7 +105,9 @@ module Amber
                                 : TestEvidence::ASCII_FILE_EXTENSION
 
       # rubocop:enable Style/MultilineTernaryOperator
-    end # --------------------------------------------------------------------------
+    end 
+	
+	# --------------------------------------------------------------------------
 
     def self.open_log_file(input, options)
       TestEvidence.open_file(
@@ -137,14 +141,28 @@ module Amber
 
     # --------------------------------------------------------------------------
 
-    def self.record_final_test_result(input, nbr, test_result, options)
+    def self.get_test_case_log(input, nbr, options)
+      TestEvidence.assemble_test_output_root(options) +
+      File.dirname(input) +
+      File::SEPARATOR +
+      File.basename(input, '.*') +
+      TestEvidence::STEP_FILE +
+      nbr.to_s.rjust(3, '0') +
+      TestEvidence::STEP_LOG +
+      TestEvidence.use_file_extension(options)
+    end
+    # --------------------------------------------------------------------------
+
+    def self.record_test_case_status(input, nbr, test_result, options)
       handle =
         TestEvidence.open_file(
           TestEvidence.assemble_test_output_root(options) +
           File.dirname(input) +
           File::SEPARATOR +
+          File.basename(input, '.*') +
           TestEvidence::STEP_FILE +
           nbr.to_s.rjust(3, '0') +
+          TestEvidence::STEP_STATUS +
           TestEvidence.use_file_extension(options)
         )
       handle.write(test_result)

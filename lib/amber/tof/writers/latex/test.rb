@@ -22,7 +22,7 @@ module Amber
       @requirement = decoratee.requirement
       @type        = decoratee.type
     end
-    
+
     def setup
       Amber::TestEvidence.record_test_name(@macro, @decoratee.options) unless @macro.nil?
       @handle = Amber::TestEvidence.open_log_file(@decoratee.filename,
