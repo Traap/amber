@@ -10,6 +10,7 @@ module Amber
              'en' => 'English',
              'en-US' => 'US English',  # variant found on the VMM
              'es' => 'Espanol',
+             'fi' => 'Finnish',
              'fr' => 'French',  # variant found on the VMM
              'fr-ca' => 'CA French - Canadian',
              'fr-eu' => 'EU French - European',
