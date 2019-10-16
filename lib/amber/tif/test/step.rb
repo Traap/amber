@@ -5,6 +5,7 @@ require 'amber/tof/testevidence'
 require 'amber/utility/substitute'
 
 module Amber
+  # A test step executes a command.
   class TestStep < Amber::Test
     attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir
 
