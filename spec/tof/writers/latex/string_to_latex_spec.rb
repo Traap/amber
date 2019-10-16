@@ -18,13 +18,12 @@ end
 describe 'String to LaTeX' do
 
   describe 'converts characters' do
-    it_should_behave_like 'convert', 'ampersand', '&', '\\&{}'
-    it_should_behave_like 'convert', 'backslash', '\\', '\\textbackslash{}'
-    it_should_behave_like 'convert', 'hash', '#', '\\#{}'
-    it_should_behave_like 'convert', 'dollar', '$', '\\${}'
-    it_should_behave_like 'convert', 'underscore', '_', '\\_{}'
-    it_should_behave_like 'convert', 'tilde', '~', '\\~{}'
-    it_should_behave_like 'convert', 'caret', '^', '\\^{}'
+    it_should_behave_like 'convert', 'ampersand', '&', '\\&'
+    it_should_behave_like 'convert', 'hash', '#', '\\#'
+    it_should_behave_like 'convert', 'dollar', '$', '\\$'
+    it_should_behave_like 'convert', 'underscore', '_', '\\_'
+    it_should_behave_like 'convert', 'tilde', '~', '\\~'
+    it_should_behave_like 'convert', 'caret', '^', '\\^'
   end
 
   # normal characters
