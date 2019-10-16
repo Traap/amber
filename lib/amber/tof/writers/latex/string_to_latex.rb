@@ -13,13 +13,13 @@ module Amber
     def self.lookup_latex(char)
       # template:  when 'a' then  '\\a'
       case char
-      when '&' then '\\&'
-      when '#' then '\\#'
-      when '%' then '\\%'
-      when '$' then '\\$'
-      when '_' then '\\_'
-      when '~' then '\\~'
-      when '^' then '\\^'
+      when '&' then '\\&\ '
+      when '#' then '\\#\ '
+      when '%' then '\\%\ '
+      when '$' then '\\$\ '
+      when '_' then '\\_\ '
+      when '~' then '\\~\ '
+      when '^' then '\\^\ '
       else char
       end
     end
