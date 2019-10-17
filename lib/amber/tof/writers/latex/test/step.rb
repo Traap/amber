@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'amber/tof/writers/latex/test'
+require 'amber/tof/writers/latex/string_to_latex'
 
 module Amber
   # Shell
@@ -25,10 +26,10 @@ module Amber
 
     def echo_to_sysout
       @handle.write "\\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]\n"
-      @handle.write "\\item[Step:] #{toLaTeX(@decoratee.number)}\n"
+      @handle.write "\\item[Step:] #{@decoratee.number}\n"
       @handle.write "\\item[Confirm:] #{toLaTeX(@decoratee.confirm)}\n"
       @handle.write "\\item[Expectation:] #{toLaTeX(@decoratee.expectation)}\n"
-      @handle.write "\\item[Command:] #{toLaTex(@decoratee.command)}\n"
+      @handle.write "\\item[Command:] #{toLaTeX(@decoratee.command)}\n"
       @decoratee.echo_to_sysout
     end
 
