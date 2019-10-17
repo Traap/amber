@@ -1,4 +1,5 @@
 \documentclass[12pt]{article}%
+\usepackage{enumitem}%
 \begin{document}%
 
 \paragraph{Upper}
@@ -15,10 +16,33 @@ abcdefghijklmnopqrstuvwxyz
 
 \paragraph{Shift Numbers}
 This \#\ is \v{E} a \$ test \% that \& shows \_ characters \# escaped \$ between \%
-words.  If \} a \{ frog \ddag\ had \pounds\ wings \copyright\ evertime \dots\ 
-it \S\ jumped, \$ it \dag\ would \P\ not \#\ land \$\ on \aa\ its \^ butt.  
+words.  If \} a \{ frog \ddag\ had \pounds\ wings \copyright\ evertime \dots\
+it \S\ jumped, \$ it \dag\ would \P\ not \#\ land \$\ on \aa\ its \^ butt.
 
 A \~\ was ! used.
 
 \"{e}this is a test.
-\end{document}%
+
+\paragraph{enumitem examples}
+\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]
+  \item[Purpose:]
+    This test suite demonstrates Amber's runtime substitution capabilities.
+    Amber has been designed to translate the keywords below.
+
+    1) \{browser\} or \{BROWSER\}
+    2) \{file\} or \{FILE\}  
+    3) \{language\} or \{LANGUAGE\}  
+    4) \{language-code\} or \{LANGUAGE-CODE\}  
+    5) \{home\} or \{HOME\} or \~\
+
+    \begin{enumerate}
+      \item \{browser\} or \{BROWSER\}
+      \item \{file\} or \{FILE\}  
+      \item \{language\} or \{LANGUAGE\}  
+      \item \{language-code\} or \{LANGUAGE-CODE\}  
+      \item \{home\} or \{HOME\} or \~\
+    \end{enumerate}
+
+  \item[Foo:] Foo is to Bar as Bar is to Foo!
+
+\end{description} \end{document}%

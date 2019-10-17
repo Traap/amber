@@ -25,10 +25,10 @@ module Amber
 
     def echo_to_sysout
       @handle.write "\\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]\n"
-      @handle.write "\\item[Step:] #{@decoratee.number}\n"
-      @handle.write "\\item[Confirm:] #{@decoratee.confirm}\n"
-      @handle.write "\\item[Expectation:] #{@decoratee.expectation}\n"
-      @handle.write "\\item[Command:] #{@decoratee.command}\n"
+      @handle.write "\\item[Step:] #{toLaTeX(@decoratee.number)}\n"
+      @handle.write "\\item[Confirm:] #{toLaTeX(@decoratee.confirm)}\n"
+      @handle.write "\\item[Expectation:] #{toLaTeX(@decoratee.expectation)}\n"
+      @handle.write "\\item[Command:] #{toLaTex(@decoratee.command)}\n"
       @decoratee.echo_to_sysout
     end
 
@@ -42,8 +42,8 @@ module Amber
           @test_result = 'FAIL'
           output = "#{stderr}\n#{stdout}\n"
         end
-        @handle.write "\\item[Test Result:] #{@test_result}\n"
-        @handle.write "\\item[Evidence:] #{@decoratee.evidence}\n"
+        @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
+        @handle.write "\\item[Evidence:] #{toLaTeX(@decoratee.evidence)}\n"
         @handle.write "\\end{description}\n"
 
         @handle.write "\\begin{lstlisting}[numbers=left]\n"

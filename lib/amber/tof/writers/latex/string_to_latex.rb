@@ -1,30 +1,33 @@
-module Amber 
-  # This module adds a function that can be used to convert any special
-  # characters in a given string to the LaTeX friendly forms.  A new string
-  # containing the LaTeX form is returned.
-  module StringToLatex
+module Amber # This module adds a function that can be used to convert any special # characters in a given string to the LaTeX friendly forms.  A new string
+   # containing the LaTeX form is returned.
+  module StringToLaTeX
 
-    # Iterate over each character in input_string replacing any special 
+    # Iterate over each character in input_string replacing any special
     # character with a LaTeX friendly form.
-    def self.convert_to_latex(input_string)
-      latex_string = ''
-      input_string.each_char { |char| latex_string << lookup_latex(char) }
-      latex_string
+    def self.convert(input_string)
+      output_string = ''
+      input_string.each_char { |char| output_string << lookup(char) }
+      output_string
     end
 
-    def self.lookup_latex(char)
+    def self.lookup(char)
       # template:  when 'a' then  '\\a\ '
       #            when 'Ě' then '\\v{E} '
-      # Note: A white space is added to prevent substitution side effects. 
+      # Note: A white space and backslash are added when necessary to prevent
+      #       substitution side effects that can occur as LaTeX compiler
+      #       consumes the input stream.
+      #
+      #       Some substitution are enclosed in double versus single quotes to
+      #       ensure substitution occurs correctly.
       case char
       when '#' then '\\#\ '
       when '$' then '\\$\ '
       when '%' then '\\%\ '
-      when '&' then '\\&\ '
+      when '&' then "\\&\ "
       when '^' then '\\^\ '
       when '_' then '\\_\ '
-      when '{' then '\\{\ '
-      when '}' then '\\}\ '
+      when '{' then "\\{ "
+      when '}' then "\\} "
       when '~' then '\\~\ '
       when '\\' then '\\textbackslash\ '
       when '©' then '\\textcopyright\ '
@@ -41,7 +44,7 @@ module Amber
       when 'Ď' then '\\v{D} '
       when 'Ó' then "\\'{O} "
       when 'Ȧ' then '\\.{A} '
-      when 'Å' then '\\AA{} '
+      when 'Å' then '\\AA '
       when 'Ä' then '\\"{A} '
       when 'À' then '\\`{A} '
       when 'Á' then "\\'{A} "
@@ -52,7 +55,7 @@ module Amber
       when 'Ą' then '\\k{A} '
       when 'ȧ' then '\\.{a} '
       when 'ä' then '\\\"{a} '
-      when 'å' then '\\aa{} '
+      when 'å' then '\\aa '
       when 'à' then '\\`{a} '
       when 'á' then "\\'{a} "
       when 'â' then '\\^{a} '
@@ -83,8 +86,8 @@ module Amber
       when 'Í' then "\\'{I} "
       when 'î' then '\\^{i} '
       when 'Î' then '\\^{I} '
-      when 'ł' then '\\l{} '
-      when 'Ł' then '\\L{} '
+      when 'ł' then '\\l '
+      when 'Ł' then '\\L '
       when 'ñ' then '\\~{n} '
       when 'Ñ' then '\\~{N} '
       when 'ń' then "\\'{n} "
@@ -124,20 +127,19 @@ module Amber
       when 'Ź' then "\\'{Z} "
       when 'Ż' then '\\.{Z} '
       when 'Ž' then '\\v{Z} '
-      when 'Æ' then '\\AE{} '
-      when 'æ' then '\\ae{} '
-      when 'Œ' then '\\OE{} '
-      when 'œ' then '\\oe{} '
-      when 'Ø' then '\\O{} '
-      when 'ø' then '\\o{} '
-      when 'Ð' then '\\DH{} '
-      when 'ð' then '\\dh{} '
-      when 'đ' then '\\dj{} '
-      when 'Ŋ' then '\\NG{} '
-      when 'ŋ' then '\\ng{} '
-      when 'ß' then '\\ss{} '
-      when 'ẞ' then '\\SS{} '
-
+      when 'Æ' then '\\AE '
+      when 'æ' then '\\ae '
+      when 'Œ' then '\\OE '
+      when 'œ' then '\\oe '
+      when 'Ø' then '\\O '
+      when 'ø' then '\\o '
+      when 'Ð' then '\\DH '
+      when 'ð' then '\\dh '
+      when 'đ' then '\\dj '
+      when 'Ŋ' then '\\NG '
+      when 'ŋ' then '\\ng '
+      when 'ß' then '\\ss '
+      when 'ẞ' then '\\SS '
       else char
       end
     end
