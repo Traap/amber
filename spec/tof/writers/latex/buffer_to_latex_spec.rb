@@ -1,0 +1,31 @@
+# frozen_string_literal:true
+
+require 'rspec'
+require 'amber'
+
+shared_examples 'convert' do |description, input, output|
+  context "#{description}\n\tfrom #{input} \n\t  to #{output}" do
+    subject { Amber::StringToLaTeX.convert(input) }
+    it { should eq(output) }
+  end
+end
+
+describe 'Amber LaTeX Buffer' do
+  it_should_behave_like \
+    'convert', \
+    'enumerate', \
+    '\begin{enumerate} \item {one} \item {two} \end{enumerate}', \
+    '\begin{enumerate} \item \{one\} \item \{two\} \end{enumerate}'
+
+  it_should_behave_like \
+    'convert', \
+    'itemize', \
+    '\begin{itemize} \item {one} \item {two} \end{itemize}', \
+    '\begin{itemize} \item \{one\} \item \{two\} \end{itemize}'
+
+  it_should_behave_like \
+    'convert', \
+    'cost sample', \
+    'Option #1 & is worth $1.12', \
+    'Option \\#1 \\& is worth \\$1.12'
+end

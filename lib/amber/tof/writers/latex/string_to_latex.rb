@@ -4,12 +4,29 @@ module Amber
   # containing the LaTeX form is returned.
   module StringToLaTeX
 
-    # Iterate over each character in input_string replacing any special
+    # Convert input to a string array to find whitlisted phrases that cannot be
+    # converted. Then iterate over each array item replacing any special 
     # character with a LaTeX friendly form.
-    def self.convert(input_string)
-      output_string = ''
-      input_string.each_char { |char| output_string << lookup(char) }
-      output_string
+    def self.convert(input)
+      output = ''
+
+      # old 
+      # input.each_char {|char| output << lookup(char) }:w
+
+      # new
+      # puts input
+      array = input.split(/ /)
+      # puts array.size
+      array.each do |item|
+        if item == ''
+          output << ' '
+        elsif Amber::LaTeXWhiteList::NAMES.include? item
+          output << item
+        else
+          item.each_char { |char| output << lookup(char) }
+        end
+      end
+      output
     end
 
     def self.lookup(char)
@@ -25,17 +42,17 @@ module Amber
       when '{' then '\\{'
       when '}' then '\\}'
       when '~' then "\\~\ "
-      when '\\' then '\\textbackslash'
+      when '\\' then '\\textbackslash\ '
 
-      when '«' then '\\guillemotleft'
-      when '»' then '\\guillemotright'
-      when '‹' then '\\guilsingleft'
-      when '›' then '\\guilsinglright'
+      when '«' then '\\guillemotleft\ '
+      when '»' then '\\guillemotright\ '
+      when '‹' then '\\guilsingleft\ '
+      when '›' then '\\guilsinglright\ '
 
-      when '|' then '\\textbar'
-      when '©' then '\\textcopyright'
-      when '€' then '\\texteuro'
-      when '™' then '\\texttrademark'
+      when '|' then '\\textbar\ '
+      when '©' then '\\textcopyright\ '
+      when '€' then '\\texteuro\ '
+      when '™' then '\\texttrademark\ '
 
       when 'á' then "\\'{a}"
       when 'Á' then "\\'{A}"

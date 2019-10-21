@@ -10,11 +10,10 @@ def check_conversion(input_string, output_string)
   expect(out).to eq(output_string)
 end
 
-shared_examples 'convert' do |test_desc, input_string, output_string|
-  context "#{test_desc}:"\
-    " from '#{input_string}' to '#{output_string}'" do
-    subject { Amber::StringToLaTeX.convert(input_string) }
-    it { should eq(output_string) }
+shared_examples 'convert' do |description, input, output|
+  context "#{description}: from #{input} to #{output}" do
+    subject { Amber::StringToLaTeX.convert(input) }
+    it { should eq(output) }
   end
 end
 
