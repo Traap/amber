@@ -17,12 +17,14 @@ case:
 
         Rspec output shows Amber::FactoryStructure properly locates the YAML file
         below.
-        1) Test Plan foo
-        2) Nested Test Plan baz
-        3) Test Suite foo
-        4) Nested Test Suite name baz
-        5) Test Case foo
-        6) Nested Test Case name baz
+        \begin{enumerate}
+          \item Test Plan foo
+          \item Nested Test Plan baz
+          \item Test Suite foo
+          \item Nested Test Suite name baz
+          \item Test Case foo
+          \item Nested Test Case name baz
+        \end{enumerate}
         
       command: rspec --format documentation -e 'Factory Structure'
 

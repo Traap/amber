@@ -1,22 +1,27 @@
-suite: 
-  name: ${file} 
+suite:
+  name: ${file}
 
-  purpose: | 
-    
+  purpose: |
+
     This test suite demonstrates Amber's runtime substitution capabilities.
     Amber has been designed to translate the keywords below.
 
-      1) {browser}       or {BROWSER}
-      2) {file}          or {FILE}
-      3) {language}      or {LANGUAGE} 
-      4) {language-code} or {LANGUAGE-CODE}
-      5) {home}          or {HOME} or ~
+    \begin{enumerate}
+      \item {browser} or {BROWSER}
+      \item {file} or {FILE}
+      \item {language}or {LANGUAGE}
+      \item {language-code} or {LANGUAGE-CODE}
+      \item {home} or {HOME} or ~
+    \end{enumerate}
+
+    This Test case also demonstrated embedded \LaTeX\ syntax to define the
+    list above.
 
 includes:
   - folder: utility/substitute
     case:
-      - name: browser 
-      - name: extend-path 
+      - name: browser
+      - name: extend-path
       - name: home
       - name: language
       - name: language-code

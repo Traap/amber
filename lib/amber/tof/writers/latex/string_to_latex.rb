@@ -20,11 +20,11 @@ module Amber
       when '$' then '\\$'
       when '%' then '\\%'
       when '&' then '\\&'
-      when '^' then '\\^\ '
+      when '^' then "\\^\ "
       when '_' then '\\_'
       when '{' then '\\{'
       when '}' then '\\}'
-      when '~' then '\\~\ '
+      when '~' then "\\~\ "
       when '\\' then '\\textbackslash'
 
       when '«' then '\\guillemotleft'

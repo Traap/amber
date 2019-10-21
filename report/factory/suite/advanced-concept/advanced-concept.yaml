@@ -5,56 +5,58 @@ suite:
     This Test Suite demonstrates a future concept that  maybe implement.  The
     concepts include the items below.
 
-    1) setup-before-all are Test Steps that are run before all Test Cases.
-    2) setup-before-each are Test Steps that are run before each Test Case.
-    3) teardown-after-all are Test Steps that are run before all Test Cases.
-    4) teardown-after-each are Test Steps that are run before each Test Case.
+    \begin{enumerate}
+    \item setup-before-all are Test Steps that are run before all Test Cases.
+    \item setup-before-each are Test Steps that are run before each Test Case.
+    \item teardown-after-all are Test Steps that are run before all Test Cases.
+    \item teardown-after-each are Test Steps that are run before each Test Case.
+    \end{enumerate}
 
   requirement: AMBER-IUR-nnn
 
 # ------------------------------------------------------------------------------
-setup-before-all:
-  steps:
-    - sudo: true
-      command: which
-      argument: echo 
+# setup-before-all:
+steps:
+  - sudo: true
+    command: which
+    argument: echo 
 
-    - sudo: false 
-      command: which
-      argument: ls 
-
-# ------------------------------------------------------------------------------
-setup-before-each:
-  steps:
-    - sudo: false 
-      command: which
-      argument: grep 
-
-    - sudo: false 
-      command: which
-      argument: egrep 
+  - sudo: false 
+    command: which
+    argument: ls 
 
 # ------------------------------------------------------------------------------
-teardown-after-all:
-  steps:
-    - sudo: false
-      command: which
-      argument: ssh
+# setup-before-each:
+steps:
+  - sudo: false 
+    command: which
+    argument: grep 
 
-    - sudo: false
-      command: which
-      argument: curl 
+  - sudo: false 
+    command: which
+    argument: egrep 
 
 # ------------------------------------------------------------------------------
-teardown-after-each:
-  steps:
-    - sudo: false
-      command: which
-      argument: wget 
+# teardown-after-all:
+steps:
+  - sudo: false
+    command: which
+    argument: ssh
 
-    - sudo: false
-      command: which
-      argument:  awk
+  - sudo: false
+    command: which
+    argument: curl 
+
+# ------------------------------------------------------------------------------
+# teardown-after-each:
+steps:
+  - sudo: false
+    command: which
+    argument: wget 
+
+  - sudo: false
+    command: which
+    argument:  awk
 
 # ------------------------------------------------------------------------------
 includes:

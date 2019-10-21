@@ -25,7 +25,7 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'dollar', '$', '\\$'
     it_should_behave_like 'convert', 'hash', '#', '\\#'
     it_should_behave_like 'convert', 'left brace', '{', '\\{'
-    it_should_behave_like 'convert', 'percent', '%', '\\%\ '
+    it_should_behave_like 'convert', 'percent', '%', '\\%'
     it_should_behave_like 'convert', 'right brace', '}', '\\}'
     it_should_behave_like 'convert', 'tilde', '~', "\\~\ "
     it_should_behave_like 'convert', 'underscore', '_', '\\_'
@@ -41,7 +41,7 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'left guillemot', '«', '\\guillemotleft'
     it_should_behave_like 'convert', 'right guillemot', '»', '\\guillemotright'
     it_should_behave_like 'convert', 'left guillsing', '‹', '\\guilsingleft'
-    it_should_behave_like 'convert', 'right guillsing', '›', '\\guilsingleright'
+    it_should_behave_like 'convert', 'right guillsing', '›', '\\guilsinglright'
   end
   describe 'converts accented A letters' do
     it_should_behave_like 'convert', 'hat A', 'Â', '\\^{A}'
@@ -79,7 +79,7 @@ describe 'String to LaTeX' do
   describe 'converts accented E letters' do
     it_should_behave_like 'convert', 'hat e', 'ê', '\\^{e}'
     it_should_behave_like 'convert', 'acute e', 'é', "\\'{e}"
-    it_should_behave_like 'convert', 'umlaut e', 'ë', '\\\"{e}'
+    it_should_behave_like 'convert', 'umlaut e', 'ë', '\\"{e}'
     it_should_behave_like 'convert', 'grave e', 'è', '\\`{e}'
     it_should_behave_like 'convert', 'check e', 'ě', '\\v{e}'
     it_should_behave_like 'convert', 'breve e', 'ĕ', '\\u{e}'
@@ -87,7 +87,7 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'hat E', 'Ê', '\\^{E}'
     it_should_behave_like 'convert', 'ogonek E', 'Ę', '\\k{E}'
     it_should_behave_like 'convert', 'acute E', 'É', "\\'{E}"
-    it_should_behave_like 'convert', 'umlaut E', 'Ë', '\\\"{E}'
+    it_should_behave_like 'convert', 'umlaut E', 'Ë', '\\"{E}'
     it_should_behave_like 'convert', 'grave E', 'È', '\\`{E}'
   end
   describe 'converts accented I letters' do
@@ -110,7 +110,7 @@ describe 'String to LaTeX' do
   end
   describe 'converts accented O letters' do
     it_should_behave_like 'convert', 'hat o', 'ô', '\\^{o}'
-    it_should_behave_like 'convert', 'umlaut o', 'ö', '\\\"{o}'
+    it_should_behave_like 'convert', 'umlaut o', 'ö', '\\"{o}'
     it_should_behave_like 'convert', 'acute o', 'ó', "\\'{o}"
   end
   describe 'converts accented R letters' do
