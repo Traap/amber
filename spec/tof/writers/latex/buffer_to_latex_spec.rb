@@ -28,4 +28,10 @@ describe 'Amber LaTeX Buffer' do
     'cost sample', \
     'Option #1 & is worth $1.12', \
     'Option \\#1 \\& is worth \\$1.12'
+
+  it_should_behave_like \
+    'buffer', \
+    'LaTeX', \
+    '\LaTeX is correct \latex is not corret', \
+    '\LaTeX is correct \textbackslashlatex is not corret'
 end
