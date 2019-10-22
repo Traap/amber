@@ -24,7 +24,7 @@ describe 'Amber LaTeX Whitelist' do
   it_behaves_like 'lookup', '\begin{itemize}', true
   it_behaves_like 'lookup', '\end{itemize}', true
 
-  it_behaves_like 'lookup', '\item ', true
+  it_behaves_like 'lookup', '\item', true
 
   it_behaves_like 'lookup', '\begin{document}', false
   it_behaves_like 'lookup', '\end{document}', false

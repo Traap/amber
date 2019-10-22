@@ -3,7 +3,7 @@
 require 'rspec'
 require 'amber'
 
-shared_examples 'convert' do |description, input, output|
+shared_examples 'buffer' do |description, input, output|
   context "#{description}\n\tfrom #{input} \n\t  to #{output}" do
     subject { Amber::StringToLaTeX.convert(input) }
     it { should eq(output) }
@@ -12,19 +12,19 @@ end
 
 describe 'Amber LaTeX Buffer' do
   it_should_behave_like \
-    'convert', \
+    'buffer', \
     'enumerate', \
     '\begin{enumerate} \item {one} \item {two} \end{enumerate}', \
     '\begin{enumerate} \item \{one\} \item \{two\} \end{enumerate}'
 
   it_should_behave_like \
-    'convert', \
+    'buffer', \
     'itemize', \
     '\begin{itemize} \item {one} \item {two} \end{itemize}', \
     '\begin{itemize} \item \{one\} \item \{two\} \end{itemize}'
 
   it_should_behave_like \
-    'convert', \
+    'buffer', \
     'cost sample', \
     'Option #1 & is worth $1.12', \
     'Option \\#1 \\& is worth \\$1.12'

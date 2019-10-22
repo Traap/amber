@@ -9,24 +9,18 @@ module Amber
     # character with a LaTeX friendly form.
     def self.convert(input)
       output = ''
-
-      # old 
-      # input.each_char {|char| output << lookup(char) }:w
-
-      # new
-      # puts input
       array = input.split(/ /)
-      # puts array.size
+      count = array.count
       array.each do |item|
-        if item == ''
-          output << ' '
-        elsif Amber::LaTeXWhiteList::NAMES.include? item
+        if Amber::LaTeXWhiteList::NAMES.include? item
           output << item
         else
           item.each_char { |char| output << lookup(char) }
         end
+        count -= 1
+        output << ' ' if count >= 1 # Add a space between words.
       end
-      output
+      output.to_s
     end
 
     def self.lookup(char)
@@ -42,17 +36,17 @@ module Amber
       when '{' then '\\{'
       when '}' then '\\}'
       when '~' then "\\~\ "
-      when '\\' then '\\textbackslash\ '
+      when '\\' then '\\textbackslash'
 
-      when '«' then '\\guillemotleft\ '
-      when '»' then '\\guillemotright\ '
-      when '‹' then '\\guilsingleft\ '
-      when '›' then '\\guilsinglright\ '
+      when '«' then '\\guillemotleft'
+      when '»' then '\\guillemotright'
+      when '‹' then '\\guilsingleft'
+      when '›' then '\\guilsinglright'
 
-      when '|' then '\\textbar\ '
-      when '©' then '\\textcopyright\ '
-      when '€' then '\\texteuro\ '
-      when '™' then '\\texttrademark\ '
+      when '|' then '\\textbar'
+      when '©' then '\\textcopyright'
+      when '€' then '\\texteuro'
+      when '™' then '\\texttrademark'
 
       when 'á' then "\\'{a}"
       when 'Á' then "\\'{A}"
