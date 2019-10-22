@@ -12,10 +12,11 @@ module Amber
       array = input.split(/ /)
       count = array.count
       array.each do |item|
-        if Amber::LaTeXWhiteList::NAMES.include? item
-          output << item
+        stripped = item.strip
+        if Amber::LaTeXWhiteList::NAMES.include? stripped 
+          output << stripped 
         else
-          item.each_char { |char| output << lookup(char) }
+          stripped.each_char { |char| output << lookup(char) }
         end
         count -= 1
         output << ' ' if count >= 1 # Add a space between words.

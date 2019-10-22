@@ -1,6 +1,16 @@
 case:
   name: ${file} 
-  purpose: Demonstrate requirement R123 is met.
+  purpose: | 
+    Demonstrate requirement R123 is met.
+  
+    \LaTeX
+    \begin{enumerate}
+    \item use echo command 
+    \item use date command   
+    \item use man command
+    \item foo 
+    \end{enumerate} \LaTeX \LaTeX
+  
   requirement: R123
   steps:
     - confirm: Program echo has been installed.
