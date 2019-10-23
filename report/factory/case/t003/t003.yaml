@@ -1,8 +1,7 @@
 case:
   name: ${file} 
   purpose: >
-    This Test Case demonstrates embedded \LaTeX\ enumerate and itemized
-    commands.
+    This Test Case demonstrates embedded \LaTeX\ enumerate command.
   
     \begin{enumerate}
     \item Step #1 nice check 

@@ -2,7 +2,7 @@ suite:
   name: ${file} 
   purpose: >
 
-    This Test Suite demonstrates a future concept that might implement.  The
+    This Test Suite demonstrates a future concept that might be implement.  The
     concepts include the items below.
     
     \begin{enumerate}
@@ -12,7 +12,7 @@ suite:
     \item teardown-after-each are Test Steps that are run before each Test Case.
     \end{enumerate}
 
-    This Test suite does emonstrate embeded \LaTeX\ commands and it includes
+    This Test Suite does demonstrate embedded \LaTeX\ commands and it includes
     the following Test Cases.
 
     \begin{itemize}

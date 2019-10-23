@@ -32,10 +32,7 @@ been provided to demonstrate the automation framework components amber,
 Copy the text below and paste into a shell.
 
 ```bash
-$ cd $GIT_HOME \
-     && git clone https://github.com/traap/amber.git \
-            && rake gem:build 
-$ cd $GIT_HOME && git clone https://github.com/traap/amber.git
+cd $GIT_HOME && git clone https://github.com/traap/amber.git
 ```
 
 #### Run unit test with Rake
@@ -264,27 +261,27 @@ Show this message.
 
 #### --verbose
 Log the commands what will be run when --nodryrun is used.  **NOTE:** This
-option was nurfed because Amber writes the commands to the test output
-factory.  This occurs because Amber is capturing standard input, standard
+option was nurfed because Amber writes the commands to the Test Output
+Factory.  This occurs because Amber is capturing standard input, standard
 output, and standard error.  Amber conditionally writes either standard output
-or standard error to the test output factor based on the exit status of the
+or standard error to the Test Output Factory based on the exit status of the
 program ran.
 
 #### Input Factory
 ##### --plan
 A comma-separated list of test plan names amber is to process.  The following
 directory and YAML file name convention is mandatory:
-factory/plan/a-plan/a-plan.YAML.
+factory/plan/a-plan/a-plan.yaml.
 
 ##### --suite
 A comma-separated list of test suite names amber is to process.  The
 following directory and YAML file name convention is mandatory:
-factory/suite/a-suite/a-suite.YAML.
+factory/suite/a-suite/a-suite.yaml.
 
 ##### --case
 A comma-separated list of test case names amber is to process.  The
 following directory and YAML file name convention is mandatory:
-factory/case/suite/a-case/a-case.YAML.
+factory/case/suite/a-case/a-case.yaml.
 
 ##### --file
 A comma-separated list of file names amber is to process.
