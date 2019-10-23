@@ -1,7 +1,7 @@
 case:
   name: ${file} 
   purpose: >
-    This Test Case demonistrated embedded \LaTeX\ enumerate and itemized
+    This Test Case demonstrates embedded \LaTeX\ enumerate and itemized
     commands.
   
     \begin{enumerate}

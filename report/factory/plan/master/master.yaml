@@ -1,6 +1,8 @@
 plan:
   name: ${file} 
   purpose: > 
+    \LaTeX.
+    \LaTeX\
     This Test Plan demonstrates the Ruby gem Amber functions correctly.  This
     Test plan shows Amber has met the intended-use requirements defined 
     by the designer.  This Test Plan includes the Test Suites listed below.
