@@ -1,14 +1,14 @@
-require 'rspec'
+# frozen_string_literal: true
 
+require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # version options
 # [--version]
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Version' do
-
   before(:all) do
-    @version = '1.4.262'
+    @version = '1.5.302'
   end
 
   describe 'no --version' do
@@ -21,11 +21,11 @@ describe 'Amber CLO Version' do
     it 'has been used from the command line.' do
       ARGV.replace ['--version']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.verbose).to be(false) 
+      expect(options.verbose).to be(false)
     end
   end
 
-  describe 'Version' do 
+  describe 'Version' do
     it 'has a version number' do
       expect(Amber::VERSION).not_to be nil
     end
@@ -34,5 +34,4 @@ describe 'Amber CLO Version' do
       expect(Amber::VERSION).to eql(@version)
     end
   end
-
 end

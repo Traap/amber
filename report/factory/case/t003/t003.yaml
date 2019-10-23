@@ -1,9 +1,19 @@
 case:
   name: ${file} 
-  purpose: Demonstrate requirement R789 is met.
-  requirement: R789
-  confirm: Confirm requirement R789 has met its specification.
-  expected: Requirement R789 specification has been met.
+  purpose: >
+    This Test Case demonistrated embedded \LaTeX\ enumerate and itemized
+    commands.
+  
+    \begin{enumerate}
+    \item Step #1 nice check 
+    \item Step #2 nl check 
+    \item Step #3 man check
+    \item Step #4 latexmk check
+    \item Step #5 git check
+    \end{enumerate}
+  
+  requirement: AMBER-IUR-006 
+
   steps:
     - confirm: Program nice has installed.
       expectation: nice installation location is displayed.
