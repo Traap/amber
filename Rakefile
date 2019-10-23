@@ -33,8 +33,8 @@ end
 # Build Amber. 
 # ------------------------------------------------------------------------------
 
-namespace :gem do
-  task :build do
+namespace :build do
+  task :amber do
     system "bundle install"
     system "bundle exec rake"
     system "bundle exec rake install"
@@ -53,6 +53,8 @@ namespace :validate do
   pwd = ''
 
   task :amber => [:save_wd, :report_dir, :do_validation, :restore_wd, :docbld]
+
+  task :iotest => [:save_wd, :report_dir, :do_validation, :restore_wd]
 
   task :save_wd do
     pwd = Dir.getwd

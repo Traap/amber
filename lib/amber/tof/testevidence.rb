@@ -13,7 +13,8 @@
 #       case/
 #         about/
 #           about.tex
-#           step-001.tex
+#           about-step-001-log.tex
+#           about-step-001-status.tex
 #
 # 2) With Browers and Languages
 #   test-output/
@@ -26,9 +27,12 @@
 #           case/
 #             about/
 #               about.tex
-#               step-001.tex
-#               about-001.png
-#               about-001.csv
+#               about-step-001-log.tex
+#               about-step-001-status.tex
+#               about-001-001.png
+#               about-001-001.csv
+#               about-001-002.png
+#               about-001-002.csv
 #
 # Amber creates either LaTeX (tex) or Ascii (txt) files.  png and csv files are
 # created by the program Amber invokes.
@@ -37,20 +41,22 @@ require 'fileutils'
 
 module Amber
   module TestEvidence
-    TEST_OUTPUT_DIR = 'test-output'.freeze
+    TEST_OUTPUT_DIR = 'test-output'
     TEST_OUTPUT = TestEvidence::TEST_OUTPUT_DIR + File::SEPARATOR
-    RESULT_FILE_EXTENSION = '.txt'.freeze
-    STEP_FILE = 'step-'.freeze
+    RESULT_FILE_EXTENSION = '.txt'
+    STEP_FILE = '-step-'
+    STEP_LOG = '-log'
+    STEP_STATUS = '-status'
     ENVIRONMENT_LOG = TestEvidence::TEST_OUTPUT + 'environment'
     TEST_RESULTS_LOG = TestEvidence::TEST_OUTPUT + 'test-results'
-    LATEX_FILE_EXTENSION = '.tex'.freeze
-    ASCII_FILE_EXTENSION = '.txt'.freeze
-    REQUIREMENTS_LOG = TestEvidence::TEST_OUTPUT + 'requirements.csv'.freeze
-    COMMAND_LOG = TestEvidence::TEST_OUTPUT + 'commands.log'.freeze
+    LATEX_FILE_EXTENSION = '.tex'
+    ASCII_FILE_EXTENSION = '.txt'
+    REQUIREMENTS_LOG = TestEvidence::TEST_OUTPUT + 'requirements.csv'
+    COMMAND_LOG = TestEvidence::TEST_OUTPUT + 'commands.log'
 
     # --------------------------------------------------------------------------
 
-    def self.obliterate_test_output()
+    def self.obliterate_test_output
       FileUtils.remove_dir(TestEvidence::TEST_OUTPUT_DIR, true)
     end
 
@@ -79,7 +85,7 @@ module Amber
         FileUtils.mkdir_p dir
       rescue
         msg = "Could not create: #{dir}"
-        abort msg 
+        abort msg
       end
     end
 
@@ -99,7 +105,9 @@ module Amber
                                 : TestEvidence::ASCII_FILE_EXTENSION
 
       # rubocop:enable Style/MultilineTernaryOperator
-    end # --------------------------------------------------------------------------
+    end 
+	
+	# --------------------------------------------------------------------------
 
     def self.open_log_file(input, options)
       TestEvidence.open_file(
@@ -133,14 +141,28 @@ module Amber
 
     # --------------------------------------------------------------------------
 
-    def self.record_final_test_result(input, nbr, test_result, options)
+    def self.get_test_case_log(input, nbr, options)
+      TestEvidence.assemble_test_output_root(options) +
+      File.dirname(input) +
+      File::SEPARATOR +
+      File.basename(input, '.*') +
+      TestEvidence::STEP_FILE +
+      nbr.to_s.rjust(3, '0') +
+      TestEvidence::STEP_LOG +
+      TestEvidence.use_file_extension(options)
+    end
+    # --------------------------------------------------------------------------
+
+    def self.record_test_case_status(input, nbr, test_result, options)
       handle =
         TestEvidence.open_file(
           TestEvidence.assemble_test_output_root(options) +
           File.dirname(input) +
           File::SEPARATOR +
+          File.basename(input, '.*') +
           TestEvidence::STEP_FILE +
           nbr.to_s.rjust(3, '0') +
+          TestEvidence::STEP_STATUS +
           TestEvidence.use_file_extension(options)
         )
       handle.write(test_result)
@@ -168,15 +190,15 @@ module Amber
 
     def self.record_requirement_tested(name, requirements)
       reqs = Amber::Requirement.to_array(requirements)
-      unless reqs.nil?
-        skip_header = File.file?(TestEvidence::REQUIREMENTS_LOG)
-        handle = TestEvidence.open_file(TestEvidence::REQUIREMENTS_LOG)
-        handle.write "requirement | test\n".freeze unless skip_header
-        reqs.each do |req|
-          handle.write(req + " | " +  name + "\n")
-        end
-        TestEvidence.close_file(handle)
+      return if reqs.nil?
+
+      skip_header = File.file?(TestEvidence::REQUIREMENTS_LOG)
+      handle = TestEvidence.open_file(TestEvidence::REQUIREMENTS_LOG)
+      handle.write 'requirement | test\n' unless skip_header
+      reqs.each do |req|
+        handle.write(req + ' | ' + name + '\n')
       end
+      TestEvidence.close_file(handle)
     end
 
     # --------------------------------------------------------------------------

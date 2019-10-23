@@ -7,25 +7,30 @@ module Amber
              'cs' => 'Czech',
              'da' => 'Dansk',
              'de' => 'Deutsch',
+             'du' => 'Dutch',
              'en' => 'English',
-             'en-US' => 'US English',  # variant found on the VMM
+             'en-US' => 'US English',
              'es' => 'Espanol',
              'fi' => 'Finnish',
-             'fr' => 'French',  # variant found on the VMM
-             'fr-ca' => 'CA French - Canadian',
-             'fr-eu' => 'EU French - European',
+             'fi' => 'Finish',
+             'fr' => 'French',
+             'ga' => 'Gaeilge',
              'hu' => 'Hungarian',
              'it' => 'Italiano',
-             'nl' => 'Nederlands',  # variant found on the VMM. Code 'ne' found in IS-639-1 is Nepali.
+             'ne' => 'Nederlands',
+             'nl' => 'Nederlands',
              'no' => 'Norsk',
              'pl' => 'Polish',
              'pt' => 'Portuguese',
              'ro' => 'Romanian',
+             'ru' => 'Russian',
              'sk' => 'Slovak',
              'sv' => 'Svenska' }.freeze
 
-    NAMES = CODE.keys.freeze  # Only CODE needs to be changed to update languages.
+    # Only CODE needs to be changed to update languages.
+    NAMES = CODE.keys.freeze
 
-    DEFAULT = 'zz'.freeze
+    # Immutable objects are not frozen.
+    DEFAULT = 'zz'
   end
 end

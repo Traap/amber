@@ -2,6 +2,7 @@
 
 require 'amber/tif/test'
 require 'amber/tof/testevidence'
+require 'amber/tof/writers/latex/string_to_latex'
 
 module Amber
   # Base class used to decorate output with LaTeX text.
@@ -22,7 +23,7 @@ module Amber
       @requirement = decoratee.requirement
       @type        = decoratee.type
     end
-    
+
     def setup
       Amber::TestEvidence.record_test_name(@macro, @decoratee.options) unless @macro.nil?
       @handle = Amber::TestEvidence.open_log_file(@decoratee.filename,
@@ -34,9 +35,9 @@ module Amber
 
       name = "#{@decoratee.type}: #{@decoratee.name}"
       @handle.write "\\#{outline_level}{#{name}}\n"
-      @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=3cm]\n"
-      @handle.write "\\item[Purpose:] #{@decoratee.purpose}\n"
-      @handle.write "\\item[Requirement:] #{@decoratee.requirement}\n" unless @decoratee.requirement.nil?
+      @handle.write "\\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]\n"
+      @handle.write "\\item[Purpose:] #{toLaTeX(@decoratee.purpose)}\n"
+      @handle.write "\\item[Requirement:] #{toLaTeX(@decoratee.requirement)}\n" unless @decoratee.requirement.nil?
       @handle.write "\\end{description}\n"
       @handle.flush
     end
@@ -49,5 +50,10 @@ module Amber
       Amber::TestEvidence.close_file(@handle)
       @handle = nil
     end
+
+    def toLaTeX(string)
+      Amber::StringToLaTeX.convert(string) 
+    end
+
   end
 end

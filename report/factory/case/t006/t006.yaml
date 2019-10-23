@@ -1,7 +1,16 @@
 case:
   name: ${file} 
-  purpose: Demonstrate requirement R987 is met.
-  requirement: R987 
+  purpose: >
+    This Test Case demonstrates embedded \LaTeX\ enumerate and itemized
+    commands.
+  
+    \begin{enumerate}
+    \item Step #1 yacc check 
+    \item Step #2 xxd check 
+    \end{enumerate}
+  
+  requirement: AMBER-IUR-006 
+
   steps:
     - confirm: Program yacc has been installed.
       expectation: yacc installation location is displayed.
