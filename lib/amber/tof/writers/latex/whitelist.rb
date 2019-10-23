@@ -2,6 +2,13 @@
 
 module Amber
   module LaTeXWhiteList
-    NAMES = ['\begin{enumerate}', '\end{enumerate}', '\begin{itemize}', '\end{itemize}', '\item', '\LaTeX'] 
+    NAMES = [
+      '\\begin{enumerate}',
+      '\\end{enumerate}',
+      '\\begin{itemize}',
+      '\\end{itemize}',
+      '\\item', 
+      '\\LaTeX'
+    ] 
   end
 end

@@ -14,13 +14,13 @@ describe 'Amber LaTeX Buffer' do
   it_should_behave_like \
     'buffer', \
     'enumerate', \
-    '\begin{enumerate} \item {one} \item {two} \end{enumerate}', \
+    '\\begin{enumerate} \\item {one} \\item {two} \\end{enumerate}', \
     '\begin{enumerate} \item \{one\} \item \{two\} \end{enumerate}'
 
   it_should_behave_like \
     'buffer', \
     'itemize', \
-    '\begin{itemize} \item {one} \item {two} \end{itemize}', \
+    '\\begin{itemize} \\item {one} \\item {two} \\end{itemize}', \
     '\begin{itemize} \item \{one\} \item \{two\} \end{itemize}'
 
   it_should_behave_like \
@@ -32,6 +32,6 @@ describe 'Amber LaTeX Buffer' do
   it_should_behave_like \
     'buffer', \
     'LaTeX', \
-    '\LaTeX is correct \latex is not corret', \
-    '\LaTeX is correct \textbackslashlatex is not corret'
+    '\\LaTeX is correct \latex is not correct', \
+    '\LaTeX is correct \textbackslashlatex is not correct'
 end

@@ -1,7 +1,16 @@
 case:
   name: ${file} 
-  purpose: Demonstrate requirement R987 is met.
-  requirement: R789
+  purpose: >
+    This Test Case demonistrated embedded \LaTeX enumerate and itemized
+    commands.
+  
+    \begin{enumerate}
+    \item Step #1 whois check 
+    \item Step #2 zip check 
+    \end{enumerate}
+  
+  requirement: AMBER-IUR-006 
+
   steps:
     - confirm: Program whois has been installed.
       expectation: whois installation location is displayed.

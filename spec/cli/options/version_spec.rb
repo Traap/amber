@@ -8,7 +8,7 @@ require 'amber'
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Version' do
   before(:all) do
-    @version = '1.5.292'
+    @version = '1.5.299'
   end
 
   describe 'no --version' do

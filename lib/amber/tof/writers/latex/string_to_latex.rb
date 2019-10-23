@@ -9,7 +9,7 @@ module Amber
     # character with a LaTeX friendly form.
     def self.convert(input)
       output = ''
-      array = input.split(/ /)
+      array = input.split(/\s/)
       count = array.count
       array.each do |item|
         stripped = item.strip
