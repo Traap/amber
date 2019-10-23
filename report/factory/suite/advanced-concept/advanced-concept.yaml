@@ -2,7 +2,7 @@ suite:
   name: ${file} 
   purpose: >
 
-    This Test Suite demonstrates a future concept that  maybe implement.  The
+    This Test Suite demonstrates a future concept that might implement.  The
     concepts include the items below.
     
     \begin{enumerate}
@@ -12,51 +12,58 @@ suite:
     \item teardown-after-each are Test Steps that are run before each Test Case.
     \end{enumerate}
 
-  requirement: AMBER-IUR-nnn
+    This Test suite does emonstrate embeded \LaTeX\ commands and it includes
+    the following Test Cases.
+
+    \begin{itemize}
+    \item t001
+    \item t002
+    \item t003
+    \item t005
+    \item t006
+    \end{itemize}
+
+  requirement: AMBER-IUR-006
 
 # ------------------------------------------------------------------------------
 # setup-before-all:
-steps:
-  - sudo: true
-    command: which
-    argument: echo 
-
-  - sudo: false 
-    command: which
-    argument: ls 
+#   steps:
+#     - sudo: true
+#       command: which
+#       argument: echo 
+#     - sudo: false 
+#       command: which
+#       argument: ls 
 
 # ------------------------------------------------------------------------------
 # setup-before-each:
-steps:
-  - sudo: false 
-    command: which
-    argument: grep 
-
-  - sudo: false 
-    command: which
-    argument: egrep 
+#   steps:
+#     - sudo: false 
+#       command: which
+#       argument: grep 
+#     - sudo: false 
+#       command: which
+#       argument: egrep 
 
 # ------------------------------------------------------------------------------
 # teardown-after-all:
-steps:
-  - sudo: false
-    command: which
-    argument: ssh
-
-  - sudo: false
-    command: which
-    argument: curl 
+#   steps:
+#     - sudo: false
+#       command: which
+#       argument: ssh
+#     - sudo: false
+#       command: which
+#       argument: curl 
 
 # ------------------------------------------------------------------------------
 # teardown-after-each:
-steps:
-  - sudo: false
-    command: which
-    argument: wget 
-
-  - sudo: false
-    command: which
-    argument:  awk
+#   steps:
+#     - sudo: false
+#       command: which
+#       argument: wget 
+#     - sudo: false
+#       command: which
+#       argument:  awk
 
 # ------------------------------------------------------------------------------
 includes:
@@ -64,6 +71,6 @@ includes:
     - name: t001 
     - name: t002 
     - name: t003 
-    - name: t004 
+    # - name: t004 
     - name: t005 
     - name: t006 

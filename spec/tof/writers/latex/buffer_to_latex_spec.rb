@@ -32,6 +32,12 @@ describe 'Amber LaTeX Buffer' do
   it_should_behave_like \
     'buffer', \
     'LaTeX', \
-    '\\LaTeX is correct \latex is not correct', \
-    '\LaTeX is correct \textbackslashlatex is not correct'
+    '\\LaTeX\\ is correct \latex is not correct', \
+    '\LaTeX\ is correct \textbackslashlatex is not correct'
+
+  it_should_behave_like \
+    'buffer', \
+    'end with LaTeX', \
+    'This sentence ends with \\LaTeX.', \
+    'This sentence ends with \LaTeX.'
 end

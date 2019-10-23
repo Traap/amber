@@ -1,7 +1,7 @@
 suite:
   name: ${file}
 
-  purpose: |
+  purpose: >
 
     This test suite demonstrates Amber's runtime substitution capabilities.
     Amber has been designed to translate the keywords below.
@@ -9,7 +9,7 @@ suite:
     \begin{enumerate}
       \item {browser} or {BROWSER}
       \item {file} or {FILE}
-      \item {language}or {LANGUAGE}
+      \item {language} or {LANGUAGE}
       \item {language-code} or {LANGUAGE-CODE}
       \item {home} or {HOME} or ~
     \end{enumerate}

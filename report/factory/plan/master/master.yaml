@@ -1,9 +1,31 @@
 plan:
   name: ${file} 
   purpose: > 
-    This plan demonstrates Ruby gem Amber functions correctly.  This plan uses
-    shows that Amber has met the intended-use requirements as defined by the
-    designer.  
+    This Test Plan demonstrates the Ruby gem Amber functions correctly.  This
+    Test plan shows Amber has met the intended-use requirements defined 
+    by the designer.  This Test Plan includes the Test Suites listed below.
+
+    \begin{itemize}
+    \item  Test Suite cli/options shows all permutations of command line
+           options function correctly.
+    \item Test Suite utility/substitution demonstrates how Amber substitutes
+          values found in Test Plans, Test Suites, and Test Cases to simplify
+          test maintenance.
+    \item Test Suite tif/structure reveals concepts unique to a Test Input
+          Factory
+    \item Test Suite advanced-concept demonstrates embedded \LaTeX\ commands
+          throughout.
+    \end{itemize}
+
+    Amber Test Cases have been designed to showoff Amber concepts.  There are
+    many Test Steps that may report failure.  In these cases, an operation 
+    system application is simply not installed.  For example, most Linux systems
+    come with the man program installed.  Amber will issue a command 'which man'
+    and report PASS if man is installed and FAIL if man is not installed.  In
+    the failed test case, Amber prints the environment path that was searched.
+
+    In short, Amber simply ran the command it was instructed to run and captured
+    the results.  This is sufficient for Amber's validation purposes. 
 
 includes:
 

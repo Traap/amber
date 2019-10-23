@@ -8,7 +8,8 @@ module Amber
       '\\begin{itemize}',
       '\\end{itemize}',
       '\\item', 
-      '\\LaTeX'
+      '\\LaTeX.',
+      '\\LaTeX\\'
     ] 
   end
 end
