@@ -5,7 +5,7 @@ require 'amber/tif/test/step'
 require 'amber/tof/writers/writer_factory'
 
 module Amber
-  # Decorate test case output with LaTeX text.
+  # A test case is a collection of one or more test steps. 
   class TestCase < Amber::Test
     def initialize(filename, data, options)
       super('Test Case', filename, data, options)

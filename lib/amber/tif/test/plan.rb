@@ -3,7 +3,7 @@
 require 'amber/tif/test'
 
 module Amber
-  # Decorate test plan output with LaTeX text.
+  # A test plan can contain one or more test suites. 
   class TestPlan < Test
     def initialize(filename, data, options)
       super('Test Plan', filename, data, options)

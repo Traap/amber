@@ -1,9 +1,17 @@
 case:
   name: ${file} 
-  purpose: Demonstrate requirement R456 is met.
-  requirement: R456
-  confirm: Confirm requirement R456 has met its specification.
-  expected: Requirement R456 specification has been met.
+  purpose: >
+    This Test Case demonstrates embedded \LaTeX\ enumerate command.
+  
+    \begin{enumerate}
+    \item Step #1 grep check 
+    \item Step #2 dumper check 
+    \item Step #3 sed check
+    \item Step #4 tr check
+    \end{enumerate}
+  
+  requirement: AMBER-IUR-006 
+
   steps:
     - confirm: Program grep has been installed.
       expectation: grep installation location is displayed.
