@@ -194,9 +194,10 @@ module Amber
 
       skip_header = File.file?(TestEvidence::REQUIREMENTS_LOG)
       handle = TestEvidence.open_file(TestEvidence::REQUIREMENTS_LOG)
-      handle.write 'requirement | test\n' unless skip_header
+      handle.write "requirement | test\n" unless skip_header
       reqs.each do |req|
-        handle.write(req + ' | ' + name + '\n')
+        handle.write(req + " | " + name + "\n")
+        handle.write("#{req} | #{name}\n")
       end
       TestEvidence.close_file(handle)
     end
