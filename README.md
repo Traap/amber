@@ -3,7 +3,7 @@
 was designed to automation various types of testing that require creating and
 assembling detailed records intended to prove a product or tool has been tested
 for its intended purpose.  **amber** borrows from a Ruby-on-Rails concept of
-convention over configuration.  In this regard, amber consumes YAML documents
+convention over configuration.  In this regard, **amber** consumes YAML documents
 that are placed beneath a factory directory root.  You are encouraged to review
 **amber's** report directory because it has been designed to demonstrate
 **amber's** capabilities.
@@ -32,7 +32,7 @@ been provided to demonstrate the automation framework components amber,
 Copy the text below and paste into a shell.
 
 ```bash
-$ cd $GIT_HOME && git clone https://github.com/traap/amber.git
+cd $GIT_HOME && git clone https://github.com/traap/amber.git
 ```
 
 #### Run unit test with Rake
@@ -257,31 +257,31 @@ Specific options:
 ##### --help
 Show this message.
 
-1.5.0.303 is the current version.
+1.5.1.306 is the current version.
 
 #### --verbose
 Log the commands what will be run when --nodryrun is used.  **NOTE:** This
-option was nurfed because Amber writes the commands to the test output
-factory.  This occurs because Amber is capturing standard input, standard
+option was nurfed because Amber writes the commands to the Test Output
+Factory.  This occurs because Amber is capturing standard input, standard
 output, and standard error.  Amber conditionally writes either standard output
-or standard error to the test output factor based on the exit status of the
+or standard error to the Test Output Factory based on the exit status of the
 program ran.
 
 #### Input Factory
 ##### --plan
 A comma-separated list of test plan names amber is to process.  The following
 directory and YAML file name convention is mandatory:
-factory/plan/a-plan/a-plan.YAML.
+factory/plan/a-plan/a-plan.yaml.
 
 ##### --suite
 A comma-separated list of test suite names amber is to process.  The
 following directory and YAML file name convention is mandatory:
-factory/suite/a-suite/a-suite.YAML.
+factory/suite/a-suite/a-suite.yaml.
 
 ##### --case
 A comma-separated list of test case names amber is to process.  The
 following directory and YAML file name convention is mandatory:
-factory/case/suite/a-case/a-case.YAML.
+factory/case/suite/a-case/a-case.yaml.
 
 ##### --file
 A comma-separated list of file names amber is to process.
@@ -370,9 +370,8 @@ rake validate:amber
 ```
 
 #### Amber demonstration output
-2. git/amber/report/test-output/commands.log
-1. git/amber/report/test-output/environment.tex
-1. git/amber/report/test-output/requirements.csv
-1. git/amber/report/test-output/test-results.tex
-1. git/amber/report/_build/exmple.pdf
-
+1. git/amber/report/test-output/commands.log
+2. git/amber/report/test-output/environment.tex
+3. git/amber/report/test-output/requirements.csv
+4. git/amber/report/test-output/test-results.tex
+5. git/amber/report/_build/exmple.pdf

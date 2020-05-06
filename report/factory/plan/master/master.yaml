@@ -46,6 +46,6 @@ includes:
     suite:
       - name: structure 
 
-  # A placeholder for a future concept that are partially implemented.
+  # A placeholder for a future concepts that are partially implemented.
   - suite:
        - name: advanced-concept 

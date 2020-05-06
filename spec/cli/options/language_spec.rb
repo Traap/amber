@@ -92,3 +92,4 @@ describe 'Amber CLO Language' do
     it_behaves_like 'CLO language parameter', code, language_name
   end
 end
+
