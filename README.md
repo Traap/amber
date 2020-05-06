@@ -3,7 +3,7 @@
 was designed to automation various types of testing that require creating and
 assembling detailed records intended to prove a product or tool has been tested
 for its intended purpose.  **amber** borrows from a Ruby-on-Rails concept of
-convention over configuration.  In this regard, amber consumes YAML documents
+convention over configuration.  In this regard, **amber** consumes YAML documents
 that are placed beneath a factory directory root.  You are encouraged to review
 **amber's** report directory because it has been designed to demonstrate
 **amber's** capabilities.
@@ -257,7 +257,7 @@ Specific options:
 ##### --help
 Show this message.
 
-1.5.1.305 is the current version.
+1.5.1.306 is the current version.
 
 #### --verbose
 Log the commands what will be run when --nodryrun is used.  **NOTE:** This
@@ -370,9 +370,8 @@ rake validate:amber
 ```
 
 #### Amber demonstration output
-2. git/amber/report/test-output/commands.log
-1. git/amber/report/test-output/environment.tex
-1. git/amber/report/test-output/requirements.csv
-1. git/amber/report/test-output/test-results.tex
-1. git/amber/report/_build/exmple.pdf
-
+1. git/amber/report/test-output/commands.log
+2. git/amber/report/test-output/environment.tex
+3. git/amber/report/test-output/requirements.csv
+4. git/amber/report/test-output/test-results.tex
+5. git/amber/report/_build/exmple.pdf
