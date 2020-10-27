@@ -1,0 +1,4 @@
+{
+  "lib/amber/cli/*.rb": {"alternate": "spec/cli/*-spec.rb"},
+  "spec/cli/*-spec.rb": {"alternate": "lib/*.rb"}
+}
