@@ -1,4 +1,4 @@
 {
-  "lib/amber/cli/*.rb": {"alternate": "spec/cli/*-spec.rb"},
-  "spec/cli/*-spec.rb": {"alternate": "lib/*.rb"}
+  "lib/amber/cli/*.rb": {"alternate": "spec/cli/*-spec.rb", "type": "source"}, 
+  "spec/cli/*-spec.rb": {"alternate": "lib/*.rb",           "type": "test"}
 }
