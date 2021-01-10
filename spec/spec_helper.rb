@@ -1,4 +1,3 @@
-require 'rspec'
 require 'amber'
 
 # Test Coverage

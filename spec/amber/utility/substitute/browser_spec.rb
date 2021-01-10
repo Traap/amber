@@ -1,4 +1,3 @@
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # These Rspecs demonstrate Amber substitution capabilities related to the 
@@ -6,50 +5,60 @@ require 'amber'
 # ------------------------------------------------------------------------------
 describe 'YAML Browser Substitutions' do
 
-  before(:all) do
-    @options = Amber::Options.new
-  end
-
   describe 'Amber::Substitute.browser' do
 
     it "can substitute ${BROWSER} to #{Amber::Browser::DEFAULT}" do
+      options = Amber::CommandLineOptions.parse(ARGV)
       expect(Amber::Substitute
-        .browser(@options, "${BROWSER}")).to eql(Amber::Browser::DEFAULT)
+        .browser(options, "${BROWSER}")).to eql(Amber::Browser::DEFAULT)
     end
 
     it "can substitute ${browser} to #{Amber::Browser::DEFAULT}" do
+      options = Amber::CommandLineOptions.parse(ARGV)
       expect(Amber::Substitute
-        .browser(@options, "${browser}")).to eql(Amber::Browser::DEFAULT)
+        .browser(options, "${browser}")).to eql(Amber::Browser::DEFAULT)
+    end
+
+    it 'can substitute ${BROWSER} to Brave' do
+      ARGV.replace ['--browser', 'Brave']
+      options = Amber::CommandLineOptions.parse(ARGV)
+      expect(Amber::Substitute
+        .browser(options, '${BROWSER}')).to eql('Brave')
     end
 
     it 'can substitute ${BROWSER} to Chrome' do
-      @options.browser = 'Chrome' 
+      ARGV.replace ['--browser', 'Chrome']
+      options = Amber::CommandLineOptions.parse(ARGV)
       expect(Amber::Substitute
-        .browser(@options, '${BROWSER}')).to eql('Chrome')
+        .browser(options, '${BROWSER}')).to eql('Chrome')
     end
 
     it 'can substitute ${browser} to Edge' do
-      @options.browser = 'Edge' 
+      ARGV.replace ['--browser', 'Edge']
+      options = Amber::CommandLineOptions.parse(ARGV)
       expect(Amber::Substitute
-        .browser(@options, '${browser}')).to eql('Edge')
+        .browser(options, '${browser}')).to eql('Edge')
     end
 
     it 'can substitute ${BROWSER} to Firefox' do
-      @options.browser = 'Firefox' 
+      ARGV.replace ['--browser', 'Firefox']
+      options = Amber::CommandLineOptions.parse(ARGV)
       expect(Amber::Substitute
-        .browser(@options, '${BROWSER}')).to eql('Firefox')
+        .browser(options, '${BROWSER}')).to eql('Firefox')
     end
 
     it 'can substitute ${browser} to IE' do
-      @options.browser = 'IE'
+      ARGV.replace ['--browser', 'IE']
+      options = Amber::CommandLineOptions.parse(ARGV)
       expect(Amber::Substitute
-        .browser(@options, '${browser}')).to eql('IE')
+        .browser(options, '${browser}')).to eql('IE')
     end
 
     it 'can substitute ${BROWSER} to Opera' do
-      @options.browser = 'Opera' 
+      ARGV.replace ['--browser', 'Opera']
+      options = Amber::CommandLineOptions.parse(ARGV)
       expect(Amber::Substitute
-        .browser(@options, '${BROWSER}')).to eql('Opera')
+        .browser(options, '${BROWSER}')).to eql('Opera')
     end
 
   end

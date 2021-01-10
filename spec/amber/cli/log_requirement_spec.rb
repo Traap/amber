@@ -1,10 +1,9 @@
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # Requirement options
 # [--requirement | -r]
 # ------------------------------------------------------------------------------
-describe 'Amber CLO Logging' do
+describe 'Amber CLO Requirements' do
 
   describe '--log-requirement' do
     it 'was not used.' do

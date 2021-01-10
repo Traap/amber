@@ -1,4 +1,3 @@
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # simulate options
@@ -9,7 +8,7 @@ describe 'Amber CLO Simulate' do
   describe 'no -S' do
     it 'has not been used.' do
       options = Amber::Options.new 
-      expect(options.simulate).to be(false)
+      expect(options.simulate?).to be(false)
     end
   end
 
@@ -17,7 +16,7 @@ describe 'Amber CLO Simulate' do
     it 'has been used from the command line.' do
       ARGV.replace ['-S']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.simulate).to be(true)
+      expect(options.simulate?).to be(true)
     end
   end
 
@@ -25,7 +24,7 @@ describe 'Amber CLO Simulate' do
     it 'has been used from the command line.' do
       ARGV.replace ['--simulate']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.simulate).to be(true)
+      expect(options.simulate?).to be(true)
     end
   end
 

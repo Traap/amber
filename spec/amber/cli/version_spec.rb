@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # version options
@@ -8,7 +7,7 @@ require 'amber'
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Version' do
   before(:all) do
-    @version = '1.6.0.313'
+    @version = '1.6.0.322'
   end
 
   describe 'Version' do

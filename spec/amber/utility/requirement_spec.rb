@@ -1,5 +1,4 @@
 require 'rspec'
-require 'amber'
 
 # ------------------------------------------------------------------------------
 # These Rspecs demonstrate Amber substitution capabilities related to the 

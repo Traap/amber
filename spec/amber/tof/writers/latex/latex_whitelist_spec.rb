@@ -1,9 +1,8 @@
  # frozen_string_literal:true
 
-require 'rspec'
 require 'amber'
 
-shared_examples 'lookup' do |input, condition|
+shared_examples 'whitelist' do |input, condition|
   context "#{input}" do
     challenge = Amber::LaTeXWhiteList::NAMES.include? input
     if condition 
@@ -18,20 +17,20 @@ shared_examples 'lookup' do |input, condition|
 end
 
 describe 'Amber LaTeX Whitelist' do
-  it_behaves_like 'lookup', '\\begin{enumerate}', true
-  it_behaves_like 'lookup', '\\end{enumerate}', true
+  it_behaves_like 'whitelist', '\\begin{enumerate}', true
+  it_behaves_like 'whitelist', '\\end{enumerate}', true
 
-  it_behaves_like 'lookup', '\\begin{itemize}', true
-  it_behaves_like 'lookup', '\\end{itemize}', true
+  it_behaves_like 'whitelist', '\\begin{itemize}', true
+  it_behaves_like 'whitelist', '\\end{itemize}', true
 
-  it_behaves_like 'lookup', '\\item', true
+  it_behaves_like 'whitelist', '\\item', true
 
-  it_behaves_like 'lookup', '\\begin{document}', false
-  it_behaves_like 'lookup', '\\end{document}', false
+  it_behaves_like 'whitelist', '\\begin{document}', false
+  it_behaves_like 'whitelist', '\\end{document}', false
 
-  it_behaves_like 'lookup', '{page}', false
+  it_behaves_like 'whitelist', '{page}', false
 
-  it_behaves_like 'lookup', '\\LaTeX.', true 
-  it_behaves_like 'lookup', '\\latex', false
-  it_behaves_like 'lookup', '\\LaTeX\\', true 
+  it_behaves_like 'whitelist', '\\LaTeX.', true 
+  it_behaves_like 'whitelist', '\\latex', false
+  it_behaves_like 'whitelist', '\\LaTeX\\', true 
 end

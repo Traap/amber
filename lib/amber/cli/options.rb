@@ -44,10 +44,14 @@ module Amber
     end
 
     def language
-      @data[:log_command]
+      @data[:language]
     end
 
     def log_command
+      @data[:log_command]
+    end
+
+    def log_requirement
       @data[:log_requirement]
     end
 

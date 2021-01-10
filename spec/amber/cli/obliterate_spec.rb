@@ -1,4 +1,3 @@
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # obliterate options
@@ -9,7 +8,7 @@ describe 'Amber CLO Obliterate' do
   describe 'no -O' do
     it 'has not been used.' do
       options = Amber::Options.new
-      expect(options.obliterate).to be(false)
+      expect(options.obliterate?).to be(false)
     end
   end
 
@@ -17,7 +16,7 @@ describe 'Amber CLO Obliterate' do
     it 'has been used from the command line.' do
       ARGV.replace ['-O']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.obliterate).to be(true)
+      expect(options.obliterate?).to be(true)
     end
   end
 
@@ -25,7 +24,7 @@ describe 'Amber CLO Obliterate' do
     it 'has been used from the command line.' do
       ARGV.replace ['--obliterate']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.obliterate).to be(true)
+      expect(options.obliterate?).to be(true)
     end
   end
 end

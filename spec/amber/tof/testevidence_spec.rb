@@ -1,4 +1,3 @@
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # These Rspecs demonstrate TestEvidence operates correctly.

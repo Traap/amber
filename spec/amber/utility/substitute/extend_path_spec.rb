@@ -1,4 +1,3 @@
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # These Rspecs demonstrate Amber substitution capabilities related the ~ marker.

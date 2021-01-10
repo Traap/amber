@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 # Gems need throughout Amber.
-require 'pp'
-require 'yaml'
 require 'open3'
-require 'rbconfig'
 require 'optparse'
 require 'ostruct'
+require 'pp'
+require 'rbconfig'
+require 'rspec'
+require 'yaml'
 
 # Making it easy to setup Amber includes and Rspecing Amber.
 require 'require_all'

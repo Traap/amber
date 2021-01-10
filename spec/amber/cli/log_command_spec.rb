@@ -1,4 +1,3 @@
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # Log Command options 
@@ -8,7 +7,6 @@ describe 'Amber CLO Logging' do
 
   describe '--log-command' do
     it 'was not used.' do
-      ARGV.replace ['--nodryrun']
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.log_command).to be(false)
       expect(options.okay_to_log_command?).to be(false)

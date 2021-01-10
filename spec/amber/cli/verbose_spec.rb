@@ -1,4 +1,3 @@
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # verbose options
@@ -9,7 +8,7 @@ describe 'Amber CLO Verbose' do
   describe 'no -v' do
     it 'has not been used.' do
       options = Amber::Options.new
-      expect(options.verbose).to be(false)
+      expect(options.verbose?).to be(false)
     end
   end
 
@@ -17,7 +16,7 @@ describe 'Amber CLO Verbose' do
     it 'has been used from the command line.' do
       ARGV.replace ['-v']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.verbose).to be(true)
+      expect(options.verbose?).to be(true)
     end
   end
 
@@ -25,7 +24,7 @@ describe 'Amber CLO Verbose' do
     it 'has been used from the command line.' do
       ARGV.replace ['--verbose']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.verbose).to be(true)
+      expect(options.verbose?).to be(true)
     end
   end
 

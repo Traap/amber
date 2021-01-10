@@ -1,10 +1,9 @@
-require 'rspec'
 require 'amber'
 
 # ------------------------------------------------------------------------------
 # These Rspecs demonstrate Amber ...
 # ------------------------------------------------------------------------------
-describe 'Test Input Factory ' do
+describe 'Test Input Factory Test Spec' do
 
   before(:all) do
     @test = true

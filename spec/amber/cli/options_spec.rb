@@ -1,4 +1,3 @@
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # default options
@@ -17,7 +16,7 @@ describe 'Amber CLO Defaults' do
 
   describe 'for dryrun' do
     it 'has been provided.' do
-      expect(@options.dryrun).to be(true)
+      expect(@options.dryrun?).to be(true)
     end
   end
 
@@ -46,19 +45,19 @@ describe 'Amber CLO Defaults' do
 
   describe 'for obliterate' do
     it 'has been provided.' do
-      expect(@options.obliterate).to be(false)
+      expect(@options.obliterate?).to be(false)
     end
   end
 
   describe 'for simulate' do
     it 'has been provided.' do
-      expect(@options.simulate).to be(false)
+      expect(@options.simulate?).to be(false)
     end
   end
 
   describe 'for verbose' do
     it 'has been provided.' do
-      expect(@options.verbose).to be(false)
+      expect(@options.verbose?).to be(false)
     end
   end
 

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'rspec'
 require 'amber'
 # ------------------------------------------------------------------------------
 # language options
@@ -10,7 +9,7 @@ require 'amber'
 # | nl | no | pl | pt | ro | ru | sk | sv]
 # ------------------------------------------------------------------------------
 
-shared_examples 'CLO language parameter' do |code, language_name|
+shared_examples 'Amber CLO language parameter' do |code, language_name|
   # {{{ 5 possible language option permutations:
 
   context "--language=#{code}" do
@@ -101,7 +100,7 @@ describe 'Amber CLO Language' do
   end
 
   Amber::Language::CODE.each do |code, language_name|
-    it_behaves_like 'CLO language parameter', code, language_name
+    it_behaves_like 'Amber CLO language parameter', code, language_name
   end
 
   # ------------------------------------------------------------------------ }}}
