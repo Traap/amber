@@ -7,7 +7,7 @@ require 'amber'
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Version' do
   before(:all) do
-    @version = '1.6.0.322'
+    @version = '1.6.0.327'
   end
 
   describe 'Version' do
@@ -30,7 +30,7 @@ describe 'Amber CLO Version' do
     it 'has been used from the command line.' do
       ARGV.replace ['--version']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.version).to be()
+      expect(options.version).to be(@version)
     end
   end
 

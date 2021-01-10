@@ -1,6 +1,7 @@
+_build/
 .bundle/
-pkg/
-test-output/
 coverage/
 Gemfile.lock
-_build/
+pkg/
+private-rubygen-server.rb
+test-output/

@@ -19,11 +19,33 @@ module Amber
     end
 
     # ---------------------------------------------------------------------- }}}
+    # {{{ concat_files
+
+    def concat_files 
+      # Concatenate test_plan, test_suite, test_case, and filename into 
+      # @clo.options[:files] once.
+      if @options.data[:files].nil?
+        puts "@options.data[:files] is  nil"
+        files = []
+        files.concat(@options.data[:test_plan])  unless @options.data[:test_plan].nil?
+        files.concat(@options.data[:test_suite]) unless @options.data[:test_suite].nil?
+        files.concat(@options.data[:test_case])  unless @options.data[:test_case].nil?
+        files.concat(@options.data[:filename])   unless @options.data[:filename].nil?
+        @options.data[:files] = files
+        pp @options.data[:files]
+      else
+        puts "@options.data[:files] is not nil"
+        pp @options.data[:files]
+      end
+    end
+
+    # ---------------------------------------------------------------------- }}}
     # {{{ Parse ARGV and Options.
 
     def self.parse(argv)
       @clo = CommandLineOptions.new
       option_parser.parse! argv
+      @clo.concat_files
       @clo.options
     end
 
@@ -140,7 +162,7 @@ module Amber
 
     def self.test_plan(opts)
       opts.on('-p', '--plan x,y,z', Array, 'Plan name') do |z|
-        @clo.options.data[:filename] = z.map! do |a|
+        @clo.options.data[:test_plan] = z.map! do |a|
           Amber::FactoryStructure.plan_name(a)
         end
       end
@@ -151,7 +173,7 @@ module Amber
 
     def self.test_suite(opts)
       opts.on('-s', '--suite x,y,z', Array, 'Suite name') do |z|
-        @clo.options.data[:filename] = z.map! do |a|
+        @clo.options.data[:test_suite] = z.map! do |a|
           Amber::FactoryStructure.suite_name(a)
         end
       end
@@ -163,7 +185,7 @@ module Amber
 
     def self.test_case(opts)
       opts.on('-c', '--case x,y,z', Array, 'Case name') do |z|
-        @clo.options.data[:filename] = z.map! do |a|
+        @clo.options.data[:test_case] = z.map! do |a|
           Amber::FactoryStructure.case_name(a)
         end
       end
