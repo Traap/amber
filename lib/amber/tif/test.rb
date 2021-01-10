@@ -52,11 +52,11 @@ module Amber
 
     def echo_to_sysout
       name = "#{@type}: ".rjust(15) << @name.to_s
-      puts name.to_s if @options.verbose
+      puts name.to_s if @options.verbose?
     end
 
     def run_command
-      puts @command.to_s if @options.verbose
+      puts @command.to_s if @options.verbose?
       status = system(@command)
     rescue ShellError
       msg = "System command failed: #{status}"

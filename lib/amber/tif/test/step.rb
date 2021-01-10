@@ -9,6 +9,8 @@ module Amber
   class TestStep < Amber::Test
     attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir
 
+    # {{{ Initialize TestStep
+    
     def initialize(filename, data, options, step, number, workingdir)
       super('Test Step', filename, data, options)
 
@@ -39,7 +41,11 @@ module Amber
       @workingdir  = set_working_dir(step, workingdir)
     end
 
+    # ---------------------------------------------------------------------- }}}
+
     def echo_to_sysout; end
+
+    # {{{ Run a command
 
     def run_command
       if @options.okay_to_run?
@@ -47,7 +53,11 @@ module Amber
       end
     end
 
+    # ---------------------------------------------------------------------- }}}
+
     private
+
+    # {{{ Set the working diectory. 
 
     def set_working_dir(step, workingdir)
       wd = step['workingdir']
@@ -76,5 +86,8 @@ module Amber
 
       wdir.strip
     end
+
+    # ---------------------------------------------------------------------- }}}
+
   end
 end

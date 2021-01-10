@@ -8,30 +8,77 @@ require 'amber/cli/writer'
 module Amber
   # Options the user has chosen.
   class Options
-    attr_accessor :browser, :dryrun, :environment, :filename, :language, 
-                  :log_command, :log_requirement,  :parser, :obliterate, 
-                  :simulate, :verbose, :version, :writer
+    attr_accessor :data
 
     def initialize
-      @browser = Amber::Browser::DEFAULT
-      @dryrun = true
-      @environment = false
-      @filename = []
-      @language = Amber::Language::DEFAULT
-      @log_command = false 
-      @log_requirement = false
-      @obliterate = false
-      @parser = nil
-      @simulate = false
-      @verbose = false
-      @version = Amber::VERSION
-      @writer = Amber::Writer::DEFAULT
+      @data = {}
+      @data[:browser] = Amber::Browser::DEFAULT
+      @data[:dryrun] = true
+      @data[:environment] = false
+      @data[:filename] = []
+      @data[:language] = Amber::Language::DEFAULT
+      @data[:log_command] = false 
+      @data[:log_requirement] = false
+      @data[:obliterate] = false
+      @data[:parser] = nil
+      @data[:simulate] = false
+      @data[:verbose] = false
+      @data[:version] = Amber::VERSION
+      @data[:writer] = Amber::Writer::DEFAULT
+    end
+
+    def browser
+      @data[:browser]
+    end
+
+    def dryrun?
+      @data[:dryrun]
+    end
+
+    def environment
+      @data[:environment]
+    end
+
+    def filename
+      @data[:filename]
+    end
+
+    def language
+      @data[:log_command]
+    end
+
+    def log_command
+      @data[:log_requirement]
+    end
+
+    def obliterate?
+      @data[:obliterate]
+    end
+
+    def parser 
+      @data[:parser]
+    end
+
+    def simulate?
+      @data[:simulate]
+    end
+
+    def verbose?
+      @data[:verbose]
+    end
+
+    def version
+      @data[:version]
+    end
+
+    def writer
+      @data[:writer]
     end
 
     def okay_to_run?
-      if @simulate
+      if @data[:simulate]
         true
-      elsif !@dryrun
+      elsif !@data[:dryrun]
         true
       else
         false
@@ -39,27 +86,27 @@ module Amber
     end
 
     def okay_to_echo_env?
-      @environment && okay_to_run?
+      @data[:environment] && okay_to_run?
     end
 
     def okay_to_obliterate?
-      @obliterate
+      @data[:obliterate]
     end
 
     def okay_to_log_command?
-      @log_command
+      @data[:log_command]
     end
 
     def okay_to_log_requirement?
-      @log_requirement
+      @data[:log_requirement]
     end
 
     def has_language?
-      @language.eql?(Amber::Language::DEFAULT) ? false : true
+      @data[:language].eql?(Amber::Language::DEFAULT) ? false : true
     end
 
     def has_browser?
-      @browser.eql?(Amber::Browser::DEFAULT) ? false : true
+      @data[:browser].eql?(Amber::Browser::DEFAULT) ? false : true
     end
 
   end
