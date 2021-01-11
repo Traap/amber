@@ -38,7 +38,13 @@ module Amber
     end
 
     def self.file(filename, text)
-      text.gsub(/(\${file}|\${FILE})/, File.basename(filename, '.*'))
+      case filename
+      when String 
+        name = filename
+      else
+        name = filename.first.to_s
+      end
+      text.gsub(/(\${file}|\${FILE})/, File.basename(name, '.*'))
     end
 
     def self.browser(options, text)

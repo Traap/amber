@@ -9,7 +9,7 @@ describe 'Amber CLO File' do
 
   describe 'no -f' do
     it 'has not been used.' do
-      options = Amber::Options.new 
+      options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.filename).to eq(nil)
       expect(options.files).to    eq(nil)
     end

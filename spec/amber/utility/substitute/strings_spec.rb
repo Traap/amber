@@ -7,9 +7,12 @@ describe 'YAML Strings Substitutions' do
 
   describe 'Amber::Substitute.strings' do
 
-    ARGV.replace ["--browser=Opera", 
-                  "--file=foo/bar/baz/baz.yaml", 
-                  "--language=sv"]
+    ARGV.replace [
+      "--browser",  "Opera", 
+      "--file",     "foo/bar/baz/baz.yaml", 
+      "--language", "sv"
+    ]
+
     options = Amber::CommandLineOptions.parse(ARGV)
 
     it 'can substitute ${BROWSER} to Opera' do
@@ -38,7 +41,6 @@ describe 'YAML Strings Substitutions' do
           '${language-code}${file}${language}${browser}'))
         .to eql('svbazSvenskaOpera')
     end
-
 
   end
 end

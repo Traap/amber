@@ -25,12 +25,12 @@ module Amber
       # Concatenate test_plan, test_suite, test_case, and filename into 
       # @clo.options[:files] once.
       if @options.data[:files].nil?
-        files = []
+        files = [] 
         files.concat(@options.data[:test_plan])  unless @options.data[:test_plan].nil?
         files.concat(@options.data[:test_suite]) unless @options.data[:test_suite].nil?
         files.concat(@options.data[:test_case])  unless @options.data[:test_case].nil?
         files.concat(@options.data[:filename])   unless @options.data[:filename].nil?
-        @options.data[:files] = files
+        @options.data[:files] = files            unless files.none?
       end
     end
 
