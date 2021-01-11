@@ -15,7 +15,8 @@ describe 'Amber CLO Suite' do
   describe 'no -s' do
     it 'has not been used.' do
       options = Amber::Options.new
-      expect(options.filename).to eq([])
+      expect(options.test_suite).to eq(nil)
+      expect(options.files).to      eq(nil)
     end
   end
 
@@ -23,7 +24,8 @@ describe 'Amber CLO Suite' do
     it 'has been used from the command line.' do
       ARGV.replace ['--suite=foo']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/suite/foo/foo.yaml'])
+      expect(options.test_suite).to eq(['factory/suite/foo/foo.yaml'])
+      expect(options.files).to      eq(['factory/suite/foo/foo.yaml'])
     end
   end
 
@@ -31,7 +33,8 @@ describe 'Amber CLO Suite' do
     it 'has been used from the command line.' do
       ARGV.replace ['-sbar']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/suite/bar/bar.yaml'])
+      expect(options.test_suite).to eq(['factory/suite/bar/bar.yaml'])
+      expect(options.files).to      eq(['factory/suite/bar/bar.yaml'])
     end
   end
 
@@ -39,7 +42,8 @@ describe 'Amber CLO Suite' do
     it 'has been used from the command line.' do
       ARGV.replace ['--suite', 'baz']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/suite/baz/baz.yaml'])
+      expect(options.test_suite).to eq(['factory/suite/baz/baz.yaml'])
+      expect(options.files).to      eq(['factory/suite/baz/baz.yaml'])
     end
   end
 
@@ -47,7 +51,8 @@ describe 'Amber CLO Suite' do
     it 'has been used from the command line.' do
       ARGV.replace ['-s', 'foobar']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['factory/suite/foobar/foobar.yaml'])
+      expect(options.test_suite).to eq(['factory/suite/foobar/foobar.yaml'])
+      expect(options.files).to      eq(['factory/suite/foobar/foobar.yaml'])
     end
   end
 

@@ -11,8 +11,6 @@ describe 'YAML Strings Substitutions' do
                   "--file=foo/bar/baz/baz.yaml", 
                   "--language=sv"]
     options = Amber::CommandLineOptions.parse(ARGV)
-    pp options
-    exit
 
     it 'can substitute ${BROWSER} to Opera' do
       expect(Amber::Substitute

@@ -21,19 +21,50 @@ describe 'Amber CLO Defaults' do
   end
 
   describe 'for environment' do
-    it 'has been provided.' do
-      expect(@options.environment).to be(false) end
+    it 'has not been provided.' do
+      expect(@options.environment).to be(false)
+    end
   end
 
   describe 'for filename' do
-    it 'has been provided.' do
-      expect(@options.filename).to eq([])
+    it 'has not been provided.' do
+      expect(@options.filename).to eq(nil)
+    end
+  end
+
+  describe 'for files' do
+    it 'has not been provided.' do
+      expect(@options.files).to eq(nil)
     end
   end
 
   describe 'for language' do
     it 'has been provided.' do
       expect(@options.language).to eq(Amber::Language::DEFAULT)
+    end
+  end
+
+  describe 'has_browser?' do
+    it 'has not been provided.' do
+      expect(@options.has_browser?).to eq(false)
+    end
+  end
+
+  describe 'has_language?' do
+    it 'has not been provided.' do
+      expect(@options.has_language?).to eq(false)
+    end
+  end
+
+  describe 'for log_command' do
+    it 'has not been provided.' do
+      expect(@options.log_command).to eq(false)
+    end
+  end
+
+  describe 'for log_requirement' do
+    it 'has not been provided.' do
+      expect(@options.log_requirement).to eq(false)
     end
   end
 
@@ -82,18 +113,6 @@ describe 'Amber CLO Defaults' do
   describe 'for okay_to_obliterate?' do
     it 'has been provided.' do
       expect(@options.okay_to_obliterate?).to be(false)
-    end
-  end
-
-  describe 'for has_browser?' do
-    it 'has been provided.' do
-      expect(@options.has_browser?).to be(false)
-    end
-  end
-
-  describe 'for has_language?' do
-    it 'has been provided.' do
-      expect(@options.has_language?).to be(false)
     end
   end
 

@@ -15,17 +15,17 @@ module Amber
       @data[:browser] = Amber::Browser::DEFAULT
       @data[:dryrun] = true
       @data[:environment] = false
-      @data[:filename] = []
-      @data[:files] = []
+      @data[:filename] = nil
+      @data[:files] = nil
       @data[:language] = Amber::Language::DEFAULT
       @data[:log_command] = false 
       @data[:log_requirement] = false
       @data[:obliterate] = false
       @data[:parser] = nil
       @data[:simulate] = false
-      @data[:test_case] = []
-      @data[:test_plan] = []
-      @data[:test_suite] = []
+      @data[:test_case] = nil 
+      @data[:test_plan] = nil 
+      @data[:test_suite] = nil 
       @data[:verbose] = false
       @data[:version] = Amber::VERSION
       @data[:writer] = Amber::Writer::DEFAULT
@@ -55,13 +55,14 @@ module Amber
       @data[:language]
     end
 
+    def has_browser?
+      @data[:browser].eql?(Amber::Browser::DEFAULT) ? false : true
+    end
+
     def has_language?
       @data[:language].eql?(Amber::Language::DEFAULT) ? false : true
     end
 
-    def has_browser?
-      @data[:browser].eql?(Amber::Browser::DEFAULT) ? false : true
-    end
     def log_command
       @data[:log_command]
     end
