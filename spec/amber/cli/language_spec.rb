@@ -59,7 +59,7 @@ describe 'Amber CLO Language' do
 
   describe 'no -l' do
     it 'has not been used.' do
-      options = Amber::Options.new
+      options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.language).to eq('zz')
       expect(options.has_language?).to be(false)
     end
@@ -69,7 +69,7 @@ describe 'Amber CLO Language' do
     context '--language XX' do
       it 'raises an invalid argument exception' do
         ARGV.replace ['--language', 'XX']
-        expect { Amber::CommandLineOptions.parse(ARGV) }.to
+        expect { Amber::CommandLineOptions.parse(ARGV).to }
                  raise_exception(RuntimeError, /invalid argument/)
       end
     end
@@ -77,7 +77,7 @@ describe 'Amber CLO Language' do
     context '--language=XX' do
       it 'raises an invalid argument exception' do
         ARGV.replace ['--language=XX']
-        expect { Amber::CommandLineOptions.parse(ARGV) }.to
+        expect { Amber::CommandLineOptions.parse(ARGV).to }
                  raise_exception(RuntimeError, /invalid argument/)
       end
     end
@@ -85,7 +85,7 @@ describe 'Amber CLO Language' do
     context '-l XX' do
       it 'raises an invalid argument exception' do
         ARGV.replace ['-l', 'XX']
-        expect { Amber::CommandLineOptions.parse(ARGV) }.to
+        expect { Amber::CommandLineOptions.parse(ARGV).to }
                  raise_exception(RuntimeError, /invalid argument/)
       end
     end
@@ -93,7 +93,7 @@ describe 'Amber CLO Language' do
     context '-lXX' do
       it 'raises an invalid argument exception' do
         ARGV.replace ['-lXX']
-        expect { Amber::CommandLineOptions.parse(ARGV) }.to
+        expect { Amber::CommandLineOptions.parse(ARGV).to }
                  raise_exception(RuntimeError, /invalid argument/)
       end
     end
