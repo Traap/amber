@@ -24,22 +24,22 @@ describe 'YAML Strings Substitutions' do
         .to eql('Opera')
     end
 
-    it 'can substitute ${browser} ${file} ${language} and ${language-code} to Opera baz Svenska and sv' do
+    it 'can substitute ${browser} ${file} ${language} and ${language-code} to Opera baz Swedish and sv' do
       expect(Amber::Substitute
         .strings(
           options.filename, 
           options, 
           '${browser} ${file} ${language} and ${language-code}'))
-        .to eql('Opera baz Svenska and sv')
+        .to eql('Opera baz Swedish and sv')
     end
 
-    it 'can substitute ${language-code}${file}${language}${browser} to svbazSvenskaOpera' do
+    it 'can substitute ${language-code}${file}${language}${browser} to svbazSwedishOpera' do
       expect(Amber::Substitute
         .strings(
           options.filename, 
           options, 
           '${language-code}${file}${language}${browser}'))
-        .to eql('svbazSvenskaOpera')
+        .to eql('svbazSwedishOpera')
     end
 
   end
