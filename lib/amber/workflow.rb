@@ -28,7 +28,7 @@ module Amber
     # --------------------------------------------------------------------------
 
     def orchestrate
-      @options.filename.each do |f|
+      @options.data[:filename].each do |f|
         parse_yaml_file f
         @test.each(&:process)
       end

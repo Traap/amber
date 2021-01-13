@@ -2,118 +2,101 @@ require 'amber'
 # ------------------------------------------------------------------------------
 # default options
 # ------------------------------------------------------------------------------
-describe 'Amber CLO Defaults' do
+describe 'Amber CLO Default' do
 
   before(:all) do
     @options = Amber::Options.new
   end
 
-  describe 'for browser' do
-    it 'has been provided.' do
-      expect(@options.browser).to eq('None')
-    end
-  end
+  describe 'values' do
 
-  describe 'for dryrun' do
-    it 'has been provided.' do
+    it "browser is #{Amber::Browser::DEFAULT}" do
+      expect(@options.browser).to eq(Amber::Browser::DEFAULT)
+    end
+
+    it 'dryrun? is false.' do
       expect(@options.dryrun?).to be(true)
     end
-  end
 
-  describe 'for environment' do
-    it 'has not been provided.' do
-      expect(@options.environment).to be(false)
+    it 'dump? is false.' do
+      expect(@options.dump?).to be(false)
     end
-  end
 
-  describe 'for filename' do
-    it 'has not been provided.' do
+    it 'filename is nil.' do
       expect(@options.filename).to eq(nil)
     end
-  end
 
-  describe 'for files' do
-    it 'has not been provided.' do
+    it 'files is nil.' do
       expect(@options.files).to eq(nil)
     end
-  end
 
-  describe 'for language' do
-    it 'has been provided.' do
+    it 'files? is false' do
+      expect(@options.files?).to eq(false)
+    end
+
+    it "language is #{Amber::Language::DEFAULT}" do
       expect(@options.language).to eq(Amber::Language::DEFAULT)
     end
-  end
 
-  describe 'has_browser?' do
-    it 'has not been provided.' do
+    it 'has_browser? is false.' do
       expect(@options.has_browser?).to eq(false)
     end
-  end
 
-  describe 'has_language?' do
-    it 'has not been provided.' do
+    it 'has_language? is false.' do
       expect(@options.has_language?).to eq(false)
     end
-  end
 
-  describe 'for log_command' do
-    it 'has not been provided.' do
-      expect(@options.log_command).to eq(false)
+    it 'log_command? is false.' do
+      expect(@options.log_command?).to eq(false)
     end
-  end
 
-  describe 'for log_requirement' do
-    it 'has not been provided.' do
-      expect(@options.log_requirement).to eq(false)
+    it 'log_environment? is false.' do
+      expect(@options.log_environment?).to eq(false)
     end
-  end
 
-  describe 'for parser' do
-    it 'has been provided.' do
-      expect(@options.parser).to eq(nil)
+    it 'log_requirement? is false.' do
+      expect(@options.log_requirement?).to eq(false)
     end
-  end
 
-  describe 'for obliterate' do
-    it 'has been provided.' do
+    it 'obliterate? is false.' do
       expect(@options.obliterate?).to be(false)
     end
-  end
 
-  describe 'for simulate' do
-    it 'has been provided.' do
+    it 'parser is nil.' do
+      expect(@options.parser).to eq(nil)
+    end
+
+    it 'run? is false.' do
+      expect(@options.run?).to be(false)
+    end
+
+    it 'simulate? is false.' do
       expect(@options.simulate?).to be(false)
     end
-  end
 
-  describe 'for verbose' do
-    it 'has been provided.' do
+    it 'test_case is nil.' do
+      expect(@options.test_case).to be(nil)
+    end
+
+    it 'test_plan is nil.' do
+      expect(@options.test_plan).to be(nil)
+    end
+
+    it 'test_suite is nil.' do
+      expect(@options.test_suite).to be(nil)
+    end
+
+    it 'verbose? is false.' do
       expect(@options.verbose?).to be(false)
     end
-  end
 
-  describe 'for writer' do
-    it 'has been provided.' do
+    it "version is #{Amber::VERSION}" do
+      expect(@options.version).to eq(Amber::VERSION)
+    end
+
+    it "writer is #{Amber::Writer::DEFAULT}" do
       expect(@options.writer).to eq(Amber::Writer::DEFAULT)
     end
-  end
 
-  describe 'for okay_to_run?' do
-    it 'has been provided.' do
-      expect(@options.okay_to_run?).to be(false)
-    end
   end
-
-  describe 'for okay_to_echo_env?' do
-    it 'has been provided.' do
-      expect(@options.okay_to_echo_env?).to be(false)
-    end
-  end
-
-  describe 'for okay_to_obliterate?' do
-    it 'has been provided.' do
-      expect(@options.okay_to_obliterate?).to be(false)
-    end
-  end
-
 end

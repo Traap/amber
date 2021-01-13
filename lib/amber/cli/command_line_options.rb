@@ -55,12 +55,12 @@ module Amber
 
         browser opts
         dryrun opts
-        environment opts
         filename opts
         help opts
         language opts
         verbose opts
         log_command opts
+        log_environment opts
         log_requirement opts
         simulate opts
         obliterate opts
@@ -104,11 +104,20 @@ module Amber
     end
 
     # ---------------------------------------------------------------------- }}}
+    # {{{ Log Environment option.
+
+    def self.log_environment(opts)
+      opts.on('-e', '--log-environment', 'List environment') do |z|
+        @clo.options.data[:log_environment] = z
+      end
+    end
+
+    # ---------------------------------------------------------------------- }}}
     # {{{ Log Requirement option.
 
     def self.log_requirement(opts)
       opts.on('-r', '--log-requirement', 'Log Requirement') do |z|
-        @clo.options.data[:log_requirement] ^= z
+        @clo.options.data[:log_requirement] = z
       end
     end
 
@@ -119,7 +128,7 @@ module Amber
       opts.on('-S',
                 '--simulate',
                 'Simulate run to create Test Output direcotry') do |z|
-        @clo.options.data[:simulate] ^= z
+        @clo.options.data[:simulate] = z
       end
     end
 
@@ -130,7 +139,7 @@ module Amber
       opts.on('-O',
                 '--obliterate',
                 'Obliterate Test Output directory before Test Execution') do |z|
-        @clo.options.data[:obliterate] ^= z
+        @clo.options.data[:obliterate] = z
       end
     end
 
@@ -139,16 +148,7 @@ module Amber
 
     def self.verbose(opts)
       opts.on('-v', '--verbose', 'Verbose') do |z|
-        @clo.options.data[:verbose] ^= z
-      end
-    end
-
-    # ---------------------------------------------------------------------- }}}
-    # {{{ Environment option.
-
-    def self.environment(opts)
-      opts.on('-e', '--environment', 'List environment') do |z|
-        @clo.options.data[:environment] ^= z
+        @clo.options.data[:verbose] = z
       end
     end
 

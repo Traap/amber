@@ -7,17 +7,53 @@ module Amber
 
     def initialize
       @environment = [
-        'ALLUSERSPROFILE', 'APPDATA', 'CLASSPATH', 'COMPUTERNAME', 'COMSPEC',
-        'FP_NO_HOST_CHECK', 'GIT_BRANCH', 'HOME', 'HOMEDRIVE', 'HOMEPATH',
-        'HOSTNAME', 'JRE_HOME', 'LANG', 'LOCALAPPDATA', 'LOGONSERVER',
-        'NUMBER_OF_PROCESSORS', 'OLDPWD', 'OS', 'PATH', 'PRINTER',
-        'PROCESSOR_ARCHITECTURE', 'PROCESSOR_IDENTIFIER', 'PROCESSOR_LEVEL',
-        'PROCESSOR_REVISION', 'PROFILEREAD', 'ProgramData', 'PROGRAMFILES',
-        'ProgramFiles(x86)', 'ProgramW6432', 'PSModulePath', 'PUBLIC', 'PWD',
-        'SESSIONNAME', 'SHELL', 'SHLVL', 'SYSTEMDRIVE', 'SYSTEMROOT', 'TEMP',
-        'TMP', 'TZ', 'USER', 'USERDNSDOMAIN', 'USERDOMAIN', 'USERNAME',
-        'USERPROFILE', 'WINDIR'
-      ]
+        'ALLUSERSPROFILE',
+        'APPDATA',
+        'CLASSPATH',
+        'COMPUTERNAME',
+        'COMSPEC',
+        'FP_NO_HOST_CHECK',
+        'GIT_BRANCH',
+        'HOME',
+        'HOMEDRIVE',
+        'HOMEPATH',
+        'HOSTNAME',
+        'JRE_HOME',
+        'LANG',
+        'LOCALAPPDATA',
+        'LOGONSERVER',
+        'NUMBER_OF_PROCESSORS',
+        'OLDPWD',
+        'OS',
+        'PATH',
+        'PRINTER',
+        'PROCESSOR_ARCHITECTURE',
+        'PROCESSOR_IDENTIFIER',
+        'PROCESSOR_LEVEL',
+        'PROCESSOR_REVISION',
+        'PROFILEREAD',
+        'ProgramData',
+        'PROGRAMFILES',
+        'ProgramFiles(x86)',
+        'ProgramW6432',
+        'PSModulePath',
+        'PUBLIC',
+        'PWD',
+        'SESSIONNAME',
+        'SHELL',
+        'SHLVL',
+        'SYSTEMDRIVE',
+        'SYSTEMROOT',
+        'TEMP',
+        'TMP',
+        'TZ',
+        'USER',
+        'USERDNSDOMAIN',
+        'USERDOMAIN',
+        'USERNAME',
+        'USERPROFILE',
+        'WINDIR'
+      ].freeze
     end
 
     def echo_to_sysout
@@ -38,5 +74,6 @@ module Amber
         puts "         #{g}"
       end
     end
+
   end
 end

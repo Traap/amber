@@ -39,8 +39,8 @@ module Amber
     def process
       setup
       echo_to_sysout
-      run_command if @options.okay_to_run?
-      record_requirements if @options.okay_to_log_requirement?
+      run_command         if @options.run?
+      record_requirements if @options.log_requirement?
       teardown
     end
 

@@ -7,6 +7,8 @@
 
 module Amber
   module Language
+
+    # List each support language name.
     CODE = {
       'zz' => 'n/a',
       'aa' => 'Afar',

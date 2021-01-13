@@ -3,7 +3,20 @@
 # Valid brower names.
 module Amber
   module Browser
-    NAMES = %w[None Brave Chrome Edge Firefox IE Opera].freeze
+
+    # List each supported browser name.
+    NAMES = %w[
+      None
+      Brave
+      Chrome
+      Edge
+      Firefox
+      IE
+      Opera
+    ].freeze
+
+    # The default browser
     DEFAULT = 'None'.freeze
+
   end
 end

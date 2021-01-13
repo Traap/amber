@@ -14,11 +14,12 @@ module Amber
       @data = {}
       @data[:browser] = Amber::Browser::DEFAULT
       @data[:dryrun] = true
-      @data[:environment] = false
+      @data[:dump] = false 
       @data[:filename] = nil
       @data[:files] = nil
       @data[:language] = Amber::Language::DEFAULT
       @data[:log_command] = false 
+      @data[:log_environment] = false
       @data[:log_requirement] = false
       @data[:obliterate] = false
       @data[:parser] = nil
@@ -39,8 +40,8 @@ module Amber
       @data[:dryrun]
     end
 
-    def environment
-      @data[:environment]
+    def dump?
+      @data[:dump]
     end
 
     def filename
@@ -49,6 +50,10 @@ module Amber
 
     def files
       @data[:files]
+    end
+
+    def files?
+      @data[:files].nil? ? false : true
     end
 
     def language
@@ -63,11 +68,15 @@ module Amber
       @data[:language].eql?(Amber::Language::DEFAULT) ? false : true
     end
 
-    def log_command
+    def log_command?
       @data[:log_command]
     end
 
-    def log_requirement
+    def log_environment?
+      @data[:log_environment]
+    end
+
+    def log_requirement?
       @data[:log_requirement]
     end
 
@@ -75,7 +84,11 @@ module Amber
       @data[:obliterate]
     end
 
-    def okay_to_run?
+    def parser 
+      @data[:parser]
+    end
+
+    def run?
       if @data[:simulate]
         true
       elsif !@data[:dryrun]
@@ -83,26 +96,6 @@ module Amber
       else
         false
       end
-    end
-
-    def okay_to_echo_env?
-      @data[:environment] && okay_to_run?
-    end
-
-    def okay_to_log_command?
-      @data[:log_command]
-    end
-
-    def okay_to_log_requirement?
-      @data[:log_requirement]
-    end
-
-    def okay_to_obliterate?
-      @data[:obliterate]
-    end
-
-    def parser 
-      @data[:parser]
     end
 
     def simulate?

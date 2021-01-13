@@ -48,7 +48,7 @@ module Amber
     # {{{ Run a command
 
     def run_command
-      if @options.okay_to_run?
+      if @options.run?
         _o, _e, _s = TestEvidence.run_from_temp_directory(@command, @workingdir)
       end
     end
