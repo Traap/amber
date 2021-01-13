@@ -79,7 +79,7 @@ module Amber
 
     def assemble_amber_command(opt_and_files)
       cmd = 'amber'
-      cmd.concat ' --nodryrun'                           unless @options.dryrun
+      cmd.concat ' --nodryrun'                           unless @options.dryrun?
       cmd.concat ' --log-command'                        if @options.log_command?
       cmd.concat ' --log-requirement'                    if @options.log_requirement?
       cmd.concat ' --simulate'                           if @options.simulate?
