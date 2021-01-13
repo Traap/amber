@@ -257,7 +257,7 @@ Specific options:
 ##### --help
 Show this message.
 
-1.5.1.306 is the current version.
+1.5.1.307 is the current version.
 
 #### --verbose
 Log the commands what will be run when --nodryrun is used.  **NOTE:** This
