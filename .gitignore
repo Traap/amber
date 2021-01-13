@@ -4,3 +4,4 @@ test-output/
 coverage/
 Gemfile.lock
 _build/
+*.zip
