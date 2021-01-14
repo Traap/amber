@@ -9,6 +9,7 @@ module Amber
 
   # Decorate test step output with LaTeX text.
   class LaTeXTestStep < Amber::LaTeXTest
+
     def initialize(decoratee)
       super(decoratee, nil)
       @test_result = 'FAIL'
@@ -36,13 +37,8 @@ module Amber
     def run_command
       begin
         stdout, stderr, status = @decoratee.run_command
-        if status.success?
-          @test_result = 'PASS'
-          output = stdout
-        else
-          @test_result = 'FAIL'
-          output = "#{stderr}\n#{stdout}\n"
-        end
+        @test_result, output = check_status(stdout, stderr, status)
+
         @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
         @handle.write "\\item[Evidence:] #{toLaTeX(@decoratee.evidence)}\n"
         @handle.write "\\end{description}\n"
@@ -59,11 +55,24 @@ module Amber
       end
     end
 
+    def check_status(stdout, stderr, status)
+      if status.success?
+        @test_result = 'PASS'
+        output = stdout
+      else
+        @test_result = 'FAIL'
+        output = "#{stderr}\n#{stdout}\n"
+        output = stderr
+      end
+      [@test_result, output]
+    end
+
     def teardown
       Amber::TestEvidence.record_test_case_status(
         @decoratee.filename, @decoratee.number, @test_result, @decoratee.options
       )
       method(:teardown).super_method.call
     end
+
   end
 end

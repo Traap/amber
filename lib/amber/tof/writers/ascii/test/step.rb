@@ -8,6 +8,7 @@ module Amber
 
   # Decorate test step output with Ascii text.
   class AsciiTestStep < Amber::AsciiTest
+
     def initialize(decoratee)
       super(decoratee)
       @test_result = 'FAIL'
@@ -22,18 +23,21 @@ module Amber
     end
 
     def run_command
-      stdout, stderr, status = @decoratee.run_command
-      @test_result, output = check_status(stdout, stderr, status)
-      @handle.write  "  Test Result: #{@test_result}\n"
-      @handle.write  "     Evidence: #{@decoratee.evidence}\n"
-      @handle.write  "#{output}\n"
-      @handle.flush
-    rescue ShellError
-      msg = "System command failed: #{status}"
-      @handle.write "#{stderr}\n#{msg}\n"
-      @handle.flush
-      puts "#{msg}\n" if @options.verbose
-      abort msg
+      begin
+        stdout, stderr, status = @decoratee.run_command
+        @test_result, output = check_status(stdout, stderr, status)
+
+        @handle.write  "  Test Result: #{@test_result}\n"
+        @handle.write  "     Evidence: #{@decoratee.evidence}\n"
+        @handle.write  "#{output}\n"
+        @handle.flush
+      rescue ShellError
+        msg = "System command failed: #{status}"
+        @handle.write "#{stderr}\n#{msg}\n"
+        @handle.flush
+        puts "#{msg}\n" if @options.verbose
+        abort msg
+      end
     end
 
     def check_status(stdout, stderr, status)
@@ -48,11 +52,11 @@ module Amber
     end
 
     def teardown
-      Amber::TestEvidence.record_final_test_result(@decoratee.filename,
-                                                   @decoratee.number,
-                                                   @test_result,
-                                                   @decoratee.options)
+      Amber::TestEvidence.record_test_case_status(
+        @decoratee.filename, @decoratee.number, @test_result, @decoratee.options
+      )
       method(:teardown).super_method.call
     end
+
   end
 end

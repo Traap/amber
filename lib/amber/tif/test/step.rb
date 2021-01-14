@@ -34,7 +34,7 @@ module Amber
         Amber::Substitute.strings(@filename, options, step['argument'])
       )
 
-      echo = @options.simulate ? 'echo ' : nil
+      echo = @options.simulate? ? 'echo ' : nil
       @command     = "#{echo}#{sudo}#{command} #{argument}"
 
       @evidence    = Amber::Substitute.strings(@filename, options, step['evidence'])
