@@ -7,7 +7,7 @@ case:
     \begin{enumerate}
     \item Step #1 uses the Linux echo command. 
     \item Step #2 will use Linux date command. 
-    \item Step #3 confirms the Linux man program is installed. 
+    \item Step #3 confirms the Linux curl program is installed. 
     \end{enumerate}
   
   requirement: AMBER-IUR-006 
@@ -41,13 +41,13 @@ case:
 
     - confirm: >
        \begin{itemize} 
-       \item Program man has been installed.
+       \item Program curl has been installed.
        \end{itemize}
       expectation: >
         \begin{itemize}
-        \item man installation location is displayed.
+        \item curl installation location is displayed.
         \end{itemize}
       sudo: false
       command: which
-      argument: man
+      argument: curl
       evidence: Starts on next line.

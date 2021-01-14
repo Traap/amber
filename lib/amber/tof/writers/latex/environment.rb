@@ -65,7 +65,7 @@ module Amber
     end
 
     def escape_characters(text)
-      text.gsub(/#/, '\#')
+      text.gsub(/#/, '\#').gsub(/\$/, '\$')
     end
 
     def replace_underscore_with_hyphen(text)

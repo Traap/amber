@@ -5,7 +5,7 @@ case:
   
     \begin{enumerate}
     \item Step #1 grep check 
-    \item Step #2 dumper check 
+    \item Step #2 openssl check 
     \item Step #3 sed check
     \item Step #4 tr check
     \end{enumerate}
@@ -20,11 +20,11 @@ case:
       argument: grep
       evidence: Starts on next line. 
 
-    - confirm: Program dumper has been installed.
-      expectation: dumper installation location is displayed.
+    - confirm: Program openssl has been installed.
+      expectation: openssl installation location is displayed.
       sudo: false
       command: which
-      argument: dumper
+      argument: openssl
       evidence: Starts on next line. 
 
     - confirm: Program sed has been installed.
