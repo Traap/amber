@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # environments options
 # [-e | --environment]
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Environment' do
-
   describe 'no -e' do
     it 'has not been used.' do
       options = Amber::Options.new
@@ -26,5 +27,26 @@ describe 'Amber CLO Environment' do
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.log_environment?).to be(true)
     end
+  end
+end
+
+describe 'Amber CLO Environment' do
+  it 'dollar_signs are escaped.' do
+    o_texts = ['\$Test$', '\#Test', '_Test', '\\Test']
+    e_texts = ['/\\$Test\\$', '/\\#Test', '-Test', '/Test']
+    n_texts = []
+    environment = Amber::LaTeXEnvironment.new(
+      Amber::Environment.new, Amber::Options.new
+    )
+    o_texts.each do |text|
+      n_texts.append(environment.send(:replace_characters, text))
+    end
+
+    # When needed, uncommend to aid debugging.
+    # puts("o_texts: #{o_texts}\r")
+    # puts("e_texts: #{e_texts}\r")
+    # puts("n_texts: #{n_texts}\r")
+
+    expect(n_texts == e_texts).to be(true)
   end
 end
