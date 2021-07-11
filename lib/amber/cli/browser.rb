@@ -3,7 +3,6 @@
 # Valid brower names.
 module Amber
   module Browser
-
     # List each supported browser name.
     NAMES = %w[
       None
@@ -16,7 +15,6 @@ module Amber
     ].freeze
 
     # The default browser
-    DEFAULT = 'None'.freeze
-
+    DEFAULT = 'None'
   end
 end

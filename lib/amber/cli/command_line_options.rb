@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-# ------------------------------------------------------------------------------
+
+# {{{ required items.
 
 require 'amber/version'
 require 'amber/cli/browser'
@@ -7,11 +8,15 @@ require 'amber/cli/language'
 require 'amber/cli/writer'
 require 'amber/tif/structure/factory_structure'
 
-# ------------------------------------------------------------------------------
-
+# -------------------------------------------------------------------------- }}}
+# {{{ Amber Command Line Options
 module Amber
   class CommandLineOptions
+    # {{{ attributes
+
     attr_accessor :clo, :options
+
+    # ---------------------------------------------------------------------- }}}
     # {{{ Initialize CommandLineOptions
 
     def initialize
@@ -21,17 +26,18 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ concat_files
 
-    def concat_files 
-      # Concatenate test_plan, test_suite, test_case, and filename into 
-      # @clo.options[:files] once.
-      if @options.data[:files].nil?
-        files = [] 
-        files.concat(@options.data[:test_plan])  unless @options.data[:test_plan].nil?
-        files.concat(@options.data[:test_suite]) unless @options.data[:test_suite].nil?
-        files.concat(@options.data[:test_case])  unless @options.data[:test_case].nil?
-        files.concat(@options.data[:filename])   unless @options.data[:filename].nil?
-        @options.data[:files] = files            unless files.none?
-      end
+    def concat_files
+      # Concatenate test_plan, test_suite, test_case, and filename into
+      # @clo.options[:files] only once.
+
+      return unless @options.data[:files].nil?
+
+      files = []
+      files.concat(@options.data[:test_plan])  unless @options.data[:test_plan].nil?
+      files.concat(@options.data[:test_suite]) unless @options.data[:test_suite].nil?
+      files.concat(@options.data[:test_case])  unless @options.data[:test_case].nil?
+      files.concat(@options.data[:filename])   unless @options.data[:filename].nil?
+      @options.data[:files] = files            unless files.none?
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -126,8 +132,8 @@ module Amber
 
     def self.simulate(opts)
       opts.on('-S',
-                '--simulate',
-                'Simulate run to create Test Output direcotry') do |z|
+              '--simulate',
+              'Simulate run to create Test Output direcotry') do |z|
         @clo.options.data[:simulate] = z
       end
     end
@@ -137,8 +143,8 @@ module Amber
 
     def self.obliterate(opts)
       opts.on('-O',
-                '--obliterate',
-                'Obliterate Test Output directory before Test Execution') do |z|
+              '--obliterate',
+              'Obliterate Test Output directory before Test Execution') do |z|
         @clo.options.data[:obliterate] = z
       end
     end
@@ -176,7 +182,6 @@ module Amber
 
     # ---------------------------------------------------------------------- }}}
     # {{{ Test Case option.
-    #
 
     def self.test_case(opts)
       opts.on('-c', '--case x,y,z', Array, 'Case name') do |z|
@@ -199,8 +204,9 @@ module Amber
     # {{{ Writer option.
 
     def self.writer(opts)
-      opts.on('-w', '--writer WRITER', String, Amber::Writer::NAMES,
-                'Select writer', Amber::Writer::NAMES.to_s) do |z|
+      opts.on('-w', '--writer WRITER',
+              String, Amber::Writer::NAMES,
+              'Select writer', Amber::Writer::NAMES.to_s) do |z|
         @clo.options.data[:writer] = z
       end
     end
@@ -209,8 +215,9 @@ module Amber
     # {{{ Browser option.
 
     def self.browser(opts)
-      opts.on('-b', '--browser BROWSER', String, Amber::Browser::NAMES,
-                'Select Browser', Amber::Browser::NAMES.to_s) do |z|
+      opts.on('-b', '--browser BROWSER',
+              String, Amber::Browser::NAMES,
+              'Select Browser', Amber::Browser::NAMES.to_s) do |z|
         @clo.options.data[:browser] = z
       end
     end
@@ -220,8 +227,8 @@ module Amber
 
     def self.language(opts)
       opts.on('-l', '--language LANGUAGE',
-                Amber::Language::NAMES, Amber::Language::CODE,
-                'Select language', Amber::Language::NAMES.to_s) do |z|
+              Amber::Language::NAMES, Amber::Language::CODE,
+              'Select language', Amber::Language::NAMES.to_s) do |z|
         @clo.options.data[:language] = z
       end
     end
@@ -247,3 +254,4 @@ module Amber
     # ---------------------------------------------------------------------- }}}
   end
 end
+# -------------------------------------------------------------------------- }}}

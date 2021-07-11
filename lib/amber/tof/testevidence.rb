@@ -63,7 +63,7 @@ module Amber
     # --------------------------------------------------------------------------
 
     def self.assemble_test_output_root(options)
-      if options.has_browser? && options.has_language?
+      if options.browser? && options.language?
         TestEvidence::TEST_OUTPUT +
           options.browser + File::SEPARATOR +
           Amber::Language::CODE.key(options.language) + File::SEPARATOR
@@ -105,8 +105,8 @@ module Amber
                                 : TestEvidence::ASCII_FILE_EXTENSION
 
       # rubocop:enable Style/MultilineTernaryOperator
-    end 
-	
+    end
+
 	# --------------------------------------------------------------------------
 
     def self.open_log_file(input, options)
@@ -117,7 +117,7 @@ module Amber
         File.basename(input, '.*') +
         TestEvidence.use_file_extension(options)
       )
-    end 
+    end
     # --------------------------------------------------------------------------
 
     def self.open_environment_log_file(options)
@@ -204,7 +204,7 @@ module Amber
     # --------------------------------------------------------------------------
 
     def self.record_amber_command(name)
-      unless false 
+      unless false
         handle = TestEvidence.open_file(TestEvidence::COMMAND_LOG)
         handle.write(name + "\n")
         TestEvidence.close_file(handle)

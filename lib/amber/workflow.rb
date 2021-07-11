@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 # This class orchestrates the Amber workflow.  YAML files are read and parsed
 # into Test Plans, Test Suites, Test Cases, and Test Includes.  Each Test object
 # is then processed.
@@ -16,7 +16,6 @@ require 'amber/workflow'
 module Amber
   # Run the Amber workflow.
   class Workflow
-
     # --------------------------------------------------------------------------
 
     def initialize(options)
@@ -60,6 +59,5 @@ module Amber
     end
 
     # --------------------------------------------------------------------------
-
   end
 end

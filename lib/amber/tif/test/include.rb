@@ -84,9 +84,9 @@ module Amber
       cmd.concat ' --log-requirement'                    if @options.log_requirement?
       cmd.concat ' --simulate'                           if @options.simulate?
       cmd.concat " --writer=#{@options.writer}"          unless @options.writer.nil?
-      cmd.concat " --browser=#{@options.browser}"        if @options.has_browser?
-      lng = Amber::Language::CODE.key(@options.language) if @options.has_language?
-      cmd.concat " --language=#{lng}"                    if @options.has_language?
+      cmd.concat " --browser=#{@options.browser}"        if @options.browser?
+      lng = Amber::Language::CODE.key(@options.language) if @options.language?
+      cmd.concat " --language=#{lng}"                    if @options.language?
       cmd.concat " #{opt_and_files}"
       Amber::TestEvidence.record_amber_command(cmd)      if @options.log_command?
       cmd

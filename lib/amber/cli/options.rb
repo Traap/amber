@@ -14,19 +14,19 @@ module Amber
       @data = {}
       @data[:browser] = Amber::Browser::DEFAULT
       @data[:dryrun] = true
-      @data[:dump] = false 
+      @data[:dump] = false
       @data[:filename] = nil
       @data[:files] = nil
       @data[:language] = Amber::Language::DEFAULT
-      @data[:log_command] = false 
+      @data[:log_command] = false
       @data[:log_environment] = false
       @data[:log_requirement] = false
       @data[:obliterate] = false
       @data[:parser] = nil
       @data[:simulate] = false
-      @data[:test_case] = nil 
-      @data[:test_plan] = nil 
-      @data[:test_suite] = nil 
+      @data[:test_case] = nil
+      @data[:test_plan] = nil
+      @data[:test_suite] = nil
       @data[:verbose] = false
       @data[:version] = Amber::VERSION
       @data[:writer] = Amber::Writer::DEFAULT
@@ -84,7 +84,7 @@ module Amber
       @data[:obliterate]
     end
 
-    def parser 
+    def parser
       @data[:parser]
     end
 
@@ -125,6 +125,5 @@ module Amber
     def writer
       @data[:writer]
     end
-
   end
 end

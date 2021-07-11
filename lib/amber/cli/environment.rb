@@ -58,22 +58,21 @@ module Amber
 
     def echo_to_sysout
       puts "\nSystem Environment"
-      @environment.each do |e|
-        if e == 'PATH'
-          echo_e_to_sysout(e)
+      @environment.each do |env|
+        if env == 'PATH'
+          echo_e_to_sysout(env)
         else
-          puts "  #{e} = #{ENV[e]}"
+          puts "  #{env} = #{ENV[env]}"
         end
       end
     end
 
-    def echo_e_to_sysout(e)
-      puts "  #{e} = "
-      f = ENV[e].split(':')
-      f.each do |g|
-        puts "         #{g}"
+    def echo_e_to_sysout(env)
+      puts "  #{env} = "
+      part = ENV[env].split(':')
+      part.each do |name|
+        puts "         #{name}"
       end
     end
-
   end
 end

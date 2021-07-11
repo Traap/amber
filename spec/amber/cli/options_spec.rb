@@ -38,12 +38,12 @@ describe 'Amber CLO Default' do
       expect(@options.language).to eq(Amber::Language::DEFAULT)
     end
 
-    it 'has_browser? is false.' do
-      expect(@options.has_browser?).to eq(false)
+    it 'browser? is false.' do
+      expect(@options.browser?).to eq(false)
     end
 
-    it 'has_language? is false.' do
-      expect(@options.has_language?).to eq(false)
+    it 'language? is false.' do
+      expect(@options.language?).to eq(false)
     end
 
     it 'log_command? is false.' do
