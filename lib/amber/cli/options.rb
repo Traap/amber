@@ -60,11 +60,11 @@ module Amber
       @data[:language]
     end
 
-    def has_browser?
+    def browser?
       @data[:browser].eql?(Amber::Browser::DEFAULT) ? false : true
     end
 
-    def has_language?
+    def language?
       @data[:language].eql?(Amber::Language::DEFAULT) ? false : true
     end
 
