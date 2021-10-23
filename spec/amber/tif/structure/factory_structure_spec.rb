@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # These Rspecs demonstrate nesting a Test Plan, Test Suite, or Test Case YAML
@@ -40,4 +42,3 @@ describe 'Factory Structure' do
     end
   end
 end
-

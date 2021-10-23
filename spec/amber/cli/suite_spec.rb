@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # suite options
@@ -11,7 +13,6 @@ require 'amber'
 #   factory/suite/baz/baz.yaml
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Suite' do
-
   describe 'no -s' do
     it 'has not been used.' do
       options = Amber::Options.new
@@ -55,5 +56,4 @@ describe 'Amber CLO Suite' do
       expect(options.files).to      eq(['factory/suite/foobar/foobar.yaml'])
     end
   end
-
 end

@@ -1,15 +1,15 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # default options
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Default' do
-
   before(:all) do
     @options = Amber::Options.new
   end
 
   describe 'values' do
-
     it "browser is #{Amber::Browser::DEFAULT}" do
       expect(@options.browser).to eq(Amber::Browser::DEFAULT)
     end
@@ -97,6 +97,5 @@ describe 'Amber CLO Default' do
     it "writer is #{Amber::Writer::DEFAULT}" do
       expect(@options.writer).to eq(Amber::Writer::DEFAULT)
     end
-
   end
 end

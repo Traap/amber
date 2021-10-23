@@ -52,8 +52,7 @@ module Amber
     end
 
     def toLaTeX(string)
-      Amber::StringToLaTeX.convert(string) 
+      Amber::StringToLaTeX.convert(string)
     end
-
   end
 end

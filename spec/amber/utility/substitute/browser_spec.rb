@@ -1,22 +1,22 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
-# These Rspecs demonstrate Amber substitution capabilities related to the 
+# These Rspecs demonstrate Amber substitution capabilities related to the
 # ${browser} keyword.
 # ------------------------------------------------------------------------------
 describe 'YAML Browser Substitutions' do
-
   describe 'Amber::Substitute.browser' do
-
     it "can substitute ${BROWSER} to #{Amber::Browser::DEFAULT}" do
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(Amber::Substitute
-        .browser(options, "${BROWSER}")).to eql(Amber::Browser::DEFAULT)
+        .browser(options, '${BROWSER}')).to eql(Amber::Browser::DEFAULT)
     end
 
     it "can substitute ${browser} to #{Amber::Browser::DEFAULT}" do
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(Amber::Substitute
-        .browser(options, "${browser}")).to eql(Amber::Browser::DEFAULT)
+        .browser(options, '${browser}')).to eql(Amber::Browser::DEFAULT)
     end
 
     it 'can substitute ${BROWSER} to Brave' do
@@ -60,6 +60,5 @@ describe 'YAML Browser Substitutions' do
       expect(Amber::Substitute
         .browser(options, '${BROWSER}')).to eql('Opera')
     end
-
   end
 end

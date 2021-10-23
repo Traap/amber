@@ -25,7 +25,7 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'left brace', '{', '\\{'
     it_should_behave_like 'convert', 'percent', '%', '\\%'
     it_should_behave_like 'convert', 'right brace', '}', '\\}'
-    it_should_behave_like 'convert', 'tilde', '~', "\\~\\"
+    it_should_behave_like 'convert', 'tilde', '~', '\\~\\'
     it_should_behave_like 'convert', 'underscore', '_', '\\_'
     it_should_behave_like 'convert', 'backslash', '\\', '\\textbackslash'
   end

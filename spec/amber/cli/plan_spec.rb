@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # plan options
@@ -11,7 +13,6 @@ require 'amber'
 #   factory/plan/baz/baz.yaml
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Plan' do
-
   describe 'no -p' do
     it 'has not been used.' do
       options = Amber::Options.new

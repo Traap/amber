@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # verbose options
 # [-v | --verbose]
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Verbose' do
-
   describe 'no -v' do
     it 'has not been used.' do
       options = Amber::Options.new
@@ -27,5 +28,4 @@ describe 'Amber CLO Verbose' do
       expect(options.verbose?).to be(true)
     end
   end
-
 end

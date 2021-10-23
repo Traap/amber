@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # Requirement options
 # [--requirement | -r]
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Requirements' do
-
   describe '--log-requirement' do
     it 'was not used.' do
       ARGV.replace ['--nodryrun']
@@ -17,7 +18,7 @@ describe 'Amber CLO Requirements' do
     it 'has been used from the command line.' do
       ARGV.replace ['--log-requirement']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.log_requirement?).to be(true) 
+      expect(options.log_requirement?).to be(true)
     end
   end
 
@@ -28,5 +29,4 @@ describe 'Amber CLO Requirements' do
       expect(options.log_requirement?).to be(true)
     end
   end
-
 end

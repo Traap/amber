@@ -1,18 +1,18 @@
- # frozen_string_literal:true
+# frozen_string_literal:true
 
 require 'amber'
 
 shared_examples 'whitelist' do |input, condition|
-  context "#{input}" do
+  context input.to_s do
     challenge = Amber::LaTeXWhiteList::NAMES.include? input
-    if condition 
-      message = "should be found"
-    else
-      message = "should not be found"
-    end 
+    message = if condition
+                'should be found'
+              else
+                'should not be found'
+              end
     it message do
       expect(challenge).to be(condition)
-    end 
+    end
   end
 end
 
@@ -30,7 +30,7 @@ describe 'Amber LaTeX Whitelist' do
 
   it_behaves_like 'whitelist', '{page}', false
 
-  it_behaves_like 'whitelist', '\\LaTeX.', true 
+  it_behaves_like 'whitelist', '\\LaTeX.', true
   it_behaves_like 'whitelist', '\\latex', false
-  it_behaves_like 'whitelist', '\\LaTeX\\', true 
+  it_behaves_like 'whitelist', '\\LaTeX\\', true
 end

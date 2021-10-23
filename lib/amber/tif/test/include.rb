@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'amber/cli/language'
 require 'amber/tif/test'
 
 module Amber
   # A YAML directive to include another file.
   class Include < Amber::Test
-
     # {{{ Initialize Include File Object
 
     def initialize(data, options)
@@ -41,17 +42,22 @@ module Amber
     # {{{ A Test Input Factory file need including.
 
     def include_this_file(name, opt)
-       run_amber_command(
+      run_amber_command(
         assemble_amber_command(
-          assemble_opt_and_files(name, opt)))
+          assemble_opt_and_files(name, opt)
+        )
+      )
     end
 
     # ---------------------------------------------------------------------- }}}
     # {{{ Assemble options and file names
 
     def assemble_opt_and_files(name, opt)
-      @folder.nil?  ? map_to_files(name, opt)
-                    : map_to_nested_files(name, opt)
+      if @folder.nil?
+        map_to_files(name, opt)
+      else
+        map_to_nested_files(name, opt)
+      end
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -68,8 +74,8 @@ module Amber
       opt_and_files = "#{opt}="
       name.each do |k, v|
         opt_and_files << "#{@folder}/"
-        opt_and_files << k["name"]
-        opt_and_files << "," unless name.last.eql?(k)
+        opt_and_files << k['name']
+        opt_and_files << ',' unless name.last.eql?(k)
       end
       opt_and_files
     end
@@ -88,7 +94,7 @@ module Amber
       lng = Amber::Language::CODE.key(@options.language) if @options.language?
       cmd.concat " --language=#{lng}"                    if @options.language?
       cmd.concat " #{opt_and_files}"
-      Amber::TestEvidence.record_amber_command(cmd)      if @options.log_command?
+      Amber::TestEvidence.record_amber_command(cmd) if @options.log_command?
       cmd
     end
 
@@ -101,6 +107,5 @@ module Amber
     end
 
     # ---------------------------------------------------------------------- }}}
-
   end
 end

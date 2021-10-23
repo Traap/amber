@@ -9,7 +9,6 @@ module Amber
 
   # Decorate test step output with LaTeX text.
   class LaTeXTestStep < Amber::LaTeXTest
-
     def initialize(decoratee)
       super(decoratee, nil)
       @test_result = 'FAIL'
@@ -18,7 +17,7 @@ module Amber
     def setup
       @handle = TestEvidence.open_file(
         Amber::TestEvidence.get_test_case_log(
-          @decoratee.filename, 
+          @decoratee.filename,
           @decoratee.number,
           @decoratee.options
         )
@@ -35,24 +34,22 @@ module Amber
     end
 
     def run_command
-      begin
-        stdout, stderr, status = @decoratee.run_command
-        @test_result, output = check_status(stdout, stderr, status)
+      stdout, stderr, status = @decoratee.run_command
+      @test_result, output = check_status(stdout, stderr, status)
 
-        @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
-        @handle.write "\\item[Evidence:] #{toLaTeX(@decoratee.evidence)}\n"
-        @handle.write "\\end{description}\n"
+      @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
+      @handle.write "\\item[Evidence:] #{toLaTeX(@decoratee.evidence)}\n"
+      @handle.write "\\end{description}\n"
 
-        @handle.write "\\begin{lstlisting}[numbers=left]\n"
-        @handle.write "#{output}\n"
-        @handle.write "\\end{lstlisting}\n"
-        @handle.flush
-      rescue ShellError
-        msg = "System command failed: #{status}"
-        @handle.write "#{stderr}\n#{msg}\n"
-        @handle.flush
-        abort msg
-      end
+      @handle.write "\\begin{lstlisting}[numbers=left]\n"
+      @handle.write "#{output}\n"
+      @handle.write "\\end{lstlisting}\n"
+      @handle.flush
+    rescue ShellError
+      msg = "System command failed: #{status}"
+      @handle.write "#{stderr}\n#{msg}\n"
+      @handle.flush
+      abort msg
     end
 
     def check_status(stdout, stderr, status)
@@ -73,6 +70,5 @@ module Amber
       )
       method(:teardown).super_method.call
     end
-
   end
 end

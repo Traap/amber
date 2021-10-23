@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
-# Log Command options 
+# Log Command options
 # [--log-command | -L]
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Logging' do
-
   describe '--log-command' do
     it 'was not used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
@@ -27,5 +28,4 @@ describe 'Amber CLO Logging' do
       expect(options.log_command?).to be(true)
     end
   end
-
 end

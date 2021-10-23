@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # nodryrun options
 # [-v | --verbose]
 # ------------------------------------------------------------------------------
 describe 'Amber CLO NoDryRun' do
-
   describe 'no -n' do
     it 'has not been used.' do
       options = Amber::Options.new
@@ -27,5 +28,4 @@ describe 'Amber CLO NoDryRun' do
       expect(options.dryrun?).to be(false)
     end
   end
-
 end

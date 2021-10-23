@@ -1,12 +1,16 @@
+# frozen_string_literal: true
+
 # Amber Requirement
 
 module Amber
-  module Requirement 
+  module Requirement
     def self.to_array(text)
       unless text.nil?
         Requirement.split_on_comma(
-         Requirement.strip(
-          Requirement.remove_punctuation(text)))
+          Requirement.strip(
+            Requirement.remove_punctuation(text)
+          )
+        )
       end
     end
 
@@ -22,10 +26,9 @@ module Amber
       text
         .gsub(/(\{|\(|\[)/, ',')
         .gsub(/(\}|\)|\])/, '')
-        .gsub(/(;|\->|=>|, and | and )/, ',')
+        .gsub(/(;|->|=>|, and | and )/, ',')
         .gsub(/ /, '')
         .gsub(/,,/, ',')
     end
-
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # writer options
@@ -6,7 +8,6 @@ require 'amber'
 # [Ascii | LaTeX]
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Writer' do
-
   describe 'no -w' do
     it 'has not been used.' do
       options = Amber::Options.new
@@ -24,7 +25,7 @@ describe 'Amber CLO Writer' do
 
   describe '--writer Ascii' do
     it 'has been used from the command line.' do
-      ARGV.replace ['--writer','Ascii']
+      ARGV.replace ['--writer', 'Ascii']
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.writer).to eq('Ascii')
     end
@@ -77,5 +78,4 @@ describe 'Amber CLO Writer' do
       expect(options.writer).to eq('LaTeX')
     end
   end
-
 end

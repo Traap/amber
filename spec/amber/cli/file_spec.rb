@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # file options
@@ -6,7 +8,6 @@ require 'amber'
 # [a.yaml | b.yaml
 # ------------------------------------------------------------------------------
 describe 'Amber CLO File' do
-
   describe 'no -f' do
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
@@ -41,5 +42,4 @@ describe 'Amber CLO File' do
       expect(options.files).to    eq(['c.yaml'])
     end
   end
-
 end

@@ -1,16 +1,16 @@
+# frozen_string_literal: true
+
 require 'rspec'
 # ------------------------------------------------------------------------------
 # These Rspecs demonstrate Amber substitution capabilities related to the
 # string function.
 # ------------------------------------------------------------------------------
 describe 'YAML Strings Substitutions' do
-
   describe 'Amber::Substitute.strings' do
-
     ARGV.replace [
-      "--browser",  "Opera",
-      "--file",     "foo/bar/baz/baz.yaml",
-      "--language", "sv"
+      '--browser',  'Opera',
+      '--file',     'foo/bar/baz/baz.yaml',
+      '--language', 'sv'
     ]
 
     options = Amber::CommandLineOptions.parse(ARGV)
@@ -20,7 +20,8 @@ describe 'YAML Strings Substitutions' do
         .strings(
           options.filename,
           options,
-          '${BROWSER}'))
+          '${BROWSER}'
+        ))
         .to eql('Opera')
     end
 
@@ -29,7 +30,8 @@ describe 'YAML Strings Substitutions' do
         .strings(
           options.filename,
           options,
-          '${browser} ${file} ${language} and ${language-code}'))
+          '${browser} ${file} ${language} and ${language-code}'
+        ))
         .to eql('Opera baz Swedish and sv')
     end
 
@@ -38,9 +40,9 @@ describe 'YAML Strings Substitutions' do
         .strings(
           options.filename,
           options,
-          '${language-code}${file}${language}${browser}'))
+          '${language-code}${file}${language}${browser}'
+        ))
         .to eql('svbazSwedishOpera')
     end
-
   end
 end

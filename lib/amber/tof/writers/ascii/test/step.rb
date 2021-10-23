@@ -8,7 +8,6 @@ module Amber
 
   # Decorate test step output with Ascii text.
   class AsciiTestStep < Amber::AsciiTest
-
     def initialize(decoratee)
       super(decoratee)
       @test_result = 'FAIL'
@@ -23,21 +22,19 @@ module Amber
     end
 
     def run_command
-      begin
-        stdout, stderr, status = @decoratee.run_command
-        @test_result, output = check_status(stdout, stderr, status)
+      stdout, stderr, status = @decoratee.run_command
+      @test_result, output = check_status(stdout, stderr, status)
 
-        @handle.write  "  Test Result: #{@test_result}\n"
-        @handle.write  "     Evidence: #{@decoratee.evidence}\n"
-        @handle.write  "#{output}\n"
-        @handle.flush
-      rescue ShellError
-        msg = "System command failed: #{status}"
-        @handle.write "#{stderr}\n#{msg}\n"
-        @handle.flush
-        puts "#{msg}\n" if @options.verbose
-        abort msg
-      end
+      @handle.write  "  Test Result: #{@test_result}\n"
+      @handle.write  "     Evidence: #{@decoratee.evidence}\n"
+      @handle.write  "#{output}\n"
+      @handle.flush
+    rescue ShellError
+      msg = "System command failed: #{status}"
+      @handle.write "#{stderr}\n#{msg}\n"
+      @handle.flush
+      puts "#{msg}\n" if @options.verbose
+      abort msg
     end
 
     def check_status(stdout, stderr, status)
@@ -57,6 +54,5 @@ module Amber
       )
       method(:teardown).super_method.call
     end
-
   end
 end

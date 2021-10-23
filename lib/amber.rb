@@ -21,6 +21,7 @@ module Amber
   # workflow, and record the environment Amber was run with.
   class CLI
     attr_reader :opts
+
     # {{{ Execute the command ling with ARGV and options.
 
     def execute(argv)
@@ -35,13 +36,13 @@ module Amber
     # {{{ Dump ARGV and options exit.
 
     def dump_parsed_data_and_exit(argv)
-      puts "Amber is exiting!"
-      puts ""
-      puts "ARGV:"
-      puts ""
+      puts 'Amber is exiting!'
+      puts ''
+      puts 'ARGV:'
+      puts ''
       pp argv
-      puts "Options:"
-      puts ""
+      puts 'Options:'
+      puts ''
       pp @opts
       exit
     end
@@ -49,21 +50,21 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ Obliterate test output
 
-    def obliterate_test_output 
-      Amber::TestEvidence.obliterate_test_output()
+    def obliterate_test_output
+      Amber::TestEvidence.obliterate_test_output
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ Orchestrate workflow 
+    # {{{ Orchestrate workflow
 
-    def orchestrate_workflow 
+    def orchestrate_workflow
       Workflow.new(@opts).orchestrate
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ Record environment 
+    # {{{ Record environment
 
-    def record_environment 
+    def record_environment
       Amber::WriterFactory.get_environment(@opts).echo_to_sysout
     end
 

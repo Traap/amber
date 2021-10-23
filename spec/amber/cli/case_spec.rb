@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # case options
@@ -11,7 +13,6 @@ require 'amber'
 #   factory/case/baz/baz.yaml
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Case' do
-
   describe 'no -c' do
     it 'has not been used.' do
       options = Amber::Options.new
@@ -55,5 +56,4 @@ describe 'Amber CLO Case' do
       expect(options.files).to     eq(['factory/case/foobar/foobar.yaml'])
     end
   end
-
 end

@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # simulate options
 # [-S | --simulate]
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Simulate' do
-
   describe 'no -S' do
     it 'has not been used.' do
-      options = Amber::Options.new 
+      options = Amber::Options.new
       expect(options.simulate?).to be(false)
     end
   end
@@ -27,5 +28,4 @@ describe 'Amber CLO Simulate' do
       expect(options.simulate?).to be(true)
     end
   end
-
 end

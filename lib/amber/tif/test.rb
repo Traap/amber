@@ -65,10 +65,7 @@ module Amber
     end
 
     def record_requirements
-      unless requirement.nil?
-        Amber::TestEvidence.record_requirement_tested(filename, requirement)
-      end
+      Amber::TestEvidence.record_requirement_tested(filename, requirement) unless requirement.nil?
     end
-
   end
 end

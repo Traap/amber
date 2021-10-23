@@ -7,9 +7,9 @@ module Amber
       '\\end{enumerate}',
       '\\begin{itemize}',
       '\\end{itemize}',
-      '\\item', 
+      '\\item',
       '\\LaTeX.',
       '\\LaTeX\\'
-    ] 
+    ].freeze
   end
 end

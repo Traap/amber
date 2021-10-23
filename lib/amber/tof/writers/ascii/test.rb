@@ -12,8 +12,7 @@ module Amber
       @macro = if decoratee.type == 'Test Step'
                  nil
                else
-                 decoratee.type + ': ' +
-                   File.basename(decoratee.filename, '.*') + "\n"
+                 "#{decoratee.type}: #{File.basename(decoratee.filename, '.*')}\n"
                end
       @decoratee   = decoratee
       @handle      = nil

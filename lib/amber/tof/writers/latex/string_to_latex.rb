@@ -3,9 +3,8 @@ module Amber
   # characters in a given string to the LaTeX friendly forms.  A new string
   # containing the LaTeX form is returned.
   module StringToLaTeX
-
     # Convert input to a string array to find whitlisted phrases that cannot be
-    # converted. Then iterate over each array item replacing any special 
+    # converted. Then iterate over each array item replacing any special
     # character with a LaTeX friendly form.
     def self.convert(input)
       output = ''
@@ -13,8 +12,8 @@ module Amber
       count = array.count
       array.each do |item|
         stripped = item.strip
-        if Amber::LaTeXWhiteList::NAMES.include? stripped 
-          output << stripped 
+        if Amber::LaTeXWhiteList::NAMES.include? stripped
+          output << stripped
         else
           stripped.each_char { |char| output << lookup(char) }
         end
@@ -36,7 +35,7 @@ module Amber
       when '_' then '\\_'
       when '{' then '\\{'
       when '}' then '\\}'
-      when '~' then "\\~\\"
+      when '~' then '\\~\\'
       when '\\' then '\\textbackslash'
 
       when '«' then '\\guillemotleft'

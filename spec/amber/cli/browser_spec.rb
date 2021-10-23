@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'amber'
 # ------------------------------------------------------------------------------
 # browser options
@@ -6,7 +8,6 @@ require 'amber'
 # [None | Chrome | Edge | Firefox | IE | Opera]
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Browser' do
-
   describe '--browser=Chrome' do
     it 'has been used from the command line.' do
       ARGV.replace ['--browser=Chrome']
@@ -102,5 +103,4 @@ describe 'Amber CLO Browser' do
       expect(options.browser).to eq('Opera')
     end
   end
-
 end

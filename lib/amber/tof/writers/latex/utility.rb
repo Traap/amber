@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # LaTeX_Utility assembles the strings listed below which represent macros
 # autodoc expands into the locations of files created by amber.
 #
@@ -67,9 +69,7 @@ module Amber
     def self.append_browser_and_language(decoratee)
       browser, code = Amber::LaTeXUtility.gather_browser_and_language(decoratee)
       macro = ''
-      unless browser.nil? && code.nil? then
-        macro << 'C{' << browser << '}{' << code << '}'
-      end
+      macro << 'C{' << browser << '}{' << code << '}' unless browser.nil? && code.nil?
       macro
     end
 
@@ -85,9 +85,9 @@ module Amber
             << pwd << File::SEPARATOR \
             << TestEvidence::TEST_OUTPUT_DIR << File::SEPARATOR
 
-      macro << "#{browser}" << File::SEPARATOR unless browser.nil?
+      macro << browser.to_s << File::SEPARATOR unless browser.nil?
 
-      macro << "#{code}" << File::SEPARATOR unless code.nil?
+      macro << code.to_s << File::SEPARATOR unless code.nil?
 
       macro << File.dirname(decoratee.filename) << File::SEPARATOR \
             << File.basename(decoratee.filename, '.*') \
@@ -96,6 +96,5 @@ module Amber
     end
 
     # --------------------------------------------------------------------------
-
   end
 end

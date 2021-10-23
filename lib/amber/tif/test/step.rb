@@ -10,7 +10,7 @@ module Amber
     attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir
 
     # {{{ Initialize TestStep
-    
+
     def initialize(filename, data, options, step, number, workingdir)
       super('Test Step', filename, data, options)
 
@@ -48,16 +48,14 @@ module Amber
     # {{{ Run a command
 
     def run_command
-      if @options.run?
-        _o, _e, _s = TestEvidence.run_from_temp_directory(@command, @workingdir)
-      end
+      _o, _e, _s = TestEvidence.run_from_temp_directory(@command, @workingdir) if @options.run?
     end
 
     # ---------------------------------------------------------------------- }}}
 
     private
 
-    # {{{ Set the working diectory. 
+    # {{{ Set the working diectory.
 
     def set_working_dir(step, workingdir)
       wd = step['workingdir']
@@ -88,6 +86,5 @@ module Amber
     end
 
     # ---------------------------------------------------------------------- }}}
-
   end
 end

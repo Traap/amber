@@ -30,20 +30,21 @@ module Amber
     def self.strings(filename, options, text)
       unless text.nil?
         Substitute.home(
-         Substitute.file(filename,
-          Substitute.browser(options,
-           Substitute.language(options,
-            Substitute.language_code(options, text)))))
+          Substitute.file(filename,
+                          Substitute.browser(options,
+                                             Substitute.language(options,
+                                                                 Substitute.language_code(options, text))))
+        )
       end
     end
 
     def self.file(filename, text)
-      case filename
-      when String 
-        name = filename
-      else
-        name = filename.first.to_s
-      end
+      name = case filename
+             when String
+               filename
+             else
+               filename.first.to_s
+             end
       text.gsub(/(\${file}|\${FILE})/, File.basename(name, '.*'))
     end
 
@@ -80,6 +81,5 @@ module Amber
         expanded_text
       end
     end
-
   end
 end

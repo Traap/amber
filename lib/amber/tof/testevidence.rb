@@ -47,12 +47,12 @@ module Amber
     STEP_FILE = '-step-'
     STEP_LOG = '-log'
     STEP_STATUS = '-status'
-    ENVIRONMENT_LOG = TestEvidence::TEST_OUTPUT + 'environment'
-    TEST_RESULTS_LOG = TestEvidence::TEST_OUTPUT + 'test-results'
+    ENVIRONMENT_LOG = "#{TestEvidence::TEST_OUTPUT}environment"
+    TEST_RESULTS_LOG = "#{TestEvidence::TEST_OUTPUT}test-results"
     LATEX_FILE_EXTENSION = '.tex'
     ASCII_FILE_EXTENSION = '.txt'
-    REQUIREMENTS_LOG = TestEvidence::TEST_OUTPUT + 'requirements.csv'
-    COMMAND_LOG = TestEvidence::TEST_OUTPUT + 'commands.log'
+    REQUIREMENTS_LOG = "#{TestEvidence::TEST_OUTPUT}requirements.csv"
+    COMMAND_LOG = "#{TestEvidence::TEST_OUTPUT}commands.log"
 
     # --------------------------------------------------------------------------
 
@@ -75,18 +75,16 @@ module Amber
     # --------------------------------------------------------------------------
 
     def self.assemble_temp_root(options)
-      TestEvidence.assemble_test_output_root(options) + 'tmp'
+      "#{TestEvidence.assemble_test_output_root(options)}tmp"
     end
 
     # --------------------------------------------------------------------------
 
     def self.create_directory_when_needed(dir)
-      begin
-        FileUtils.mkdir_p dir
-      rescue
-        msg = "Could not create: #{dir}"
-        abort msg
-      end
+      FileUtils.mkdir_p dir
+    rescue StandardError
+      msg = "Could not create: #{dir}"
+      abort msg
     end
 
     # --------------------------------------------------------------------------
@@ -107,7 +105,7 @@ module Amber
       # rubocop:enable Style/MultilineTernaryOperator
     end
 
-	# --------------------------------------------------------------------------
+    # --------------------------------------------------------------------------
 
     def self.open_log_file(input, options)
       TestEvidence.open_file(
@@ -143,13 +141,13 @@ module Amber
 
     def self.get_test_case_log(input, nbr, options)
       TestEvidence.assemble_test_output_root(options) +
-      File.dirname(input) +
-      File::SEPARATOR +
-      File.basename(input, '.*') +
-      TestEvidence::STEP_FILE +
-      nbr.to_s.rjust(3, '0') +
-      TestEvidence::STEP_LOG +
-      TestEvidence.use_file_extension(options)
+        File.dirname(input) +
+        File::SEPARATOR +
+        File.basename(input, '.*') +
+        TestEvidence::STEP_FILE +
+        nbr.to_s.rjust(3, '0') +
+        TestEvidence::STEP_LOG +
+        TestEvidence.use_file_extension(options)
     end
     # --------------------------------------------------------------------------
 
@@ -206,7 +204,7 @@ module Amber
     def self.record_amber_command(name)
       unless false
         handle = TestEvidence.open_file(TestEvidence::COMMAND_LOG)
-        handle.write(name + "\n")
+        handle.write("#{name}\n")
         TestEvidence.close_file(handle)
       end
     end

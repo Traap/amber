@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'amber'
 
 # ------------------------------------------------------------------------------
 # These Rspecs demonstrate Amber ...
 # ------------------------------------------------------------------------------
 describe 'Test Input Factory Test Case' do
-
   before(:all) do
     @test = true
   end
@@ -14,5 +15,4 @@ describe 'Test Input Factory Test Case' do
       expect(@test).to be(true)
     end
   end
-
 end
