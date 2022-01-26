@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # LaTeX_Utility assembles the strings listed below which represent macros
 # autodoc expands into the locations of files created by amber.
 #
@@ -79,8 +77,8 @@ module Amber
     def self.append_filename(decoratee)
       pwd = FileUtils.pwd()
       browser, code = Amber::LaTeXUtility.gather_browser_and_language(decoratee)
-      macro = ''
 
+      macro = ''
       macro << '{' \
             << pwd << File::SEPARATOR \
             << TestEvidence::TEST_OUTPUT_DIR << File::SEPARATOR
