@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # {{{ required items.
 
 require 'amber/version'
