@@ -6,11 +6,17 @@ require 'amber/tof/testevidence'
 module Amber
   # Decorate environment output with LaTeX text.
   class LaTeXEnvironment < Amber::Environment
+    # {{{ initialize
+
     def initialize(decoratee, options)
+      super()
       @decoratee = decoratee
       @options = options
       @handle = nil
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_to_sysout
 
     def echo_to_sysout
       @handle = TestEvidence.open_environment_log_file(@options)
@@ -31,14 +37,17 @@ module Amber
       TestEvidence.close_file @handle
     end
 
-    def echo_e_to_sysout(e)
-      i = replace_characters(e)
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_e_to_sysout
+
+    def echo_e_to_sysout(env)
+      i = replace_characters(env)
       @handle.write "\\item[#{i}:] See below.\n"
       @handle.write "\\begin{enumerate}\n"
-      if ENV[e].nil?
+      if ENV[env].nil?
         @handle.write "\\item nil\n"
       else
-        f = ENV[e].split(':')
+        f = ENV[env].split(':')
         f.each do |g|
           v = replace_characters(g)
           @handle.write "\\item #{v}\n"
@@ -47,7 +56,13 @@ module Amber
       @handle.write "\\end{enumerate}\n"
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ private section
+
     private
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ wrtie_subsection
 
     def write_subsection
       @handle.write "\\subsection{System Environment}\n"
@@ -55,6 +70,9 @@ module Amber
       @handle.write "and the forward slash character replaced the backslash\n"
       @handle.write "character throughout this section.\n"
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ replace_characters
 
     def replace_characters(text)
       escape_characters(
@@ -64,16 +82,27 @@ module Amber
       )
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ replace_characters
+
     def escape_characters(text)
       text.gsub(/#/, '\#').gsub(/\$/, '\$')
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ replace_underscore_with_hyphen
 
     def replace_underscore_with_hyphen(text)
       text.tr('_', '-')
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ replace_backslash_with_forwardslash
+
     def replace_backslash_with_forwardslash(text)
       text.tr('\\', '/')
     end
+
+    # ---------------------------------------------------------------------- }}}
   end
 end

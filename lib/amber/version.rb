@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# {{{ Version number.
+#
 # See https://semver.org/
 #
 # Major, Minor, Patch, Build
@@ -13,12 +15,11 @@
 #     A backward compatible bug fix or refactoring to improve maintenance.
 #
 #   Build
-#     The patch number is incremented each time the amber gem is built and
-#     installed.  This number never resets.  Not all patches are released to the
+#     The build number is incremented each time the amber gem is built and
+#     installed.  This number never resets.  Not all builds are released to the
 #     public domain.
-#
-# ------------------------------------------------------------------------------
+
 module Amber
-  VERSION = '1.5.1.307'
+  VERSION = '1.6.0.368'
 end
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}

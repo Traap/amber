@@ -1,7 +1,11 @@
+*.acn
+*.glo
+*.ist
+*.zip
 .bundle/
-pkg/
-test-output/
-coverage/
 Gemfile.lock
 _build/
-*.zip
+coverage/
+pkg/
+private-rubygen-server.rb
+test-output/

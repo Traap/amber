@@ -4,6 +4,6 @@
 module Amber
   module Writer
     NAMES = %w[Ascii LaTeX].freeze
-    DEFAULT = 'LaTeX'.freeze
+    DEFAULT = 'LaTeX'
   end
 end

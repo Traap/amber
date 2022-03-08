@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require 'open3'
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 
 # ------------------------------------------------------------------------------
-# Prerequisite checks. 
+# Prerequisite checks.
 # ------------------------------------------------------------------------------
 
 if ENV['AMBERPATH'].nil?
-  puts "WARNING: Amber is not installed."
+  puts 'WARNING: Amber is not installed.'
   abort = true
 end
 
 if ENV['DOCBLDPATH'].nil?
-  puts "WARNING: docbld is not installed."
+  puts 'WARNING: docbld is not installed.'
   abort = true
 end
 
@@ -30,38 +32,37 @@ rescue StandardError
 end
 
 # ------------------------------------------------------------------------------
-# Build Amber. 
+# Build Amber.
 # ------------------------------------------------------------------------------
 
 namespace :build do
   task :amber do
-    system "bundle install"
-    system "bundle exec rake"
-    system "bundle exec rake install"
+    system 'bundle install'
+    system 'bundle exec rake'
+    system 'bundle exec rake install'
   end
 end
 
 # ------------------------------------------------------------------------------
-# Validate Amber. 
+# Validate Amber.
 # ------------------------------------------------------------------------------
 
 namespace :validate do
-
-  reportDir = ENV['AMBERPATH'] + '/report'
+  reportDir = "#{ENV['AMBERPATH']}/report"
   validateCmd = 'amber --nodryrun --environment --obliterate --plan=master'
-  pdfCmd = 'rake --rakefile ' + ENV['DOCBLDPATH'] + '/Rakefile'
+  pdfCmd = "rake --rakefile #{ENV['DOCBLDPATH']}/Rakefile"
   pwd = ''
 
-  task :amber => [:save_wd, :report_dir, :do_validation, :restore_wd, :docbld]
+  task amber: %i[save_wd report_dir do_validation restore_wd docbld]
 
-  task :iotest => [:save_wd, :report_dir, :do_validation, :restore_wd]
+  task iotest: %i[save_wd report_dir do_validation restore_wd]
 
   task :save_wd do
     pwd = Dir.getwd
   end
 
   task :report_dir do
-    Dir.chdir reportDir 
+    Dir.chdir reportDir
   end
 
   task :restore_wd do
@@ -69,29 +70,24 @@ namespace :validate do
   end
 
   task :do_validation do
-    begin
-      puts "#{validateCmd}"
-      _stdout, stderr, _status = Open3.capture3 validateCmd 
-    rescue StandardError => e 
-      echo_exception(stderr, e)
-    end
+    puts validateCmd.to_s
+    _stdout, stderr, _status = Open3.capture3 validateCmd
+  rescue StandardError => e
+    echo_exception(stderr, e)
   end
 
   task :docbld do
-    begin
-      puts "docbld"
-      _stdout, stderr, _status = Open3.capture3 pdfCmd 
-    rescue StandardError => e 
-      echo_exception(stderr, e)
-    end
+    puts 'docbld'
+    _stdout, stderr, _status = Open3.capture3 pdfCmd
+  rescue StandardError => e
+    echo_exception(stderr, e)
   end
 
-  def echo_exception(s, e) 
+  def echo_exception(_s, e)
     puts "Exception Class: #{e.class.name}"
     puts "Exception Message: #{e.class.message}"
     puts "Exception Backtrace: #{e.class.backtrace}"
   end
-
 end
 
 # ------------------------------------------------------------------------------

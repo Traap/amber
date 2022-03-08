@@ -9,6 +9,8 @@ module Amber
   class TestStep < Amber::Test
     attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir
 
+    # {{{ Initialize TestStep
+
     def initialize(filename, data, options, step, number, workingdir)
       super('Test Step', filename, data, options)
 
@@ -32,22 +34,28 @@ module Amber
         Amber::Substitute.strings(@filename, options, step['argument'])
       )
 
-      echo = @options.simulate ? 'echo ' : nil
+      echo = @options.simulate? ? 'echo ' : nil
       @command     = "#{echo}#{sudo}#{command} #{argument}"
 
       @evidence    = Amber::Substitute.strings(@filename, options, step['evidence'])
       @workingdir  = set_working_dir(step, workingdir)
     end
 
+    # ---------------------------------------------------------------------- }}}
+
     def echo_to_sysout; end
 
+    # {{{ Run a command
+
     def run_command
-      if @options.okay_to_run?
-        _o, _e, _s = TestEvidence.run_from_temp_directory(@command, @workingdir)
-      end
+      _o, _e, _s = TestEvidence.run_from_temp_directory(@command, @workingdir) if @options.run?
     end
 
+    # ---------------------------------------------------------------------- }}}
+
     private
+
+    # {{{ Set the working diectory.
 
     def set_working_dir(step, workingdir)
       wd = step['workingdir']
@@ -76,5 +84,7 @@ module Amber
 
       wdir.strip
     end
+
+    # ---------------------------------------------------------------------- }}}
   end
 end

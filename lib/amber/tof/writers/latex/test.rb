@@ -1,13 +1,21 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber/tif/test'
 require 'amber/tof/testevidence'
 require 'amber/tof/writers/latex/string_to_latex'
 
+# -------------------------------------------------------------------------- }}}
 module Amber
   # Base class used to decorate output with LaTeX text.
   class LaTeXTest < Amber::Test
+    # {{{ Attributes
+
     attr_reader :decoratee, :macro
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ initialize
 
     def initialize(decoratee, macro)
       @macro       = macro
@@ -24,11 +32,17 @@ module Amber
       @type        = decoratee.type
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ setup
+
     def setup
       Amber::TestEvidence.record_test_name(@macro, @decoratee.options) unless @macro.nil?
       @handle = Amber::TestEvidence.open_log_file(@decoratee.filename,
                                                   @decoratee.options)
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_to_sysout
 
     def echo_to_sysout(outline_level)
       @decoratee.echo_to_sysout
@@ -42,18 +56,31 @@ module Amber
       @handle.flush
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ run_command
+
     def run_command
-      @decoratee.run_command if @options.okay_to_run?
+      @decoratee.run_command if @options.run?
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ teardown
 
     def teardown
       Amber::TestEvidence.close_file(@handle)
       @handle = nil
     end
 
-    def toLaTeX(string)
-      Amber::StringToLaTeX.convert(string) 
-    end
+    # ---------------------------------------------------------------------- }}}
+    # {{{ toLaTeX
 
+    # rubocop:disable Naming.MethodName
+
+    def toLaTeX(string)
+      Amber::StringToLaTeX.convert(string)
+    end
+    # rubocop:enable Naming.MethodName
+
+    # ---------------------------------------------------------------------- }}}
   end
 end

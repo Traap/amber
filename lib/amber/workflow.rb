@@ -1,9 +1,13 @@
 # frozen_string_literal: true
-#
+
+# {{{ Workflow orchestration.
+
 # This class orchestrates the Amber workflow.  YAML files are read and parsed
 # into Test Plans, Test Suites, Test Cases, and Test Includes.  Each Test object
 # is then processed.
-# ------------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Required files.
 
 require 'amber/tif/test/case'
 require 'amber/tif/test/include'
@@ -12,12 +16,11 @@ require 'amber/tif/test/suite'
 require 'amber/tof/writers/writer_factory'
 require 'amber/workflow'
 
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
 module Amber
-  # Run the Amber workflow.
+  # {{{ Run the Amber workflow. }}}
   class Workflow
-
-    # --------------------------------------------------------------------------
+    # {{{ initialize
 
     def initialize(options)
       @options = options
@@ -25,16 +28,18 @@ module Amber
       @test = []
     end
 
-    # --------------------------------------------------------------------------
+    # ---------------------------------------------------------------------- }}}
+    # {{{ orchestrate
 
     def orchestrate
-      @options.filename.each do |f|
+      @options.data[:files].each do |f|
         parse_yaml_file f
         @test.each(&:process)
       end
     end
 
-    # --------------------------------------------------------------------------
+    # ---------------------------------------------------------------------- }}}
+    # {{{ parse_yaml_file
 
     def parse_yaml_file(filename)
       @test = []
@@ -59,7 +64,6 @@ module Amber
       end
     end
 
-    # --------------------------------------------------------------------------
-
+    # ---------------------------------------------------------------------- }}}
   end
 end
