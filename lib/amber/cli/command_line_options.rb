@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # {{{ required items.
 
 require 'amber/version'
@@ -25,6 +26,7 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ concat_files
 
+    # rubocop:disable Metrics.BlockLenght
     def concat_files
       # Concatenate test_plan, test_suite, test_case, and filename into
       # @clo.options[:files] only once.
@@ -38,6 +40,7 @@ module Amber
       files.concat(@options.data[:filename])   unless @options.data[:filename].nil?
       @options.data[:files] = files            unless files.none?
     end
+    # rubocop:enable Metrics.BlockLenght
 
     # ---------------------------------------------------------------------- }}}
     # {{{ Parse ARGV and Options.
@@ -52,8 +55,9 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ Options Parser populates options sructure.
 
+    # rubocop:disable Metrics.AbcLength
     def self.option_parser
-      @parser ||= OptionParser.new do |opts|
+      @option_parser ||= OptionParser.new do |opts|
         opts.banner = 'Usage: amber [argv] [options]'
         opts.separator ''
         opts.separator 'Specific options:'
@@ -79,6 +83,7 @@ module Amber
         dump opts
       end
     end
+    # rubocop:enable Metrics.AbcLength
 
     # ---------------------------------------------------------------------- }}}
     # {{{ Help option.

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# Gems need throughout Amber.
+# {{{ Gems need throughout Amber.
+
 require 'open3'
 require 'optparse'
 require 'ostruct'
@@ -9,10 +10,15 @@ require 'rbconfig'
 require 'rspec'
 require 'yaml'
 
-# Making it easy to setup Amber includes and Rspecing Amber.
+# -------------------------------------------------------------------------- }}}
+# {{{ Making it easy to setup Amber includes and Rspecing Amber.
+
 require 'require_all'
 require_rel ''
 
-# Rspec test coverage
+# -------------------------------------------------------------------------- }}}
+# {{{ Rspec test coverage.
+
 require 'simplecov'
-# ------------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------- }}}

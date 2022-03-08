@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
-# ISO Language Code 639-1
+# {{{ ISO Language Code 639-1
 #
 # https://github.com/datasets/language-codes is an excellent reference to when
 # it necessary to rebuild the Language hash.
-
+#
+# NOTE: Language codes not supported are commented out.
+# -------------------------------------------------------------------------- }}}
 module Amber
   module Language
-    # List each support language name.
+    # {{{ List each support language name.
+
     CODE = {
       'zz' => 'n/a',
       # 'aa' => 'Afar',
@@ -198,10 +201,16 @@ module Amber
       'zu' => 'Zulu'
     }.freeze
 
-    # Only CODE needs to be changed to update languages.
+    # ---------------------------------------------------------------------- }}}
+    # {{{ Freeze CODE.keys
+
     NAMES = CODE.keys.freeze
 
-    # Immutable objects are not frozen.
+    # ---------------------------------------------------------------------- }}}
+    # {{{ Default language.
+
     DEFAULT = 'zz'
+
+    # ---------------------------------------------------------------------- }}}
   end
 end

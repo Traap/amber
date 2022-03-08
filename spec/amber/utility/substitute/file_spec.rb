@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------- }}}
+# {{{ ${file} substitution.
+#
 # These Rspecs demonstrate Amber substitution capabilities relative to the
 # ${file} keyword.
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ ${file} substitution tests.
+
 describe 'YAML Substitutions' do
   describe 'Amber::Substitute.file' do
     it 'can substitute ${file} with base filename from foo/bar/baz.yaml' do
@@ -18,3 +26,5 @@ describe 'YAML Substitutions' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

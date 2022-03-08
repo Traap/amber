@@ -1,12 +1,20 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# browser options
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Browser options.
+#
 # [-b | --browser]
 #
 # [None | Chrome | Edge | Firefox | IE | Opera]
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Browser tests.
+
+# rubocop:disable Metrics.BlockLength
 describe 'Amber CLO Browser' do
   describe '--browser=Chrome' do
     it 'has been used from the command line.' do
@@ -104,3 +112,6 @@ describe 'Amber CLO Browser' do
     end
   end
 end
+# rubocop:enable Metrics.BlockLength
+
+# -------------------------------------------------------------------------- }}}

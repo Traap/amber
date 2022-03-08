@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# case options
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Case options.
+#
 # [-c | --case
 #
 # [foo | bar | baz]
@@ -11,7 +15,10 @@ require 'amber'
 #   factory/case/foo/foo.yaml
 #   factory/case/bar/bar.yaml
 #   factory/case/baz/baz.yaml
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Case tests.
+
 describe 'Amber CLO Case' do
   describe 'no -c' do
     it 'has not been used.' do
@@ -57,3 +64,5 @@ describe 'Amber CLO Case' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

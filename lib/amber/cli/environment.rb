@@ -3,7 +3,12 @@
 module Amber
   # System Enviornment values written to output file.
   class Environment
+    # {{{ Attributes
+
     attr_reader :environment
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ Initilize
 
     def initialize
       @environment = [
@@ -56,6 +61,9 @@ module Amber
       ].freeze
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_to_sysout
+
     def echo_to_sysout
       puts "\nSystem Environment"
       @environment.each do |env|
@@ -67,6 +75,9 @@ module Amber
       end
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_to_sysout
+
     def echo_e_to_sysout(env)
       puts "  #{env} = "
       part = ENV[env].split(':')
@@ -74,5 +85,7 @@ module Amber
         puts "         #{name}"
       end
     end
+
+    # ---------------------------------------------------------------------- }}}
   end
 end

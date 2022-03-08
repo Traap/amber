@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# environments options
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Environment options.
+#
 # [-e | --environment]
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Environment tests
+
 describe 'Amber CLO Environment' do
   describe 'no -e' do
     it 'has not been used.' do
@@ -50,3 +57,5 @@ describe 'Amber CLO Environment' do
     expect(n_texts == e_texts).to be(true)
   end
 end
+
+# -------------------------------------------------------------------------- }}}

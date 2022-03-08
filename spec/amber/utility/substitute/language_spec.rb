@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------- }}}
+# {{{ ${language} substitution.
+#
 # These Rspecs demonstrate Amber substitution capabilities related to the
 # ${language} keyword.
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ ${language} substitution tests.
+
 shared_examples 'Amber::Substitute.language' do |code, language_name|
   ARGV.replace ["--language=#{code}"]
   options = Amber::CommandLineOptions.parse(ARGV)
@@ -25,3 +33,5 @@ describe 'YAML Language Substitutions' do
     it_behaves_like 'Amber::Substitute.language', code, language
   end
 end
+
+# -------------------------------------------------------------------------- }}}

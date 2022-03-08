@@ -1,11 +1,18 @@
 # frozen_string_literal: true
 
-require 'rspec'
+# {{{ Required files.
 
-# ------------------------------------------------------------------------------
+require 'amber'
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Requirement substitution.
+#
 # These Rspecs demonstrate Amber substitution capabilities related to the
 # requirement string conversation to an array of requirements.
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Requirement substitution tests.
+
 describe 'Requirement to Array Transformation' do
   before(:all) do
     @req = '   r1, [r2,r3], and (r4, r5), {r6, r7} and => r8 -> r9  '
@@ -41,3 +48,5 @@ describe 'Requirement to Array Transformation' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

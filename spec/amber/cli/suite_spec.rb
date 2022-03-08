@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# suite options
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Suite options.
+#
 # [-s | --suite
 #
 # [foo | bar | baz]
@@ -11,7 +15,10 @@ require 'amber'
 #   factory/suite/foo/foo.yaml
 #   factory/suite/bar/bar.yaml
 #   factory/suite/baz/baz.yaml
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Suite tests.
+
 describe 'Amber CLO Suite' do
   describe 'no -s' do
     it 'has not been used.' do
@@ -57,3 +64,5 @@ describe 'Amber CLO Suite' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

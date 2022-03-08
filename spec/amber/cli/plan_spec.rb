@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# plan options
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Plan options.
+#
 # [-p | --plan
 #
 # [foo | bar | baz]
@@ -11,7 +15,10 @@ require 'amber'
 #   factory/plan/foo/foo.yaml
 #   factory/plan/bar/bar.yaml
 #   factory/plan/baz/baz.yaml
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Plan tests.
+
 describe 'Amber CLO Plan' do
   describe 'no -p' do
     it 'has not been used.' do
@@ -57,3 +64,5 @@ describe 'Amber CLO Plan' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

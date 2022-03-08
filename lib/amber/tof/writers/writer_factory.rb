@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber/tif/test/case'
 require 'amber/tif/test/plan'
 require 'amber/tif/test/step'
@@ -19,11 +21,17 @@ require 'amber/cli/environment'
 require 'amber/tof/writers/latex/environment'
 require 'amber/tof/writers/ascii/environment'
 
-# Amber is the primary module.
+# -------------------------------------------------------------------------- }}}
 module Amber
+  # {{{ Class WriteFactory documentation.
+  #
   # Factory methods used to instantiate Test Plan, Test Suite, Test Cases, Test
   # Steps, and system environment LaTeX or Ascii decorator objects.
+  #
+  # ------------------------------------------------------------------------ }}}
   class WriterFactory
+    # {{{ get_test_plan
+
     def self.get_test_plan(filename, data, options)
       decoratee = TestPlan.new(filename, data, options)
       if options.writer == 'LaTeX'
@@ -32,6 +40,9 @@ module Amber
         AsciiTestPlan.new(decoratee)
       end
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ get_test_suite
 
     def self.get_test_suite(filename, data, options)
       decoratee = TestSuite.new(filename, data, options)
@@ -42,6 +53,9 @@ module Amber
       end
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ get_test_case
+
     def self.get_test_case(filename, data, options)
       decoratee = TestCase.new(filename, data, options)
       if options.writer == 'LaTeX'
@@ -50,6 +64,9 @@ module Amber
         AsciiTestCase.new(decoratee)
       end
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ get_test_step
 
     def self.get_test_step(filename, data, options, step, nbr, workingdir)
       decoratee = TestStep.new(filename, data, options, step, nbr, workingdir)
@@ -60,6 +77,9 @@ module Amber
       end
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ get_environment
+
     def self.get_environment(options)
       decoratee = Environment.new
       if options.writer == 'LaTeX'
@@ -68,5 +88,7 @@ module Amber
         AsciiEnvironment.new(decoratee, options)
       end
     end
+
+    # ---------------------------------------------------------------------- }}}
   end
 end

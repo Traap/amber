@@ -1,7 +1,10 @@
-_build/
+*.acn
+*.glo
+*.ist
 .bundle/
-coverage/
 Gemfile.lock
+_build/
+coverage/
 pkg/
 private-rubygen-server.rb
 test-output/

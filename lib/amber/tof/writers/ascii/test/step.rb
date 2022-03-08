@@ -1,17 +1,27 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber/tof/writers/ascii/test'
 
+# -------------------------------------------------------------------------- }}}
 module Amber
-  # ShellError
+  # {{{ Claa ShellError
+
   class ShellError < StandardError; end
 
-  # Decorate test step output with Ascii text.
+  # ------------------------------------------------------------------------ }}}
+  # {{{ Decorate test step output with Ascii text. }}}
   class AsciiTestStep < Amber::AsciiTest
+    # {{{ initialize
+
     def initialize(decoratee)
       super(decoratee)
       @test_result = 'FAIL'
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_to_sysout
 
     def echo_to_sysout
       @handle.write "         Step: #{@decoratee.number}\n"
@@ -20,6 +30,9 @@ module Amber
       @handle.write "      Command: #{@decoratee.command}\n"
       @decoratee.echo_to_sysout
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ run_command
 
     def run_command
       stdout, stderr, status = @decoratee.run_command
@@ -37,6 +50,9 @@ module Amber
       abort msg
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ check_status
+
     def check_status(stdout, stderr, status)
       if status.success?
         @test_result = 'PASS'
@@ -48,11 +64,16 @@ module Amber
       [@test_result, output]
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ teardown
+
     def teardown
       Amber::TestEvidence.record_test_case_status(
         @decoratee.filename, @decoratee.number, @test_result, @decoratee.options
       )
       method(:teardown).super_method.call
     end
+
+    # ---------------------------------------------------------------------- }}}
   end
 end

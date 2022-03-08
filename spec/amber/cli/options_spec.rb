@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# default options
-# ------------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Default option tests.
+
+# rubocop:disable Metrics.BlockLength
 describe 'Amber CLO Default' do
   before(:all) do
     @options = Amber::Options.new
@@ -99,3 +103,6 @@ describe 'Amber CLO Default' do
     end
   end
 end
+# rubocop:enable Metrics.BlockLength
+
+# -------------------------------------------------------------------------- }}}

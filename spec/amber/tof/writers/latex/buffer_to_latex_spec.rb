@@ -1,6 +1,11 @@
 # frozen_string_literal:true
 
+# {{{ Required files.
+
 require 'amber'
+
+# -------------------------------------------------------------------------- }}}
+# {{{ LaTEx Buffer Shared examples.
 
 shared_examples 'buffer' do |description, input, output|
   context "#{description}\n\tfrom #{input} \n\t  to #{output}" do
@@ -8,6 +13,9 @@ shared_examples 'buffer' do |description, input, output|
     it { should eq(output) }
   end
 end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ LaTeX Buffer tests.
 
 describe 'Amber LaTeX Buffer' do
   it_should_behave_like \
@@ -40,3 +48,5 @@ describe 'Amber LaTeX Buffer' do
     'This sentence ends with \\LaTeX.', \
     'This sentence ends with \LaTeX.'
 end
+
+# -------------------------------------------------------------------------- }}}

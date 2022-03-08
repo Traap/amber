@@ -1,6 +1,11 @@
 # frozen_string_literal:true
 
+# {{{ Required files.
+
 require 'amber'
+
+# -------------------------------------------------------------------------- }}}
+# {{{ LaTeX whitelist shared examples.
 
 shared_examples 'whitelist' do |input, condition|
   context input.to_s do
@@ -15,6 +20,9 @@ shared_examples 'whitelist' do |input, condition|
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ LaTeX whitelist shared tests.
 
 describe 'Amber LaTeX Whitelist' do
   it_behaves_like 'whitelist', '\\begin{enumerate}', true
@@ -34,3 +42,5 @@ describe 'Amber LaTeX Whitelist' do
   it_behaves_like 'whitelist', '\\latex', false
   it_behaves_like 'whitelist', '\\LaTeX\\', true
 end
+
+# -------------------------------------------------------------------------- }}}

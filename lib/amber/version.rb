@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# {{{ Version number.
+#
 # See https://semver.org/
 #
 # Major, Minor, Patch, Build
@@ -16,9 +18,8 @@
 #     The build number is incremented each time the amber gem is built and
 #     installed.  This number never resets.  Not all builds are released to the
 #     public domain.
-#
-# ------------------------------------------------------------------------------
+
 module Amber
-  VERSION = '1.6.0.367'
+  VERSION = '1.6.0.368'
 end
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}

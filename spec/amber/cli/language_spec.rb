@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
+# {{{ language options
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# language options
+
 # [-l | --language]
 #
 # [ zz | cs | da | de | en | en-US | es | fi | fr | fr-ca | fr-eu | ga | hu | it
 # | nl | no | pl | pt | ro | ru | sk | sv]
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
+# {{{ 5 possible language option permutations:
 
+# rubocop:disable Metrics.BlockLength
 shared_examples 'Amber CLO language parameter' do |code, language_name|
-  # {{{ 5 possible language option permutations:
-
   context "--language=#{code}" do
     it "returns #{language_name} when run with double dash and equal sign" do
       ARGV.replace ["--language=#{code}"]
@@ -50,14 +51,15 @@ shared_examples 'Amber CLO language parameter' do |code, language_name|
       expect(options.language?).to be(true)
     end
   end
-
-  # ------------------------------------------------------------------------ }}}
 end
+# rubocop:enable Metrics.BlockLength
 
+# -------------------------------------------------------------------------- }}}
+# {{{ The acutal Amber CLO Language tests.
+
+# rubocop:disable Metrics.BlockLength
 describe 'Amber CLO Language' do
-  # {{{ The acutal Amber CLO Language tests.
-
-  describe 'no -l' do
+  context 'no -l' do
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
       expect(options.language).to eq('zz')
@@ -102,6 +104,7 @@ describe 'Amber CLO Language' do
   Amber::Language::CODE.each do |code, language_name|
     it_behaves_like 'Amber CLO language parameter', code, language_name
   end
-
-  # ------------------------------------------------------------------------ }}}
 end
+# rubocop:enable Metrics.BlockLength
+
+# -------------------------------------------------------------------------- }}}

@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# Requirement options
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Requirement options.
+#
 # [--requirement | -r]
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Requirement tests.
+
 describe 'Amber CLO Requirements' do
   describe '--log-requirement' do
     it 'was not used.' do
@@ -30,3 +37,5 @@ describe 'Amber CLO Requirements' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

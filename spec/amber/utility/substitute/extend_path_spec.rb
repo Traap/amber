@@ -1,9 +1,17 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Path substitutions.
+#
 # These Rspecs demonstrate Amber substitution capabilities related the ~ marker.
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Path substitutions tests.
+
 describe 'YAML Extend Path Substitutions' do
   describe 'Amber::Substitute.expected_path' do
     it "can expand ~ to #{Dir.home}" do
@@ -16,3 +24,5 @@ describe 'YAML Extend Path Substitutions' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

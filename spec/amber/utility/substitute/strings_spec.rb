@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
-require 'rspec'
-# ------------------------------------------------------------------------------
+# {{{ Required files.
+
+require 'amber'
+
+# -------------------------------------------------------------------------- }}}
+# {{{ All keyword substitutions.
+#
 # These Rspecs demonstrate Amber substitution capabilities related to the
-# string function.
-# ------------------------------------------------------------------------------
+# ${browser} keyword.
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ All keyword substitution tests.
+
 describe 'YAML Strings Substitutions' do
   describe 'Amber::Substitute.strings' do
     ARGV.replace [
@@ -17,32 +25,22 @@ describe 'YAML Strings Substitutions' do
 
     it 'can substitute ${BROWSER} to Opera' do
       expect(Amber::Substitute
-        .strings(
-          options.filename,
-          options,
-          '${BROWSER}'
-        ))
+        .strings(options.filename, options, '${BROWSER}'))
         .to eql('Opera')
     end
 
     it 'can substitute ${browser} ${file} ${language} and ${language-code} to Opera baz Swedish and sv' do
       expect(Amber::Substitute
-        .strings(
-          options.filename,
-          options,
-          '${browser} ${file} ${language} and ${language-code}'
-        ))
+        .strings(options.filename, options, '${browser} ${file} ${language} and ${language-code}'))
         .to eql('Opera baz Swedish and sv')
     end
 
     it 'can substitute ${language-code}${file}${language}${browser} to svbazSwedishOpera' do
       expect(Amber::Substitute
-        .strings(
-          options.filename,
-          options,
-          '${language-code}${file}${language}${browser}'
-        ))
+        .strings(options.filename, options, '${language-code}${file}${language}${browser}'))
         .to eql('svbazSwedishOpera')
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

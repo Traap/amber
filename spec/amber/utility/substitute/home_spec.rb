@@ -1,10 +1,18 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------- }}}
+# {{{ ${home} substitution.
+#
 # These Rspecs demonstrate Amber substitution capabilities relative to the
 # ${home} keyword.
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ ${home} substitution tests.
+
 describe 'YAML Home Substitutions' do
   before(:all) do
     @options = Amber::Options.new
@@ -24,3 +32,5 @@ describe 'YAML Home Substitutions' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

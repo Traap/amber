@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# These Rspecs demonstrate TestEvidence operates correctly.
-# ------------------------------------------------------------------------------
+
+# -------------------------------------------------------------------------- }}}
+# {{{ These Rspecs demonstrate TestEvidence operates correctly.
+
 describe 'Test Evidence' do
   describe 'String Functions' do
     it 'does assemble a test output root without browser and language.' do
@@ -34,3 +38,5 @@ describe 'Test Evidence' do
     end
   end
 end
+
+# ------------------------------------------------------------------------------

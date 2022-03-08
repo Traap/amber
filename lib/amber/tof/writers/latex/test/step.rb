@@ -1,18 +1,28 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber/tof/writers/latex/test'
 require 'amber/tof/writers/latex/string_to_latex'
 
+# -------------------------------------------------------------------------- }}}
 module Amber
-  # Shell
+  # {{{ Class ShellError
+
   class ShellError < StandardError; end
 
+  # ------------------------------------------------------------------------ }}}
   # Decorate test step output with LaTeX text.
   class LaTeXTestStep < Amber::LaTeXTest
+    # {{{ initilize
+
     def initialize(decoratee)
       super(decoratee, nil)
       @test_result = 'FAIL'
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ setup
 
     def setup
       @handle = TestEvidence.open_file(
@@ -24,6 +34,9 @@ module Amber
       )
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_to_sysout
+
     def echo_to_sysout
       @handle.write "\\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]\n"
       @handle.write "\\item[Step:] #{@decoratee.number}\n"
@@ -32,6 +45,9 @@ module Amber
       @handle.write "\\item[Command:] #{toLaTeX(@decoratee.command)}\n"
       @decoratee.echo_to_sysout
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ run_command
 
     def run_command
       stdout, stderr, status = @decoratee.run_command
@@ -52,6 +68,9 @@ module Amber
       abort msg
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ check_status
+
     def check_status(stdout, stderr, status)
       if status.success?
         @test_result = 'PASS'
@@ -64,11 +83,16 @@ module Amber
       [@test_result, output]
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ teardown
+
     def teardown
       Amber::TestEvidence.record_test_case_status(
         @decoratee.filename, @decoratee.number, @test_result, @decoratee.options
       )
       method(:teardown).super_method.call
     end
+
+    # ---------------------------------------------------------------------- }}}
   end
 end

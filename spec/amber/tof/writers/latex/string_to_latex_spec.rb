@@ -1,13 +1,19 @@
 # frozen_string_literal:true
 
+# {{{ Required files.
+
 require 'amber'
 
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
+# {{{ check_conversion.
 
 def check_conversion(input_string, output_string)
   out = Amber::StringToLaTeX.convert(input_string)
   expect(out).to eq(output_string)
 end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert Shared examples
 
 shared_examples 'convert' do |description, input, output|
   context "#{description}: from #{input} to #{output}" do
@@ -15,6 +21,9 @@ shared_examples 'convert' do |description, input, output|
     it { should eq(output) }
   end
 end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: escapable characters.
 
 describe 'String to LaTeX' do
   describe 'converts escapable characters' do
@@ -29,18 +38,37 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'underscore', '_', '\\_'
     it_should_behave_like 'convert', 'backslash', '\\', '\\textbackslash'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Copyright.
+
+
+describe 'String to LaTeX' do
   describe 'converts copyright characters' do
     it_should_behave_like 'convert', 'textbar', '|', '\\textbar'
     it_should_behave_like 'convert', 'copyright', '©', '\\textcopyright'
     it_should_behave_like 'convert', 'euro', '€', '\\texteuro'
     it_should_behave_like 'convert', 'texttrademark', '™', '\\texttrademark'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Guillemot.
+
+describe 'String to LaTeX' do
   describe 'converts guillemot characters' do
     it_should_behave_like 'convert', 'left guillemot', '«', '\\guillemotleft'
     it_should_behave_like 'convert', 'right guillemot', '»', '\\guillemotright'
     it_should_behave_like 'convert', 'left guillsing', '‹', '\\guilsingleft'
     it_should_behave_like 'convert', 'right guillsing', '›', '\\guilsinglright'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented A.
+
+describe 'String to LaTeX' do
   describe 'converts accented A letters' do
     it_should_behave_like 'convert', 'hat A', 'Â', '\\^{A}'
     it_should_behave_like 'convert', 'check A', 'Ǎ', '\\v{A}'
@@ -64,6 +92,12 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'dot A', 'ȧ', '\\.{a}'
     it_should_behave_like 'convert', 'cedilla c', 'ç', '\\c{c}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented C.
+
+describe 'String to LaTeX' do
   describe 'converts accented C letters' do
     it_should_behave_like 'convert', 'acute c', 'ć', "\\'{c}"
     it_should_behave_like 'convert', 'check c', 'č', '\\v{c}'
@@ -71,9 +105,21 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'acute C', 'Ć', "\\'{C}"
     it_should_behave_like 'convert', 'check C', 'Č', '\\v{C}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented D.
+
+describe 'String to LaTeX' do
   describe 'converts accented D letters' do
     it_should_behave_like 'convert', 'check D', 'ď', '\\v{d}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented E.
+
+describe 'String to LaTeX' do
   describe 'converts accented E letters' do
     it_should_behave_like 'convert', 'hat e', 'ê', '\\^{e}'
     it_should_behave_like 'convert', 'acute e', 'é', "\\'{e}"
@@ -88,16 +134,34 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'umlaut E', 'Ë', '\\"{E}'
     it_should_behave_like 'convert', 'grave E', 'È', '\\`{E}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented I.
+
+describe 'String to LaTeX' do
   describe 'converts accented I letters' do
     it_should_behave_like 'convert', 'acute i', 'í', "\\'{i}"
     it_should_behave_like 'convert', 'acute I', 'Í', "\\'{I}"
     it_should_behave_like 'convert', 'hat i', 'î', '\\^{i}'
     it_should_behave_like 'convert', 'hat I', 'Î', '\\^{I}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented L.
+
+describe 'String to LaTeX' do
   describe 'converts accented L letters' do
     it_should_behave_like 'convert', 'struck l', 'ł', '\\l'
     it_should_behave_like 'convert', 'struck L', 'Ł', '\\L'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented N.
+
+describe 'String to LaTeX' do
   describe 'converts accented N letters' do
     it_should_behave_like 'convert', 'tilde n', 'ñ', '\\~{n}'
     it_should_behave_like 'convert', 'acute n', 'ń', "\\'{n}"
@@ -106,15 +170,33 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'acute N', 'Ń', "\\'{N}"
     it_should_behave_like 'convert', 'check N', 'Ň', '\\v{N}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented O.
+
+describe 'String to LaTeX' do
   describe 'converts accented O letters' do
     it_should_behave_like 'convert', 'hat o', 'ô', '\\^{o}'
     it_should_behave_like 'convert', 'umlaut o', 'ö', '\\"{o}'
     it_should_behave_like 'convert', 'acute o', 'ó', "\\'{o}"
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented R.
+
+describe 'String to LaTeX' do
   describe 'converts accented R letters' do
     it_should_behave_like 'convert', 'check r', 'ř', '\\v{r}'
     it_should_behave_like 'convert', 'check R', 'Ř', '\\v{R}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented S.
+
+describe 'String to LaTeX' do
   describe 'converts accented S letters' do
     it_should_behave_like 'convert', 'cedilla s', 'ş', '\\c{s}'
     it_should_behave_like 'convert', 'check s', 'š', '\\v{s}'
@@ -123,6 +205,12 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'check S', 'Š', '\\v{S}'
     it_should_behave_like 'convert', 'comma S', 'Ș', '\\,{S}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented T.
+
+describe 'String to LaTeX' do
   describe 'converts accented T letters' do
     it_should_behave_like 'convert', 'comma t', 'ț', '\\,{t}'
     it_should_behave_like 'convert', 'check t', 'ť', '\\v{t}'
@@ -131,6 +219,12 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'comma T', 'Ț', '\\,{T}'
     it_should_behave_like 'convert', 'cedilla T', 'Ţ', '\\c{T}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented U.
+
+describe 'String to LaTeX' do
   describe 'converts accented U letters' do
     it_should_behave_like 'convert', 'acute u', 'ú', "\\'{u}"
     it_should_behave_like 'convert', 'umlaut u', 'ü', '\\"{u}'
@@ -139,10 +233,22 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'umlaut U', 'Ü', '\\"{U}'
     it_should_behave_like 'convert', 'ring U', 'Ů', '\\r{U}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented Y.
+
+describe 'String to LaTeX' do
   describe 'converts accented Y letters' do
     it_should_behave_like 'convert', 'acute y', 'ý', "\\'{y}"
     it_should_behave_like 'convert', 'acute Y', 'Ý', "\\'{Y}"
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented Z.
+
+describe 'String to LaTeX' do
   describe 'converts accented Z letters' do
     it_should_behave_like 'convert', 'check z', 'ž', '\\v{z}'
     it_should_behave_like 'convert', 'acute z', 'ź', "\\'{z}"
@@ -151,6 +257,12 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'dot Z', 'Ż', '\\.{Z}'
     it_should_behave_like 'convert', 'check Z', 'Ž', '\\v{Z}'
   end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Accented doubles.
+
+describe 'String to LaTeX' do
   describe 'converts accented chars' do
     it_should_behave_like 'convert', 'accent chars AE', 'Æ', '\\AE'
     it_should_behave_like 'convert', 'accent chars ae', 'æ', '\\ae'
@@ -167,19 +279,26 @@ describe 'String to LaTeX' do
     it_should_behave_like 'convert', 'accent chars ss', 'ß', '\\ss'
     it_should_behave_like 'convert', 'accent chars ss', 'ẞ', '\\SS'
   end
+end
 
+# -------------------------------------------------------------------------- }}}
+# {{{ Convert tests: Normal and punctuation.
+
+describe 'String to LaTeX' do
   # normal characters
-  it 'does not convert the normal chars to latex syntax' do
+  it 'does not convert the normal chars to LaTeX syntax' do
     check_conversion(
       'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
       'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     )
   end
   # punctuation marks not previously covered.
-  it 'does not convert the normal punctuation to latex symbols' do
+  it 'does not convert the normal punctuation to LaTeX symbols' do
     check_conversion(
       ',.?!@*()-+=""/',
       ',.?!@*()-+=""/'
     )
   end
 end
+
+# -------------------------------------------------------------------------- }}}

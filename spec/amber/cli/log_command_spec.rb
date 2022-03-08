@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# Log Command options
+
+# -------------------------------------------------------------------------- }}}
+# {{{ Log Command options.
+#
 # [--log-command | -L]
+#
 # ------------------------------------------------------------------------------
+# {{{ Log Command tests.
+
 describe 'Amber CLO Logging' do
   describe '--log-command' do
     it 'was not used.' do
@@ -29,3 +36,5 @@ describe 'Amber CLO Logging' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}

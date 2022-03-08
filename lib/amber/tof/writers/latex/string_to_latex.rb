@@ -1,11 +1,20 @@
+# rubocop:disable Metrics.ModuleLength
 module Amber
+  # {{{ Module documentation
+  #
   # This module adds a function that can be used to convert any special
   # characters in a given string to the LaTeX friendly forms.  A new string
   # containing the LaTeX form is returned.
+  #
+  # ------------------------------------------------------------------------ }}}
   module StringToLaTeX
+    # rubocop:enable Metrics.ModuleLength
+    # {{{ Convert
+    #
     # Convert input to a string array to find whitlisted phrases that cannot be
     # converted. Then iterate over each array item replacing any special
     # character with a LaTeX friendly form.
+
     def self.convert(input)
       output = ''
       array = input.split(/\s/)
@@ -23,30 +32,45 @@ module Amber
       output.to_s
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ lookup
+    #     template:  when 'a' then '\\a'
+    #                when 'Ě' then '\\v{E}'
+    # rubocop:disable Metrics.AbcLength
     def self.lookup(char)
-      # template:  when 'a' then '\\a'
-      #            when 'Ě' then '\\v{E}'
+      # rubocop:enable Metrics.AbcLength
       case char
-      when '#' then '\\#'
-      when '$' then '\\$'
-      when '%' then '\\%'
-      when '&' then '\\&'
-      when '^' then "\\^\ "
-      when '_' then '\\_'
-      when '{' then '\\{'
-      when '}' then '\\}'
-      when '~' then '\\~\\'
+      # {{{ Special characters
+
+      when '#'  then '\\#'
+      when '$'  then '\\$'
+      when '%'  then '\\%'
+      when '&'  then '\\&'
+      when '^'  then "\\^\ "
+      when '_'  then '\\_'
+      when '{'  then '\\{'
+      when '}'  then '\\}'
+      when '~'  then '\\~\\'
+      when '|'  then '\\textbar'
       when '\\' then '\\textbackslash'
+
+      # -------------------------------------------------------------------- }}}
+      # {{{ Punctuation
 
       when '«' then '\\guillemotleft'
       when '»' then '\\guillemotright'
       when '‹' then '\\guilsingleft'
       when '›' then '\\guilsinglright'
 
-      when '|' then '\\textbar'
+      # -------------------------------------------------------------------- }}}
+      # {{{ Publication marks
+
       when '©' then '\\textcopyright'
       when '€' then '\\texteuro'
       when '™' then '\\texttrademark'
+
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented A
 
       when 'á' then "\\'{a}"
       when 'Á' then "\\'{A}"
@@ -69,6 +93,9 @@ module Amber
       when 'ǎ' then '\\v{a}'
       when 'Ǎ' then '\\v{A}'
 
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented C
+
       when 'ć' then "\\'{c}"
       when 'Ć' then "\\'{C}"
       when 'ç' then '\\c{c}'
@@ -76,8 +103,14 @@ module Amber
       when 'č' then '\\v{c}'
       when 'Č' then '\\v{C}'
 
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented D
+
       when 'ď' then '\\v{d}'
       when 'Ď' then '\\v{D}'
+
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented E
 
       when 'é' then "\\'{e}"
       when 'É' then "\\'{E}"
@@ -93,13 +126,22 @@ module Amber
       when 'ě' then '\\v{e}'
       when 'Ě' then '\\v{E}'
 
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented I
+
       when 'í' then "\\'{i}"
       when 'Í' then "\\'{I}"
       when 'î' then '\\^{i}'
       when 'Î' then '\\^{I}'
 
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented L
+
       when 'ł' then '\\l'
       when 'Ł' then '\\L'
+
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented n
 
       when 'ń' then "\\'{n}"
       when 'Ń' then "\\'{N}"
@@ -108,13 +150,22 @@ module Amber
       when 'ň' then '\\v{n}'
       when 'Ň' then '\\v{N}'
 
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented O
+
       when 'ó' then "\\'{o}"
       when 'Ó' then "\\'{O}"
       when 'ô' then '\\^{o}'
       when 'ö' then '\\"{o}'
 
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented R
+
       when 'ř' then '\\v{r}'
       when 'Ř' then '\\v{R}'
+
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented S
 
       when 'ş' then '\\c{s}'
       when 'Ş' then '\\c{S}'
@@ -125,12 +176,18 @@ module Amber
       when 'š' then '\\v{s}'
       when 'Š' then '\\v{S}'
 
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented T
+
       when 'ţ' then '\\c{t}'
       when 'Ţ' then '\\c{T}'
       when 'ț' then '\\,{t}'
       when 'Ț' then '\\,{T}'
       when 'ť' then '\\v{t}'
       when 'Ť' then '\\v{T}'
+
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented U
 
       when 'ů' then '\\r{u}'
       when 'Ů' then '\\r{U}'
@@ -139,8 +196,14 @@ module Amber
       when 'ü' then '\\"{u}'
       when 'Ü' then '\\"{U}'
 
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented Y
+
       when 'ý' then "\\'{y}"
       when 'Ý' then "\\'{Y}"
+
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented Z
 
       when 'ž' then '\\v{z}'
       when 'Ž' then '\\v{Z}'
@@ -148,6 +211,9 @@ module Amber
       when 'Ź' then "\\'{Z}"
       when 'ż' then '\\.{z}'
       when 'Ż' then '\\.{Z}'
+
+      # -------------------------------------------------------------------- }}}
+      # {{{ Accented double char.
 
       when 'æ' then '\\ae'
       when 'Æ' then '\\AE'
@@ -162,8 +228,15 @@ module Amber
       when 'Ø' then '\\O'
       when 'ß' then '\\ss'
       when 'ẞ' then '\\SS'
+
+      # -------------------------------------------------------------------- }}}
+      # {{{ Do nothing
+
       else char
+
+        # ------------------------------------------------------------------ }}}
       end
     end
+    # ---------------------------------------------------------------------- }}}
   end
 end

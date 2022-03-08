@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# Copyright (c) Gary Allan Howard aka Traap.
+# {{{ Copyright (c) Gary Allan Howard aka Traap.
+#
 # License BSD-3-Clause
 #
 # This program is used to automate testing of command line programs.  Amber uses
@@ -11,17 +12,25 @@
 # Amber processes YAML files to run test plans, test suites, and test cases in
 # order to assemble records that meet Quality Systems Regulations requirements
 # for documented evidence.
-# ------------------------------------------------------------------------------
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Required files.
 
 require 'amber/initialize'
 
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
 module Amber
+  # {{{ CLI overview
+  #
   # Command Line Interface is used to parse command line options, run the Amber
   # workflow, and record the environment Amber was run with.
+  # ------------------------------------------------------------------------ }}}
   class CLI
+    # {{{ Attributes
+
     attr_reader :opts
 
+    # ---------------------------------------------------------------------- }}}
     # {{{ Execute the command ling with ARGV and options.
 
     def execute(argv)

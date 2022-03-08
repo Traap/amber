@@ -1,12 +1,19 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber/cli/options'
 require 'amber/utility/substitute'
 
+# -------------------------------------------------------------------------- }}}
 module Amber
-  # Shell Error
+  # {{{ Class ShellError
+
   class ShellError < StandardError; end
 
+  # ------------------------------------------------------------------------ }}}
+  # {{{ Class Test documentation.
+  #
   # The base class for all Test.  Amber process YAML files such as:
   #   Test Plan
   #     A plan typically references one or more Test Suites.
@@ -21,9 +28,15 @@ module Amber
   #   Include
   #     A reference to a YAML file somewhere in your path.
   #
+  #------------------------------------------------------------------------- }}}
   class Test
+    # {{{ Attributes
+
     attr_reader :command, :data, :filename, :name, :options, :purpose,
                 :requirement, :type
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ initialize
 
     def initialize(type, filename, data, options)
       @command = nil
@@ -36,6 +49,9 @@ module Amber
       @type = type
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ process
+
     def process
       setup
       echo_to_sysout
@@ -44,16 +60,31 @@ module Amber
       teardown
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ protected section
+
     protected
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ setup
 
     def setup; end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ teardown
+
     def teardown; end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_to_sysout
 
     def echo_to_sysout
       name = "#{@type}: ".rjust(15) << @name.to_s
       puts name.to_s if @options.verbose?
     end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ run_command
 
     def run_command
       puts @command.to_s if @options.verbose?
@@ -64,8 +95,13 @@ module Amber
       abort msg
     end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ record_requirements
+
     def record_requirements
       Amber::TestEvidence.record_requirement_tested(filename, requirement) unless requirement.nil?
     end
+
+    # ---------------------------------------------------------------------- }}}
   end
 end

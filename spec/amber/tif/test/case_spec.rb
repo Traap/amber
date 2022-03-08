@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
 
-# ------------------------------------------------------------------------------
-# These Rspecs demonstrate Amber ...
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
+# {{{ These Rspecs demonstrate Amber ...
+
 describe 'Test Input Factory Test Case' do
   before(:all) do
     @test = true
@@ -16,3 +18,5 @@ describe 'Test Input Factory Test Case' do
     end
   end
 end
+
+# -------------------------------------------------------------------------- }}}
