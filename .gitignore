@@ -1,6 +1,7 @@
 *.acn
 *.glo
 *.ist
+*.zip
 .bundle/
 Gemfile.lock
 _build/

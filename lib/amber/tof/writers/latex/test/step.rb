@@ -4,6 +4,7 @@
 
 require 'amber/tof/writers/latex/test'
 require 'amber/tof/writers/latex/string_to_latex'
+require 'time'
 
 # -------------------------------------------------------------------------- }}}
 module Amber
@@ -19,6 +20,7 @@ module Amber
     def initialize(decoratee)
       super(decoratee, nil)
       @test_result = 'FAIL'
+      @time_stamp = Time.new
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -48,11 +50,14 @@ module Amber
 
     # ---------------------------------------------------------------------- }}}
     # {{{ run_command
-
     def run_command
+      time_start = Time.new
       stdout, stderr, status = @decoratee.run_command
       @test_result, output = check_status(stdout, stderr, status)
+      time_end = Time.new
 
+      @handle.write "\\item[Execution start:] #{toLaTeX(time_start.strftime('%b %d, %Y %T.%6N'))}\n"
+      @handle.write "\\item[Execution end:] #{toLaTeX(time_end.strftime('%b %d, %Y %T.%6N'))}\n"
       @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
       @handle.write "\\item[Evidence:] #{toLaTeX(@decoratee.evidence)}\n"
       @handle.write "\\end{description}\n"
@@ -78,7 +83,6 @@ module Amber
       else
         @test_result = 'FAIL'
         output = "#{stderr}\n#{stdout}\n"
-        output = stderr
       end
       [@test_result, output]
     end

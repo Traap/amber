@@ -22,7 +22,7 @@ been provided to demonstrate the automation framework components amber,
 3. [Rake](https://github.com/ruby/rake)
 
 ### Optional components  are **only** needed if you want to rebuild
-[example.pdf](https://github.com/Traap/amber/blob/ReqList/doc/example.pdf)
+[amber.pdf](https://github.com/Traap/amber/blob/ReqList/doc/amber.pdf)
 1. [MiKTeX](https://miktex.org/download)
 2. [autodoc](https://github.com/Traap/autodoc)
 3. [docbld](https://github.com/Traap/docbld)
@@ -257,7 +257,7 @@ Specific options:
 ##### --help
 Show this message.
 
-1.5.1.305 is the current version.
+1.6.0.367 is the current version.
 
 #### --verbose
 Log the commands what will be run when --nodryrun is used.  **NOTE:** This

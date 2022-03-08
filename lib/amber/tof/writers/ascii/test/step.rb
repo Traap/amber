@@ -35,9 +35,12 @@ module Amber
     # {{{ run_command
 
     def run_command
+      time_start = Time.new
       stdout, stderr, status = @decoratee.run_command
+      time_end = Time.new
       @test_result, output = check_status(stdout, stderr, status)
-
+      @handle.write  "  Execution start: #{time_start.strftime('%b %d, %Y %T.%6N')}\n"
+      @handle.write  "  Execution end: #{time_end.strftime('%b %d, %Y %T.%6N')}\n"
       @handle.write  "  Test Result: #{@test_result}\n"
       @handle.write  "     Evidence: #{@decoratee.evidence}\n"
       @handle.write  "#{output}\n"

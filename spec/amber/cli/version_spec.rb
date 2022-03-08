@@ -7,17 +7,7 @@ require 'amber'
 # ------------------------------------------------------------------------------
 describe 'Amber CLO Version' do
   before(:all) do
-    @version = '1.6.0.368'
-  end
-
-  describe 'Version' do
-    it 'has a version number' do
-      expect(Amber::VERSION).not_to be nil
-    end
-
-    it "version number must match #{Amber::VERSION}" do
-      expect(Amber::VERSION).to eql(@version)
-    end
+    @version = '1.6.0.367'
   end
 
   describe 'no --version' do
@@ -30,7 +20,17 @@ describe 'Amber CLO Version' do
     it 'has been used from the command line.' do
       ARGV.replace ['--version']
       options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.version).to be(@version)
+      expect(options.verbose).to be(false)
     end
   end
-end
+
+  describe 'Version' do
+    it 'has a version number' do
+      expect(Amber::VERSION).not_to be nil
+    end
+
+    it "version number must match #{Amber::VERSION}" do
+      expect(Amber::VERSION).to eql(@version)
+    end
+  end
+e

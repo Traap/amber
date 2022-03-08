@@ -4,18 +4,18 @@ case:
     This Test Case demonstrates embedded \LaTeX\ enumerate command.
   
     \begin{enumerate}
-    \item Step #1 yacc check 
+    \item Step #1 curl check 
     \item Step #2 xxd check 
     \end{enumerate}
   
   requirement: AMBER-IUR-006 
 
   steps:
-    - confirm: Program yacc has been installed.
-      expectation: yacc installation location is displayed.
+    - confirm: Program curl has been installed.
+      expectation: curl installation location is displayed.
       sudo: false 
       command: which
-      argument: yacc 
+      argument: curl 
       evidence: Starts on next line.
 
     - confirm: Program xxd has been installed.

@@ -6,7 +6,7 @@ case:
     \begin{enumerate}
     \item Step #1 nice check 
     \item Step #2 nl check 
-    \item Step #3 man check
+    \item Step #3 bzmore check
     \item Step #4 latexmk check
     \item Step #5 git check
     \end{enumerate}
@@ -28,11 +28,11 @@ case:
       argument: nl
       evidence: Starts on next line. 
 
-    - confirm: Program man has been installed.
-      expectation: man installation location is displayed.  
+    - confirm: Program which bzmore has been installed.
+      expectation: bzmore installation location is displayed.  
       sudo: false
       command: which
-      argument: man
+      argument: bzmore
       evidence: Starts on next line. 
 
     - confirm: Program latexmk has been installed.
