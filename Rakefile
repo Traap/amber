@@ -48,9 +48,9 @@ end
 # ------------------------------------------------------------------------------
 
 namespace :validate do
-  reportDir = "#{ENV['AMBERPATH']}/report"
-  validateCmd = 'amber --nodryrun --environment --obliterate --plan=master'
-  pdfCmd = "rake --rakefile #{ENV['DOCBLDPATH']}/Rakefile"
+  report_dir = "#{ENV['AMBERPATH']}/report"
+  validate_cmd = 'amber --nodryrun --log-environment --obliterate --plan=master'
+  pdf_cmd = "rake --rakefile #{ENV['DOCBLDPATH']}/Rakefile"
   pwd = ''
 
   task amber: %i[save_wd report_dir do_validation restore_wd docbld]
@@ -62,7 +62,7 @@ namespace :validate do
   end
 
   task :report_dir do
-    Dir.chdir reportDir
+    Dir.chdir report_dir
   end
 
   task :restore_wd do
@@ -70,23 +70,23 @@ namespace :validate do
   end
 
   task :do_validation do
-    puts validateCmd.to_s
-    _stdout, stderr, _status = Open3.capture3 validateCmd
+    puts validate_cmd.to_s
+    _stdout, stderr, _status = Open3.capture3 validate_cmd
   rescue StandardError => e
     echo_exception(stderr, e)
   end
 
   task :docbld do
     puts 'docbld'
-    _stdout, stderr, _status = Open3.capture3 pdfCmd
+    _stdout, stderr, _status = Open3.capture3 pdf_cmd
   rescue StandardError => e
     echo_exception(stderr, e)
   end
 
-  def echo_exception(_s, e)
-    puts "Exception Class: #{e.class.name}"
-    puts "Exception Message: #{e.class.message}"
-    puts "Exception Backtrace: #{e.class.backtrace}"
+  def echo_exception(_, exception)
+    puts "Exception Class: #{exception.class.name}"
+    puts "Exception Message: #{exception.class.message}"
+    puts "Exception Backtrace: #{exception.class.backtrace}"
   end
 end
 

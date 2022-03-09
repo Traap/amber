@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
+# {{{ Required files.
+
 require 'amber'
-# ------------------------------------------------------------------------------
-# version options
+
+# -------------------------------------------------------------------------- }}}
+# {{{ version options.
+#
 # [--version]
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
+# {{{ version test.
 describe 'Amber CLO Version' do
   before(:all) do
-    @version = '1.6.0.367'
+    @version = '1.6.1.371'
   end
 
   describe 'no --version' do
@@ -19,8 +24,8 @@ describe 'Amber CLO Version' do
   describe '--version' do
     it 'has been used from the command line.' do
       ARGV.replace ['--version']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.verbose).to be(false)
+      Amber::CommandLineOptions.parse(ARGV)
+      expect(Amber::VERSION).to eql(@version)
     end
   end
 
@@ -33,4 +38,6 @@ describe 'Amber CLO Version' do
       expect(Amber::VERSION).to eql(@version)
     end
   end
-e
+end
+
+# -------------------------------------------------------------------------- }}}
