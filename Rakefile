@@ -1,39 +1,49 @@
 # frozen_string_literal: true
 
+# {{{ Intended Use
+#
+# You have three basic options as follows:
+#   1) rake
+#      without options will run rspec.
+#
+#   2) rake build:amber
+#      builds, rspecs, and installs Amber.
+#
+#   3) rake validate:amber
+#      runs Amber's validtion plan and assembles a report using docbld.
+#
+# -------------------------------------------------------------------------- }}}
+# {{{ Required files.
+
 require 'open3'
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 
-# ------------------------------------------------------------------------------
-# Prerequisite checks.
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
+# {{{ Prerequisite checks.
 
-if ENV['AMBERPATH'].nil?
+if ENV['AMBERPATH'].empty?
   puts 'WARNING: Amber is not installed.'
   abort = true
 end
 
-if ENV['DOCBLDPATH'].nil?
+if ENV['DOCBLDPATH'].empty?
   puts 'WARNING: docbld is not installed.'
   abort = true
 end
 
 exit if abort
 
-# ------------------------------------------------------------------------------
-# Run rspecs.
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
+# {{{ Customize Amber build and validate variables.
 
-begin
-  RSpec::Core::RakeTask.new(:spec)
-  task default: :spec
-rescue StandardError
-  puts 'RSpec is not supported on this system.'
-end
+report_dir = "#{ENV['AMBERPATH']}/report"
+validate_cmd = 'amber --nodryrun --log-environment --obliterate --plan=master'
+pdf_cmd = "rake --rakefile #{ENV['DOCBLDPATH']}/Rakefile"
+pwd = ''
 
-# ------------------------------------------------------------------------------
-# Build Amber.
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
+# {{{ Build Amber.
 
 namespace :build do
   task :amber do
@@ -43,15 +53,12 @@ namespace :build do
   end
 end
 
-# ------------------------------------------------------------------------------
-# Validate Amber.
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
+# {{{ Validate Amber.
 
+# rubocop:disable Metrics.BlockLength
 namespace :validate do
-  report_dir = "#{ENV['AMBERPATH']}/report"
-  validate_cmd = 'amber --nodryrun --log-environment --obliterate --plan=master'
-  pdf_cmd = "rake --rakefile #{ENV['DOCBLDPATH']}/Rakefile"
-  pwd = ''
+  # rubocop:enable Metrics.BlockLength
 
   task amber: %i[save_wd report_dir do_validation restore_wd docbld]
 
@@ -90,4 +97,15 @@ namespace :validate do
   end
 end
 
-# ------------------------------------------------------------------------------
+# -------------------------------------------------------------------------- }}}
+# {{{ Run rspecs.
+
+begin
+  RSpec::Core::RakeTask.new(:spec)
+  task default: :spec
+rescue StandardError
+  puts 'RSpec is not supported on this system.'
+  exit
+end
+
+# -------------------------------------------------------------------------- }}}

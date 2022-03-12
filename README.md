@@ -13,17 +13,20 @@ been provided to demonstrate the automation framework components amber,
 [docbld](https://github.com/Traap/docbld), and
 [tlc-article](https://github.com/Traap/tlc-article).
 
+### Released version
+1.6.2.372
+
 ### Supported Systems
-**amber** has been tested with cygwin, linux (mint), mingw32/64, Windows 10 and
+**amber** is tarted to work seamlessly with Linux distributions.
 
 ### Prerequisites
 1. [Ruby](https://www.ruby-lang.org/en)
 2. [Bundler](https://bundler.io)
 3. [Rake](https://github.com/ruby/rake)
 
-### Optional components  are **only** needed if you want to rebuild
-[amber.pdf](https://github.com/Traap/amber/blob/ReqList/doc/amber.pdf)
-1. [MiKTeX](https://miktex.org/download)
+### Optional components  are **only** needed if you want to validate Amber and
+build Ambers [documention](https://github.com/Traap/amber/blob/ReqList/doc/amber.pdf)
+1. [TexLive](https://tug.org/texlive)
 2. [autodoc](https://github.com/Traap/autodoc)
 3. [docbld](https://github.com/Traap/docbld)
 4. [tlc-article](https://github.com/Traap/tlc-article.git)
@@ -194,14 +197,12 @@ files to have them automatically consumed.
 
 ##### LaTeX macros
 test plan output (tpoC), test suite output (tsoC), and test case output (tcoC)
-are LaTeX macros
-[autodoc](https://github.com/traap/autodoc) uses to assemble output from amber
-into a report.
+are LaTeX macros [autodoc](https://github.com/traap/autodoc) uses to assemble
+output from amber into a report.
 
-Refer to
-[autodoc](https://github.com/traap/autodoc) to learn how an external program
-interacts with amber. amber **must** create an output factory containing files
-to have them automatically consumed.
+Refer to [autodoc](https://github.com/traap/autodoc) to learn how an external
+program interacts with amber. Amber **must** create an output factory containing
+files to have them automatically consumed.
 
 ##### Console output
 amber captures status, system out, and system error and records the results
@@ -292,7 +293,7 @@ amber uses Chrome by default.  Your Test Plan, Test Suite, and Test Case
 must be written to reference a program that uses Web test driver.
 
 ##### --language
-amber uses english(en) by default.  Your Test Plan, Test Suite, and Test Case
+amber uses English(en) by default.  Your Test Plan, Test Suite, and Test Case
 must be written to reference a program the requires internationalization and
 localization.
 
@@ -306,10 +307,9 @@ test-output/requirements.log is used to record each requirement and YAML
 file that references a requirement.
 
 ##### --nodryrun
-By default, amber does not have side effects when run.  You must explicitlyjkk
+By default, amber does not have side effects when run.  You must explicitly
 use the **--nodryrun** options to cause side effects.  The commands that would
 have been executed are echoed to system out.
-simulate
 
 ##### --simulate
 The Simulate option is used to create a Test Output directory so that you can
@@ -355,7 +355,7 @@ function requirements() {
 
 ### Amber demonstration
 Amber has a Test Input Factory that is used to validate Amber.  The following
-commands will demonstrate producing example.pdf.
+commands will demonstrate producing amber.pdf.
 
 1. -n, --nodryrun
 2. -e, --environment
@@ -374,5 +374,5 @@ rake validate:amber
 1. git/amber/report/test-output/environment.tex
 1. git/amber/report/test-output/requirements.csv
 1. git/amber/report/test-output/test-results.tex
-1. git/amber/report/_build/exmple.pdf
+1. git/amber/report/_build/amber.pdf
 
