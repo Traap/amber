@@ -14,7 +14,7 @@ been provided to demonstrate the automation framework components amber,
 [tlc-article](https://github.com/Traap/tlc-article).
 
 ### Released version
-1.6.2.372
+1.6.2.373
 
 ### Supported Systems
 **amber** is tarted to work seamlessly with Linux distributions.
