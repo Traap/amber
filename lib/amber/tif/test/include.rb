@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
+# {{{ Required files.
+
 require 'amber/cli/language'
 require 'amber/tif/test'
 
+# -------------------------------------------------------------------------- }}}
 module Amber
   # A YAML directive to include another file.
   class Include < Amber::Test
@@ -17,18 +22,11 @@ module Amber
     # {{{{ run a command
 
     def run_command
-      @data.each do |k, v|
-        case k
-        when 'plan'
-          include_this_file v, '--plan'
-        when 'suite'
-          include_this_file v, '--suite'
-        when 'case'
-          include_this_file v, '--case'
-        when 'file'
-          include_this_file v, '--file'
-        when 'folder'
-          @folder = v
+      @data.each do |key, value|
+        if key.included_in?(%w[plan suite case file])
+          include_this_file value, "--#{key}"
+        else
+          @folder = value
         end
       end
     end
@@ -37,7 +35,7 @@ module Amber
 
     private
 
-    # {{{ A Test Input Factory file need including.
+    # {{{ A Test Input Factory file is being included.
 
     def include_this_file(name, opt)
       run_amber_command(
@@ -70,10 +68,14 @@ module Amber
 
     def map_to_nested_files(name, opt)
       opt_and_files = "#{opt}="
-      name.each do |k, v|
-        opt_and_files << "#{@folder}/"
-        opt_and_files << k['name']
-        opt_and_files << ',' unless name.last.eql?(k)
+      name.each do |key, value|
+        # opt_and_files << "#{@folder}/"
+        # opt_and_files << key['name']
+        # opt_and_files << ',' unless name.last.eql?(key)
+
+        opt_and_files.concat "#{@folder}/"
+        opt_and_files.concat key['name']
+        opt_and_files.concat ',' unless name.last.eql?(key)
       end
       opt_and_files
     end

@@ -22,7 +22,15 @@ module Amber
       @handle = TestEvidence.open_environment_log_file(@options)
       write_subsection
       @handle.write "\\begin{description}[align=right,leftmargin=*,labelindent=5cm]\n"
+      echo_to_sysout_items
+      @handle.write "\\end{description}\n"
+      TestEvidence.close_file @handle
+    end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_to_sysout_items
+
+    def echo_to_sysout_items
       @decoratee.environment.each do |e|
         if e.downcase.include?('path')
           echo_e_to_sysout(e)
@@ -32,9 +40,6 @@ module Amber
           @handle.write "\\item[#{i}:] #{v}\n"
         end
       end
-
-      @handle.write "\\end{description}\n"
-      TestEvidence.close_file @handle
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -44,6 +49,14 @@ module Amber
       i = replace_characters(env)
       @handle.write "\\item[#{i}:] See below.\n"
       @handle.write "\\begin{enumerate}\n"
+      echo_e_to_sysout_items(env)
+      @handle.write "\\end{enumerate}\n"
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ echo_e_to_sysout_items
+
+    def echo_e_to_sysout_items(env)
       if ENV[env].nil?
         @handle.write "\\item nil\n"
       else
@@ -53,7 +66,6 @@ module Amber
           @handle.write "\\item #{v}\n"
         end
       end
-      @handle.write "\\end{enumerate}\n"
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -62,7 +74,7 @@ module Amber
     private
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ wrtie_subsection
+    # {{{ write_subsection
 
     def write_subsection
       @handle.write "\\subsection{System Environment}\n"

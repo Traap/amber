@@ -11,7 +11,7 @@ ClassLength:
   Enabled: false
 
 CyclomaticComplexity:
-  Enabled: false
+  Enabled: true
 
 Documentation:
   Enabled: false
@@ -26,10 +26,10 @@ LineLength:
   Enabled: false
 
 MethodLength:
-  Enabled: false
+  Enabled: true
 
 NumericLiterals:
-  Enabled: true 
+  Enabled: true
 
 ParameterLists:
   Enabled: false

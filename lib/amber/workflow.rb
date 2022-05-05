@@ -26,6 +26,7 @@ module Amber
       @options = options
       @yaml_file = nil
       @test = []
+      @filename = nil
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -43,24 +44,75 @@ module Amber
 
     def parse_yaml_file(filename)
       @test = []
+      @filename = filename
+      @yaml_file = YAML.safe_load(File.open(@filename))
+      process_yaml_file
+    end
 
-      @yaml_file = YAML.safe_load(File.open(filename))
+    # ---------------------------------------------------------------------- }}}
+    # {{{ process_yaml_file
 
-      @yaml_file.each do |k, v|
-        case k
-        when 'plan'
-          @test << Amber::WriterFactory.get_test_plan(filename, v, @options)
-        when 'suite'
-          @test << Amber::WriterFactory.get_test_suite(filename, v, @options)
-        when 'case'
-          @test << Amber::WriterFactory.get_test_case(filename, v, @options)
-        when 'includes'
-          v.each do |n|
-            @test << Include.new(n, @options)
-          end
-        else
-          puts "#{k} is not supported." if @options.verbose
-        end
+    def process_yaml_file
+      @yaml_file.each do |key, value|
+        validate_key(key, value)
+      end
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ validate_key
+
+    def validate_key(key, value)
+      if key.included_in?(%w[plan suite test includes])
+        process_command(key, value)
+      else
+        # puts "#{key} is not supported." if @options.verbose
+        puts "#{key} is not supported."
+      end
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ process_command
+
+    def process_command(key, value)
+      @test << case key
+               when 'plan'
+                 get_test_plan(value)
+               when 'suite'
+                 get_test_suite(value)
+               when 'case'
+                 get_test_case(value)
+               else
+                 @test << get_include(value)
+               end
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ get_test_plan
+
+    def get_test_plan(value)
+      Amber::WriterFactory.get_test_plan(@filename, value, @options)
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ get_test_suite
+
+    def get_test_suite(value)
+      Amber::WriterFactory.get_test_suite(@filename, value, @options)
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ get_test_case
+
+    def get_test_case(value)
+      Amber::WriterFactory.get_test_case(@filename, value, @options)
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ get_include
+
+    def get_include(value)
+      value.each do |node|
+        @test << Include.new(node, @options)
       end
     end
 

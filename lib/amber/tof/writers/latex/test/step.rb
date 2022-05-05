@@ -57,7 +57,6 @@ module Amber
       @test_result, output = check_status(stdout, stderr, status)
       time_end = Time.new
       record_evidence(time_start, time_end, output)
-
     rescue ShellError
       msg = "System command failed: #{status}"
       @handle.write "#{stderr}\n#{msg}\n"

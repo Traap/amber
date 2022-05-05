@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # {{{ Documentation
 
 #   Amber Substitutes the following strings when process a YAML files.
@@ -37,12 +39,14 @@ module Amber
     def self.strings(filename, options, text)
       return if text.nil?
 
+      # rubocop:disable Layout.ArgumenhtAlignment
       Substitute.home(
         Substitute.file(filename,
-                        Substitute.browser(options,
-                                           Substitute.language(options,
-                                                               Substitute.language_code(options, text))))
+          Substitute.browser(options,
+            Substitute.language(options,
+              Substitute.language_code(options, text))))
       )
+      # rubocop:enable Layout.ArgumenhtAlignment
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -95,16 +99,22 @@ module Amber
 
       expanded_text = ''
       words = text.split(' ')
-      words.each do |w|
-        w = Substitute.home(w)
-        if w.start_with?('~')
-          expanded_text.concat File.expand_path(w)
-        else
-          expanded_text.concat w
-        end
-        expanded_text.concat ' '
+      words.each do |word|
+        expanded_text = expand_text(word)
       end
       expanded_text
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ expand_text
+
+    def expand_text(text)
+      word = Substitute.home(text)
+      expanded_text.concat = if sword.start_with?('~')
+                               "#{File.expand_path(word)} "
+                             else
+                               "#{word} "
+                             end
     end
 
     # ---------------------------------------------------------------------- }}}
