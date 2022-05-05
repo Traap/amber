@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'amber/tof/writers/latex/string_to_latex_map'
+
 module Amber
   # {{{ Module documentation
   #
@@ -16,25 +18,25 @@ module Amber
     # character with a LaTeX friendly form.
 
     def self.convert(input)
-      output = ''
+      output = ''.dup
       array = input.split(/\s/)
-      output.append strip_white_listed_characters(array, array.count)
+      strip_white_listed_names(array, array.count, output)
       output.to_s
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ strip_white_listed_characters
+    # {{{ strip_white_listed_names
 
-    def strip_white_listed_characters(array, count)
+    def self.strip_white_listed_names(array, count, output)
       array.each do |item|
         stripped = item.strip
         if Amber::LaTeXWhiteList::NAMES.include? stripped
-          output.append stripped
+          output.concat stripped
         else
-          stripped.each_char { |char| output.append lookup(char) }
+          stripped.each_char { |char| output.concat lookup(char) }
         end
         count -= 1
-        output.append ' ' if count >= 1 # Add a space between words.
+        output.concat ' ' if count >= 1 # Add a space between words.
       end
     end
 
@@ -42,7 +44,7 @@ module Amber
     # {{{ lookup
 
     def self.lookup(char)
-      Amber::StringToLaTexMap::CODE.key(char)
+      Amber::StringToLaTeXMap::CODE.key(char)
     end
 
     # ---------------------------------------------------------------------- }}}

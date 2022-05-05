@@ -97,10 +97,10 @@ module Amber
     def self.expand_path(text)
       return if text.nil?
 
-      expanded_text = ''
+      expanded_text = ''.dup
       words = text.split(' ')
       words.each do |word|
-        expanded_text = expand_text(word)
+        expanded_text.concat expand_text(word)
       end
       expanded_text
     end
@@ -108,13 +108,13 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ expand_text
 
-    def expand_text(text)
+    def self.expand_text(text)
       word = Substitute.home(text)
-      expanded_text.concat = if sword.start_with?('~')
-                               "#{File.expand_path(word)} "
-                             else
-                               "#{word} "
-                             end
+      if word.start_with?('~')
+        "#{File.expand_path(word)} "
+      else
+        "#{word} "
+      end
     end
 
     # ---------------------------------------------------------------------- }}}
