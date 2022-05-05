@@ -18,18 +18,16 @@ module Amber
     # {{{ initialize
 
     def initialize(decoratee, macro)
+      super(decoratee.type, decoratee.filename, decoratee.data, decoratee.options)
+
       @macro       = macro
       @decoratee   = decoratee
       @handle      = nil
 
       @command     = decoratee.command
-      @data        = decoratee.data
-      @filename    = decoratee.filename
       @name        = decoratee.name
-      @options     = decoratee.options
       @purpose     = decoratee.purpose
       @requirement = decoratee.requirement
-      @type        = decoratee.type
     end
 
     # ---------------------------------------------------------------------- }}}

@@ -50,27 +50,31 @@ module Amber
 
     # ---------------------------------------------------------------------- }}}
     # {{{ run_command
+
     def run_command
       time_start = Time.new
       stdout, stderr, status = @decoratee.run_command
       @test_result, output = check_status(stdout, stderr, status)
       time_end = Time.new
+      record_evidence(time_start, time_end, output)
 
-      @handle.write "\\item[Execution start:] #{toLaTeX(time_start.strftime('%b %d, %Y %T.%6N'))}\n"
-      @handle.write "\\item[Execution end:] #{toLaTeX(time_end.strftime('%b %d, %Y %T.%6N'))}\n"
-      @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
-      @handle.write "\\item[Evidence:] #{toLaTeX(@decoratee.evidence)}\n"
-      @handle.write "\\end{description}\n"
-
-      @handle.write "\\begin{lstlisting}[numbers=left]\n"
-      @handle.write "#{output}\n"
-      @handle.write "\\end{lstlisting}\n"
-      @handle.flush
     rescue ShellError
       msg = "System command failed: #{status}"
       @handle.write "#{stderr}\n#{msg}\n"
       @handle.flush
       abort msg
+    end
+
+    def record_evidence(time_start, time_end, output)
+      @handle.write "\\item[Execution start:] #{toLaTeX(time_start.strftime('%b %d, %Y %T.%6N'))}\n"
+      @handle.write "\\item[Execution end:] #{toLaTeX(time_end.strftime('%b %d, %Y %T.%6N'))}\n"
+      @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
+      @handle.write "\\item[Evidence:] #{toLaTeX(@decoratee.evidence)}\n"
+      @handle.write "\\end{description}\n"
+      @handle.write "\\begin{lstlisting}[numbers=left]\n"
+      @handle.write "#{output}\n"
+      @handle.write "\\end{lstlisting}\n"
+      @handle.flush
     end
 
     # ---------------------------------------------------------------------- }}}
