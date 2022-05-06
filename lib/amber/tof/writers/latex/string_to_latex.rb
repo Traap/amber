@@ -18,33 +18,32 @@ module Amber
     # character with a LaTeX friendly form.
 
     def self.convert(input)
-      output = ''.dup
       array = input.split(/\s/)
-      strip_white_listed_names(array, array.count, output)
-      output.to_s
+      use_white_list_names_or_escaped_char(array).to_s
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ strip_white_listed_names
+    # {{{ use_white_list_names_or_escaped_char
 
-    def self.strip_white_listed_names(array, count, output)
+    def self.use_white_list_names_or_escaped_char(array)
+      output = ''.dup
       array.each do |item|
         stripped = item.strip
         if Amber::LaTeXWhiteList::NAMES.include? stripped
-          output.concat stripped
+          output.concat "#{stripped} "
         else
-          stripped.each_char { |char| output.concat lookup(char) }
+          stripped.each_char { |char| output.concat "#{lookup(char)} " }
         end
-        count -= 1
-        output.concat ' ' if count >= 1 # Add a space between words.
       end
+      output.strip
     end
 
     # ---------------------------------------------------------------------- }}}
     # {{{ lookup
 
     def self.lookup(char)
-      Amber::StringToLaTeXMap::CODE.key(char)
+      found_char = Amber::StringToLaTeXMap::CODE.key(char)
+      found_char.nil? ? found_char : char
     end
 
     # ---------------------------------------------------------------------- }}}
