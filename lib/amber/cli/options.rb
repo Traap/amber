@@ -43,7 +43,7 @@ module Amber
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ Initialzie
+    # {{{ browser
 
     def browser
       @data[:browser]

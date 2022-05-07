@@ -19,31 +19,35 @@ module Amber
 
     def self.convert(input)
       array = input.split(/\s/)
-      use_white_list_names_or_escaped_char(array).to_s
+      use_whitelist_name_or_escaped_value_or_self(array, ''.dup)
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ use_white_list_names_or_escaped_char
+    # {{{ use_whitelist_name_or_escaped_value_or_self
+    #
+    # array - An array string representing LaTeX characters that maybe white
+    #         listed or require escaped with LaTeX punctuation.
+    # output - is a duped string that is modified and returned.
 
-    def self.use_white_list_names_or_escaped_char(array)
-      output = ''.dup
-      array.each do |item|
-        stripped = item.strip
-        if Amber::LaTeXWhiteList::NAMES.include? stripped
-          output.concat "#{stripped} "
+    def self.use_whitelist_name_or_escaped_value_or_self(array, output)
+      array.each_index do |index|
+        name = array[index].strip
+        if Amber::LaTeXWhiteList::NAMES.include? name
+          output << name
         else
-          stripped.each_char { |char| output.concat "#{lookup(char)} " }
+          name.each_char { |char| output << escaped_value_or_self(char) }
         end
+        output << ' ' if index < (array.count - 1)
       end
-      output.strip
+      output.to_s
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ lookup
+    # {{{ escaped_value_or_self
 
-    def self.lookup(char)
-      found_char = Amber::StringToLaTeXMap::CODE.key(char)
-      found_char.nil? ? found_char : char
+    def self.escaped_value_or_self(char)
+      found_char = Amber::StringToLaTeXMap::CODE[char]
+      found_char.nil? ? char : found_char
     end
 
     # ---------------------------------------------------------------------- }}}
