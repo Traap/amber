@@ -67,15 +67,12 @@ module Amber
     # {{{ map to nested files
 
     def map_to_nested_files(name, opt)
+      opt_and_files = ''.dup
       opt_and_files = "#{opt}="
       name.each do |key, value|
-        # opt_and_files << "#{@folder}/"
-        # opt_and_files << key['name']
-        # opt_and_files << ',' unless name.last.eql?(key)
-
-        opt_and_files.concat "#{@folder}/"
-        opt_and_files.concat key['name']
-        opt_and_files.concat ',' unless name.last.eql?(key)
+        opt_and_files << "#{@folder}/"
+        opt_and_files << key['name']
+        opt_and_files << ',' unless name.last.eql?(key)
       end
       opt_and_files
     end
@@ -84,17 +81,55 @@ module Amber
     # {{{ assemble another amber command.
 
     def assemble_amber_command(opt_and_files)
-      cmd = 'amber'
-      cmd.concat ' --nodryrun'                           unless @options.dryrun?
-      cmd.concat ' --log-command'                        if @options.log_command?
-      cmd.concat ' --log-requirement'                    if @options.log_requirement?
-      cmd.concat ' --simulate'                           if @options.simulate?
-      cmd.concat " --writer=#{@options.writer}"          unless @options.writer.nil?
-      cmd.concat " --browser=#{@options.browser}"        if @options.browser?
-      lng = Amber::Language::CODE.key(@options.language) if @options.language?
-      cmd.concat " --language=#{lng}"                    if @options.language?
-      cmd.concat " #{opt_and_files}"
+      cmd = ''.dup
+      cmd << 'amber'
+      cmd << log_commands
+      cmd << simulate_run
+      cmd << tof_writer
+      cmd << browser_and_language
+      cmd << " #{opt_and_files}"
       Amber::TestEvidence.record_amber_command(cmd) if @options.log_command?
+      cmd
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ log_commands
+
+    def log_commands
+      cmd = ''.dup
+      cmd << ' --nodryrun'        unless @options.dryrun?
+      cmd << ' --log-command'     if @options.log_command?
+      cmd << ' --log-requirement' if @options.log_requirement?
+      cmd
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ simulate_run
+
+    def simulate_run
+      cmd = ''.dup
+      cmd << ' --simulate' if @options.simulate?
+      cmd
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ tof_writer
+
+    def tof_writer
+      cmd = ''.dup
+      cmd << " --writer=#{@options.writer}" unless @options.writer.nil?
+      cmd
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ browser_and_language
+
+    def browser_and_language
+      cmd = ''.dup
+      lng = Amber::Language::CODE.key(@options.language) if @options.language?
+
+      cmd << " --browser=#{@options.browser}"            if @options.browser?
+      cmd << " --language=#{lng}"                        if @options.language?
       cmd
     end
 

@@ -12,9 +12,7 @@ module Amber
     end
 
     def run_command
-      workingdir = @data['workingdir']
-      workingdir += '/..' if @options.language?
-      workingdir += '/..' if @options.browser?
+      workingdir = set_working_dir
       nbr = 0
       @data['steps'].each do |s|
         nbr += 1
@@ -23,6 +21,13 @@ module Amber
         )
         step.process
       end
+    end
+
+    def set_working_dir
+      workingdir = @data['workingdir']
+      workingdir += '/..' if @options.language?
+      workingdir += '/..' if @options.browser?
+      workingdir
     end
   end
 end

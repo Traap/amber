@@ -14,19 +14,27 @@ module Amber
     def initialize(filename, data, options, step, number, workingdir)
       super('Test Step', filename, data, options)
 
-      sudo = if step['sudo']
-               if %w[cygwin mingw32].include?(RbConfig::CONFIG['host_os'])
-                 nil
-               else
-                 'sudo '
-               end
-             end
+      define_expectation(options, step, number)
+      define_command(options, step, workingdir)
+    end
 
+    # ---------------------------------------------------------------------- }}}
+    # {{{ define_expectation
+
+    def define_expectation(options, step, number)
       @number      = number
       @confirm     = Amber::Substitute.strings(@filename, options, step['confirm'])
       @expectation = Amber::Substitute.strings(@filename, options, step['expectation'])
+      @evidence    = Amber::Substitute.strings(@filename, options, step['evidence'])
+    end
 
-      command      = Amber::Substitute.expand_path(
+    # ---------------------------------------------------------------------- }}}
+    # {{{ define_command
+
+    def define_command(options, step)
+      @workingdir  = set_working_dir(step, workingdir)
+
+      command = Amber::Substitute.expand_path(
         Amber::Substitute.strings(@filename, options, step['command'])
       )
 
@@ -35,10 +43,22 @@ module Amber
       )
 
       echo = @options.simulate? ? 'echo ' : nil
-      @command     = "#{echo}#{sudo}#{command} #{argument}"
+      sudo = use_sudo(step)
 
-      @evidence    = Amber::Substitute.strings(@filename, options, step['evidence'])
-      @workingdir  = set_working_dir(step, workingdir)
+      @command = "#{echo}#{sudo}#{command} #{argument}"
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ use_sudo
+
+    def use_sud(step)
+      return unless step['sudo']
+
+      if %w[cygwin mingw32].include?(RbConfig::CONFIG['host_os'])
+        nil
+      else
+        'sudo '
+      end
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -57,6 +77,7 @@ module Amber
 
     # {{{ Set the working diectory.
 
+    # rubocop:disable Metrics.MethodLength
     def set_working_dir(step, workingdir)
       wd = step['workingdir']
       wd = Amber::Substitute.expand_path(wd) unless wd.nil?
@@ -84,6 +105,7 @@ module Amber
 
       wdir.strip
     end
+    # rubocop:enable Metrics.MethodLength
 
     # ---------------------------------------------------------------------- }}}
   end
