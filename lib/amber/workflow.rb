@@ -20,12 +20,11 @@ require 'amber/workflow'
 module Amber
   # {{{ Run the Amber workflow. }}}
   class Workflow
-    # {{{ initialize
+    # {{{ initializ
 
     def initialize(options)
       @options = options
       @yaml_file = nil
-      @test = []
       @filename = nil
     end
 
@@ -40,9 +39,10 @@ module Amber
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ parse_yaml_file
+    # {{{ parse_yaml_fil
 
     def parse_yaml_file(filename)
+      @test = []
       @filename = filename
       @yaml_file = YAML.safe_load(File.open(@filename))
       process_yaml_file
@@ -64,7 +64,6 @@ module Amber
       if %w[plan suite case includes].include? key
         process_command(key, value)
       else
-        # puts "#{key} is not supported." if @options.verbose
         puts "#{key} is not supported."
       end
     end
