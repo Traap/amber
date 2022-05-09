@@ -23,7 +23,7 @@ module Amber
 
     def run_command
       @data.each do |key, value|
-        if key.included_in?(%w[plan suite case file])
+        if %w[plan suite case file].include? key
           include_this_file value, "--#{key}"
         else
           @folder = value

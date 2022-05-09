@@ -43,7 +43,6 @@ module Amber
     # {{{ parse_yaml_file
 
     def parse_yaml_file(filename)
-      @test = []
       @filename = filename
       @yaml_file = YAML.safe_load(File.open(@filename))
       process_yaml_file
@@ -62,7 +61,7 @@ module Amber
     # {{{ validate_key
 
     def validate_key(key, value)
-      if key.included_in?(%w[plan suite test includes])
+      if %w[plan suite case includes].include? key
         process_command(key, value)
       else
         # puts "#{key} is not supported." if @options.verbose
@@ -74,16 +73,16 @@ module Amber
     # {{{ process_command
 
     def process_command(key, value)
-      @test << case key
-               when 'plan'
-                 get_test_plan(value)
-               when 'suite'
-                 get_test_suite(value)
-               when 'case'
-                 get_test_case(value)
-               else
-                 @test << get_include(value)
-               end
+      case key
+      when 'plan'
+        @test << get_test_plan(value)
+      when 'suite'
+        @test << get_test_suite(value)
+      when 'case'
+        @test << get_test_case(value)
+      else
+        get_include(value)
+      end
     end
 
     # ---------------------------------------------------------------------- }}}

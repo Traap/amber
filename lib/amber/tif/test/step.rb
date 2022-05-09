@@ -31,7 +31,7 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ define_command
 
-    def define_command(options, step)
+    def define_command(options, step, workingdir)
       @workingdir  = set_working_dir(step, workingdir)
 
       command = Amber::Substitute.expand_path(
@@ -51,7 +51,7 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ use_sudo
 
-    def use_sud(step)
+    def use_sudo(step)
       return unless step['sudo']
 
       if %w[cygwin mingw32].include?(RbConfig::CONFIG['host_os'])
