@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 # {{{ Required files.
 
 require 'amber'

@@ -50,6 +50,7 @@ namespace :build do
     system 'bundle install'
     system 'bundle exec rake'
     system 'bundle exec rake install'
+    system 'gem cleanup amber'
   end
 end
 

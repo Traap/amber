@@ -6,7 +6,7 @@ require 'amber/tof/writers/ascii/test'
 
 # -------------------------------------------------------------------------- }}}
 module Amber
-  # {{{ Claa ShellError
+  # {{{ ShellError
 
   class ShellError < StandardError; end
 
@@ -35,22 +35,45 @@ module Amber
     # {{{ run_command
 
     def run_command
+      time_start, time_end, stdout, stderr, status = time_run_command
+      @test_result, output = check_status(stdout, stderr, status)
+      record_results(time_start, time_end, output)
+    rescue ShellError
+      msg = record_failure(stderr, status)
+      abort msg
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ time_run_command
+
+    def time_run_command
       time_start = Time.new
       stdout, stderr, status = @decoratee.run_command
       time_end = Time.new
-      @test_result, output = check_status(stdout, stderr, status)
+      [time_start, time_end, stdout, stderr, status]
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ record_results
+
+    def record_results(time_start, time_end, output)
       @handle.write  "  Execution start: #{time_start.strftime('%b %d, %Y %T.%6N')}\n"
       @handle.write  "  Execution end: #{time_end.strftime('%b %d, %Y %T.%6N')}\n"
       @handle.write  "  Test Result: #{@test_result}\n"
       @handle.write  "     Evidence: #{@decoratee.evidence}\n"
       @handle.write  "#{output}\n"
       @handle.flush
-    rescue ShellError
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ record_results
+
+    def record_failure(stderr, status)
       msg = "System command failed: #{status}"
       @handle.write "#{stderr}\n#{msg}\n"
       @handle.flush
       puts "#{msg}\n" if @options.verbose
-      abort msg
+      msg
     end
 
     # ---------------------------------------------------------------------- }}}

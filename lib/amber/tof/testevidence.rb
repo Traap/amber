@@ -175,6 +175,7 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ record_test_case_status
 
+    # rubocop:disable Metrics.MethodLength
     def self.record_test_case_status(input, nbr, test_result, options)
       handle =
         TestEvidence.open_file(
@@ -190,6 +191,7 @@ module Amber
       handle.write(test_result)
       TestEvidence.close_file(handle)
     end
+    # rubocop:enable Metrics.MethodLength
 
     # ---------------------------------------------------------------------- }}}
     # {{{ close_file

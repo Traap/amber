@@ -13,42 +13,45 @@ require 'amber'
 # [a.yaml | b.yaml
 #
 # -------------------------------------------------------------------------- }}}
-# {{{ File tests.
+# {{{ File tests short commands.
 
-describe 'Amber CLO File' do
-  describe 'no -f' do
-    it 'has not been used.' do
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(nil)
-      expect(options.files).to    eq(nil)
-    end
+describe 'Amber CLO File Short' do
+  it 'no -f has not been used.' do
+    options = Amber::CommandLineOptions.parse(ARGV)
+    expect(options.filename).to eq(nil)
+    expect(options.files).to    eq(nil)
   end
 
-  describe '-fa.yaml' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['-fa.yaml']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['a.yaml'])
-      expect(options.files).to    eq(['a.yaml'])
-    end
+  it '-fa.yaml has been used from the command line.' do
+    ARGV.replace ['-fa.yaml']
+    options = Amber::CommandLineOptions.parse(ARGV)
+    expect(options.filename).to eq(['a.yaml'])
+    expect(options.files).to    eq(['a.yaml'])
+  end
+end
+
+# -------------------------------------------------------------------------- }}}
+# {{{ File tests long commands.
+
+describe 'Amber CLO File Long' do
+  it '--file has not been used.' do
+    options = Amber::CommandLineOptions.parse(ARGV)
+    expect(options.filename).to eq(nil)
+    expect(options.files).to    eq(nil)
   end
 
-  describe '--file=b.yaml' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--file=b.yaml']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['b.yaml'])
-      expect(options.files).to    eq(['b.yaml'])
-    end
+  it '--file=b.yaml has been used from the command line.' do
+    ARGV.replace ['--file=b.yaml']
+    options = Amber::CommandLineOptions.parse(ARGV)
+    expect(options.filename).to eq(['b.yaml'])
+    expect(options.files).to    eq(['b.yaml'])
   end
 
-  describe '--file c.yaml' do
-    it 'has been used from the command line.' do
-      ARGV.replace ['--file', 'c.yaml']
-      options = Amber::CommandLineOptions.parse(ARGV)
-      expect(options.filename).to eq(['c.yaml'])
-      expect(options.files).to    eq(['c.yaml'])
-    end
+  it '--file c.yaml has been used from the command line.' do
+    ARGV.replace ['--file', 'c.yaml']
+    options = Amber::CommandLineOptions.parse(ARGV)
+    expect(options.filename).to eq(['c.yaml'])
+    expect(options.files).to    eq(['c.yaml'])
   end
 end
 

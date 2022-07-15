@@ -18,22 +18,35 @@ module Amber
 
     def initialize(decoratee)
       super
-      @macro = if decoratee.type == 'Test Step'
+      @handle = nil
+      @decoratee = decoratee
+      define_macro
+      apply_decoratee
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ define_macro
+
+    def define_macro
+      @macro = if @decoratee.type == 'Test Step'
                  nil
                else
-                 "#{decoratee.type}: #{File.basename(decoratee.filename, '.*')}\n"
+                 "#{@decoratee.type}: #{File.basename(decoratee.filename, '.*')}\n"
                end
-      @decoratee   = decoratee
-      @handle      = nil
+    end
 
-      @command     = decoratee.command
-      @data        = decoratee.data
-      @filename    = decoratee.filename
-      @name        = decoratee.name
-      @options     = decoratee.options
-      @purpose     = decoratee.purpose
-      @requirement = decoratee.requirement
-      @type        = decoratee.type
+    # ---------------------------------------------------------------------- }}}
+    # {{{ apply_decoratee
+
+    def apply_decoratee
+      @command     = @decoratee.command
+      @data        = @decoratee.data
+      @filename    = @decoratee.filename
+      @name        = @decoratee.name
+      @options     = @decoratee.options
+      @purpose     = @decoratee.purpose
+      @requirement = @decoratee.requirement
+      @type        = @decoratee.type
     end
 
     # ---------------------------------------------------------------------- }}}

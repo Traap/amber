@@ -10,9 +10,10 @@ require 'amber'
 # [--version]
 # -------------------------------------------------------------------------- }}}
 # {{{ version test.
+
 describe 'Amber CLO Version' do
   before(:all) do
-    @version = '1.6.2.373'
+    @version = '1.6.3.402'
   end
 
   describe 'no --version' do
