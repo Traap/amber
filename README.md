@@ -15,7 +15,7 @@ been provided to demonstrate the automation framework components amber,
 
 ### TL;DR
 #### Released version
-1.6.3.404
+1.6.4.412
 
 #### Working with source
 Copy the text below and paste into a shell.

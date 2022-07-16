@@ -22,25 +22,24 @@ describe 'Amber LaTeX Buffer' do
     'buffer', \
     'enumerate', \
     '\\begin{enumerate} \\item {one} \\item {two} \\end{enumerate}', \
-    '\begin{enumerate} \item \{one\} \item \{two\} \end{enumerate}'
-
+    '\begin{enumerate} \item {one} \item {two} \end{enumerate}'
   it_should_behave_like \
     'buffer', \
     'itemize', \
     '\\begin{itemize} \\item {one} \\item {two} \\end{itemize}', \
-    '\begin{itemize} \item \{one\} \item \{two\} \end{itemize}'
+    '\begin{itemize} \item {one} \item {two} \end{itemize}'
 
   it_should_behave_like \
     'buffer', \
     'cost sample', \
     'Option #1 & is worth $1.12', \
-    'Option \\#1 \\& is worth \\$1.12'
+    'Option \\#1 & is worth \\$1.12'
 
   it_should_behave_like \
     'buffer', \
     'LaTeX', \
     '\\LaTeX\\ is correct \latex is not correct', \
-    '\LaTeX\ is correct \textbackslashlatex is not correct'
+    '\LaTeX\ is correct \latex is not correct'
 
   it_should_behave_like \
     'buffer', \
@@ -49,4 +48,5 @@ describe 'Amber LaTeX Buffer' do
     'This sentence ends with \LaTeX.'
 end
 
-# -------------------------------------------------------------------------- }}}
+# --------------------------------------------------------------------------
+# }}}

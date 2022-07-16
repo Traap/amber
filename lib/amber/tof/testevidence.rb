@@ -159,7 +159,7 @@ module Amber
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ gest_teset_case_log
+    # {{{ get_test_case_log
 
     def self.get_test_case_log(input, nbr, options)
       TestEvidence.assemble_test_output_root(options) +

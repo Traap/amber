@@ -27,16 +27,16 @@ end
 
 describe 'String to LaTeX' do
   describe 'converts escapable characters' do
-    it_should_behave_like 'convert', 'ampersand', '&', '\\&'
+    it_should_behave_like 'convert', 'ampersand', '&', '&'
     it_should_behave_like 'convert', 'caret', '^', "\\^\ "
     it_should_behave_like 'convert', 'dollar', '$', '\\$'
     it_should_behave_like 'convert', 'hash', '#', '\\#'
-    it_should_behave_like 'convert', 'left brace', '{', '\\{'
+    it_should_behave_like 'convert', 'left brace', '{', '{'
     it_should_behave_like 'convert', 'percent', '%', '\\%'
-    it_should_behave_like 'convert', 'right brace', '}', '\\}'
+    it_should_behave_like 'convert', 'right brace', '}', '}'
     it_should_behave_like 'convert', 'tilde', '~', '\\~\\'
     it_should_behave_like 'convert', 'underscore', '_', '\\_'
-    it_should_behave_like 'convert', 'backslash', '\\', '\\textbackslash'
+    it_should_behave_like 'convert', 'backslash', '\\', '\\'
   end
 end
 
@@ -45,7 +45,7 @@ end
 
 describe 'String to LaTeX' do
   describe 'converts copyright characters' do
-    it_should_behave_like 'convert', 'textbar', '|', '\\textbar'
+    it_should_behave_like 'convert', 'textbar', '|', '|'
     it_should_behave_like 'convert', 'copyright', '©', '\\textcopyright'
     it_should_behave_like 'convert', 'euro', '€', '\\texteuro'
     it_should_behave_like 'convert', 'texttrademark', '™', '\\texttrademark'
