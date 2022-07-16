@@ -27,13 +27,13 @@ git clone https://github.com/traap/amber.git
 #### Build and install Amber
 
 ```bash
-amber && rake build:amber
+cd amber && rake build:amber
 ```
 
 #### Validate Amber
 
 ```bash
-amber && rake validate:amber
+cd amber && rake validate:amber
 ```
 
 
@@ -51,7 +51,6 @@ build Ambers [documention](https://github.com/Traap/amber/blob/ReqList/doc/amber
 2. [autodoc](https://github.com/Traap/autodoc)
 3. [docbld](https://github.com/Traap/docbld)
 4. [tlc-article](https://github.com/Traap/tlc-article.git)
-
 
 ### Input Factory
 #### A YAML Plan
