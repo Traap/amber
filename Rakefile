@@ -63,7 +63,7 @@ namespace :validate do
 
   task amber: %i[save_wd report_dir do_validation restore_wd docbld]
 
-  task iotest: %i[save_wd report_dir do_validation restore_wd]
+  task run:   %i[save_wd report_dir do_validation restore_wd]
 
   task :save_wd do
     pwd = Dir.getwd

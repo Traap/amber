@@ -13,8 +13,29 @@ been provided to demonstrate the automation framework components amber,
 [docbld](https://github.com/Traap/docbld), and
 [tlc-article](https://github.com/Traap/tlc-article).
 
-### Released version
-1.6.2.373
+### TL;DR
+#### Released version
+1.6.3.404
+
+#### Working with source
+Copy the text below and paste into a shell.
+
+```bash
+git clone https://github.com/traap/amber.git
+```
+
+#### Build and install Amber
+
+```bash
+amber && rake build:amber
+```
+
+#### Validate Amber
+
+```bash
+amber && rake validate:amber
+```
+
 
 ### Supported Systems
 **amber** is tarted to work seamlessly with Linux distributions.
@@ -31,31 +52,6 @@ build Ambers [documention](https://github.com/Traap/amber/blob/ReqList/doc/amber
 3. [docbld](https://github.com/Traap/docbld)
 4. [tlc-article](https://github.com/Traap/tlc-article.git)
 
-### Working with source
-Copy the text below and paste into a shell.
-
-```bash
-cd $GIT_HOME && git clone https://github.com/traap/amber.git
-```
-
-#### Run unit test with Rake
-
-```bash
-cd $GIT_HOME/amber && rake
-
-```
-
-#### Build and install Amber
-
-```bash
-cd $GIT_HOME/amber && rake build:amber
-```
-
-#### Validate Amber
-
-```bash
-cd $GIT_HOME/amber && rake validate:amber
-```
 
 ### Input Factory
 #### A YAML Plan
