@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $LOAD_PATH.unshift File.expand_path('lib', __dir__)
 require 'amber/version'
 
@@ -17,12 +19,14 @@ Gem::Specification.new do |s|
 
   s.executables   = %w[amber]
 
-  s.required_ruby_version = '>= 2.5'
+  s.required_ruby_version = '>= 3.1'
 
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'bundler-audit'
+  s.add_development_dependency 'debug'
   s.add_development_dependency 'json'
   s.add_development_dependency 'rake'
+  s.add_development_dependency 'readapt'
   s.add_development_dependency 'require_all'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop'
