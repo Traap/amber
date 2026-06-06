@@ -69,7 +69,7 @@ module Amber
     def map_to_nested_files(name, opt)
       ''.dup
       opt_and_files = "#{opt}="
-      name.each do |key, value|
+      name.each_key do |key|
         opt_and_files << "#{@folder}/"
         opt_and_files << key['name']
         opt_and_files << ',' unless name.last.eql?(key)
