@@ -78,7 +78,7 @@ namespace :validate do
   end
 
   task :do_validation do
-    puts validate_cmd.to_s
+    puts validate_cmd
     _stdout, stderr, _status = Open3.capture3 validate_cmd
   rescue StandardError => e
     echo_exception(stderr, e)

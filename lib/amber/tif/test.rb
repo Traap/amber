@@ -80,14 +80,14 @@ module Amber
 
     def echo_to_sysout
       name = "#{@type}: ".rjust(15) << @name.to_s
-      puts name.to_s if @options.verbose?
+      puts name if @options.verbose?
     end
 
     # ---------------------------------------------------------------------- }}}
     # {{{ run_command
 
     def run_command
-      puts @command.to_s if @options.verbose?
+      puts @command if @options.verbose?
       status = system(@command)
     rescue ShellError
       msg = "System command failed: #{status}"

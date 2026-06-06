@@ -67,7 +67,7 @@ module Amber
     # {{{ map to nested files
 
     def map_to_nested_files(name, opt)
-      opt_and_files = ''.dup
+      ''.dup
       opt_and_files = "#{opt}="
       name.each do |key, value|
         opt_and_files << "#{@folder}/"

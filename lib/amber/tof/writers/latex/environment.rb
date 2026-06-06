@@ -36,7 +36,7 @@ module Amber
           echo_e_to_sysout(e)
         else
           i = replace_characters(e)
-          v = replace_characters((ENV[e]).to_s)
+          v = replace_characters(ENV[e].to_s)
           @handle.write "\\item[#{i}:] #{v}\n"
         end
       end

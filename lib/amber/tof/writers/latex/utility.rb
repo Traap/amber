@@ -84,7 +84,7 @@ module Amber
     # {{{ append_filename
 
     def self.append_filename(decoratee)
-      pwd = FileUtils.pwd()
+      pwd = FileUtils.pwd
       browser, code = Amber::LaTeXUtility.gather_browser_and_language(decoratee)
 
       # macro = ''
