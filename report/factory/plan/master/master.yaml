@@ -19,7 +19,7 @@ plan:
           throughout.
     \end{itemize}
 
-    Amber Test Cases have been designed to showoff Amber concepts.  There are
+    Amber Test Cases have been designed to show off Amber concepts.  There are
     many Test Steps that may report failure.  In these cases, an operation 
     system application is simply not installed.  For example, most Linux systems
     come with the man program installed.  Amber will issue a command 'which man'

@@ -6,7 +6,7 @@
 #
 # This program is used to automate testing of command line programs.  Amber uses
 # a JUnit like framework in that it understands test suites and test plans.
-# Amber provides a robust reporting mechanism that is used to product objective
+# Amber provides a robust reporting mechanism that is used to produce objective
 # evidence a component has met its intended use.
 #
 # Amber processes YAML files to run test plans, test suites, and test cases in
@@ -31,7 +31,7 @@ module Amber
     attr_reader :opts
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ Execute the command ling with ARGV and options.
+    # {{{ Execute the command line with ARGV and options.
 
     def execute(argv)
       @opts = CommandLineOptions.parse argv

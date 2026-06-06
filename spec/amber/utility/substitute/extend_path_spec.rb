@@ -7,7 +7,7 @@ require 'amber'
 # -------------------------------------------------------------------------- }}}
 # {{{ Path substitutions.
 #
-# These Rspecs demonstrate Amber substitution capabilities related the ~ marker.
+# These RSpec tests demonstrate Amber substitution capabilities related to the ~ marker.
 #
 # -------------------------------------------------------------------------- }}}
 # {{{ Path substitutions tests.

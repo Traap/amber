@@ -15,7 +15,7 @@ case:
 
       expectation: |
 
-        Rspec output shows Amber::FactoryStructure properly locates the YAML file
+        RSpec output shows Amber::FactoryStructure properly locates the YAML file
         below.
         \begin{enumerate}
           \item Test Plan foo

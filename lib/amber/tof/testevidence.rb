@@ -2,10 +2,10 @@
 
 # {{{ TestEvidence module documentation.
 #
-# Test Output Factory is the files amber creats when running Test Suites,
+# Test Output Factory is the files amber creates when running Test Suites,
 # Test Plans, Test Cases, and Test Steps.  The output factory has two formats:
 #
-# 1) Without Browers and Languages
+# 1) Without Browsers and Languages
 #   test-output/
 #     test-results.tex
 #     requirements.csv
@@ -18,7 +18,7 @@
 #           about-step-001-log.tex
 #           about-step-001-status.tex
 #
-# 2) With Browers and Languages
+# 2) With Browsers and Languages
 #   test-output/
 #     test-results.tex     requirements.csv
 #     chrome/
@@ -36,7 +36,7 @@
 #               about-001-002.png
 #               about-001-002.csv
 #
-# Amber creates either LaTeX (tex) or Ascii (txt) files.  png and csv files are
+# Amber creates either LaTeX (tex) or Ascii (txt) files.  PNG and CSV files are
 # created by the program Amber invokes.
 #
 # -------------------------------------------------------------------------- }}}

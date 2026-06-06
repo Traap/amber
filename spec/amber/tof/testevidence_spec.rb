@@ -5,7 +5,7 @@
 require 'amber'
 
 # -------------------------------------------------------------------------- }}}
-# {{{ These Rspecs demonstrate TestEvidence operates correctly.
+# {{{ These RSpec tests demonstrate TestEvidence operates correctly.
 
 describe 'Test Evidence' do
   describe 'String Functions' do

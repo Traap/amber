@@ -7,7 +7,7 @@ require 'amber'
 # -------------------------------------------------------------------------- }}}
 # {{{ Nested options.
 #
-# These Rspecs demonstrate nesting a Test Plan, Test Suite, or Test Case YAML
+# These RSpec tests demonstrate nesting a Test Plan, Test Suite, or Test Case YAML
 # file.
 #
 # -------------------------------------------------------------------------- }}}

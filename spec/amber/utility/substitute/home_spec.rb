@@ -7,7 +7,7 @@ require 'amber'
 # -------------------------------------------------------------------------- }}}
 # {{{ ${home} substitution.
 #
-# These Rspecs demonstrate Amber substitution capabilities relative to the
+# These RSpec tests demonstrate Amber substitution capabilities relative to the
 # ${home} keyword.
 #
 # -------------------------------------------------------------------------- }}}

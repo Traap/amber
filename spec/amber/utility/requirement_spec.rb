@@ -7,7 +7,7 @@ require 'amber'
 # -------------------------------------------------------------------------- }}}
 # {{{ Requirement substitution.
 #
-# These Rspecs demonstrate Amber substitution capabilities related to the
+# These RSpec tests demonstrate Amber substitution capabilities related to the
 # requirement string conversation to an array of requirements.
 #
 # -------------------------------------------------------------------------- }}}

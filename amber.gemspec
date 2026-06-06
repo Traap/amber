@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name          = 'amber'
   s.version       = Amber::VERSION
   s.summary       = 'Automated testing for command line programs.'
-  s.description   = 'Automated testing and documentation assimulation.'
+  s.description   = 'Automated testing and documentation assembly.'
   s.authors       = ['Gary A. Howard']
   s.email         = ['gary.a.howard@mac.com']
   s.homepage      = 'https://github.com/Traap/amber'

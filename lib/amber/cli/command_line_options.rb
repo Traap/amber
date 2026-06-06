@@ -54,7 +54,7 @@ module Amber
     end
 
     # ---------------------------------------------------------------------- }}}
-    # {{{ Options Parser populates options sructure.
+    # {{{ Options Parser populates options structure.
 
     # rubocop:disable Metrics.AbcLength
     def self.option_parser
@@ -139,7 +139,7 @@ module Amber
     def self.simulate(opts)
       opts.on('-S',
               '--simulate',
-              'Simulate run to create Test Output direcotry') do |z|
+              'Simulate run to create Test Output directory') do |z|
         @clo.options.data[:simulate] = z
       end
     end

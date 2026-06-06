@@ -14,7 +14,7 @@ case:
         Amber properly consumes the command line argument --version. 
 
       expectation: >
-        Rspec output shows Amber::CommandLineOptions.version_option handles
+        RSpec output shows Amber::CommandLineOptions.version_option handles
         supported argument formats.
 
       command: rspec --format documentation -e 'Amber CLO Version'

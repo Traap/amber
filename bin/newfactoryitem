@@ -9,7 +9,7 @@ factoryFlag=0 # Create a new amber test factory.
 planFlag=0    # Create a new amber test plan folder and file.
 suiteFlag=0   # Create a new amber test suite folder and file.
 caseFlag=0    # Create a new amber test case folder and file.
-errorFlag=0;  # A parseOptions error occured.
+errorFlag=0;  # A parseOptions error occurred.
 helpFlag=1;   # Show help.
 debugFlag=0;  # Show parameters when set but do not create files.
 
@@ -104,7 +104,7 @@ function parseOptions {
 # Test Input Factory.
 #
 # This function is the workflow.  Each function called determines whether or not
-# it has work.  Each function will setup environment variables that other 
+# it has work.  Each function will set up environment variables that other
 # functions may use.
 # ------------------------------------------------------------------------------
 makeDoc() {

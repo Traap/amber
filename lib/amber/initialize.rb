@@ -11,13 +11,13 @@ require 'rspec'
 require 'yaml'
 
 # -------------------------------------------------------------------------- }}}
-# {{{ Making it easy to setup Amber includes and Rspecing Amber.
+# {{{ Making it easy to set up Amber includes and test Amber with RSpec.
 
 require 'require_all'
 require_rel ''
 
 # -------------------------------------------------------------------------- }}}
-# {{{ Rspec test coverage.
+# {{{ RSpec test coverage.
 
 require 'simplecov'
 

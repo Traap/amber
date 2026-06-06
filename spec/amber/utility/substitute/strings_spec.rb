@@ -7,7 +7,7 @@ require 'amber'
 # -------------------------------------------------------------------------- }}}
 # {{{ All keyword substitutions.
 #
-# These Rspecs demonstrate Amber substitution capabilities related to the
+# These RSpec tests demonstrate Amber substitution capabilities related to the
 # ${browser} keyword.
 #
 # -------------------------------------------------------------------------- }}}

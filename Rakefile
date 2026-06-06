@@ -4,13 +4,13 @@
 #
 # You have three basic options as follows:
 #   1) rake
-#      without options will run rspec.
+#      without options will run RSpec.
 #
 #   2) rake build:amber
-#      builds, rspecs, and installs Amber.
+#      builds, runs RSpec, and installs Amber.
 #
 #   3) rake validate:amber
-#      runs Amber's validtion plan and assembles a report using docbld.
+#      runs Amber's validation plan and assembles a report using docbld.
 #
 # -------------------------------------------------------------------------- }}}
 # {{{ Required files.
@@ -99,7 +99,7 @@ namespace :validate do
 end
 
 # -------------------------------------------------------------------------- }}}
-# {{{ Run rspecs.
+# {{{ Run RSpec.
 
 begin
   RSpec::Core::RakeTask.new(:spec)

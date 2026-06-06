@@ -7,7 +7,7 @@ require 'amber'
 # -------------------------------------------------------------------------- }}}
 # {{{ ${language-code} substitution.
 #
-# These Rspecs demonstrate Amber substitution capabilities related to the
+# These RSpec tests demonstrate Amber substitution capabilities related to the
 # ${language-code} keyword.
 #
 # -------------------------------------------------------------------------- }}}
@@ -22,7 +22,7 @@ shared_examples 'Amber::Substitute.language_code' do |code, language_name|
       .language_code(options, '${LANGUAGE-CODE}')).to eql(code)
   end
 
-  it "substitutes \${langauge-code} to #{code}" do
+  it "substitutes \${language-code} to #{code}" do
     expect(Amber::Substitute
       .language_code(options, '${language-code}')).to eql(code)
   end

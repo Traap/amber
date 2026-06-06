@@ -1,10 +1,10 @@
 suite:
   name: ${file} 
   purpose: > 
-      This test suite ensures the system has meet the minimum requirements for
+      This test suite ensures the system has met the minimum requirements for
       further testing.
 
-  # It is optional to list requriement numbers.
+  # It is optional to list requirement numbers.
   requirement: 123, 456, 789
 
 includes:

@@ -2,13 +2,13 @@
 
 # {{{ Documentation
 
-#   Amber Substitutes the following strings when process a YAML files.
+#   Amber substitutes the following strings when processing a YAML file.
 #
 #   The name of the YAML file.
 #     ${file}
 #     ${FILE}
 #
-#   The name of the browers.
+#   The name of the browser.
 #     ${browser}
 #     ${BROWSER}
 #
@@ -39,14 +39,14 @@ module Amber
     def self.strings(filename, options, text)
       return if text.nil?
 
-      # rubocop:disable Layout.ArgumenhtAlignment
+      # rubocop:disable Layout/ArgumentAlignment
       Substitute.home(
         Substitute.file(filename,
           Substitute.browser(options,
             Substitute.language(options,
               Substitute.language_code(options, text))))
       )
-      # rubocop:enable Layout.ArgumenhtAlignment
+      # rubocop:enable Layout/ArgumentAlignment
     end
 
     # ---------------------------------------------------------------------- }}}

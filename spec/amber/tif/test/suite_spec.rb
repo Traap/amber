@@ -5,7 +5,7 @@
 require 'amber'
 
 # -------------------------------------------------------------------------- }}}
-# {{{ These Rspecs demonstrate Amber ...
+# {{{ These RSpec tests demonstrate Amber ...
 
 describe 'Test Input Factory Test Suite' do
   before(:all) do

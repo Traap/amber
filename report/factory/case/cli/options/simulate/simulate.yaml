@@ -14,7 +14,7 @@ case:
         Amber properly consumes the command line argument --simulate. 
 
       expectation: >
-        Rspec output shows Amber::CommandLineOptions.simulate_option handles
+        RSpec output shows Amber::CommandLineOptions.simulate_option handles
         supported argument formats.
 
       command: rspec --format documentation -e 'Amber CLO Simulate'

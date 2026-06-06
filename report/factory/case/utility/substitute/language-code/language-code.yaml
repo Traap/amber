@@ -15,7 +15,7 @@ case:
         languages.
 
       expectation: >
-        Rspec output shows Amber::Substitute.language-code properly substituted
+        RSpec output shows Amber::Substitute.language-code properly substituted
         {language-code} and {LANGUAGE-CODE} keywords to n/a, Czech, Dansk,
         Deutsch, English, Espanol, CA French - Canadian, EU French - European,
         Italiano, Nederlands, Norsk, Polish, Romanian, and Svenska.
