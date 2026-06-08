@@ -4,6 +4,7 @@
 
 require 'amber/cli/language'
 require 'amber/tif/test'
+require 'shellwords'
 
 # -------------------------------------------------------------------------- }}}
 module Amber
@@ -60,21 +61,34 @@ module Amber
     # {{{ map to files
 
     def map_to_files(name, opt)
-      "#{opt}=#{name.map(&:values).join(',')}"
+      "#{opt}=#{include_names(name).join(',')}"
     end
 
     # ---------------------------------------------------------------------- }}}
     # {{{ map to nested files
 
     def map_to_nested_files(name, opt)
-      ''.dup
-      opt_and_files = "#{opt}="
-      name.each_key do |key|
-        opt_and_files << "#{@folder}/"
-        opt_and_files << key['name']
-        opt_and_files << ',' unless name.last.eql?(key)
+      nested_names = include_names(name).map { |entry| "#{@folder}/#{entry}" }
+      "#{opt}=#{nested_names.join(',')}"
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ include names
+
+    def include_names(name)
+      Array(name).map { |entry| include_name(entry) }
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ include name
+
+    def include_name(entry)
+      case entry
+      when Hash
+        entry.fetch('name')
+      else
+        entry.to_s
       end
-      opt_and_files
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -82,7 +96,7 @@ module Amber
 
     def assemble_amber_command(opt_and_files)
       cmd = ''.dup
-      cmd << 'amber'
+      cmd << amber_command.shellescape
       cmd << log_commands
       cmd << simulate_run
       cmd << tof_writer
@@ -90,6 +104,15 @@ module Amber
       cmd << " #{opt_and_files}"
       Amber::TestEvidence.record_amber_command(cmd) if @options.log_command?
       cmd
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ amber command
+
+    def amber_command
+      return 'amber' if ENV['AMBERPATH'].to_s.empty?
+
+      File.join(ENV.fetch('AMBERPATH'), 'bin', 'amber')
     end
 
     # ---------------------------------------------------------------------- }}}

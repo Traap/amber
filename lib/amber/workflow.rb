@@ -44,8 +44,18 @@ module Amber
     def parse_yaml_file(filename)
       @test = []
       @filename = filename
-      @yaml_file = YAML.safe_load(File.open(@filename))
+      @yaml_file = YAML.safe_load_file(@filename)
+      validate_yaml_file
       process_yaml_file
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ validate_yaml_file
+
+    def validate_yaml_file
+      return if @yaml_file.is_a?(Hash) && !@yaml_file.empty?
+
+      raise ArgumentError, "#{@filename} must contain a YAML mapping."
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -61,11 +71,9 @@ module Amber
     # {{{ validate_key
 
     def validate_key(key, value)
-      if %w[plan suite case includes].include? key
-        process_command(key, value)
-      else
-        puts "#{key} is not supported."
-      end
+      raise ArgumentError, "#{@filename} contains unsupported key: #{key}" unless %w[plan suite case includes].include? key
+
+      process_command(key, value)
     end
 
     # ---------------------------------------------------------------------- }}}

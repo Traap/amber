@@ -18,28 +18,16 @@
 require 'open3'
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
-
-# -------------------------------------------------------------------------- }}}
-# {{{ Prerequisite checks.
-
-if ENV['AMBERPATH'].empty?
-  puts 'WARNING: Amber is not installed.'
-  abort = true
-end
-
-if ENV['DOCBLDPATH'].empty?
-  puts 'WARNING: docbld is not installed.'
-  abort = true
-end
-
-exit if abort
+require 'shellwords'
 
 # -------------------------------------------------------------------------- }}}
 # {{{ Customize Amber build and validate variables.
 
-report_dir = "#{ENV['AMBERPATH']}/report"
-validate_cmd = 'amber --nodryrun --log-environment --obliterate --plan=master'
-pdf_cmd = "rake --rakefile #{ENV['DOCBLDPATH']}/Rakefile"
+validate_cmd = lambda {
+  [File.join(ENV.fetch('AMBERPATH'), 'bin', 'amber'),
+   '--nodryrun', '--log-environment', '--obliterate', '--plan=master']
+}
+pdf_cmd = -> { ['rake', '--rakefile', File.join(ENV.fetch('DOCBLDPATH'), 'Rakefile'), '--build-all', 'deploy'] }
 pwd = ''
 
 # -------------------------------------------------------------------------- }}}
@@ -47,10 +35,10 @@ pwd = ''
 
 namespace :build do
   task :amber do
-    system 'bundle install'
-    system 'bundle exec rake'
-    system 'bundle exec rake install'
-    system 'gem cleanup amber'
+    sh 'bundle install'
+    sh 'bundle exec rake'
+    sh 'bundle exec rake install'
+    sh 'gem cleanup amber'
   end
 end
 
@@ -61,16 +49,22 @@ end
 namespace :validate do
   # rubocop:enable Metrics.BlockLength
 
-  task amber: %i[save_wd report_dir do_validation restore_wd docbld]
+  task amber: %i[check_env save_wd report_dir do_validation restore_wd docbld]
 
-  task run:   %i[save_wd report_dir do_validation restore_wd]
+  task run:   %i[check_env save_wd report_dir do_validation restore_wd]
+
+  task :check_env do
+    require_env('AMBERPATH')
+    require_env('DOCBLDPATH')
+    abort "#{amber_bin} must be executable." unless File.executable?(amber_bin)
+  end
 
   task :save_wd do
     pwd = Dir.getwd
   end
 
   task :report_dir do
-    Dir.chdir report_dir
+    Dir.chdir File.join(ENV.fetch('AMBERPATH'), 'report')
   end
 
   task :restore_wd do
@@ -78,23 +72,27 @@ namespace :validate do
   end
 
   task :do_validation do
-    puts validate_cmd
-    _stdout, stderr, _status = Open3.capture3 validate_cmd
-  rescue StandardError => e
-    echo_exception(stderr, e)
+    run_command!(validate_cmd.call)
   end
 
   task :docbld do
-    puts 'docbld'
-    _stdout, stderr, _status = Open3.capture3 pdf_cmd
-  rescue StandardError => e
-    echo_exception(stderr, e)
+    run_command!(pdf_cmd.call)
   end
 
-  def echo_exception(_, exception)
-    puts "Exception Class: #{exception.class.name}"
-    puts "Exception Message: #{exception.class.message}"
-    puts "Exception Backtrace: #{exception.class.backtrace}"
+  def require_env(name)
+    abort "#{name} must be defined." if ENV[name].to_s.empty?
+  end
+
+  def amber_bin
+    File.join(ENV.fetch('AMBERPATH'), 'bin', 'amber')
+  end
+
+  def run_command!(command)
+    puts command.shelljoin
+    stdout, stderr, status = Open3.capture3(*command)
+    puts stdout unless stdout.empty?
+    warn stderr unless stderr.empty?
+    abort "Command failed with status #{status.exitstatus}: #{command.shelljoin}" unless status.success?
   end
 end
 
