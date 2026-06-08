@@ -1,12 +1,19 @@
 ### Automated testing
-**amber** is a Ruby gem that is used to coordinate automated testing.  **amber**
-was designed to automate various types of testing that require creating and
-assembling detailed records intended to prove a product or tool has been tested
-for its intended purpose.  **amber** borrows from a Ruby-on-Rails concept of
-convention over configuration.  In this regard, amber consumes YAML documents
-that are placed beneath a factory directory root.  You are encouraged to review
-**amber's** report directory because it has been designed to demonstrate
-**amber's** capabilities.
+**Amber** is the automation driver used to coordinate product and tool
+validation.  She runs command-line test steps, captures the evidence produced by
+those steps, and writes structured LaTeX fragments that
+[autodoc](https://github.com/traap/autodoc) can assemble into a validation
+report.
+
+Amber is a complete product checkout when cloned under `~/soup/amber`.  She is
+self-validating: the same Amber workflow used by downstream products is used to
+exercise Amber's own command-line behavior and build her validation report.
+Amber borrows from a Ruby-on-Rails concept of convention over configuration.  In
+this regard, Amber consumes YAML documents placed beneath a `factory` directory
+root and writes generated evidence beneath `test-output`.
+
+Review **Amber's** report directory to see the automation and report-generation
+pattern used by the related `~/soup` products.
 [example.pdf](https://github.com/Traap/amber/blob/master/doc/example.pdf) has
 been provided to demonstrate the automation framework components amber,
 [autodoc](https://github.com/Traap/autodoc),
@@ -15,7 +22,7 @@ been provided to demonstrate the automation framework components amber,
 
 ### TL;DR
 #### Released version
-1.6.4.412
+1.6.4.415
 
 #### Working with source
 Copy the text below and paste into a shell.
@@ -35,6 +42,10 @@ cd amber && rake build:amber
 ```bash
 cd amber && rake validate:amber
 ```
+
+The validation task fails when required environment variables are missing, when
+Amber cannot generate her evidence, or when docbld cannot rebuild and deploy the
+report.
 
 
 ### Supported Systems

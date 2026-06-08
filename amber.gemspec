@@ -19,11 +19,12 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.5'
 
+  s.add_dependency 'require_all'
+
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'bundler-audit'
   s.add_development_dependency 'json'
   s.add_development_dependency 'rake'
-  s.add_development_dependency 'require_all'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'simplecov'
