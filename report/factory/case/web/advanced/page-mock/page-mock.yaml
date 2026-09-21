@@ -14,6 +14,11 @@ case:
       expectation: The fixture heading is visible.
 
     - type: web
+      action: screenshot
+      confirm: The input validation page is captured.
+      expectation: The shared header, input body, and footer are recorded.
+
+    - type: web
       action: assert
       target: heading
       parameters:
@@ -23,12 +28,22 @@ case:
       expectation: The expected heading is present.
 
     - type: web
+      action: screenshot
+      confirm: The heading assertion state is captured.
+      expectation: The shared header, input body, and footer are recorded.
+
+    - type: web
       action: input
       target: integer
       parameters:
         value: 0
       confirm: An out-of-range integer is entered.
       expectation: The integer range is rejected.
+
+    - type: web
+      action: screenshot
+      confirm: The invalid integer state is captured.
+      expectation: The shared header, input body, and footer are recorded.
 
     - type: web
       action: assert
@@ -40,12 +55,22 @@ case:
       expectation: The integer minimum is enforced.
 
     - type: web
+      action: screenshot
+      confirm: The integer error state is captured.
+      expectation: The shared header, input body, and footer are recorded.
+
+    - type: web
       action: input
       target: integer
       parameters:
         value: 5
       confirm: A valid integer is entered.
       expectation: The integer control accepts an in-range value.
+
+    - type: web
+      action: screenshot
+      confirm: The valid integer state is captured.
+      expectation: The shared header, input body, and footer are recorded.
 
     - type: web
       action: input
@@ -56,12 +81,22 @@ case:
       expectation: The float control accepts an in-range value.
 
     - type: web
+      action: screenshot
+      confirm: The valid float state is captured.
+      expectation: The shared header, input body, and footer are recorded.
+
+    - type: web
       action: assert
       target: input-submit
       parameters:
         condition: enabled
       confirm: The submit control state is read.
       expectation: The button is enabled when both values are valid.
+
+    - type: web
+      action: screenshot
+      confirm: The enabled button state is captured.
+      expectation: The shared header, input body, and footer are recorded.
 
     - type: web
       action: assert
@@ -73,6 +108,11 @@ case:
       expectation: The entered integer is retained.
 
     - type: web
+      action: screenshot
+      confirm: The retained integer state is captured.
+      expectation: The shared header, input body, and footer are recorded.
+
+    - type: web
       action: input
       target: float
       parameters:
@@ -81,9 +121,19 @@ case:
       expectation: The float maximum is rejected.
 
     - type: web
+      action: screenshot
+      confirm: The invalid float state is captured.
+      expectation: The shared header, input body, and footer are recorded.
+
+    - type: web
       action: assert
       target: input-submit
       parameters:
         condition: disabled
       confirm: The disabled submit state is read.
       expectation: The button is disabled when a value is invalid.
+
+    - type: web
+      action: screenshot
+      confirm: The disabled button state is captured.
+      expectation: The shared header, input body, and footer are recorded.

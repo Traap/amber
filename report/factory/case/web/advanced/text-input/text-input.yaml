@@ -14,6 +14,11 @@ case:
       expectation: The configured text area is available.
 
     - type: web
+      action: screenshot
+      confirm: The multiline page is captured.
+      expectation: The shared header, text body, and footer are recorded.
+
+    - type: web
       action: assert
       target: text-submit
       parameters:
@@ -22,12 +27,22 @@ case:
       expectation: The button is disabled before text is entered.
 
     - type: web
+      action: screenshot
+      confirm: The initial text state is captured.
+      expectation: The shared header, text body, and footer are recorded.
+
+    - type: web
       action: input
       target: multi-line
       parameters:
         value: A short multiline message.
       confirm: A multiline message is entered.
       expectation: The text area accepts content.
+
+    - type: web
+      action: screenshot
+      confirm: The entered text state is captured.
+      expectation: The shared header, text body, and footer are recorded.
 
     - type: web
       action: assert
@@ -39,9 +54,19 @@ case:
       expectation: The counter reports the entered length.
 
     - type: web
+      action: screenshot
+      confirm: The length counter state is captured.
+      expectation: The shared header, text body, and footer are recorded.
+
+    - type: web
       action: assert
       target: text-submit
       parameters:
         condition: enabled
       confirm: The enabled text button state is read.
       expectation: The button is enabled for a non-empty valid message.
+
+    - type: web
+      action: screenshot
+      confirm: The enabled text state is captured.
+      expectation: The shared header, text body, and footer are recorded.

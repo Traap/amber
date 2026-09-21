@@ -15,8 +15,8 @@ case:
 
     - type: web
       action: screenshot
-      confirm: The fixture is captured.
-      expectation: Autodoc-compatible screenshot evidence is recorded.
+      confirm: The evidence page is captured.
+      expectation: The shared header, evidence body, and footer are recorded.
 
     - type: web
       action: download
@@ -27,8 +27,18 @@ case:
       expectation: The downloaded fixture is retained.
 
     - type: web
+      action: screenshot
+      confirm: The download state is captured.
+      expectation: The shared header, evidence body, and footer are recorded.
+
+    - type: web
       action: pdf
       parameters:
         path: fixture.pdf
       confirm: The fixture page is printed.
       expectation: PDF evidence is retained.
+
+    - type: web
+      action: screenshot
+      confirm: The printed evidence state is captured.
+      expectation: The shared header, evidence body, and footer are recorded.

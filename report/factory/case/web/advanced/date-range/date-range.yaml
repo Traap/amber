@@ -14,6 +14,11 @@ case:
       expectation: The date controls are available.
 
     - type: web
+      action: screenshot
+      confirm: The date range page is captured.
+      expectation: The shared header, date body, and footer are recorded.
+
+    - type: web
       action: input
       target: start-date
       parameters:
@@ -22,12 +27,22 @@ case:
       expectation: The start date is accepted.
 
     - type: web
+      action: screenshot
+      confirm: The start date state is captured.
+      expectation: The shared header, date body, and footer are recorded.
+
+    - type: web
       action: input
       target: end-date
       parameters:
         value: '2026-09-19'
       confirm: An earlier end date is entered.
       expectation: The invalid date ordering is detected.
+
+    - type: web
+      action: screenshot
+      confirm: The invalid date state is captured.
+      expectation: The shared header, date body, and footer are recorded.
 
     - type: web
       action: assert
@@ -39,12 +54,22 @@ case:
       expectation: The end date cannot precede the start date.
 
     - type: web
+      action: screenshot
+      confirm: The date validation state is captured.
+      expectation: The shared header, date body, and footer are recorded.
+
+    - type: web
       action: assert
       target: date-submit
       parameters:
         condition: disabled
       confirm: The invalid date button state is read.
       expectation: The button is disabled for an invalid range.
+
+    - type: web
+      action: screenshot
+      confirm: The disabled date state is captured.
+      expectation: The shared header, date body, and footer are recorded.
 
     - type: web
       action: input
@@ -55,9 +80,19 @@ case:
       expectation: The end date is on or after the start date.
 
     - type: web
+      action: screenshot
+      confirm: The valid date state is captured.
+      expectation: The shared header, date body, and footer are recorded.
+
+    - type: web
       action: assert
       target: date-submit
       parameters:
         condition: enabled
       confirm: The valid date button state is read.
       expectation: The button is enabled for a valid range.
+
+    - type: web
+      action: screenshot
+      confirm: The enabled date state is captured.
+      expectation: The shared header, date body, and footer are recorded.
