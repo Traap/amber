@@ -35,6 +35,10 @@ module Amber
         raise TypeError, 'Web action must return Amber::Execution::Result' unless result.is_a?(Result)
 
         result
+      rescue KeyError, TypeError
+        raise
+      rescue StandardError => e
+        Result.new(status: :failed, error: e)
       end
 
       private

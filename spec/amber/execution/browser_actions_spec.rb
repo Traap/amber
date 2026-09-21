@@ -1,0 +1,68 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength -- keeps browser action fixtures readable
+RSpec.describe Amber::Execution::BrowserActions do
+  let(:browser) { instance_double('browser') }
+  let(:session) do
+    instance_double(
+      Amber::Execution::WebSession,
+      browser: browser,
+      browser_name: 'Chrome',
+      evidence: Amber::Execution::EvidenceCollector.new
+    )
+  end
+  let(:actions) { described_class.new(session) }
+
+  def step(action, target: 'heading', parameters: {})
+    instance_double(
+      Amber::TestStep,
+      action: action,
+      target: target,
+      parameters: parameters
+    )
+  end
+
+  it 'navigates to a target' do
+    allow(browser).to receive(:goto)
+
+    result = actions.navigate(step('navigate', target: 'fixture://home'), nil)
+
+    expect(browser).to have_received(:goto).with('fixture://home')
+    expect(result).to be_passed
+  end
+
+  it 'clicks a target element by id' do
+    element = instance_double('element', click: nil)
+    allow(browser).to receive(:element).with(id: 'submit').and_return(element)
+
+    result = actions.click(step('click', target: 'submit'), nil)
+
+    expect(element).to have_received(:click)
+    expect(result).to be_passed
+  end
+
+  it 'asserts text and reports a failed result' do
+    element = instance_double('element', text: 'Wrong text')
+    allow(browser).to receive(:element).with(id: 'heading').and_return(element)
+
+    result = actions.assert(step('assert', parameters: { condition: 'text', value: 'Expected' }), nil)
+
+    expect(result).to be_failed
+    expect(result.error.message).to match(/Browser assertion failed/)
+  end
+
+  it 'captures a screenshot as evidence' do
+    screenshot = instance_double('screenshot', save: nil)
+    allow(browser).to receive(:screenshot).and_return(screenshot)
+
+    result = actions.screenshot(
+      step('screenshot', parameters: { path: '/tmp/amber-browser.png' }),
+      nil
+    )
+
+    expect(screenshot).to have_received(:save).with('/tmp/amber-browser.png')
+    expect(result).to be_passed
+    expect(session.evidence.items.first[:type]).to eq(:screenshot)
+  end
+end
+# rubocop:enable Metrics/BlockLength
