@@ -4,7 +4,7 @@ suite:
   purpose: Validate Amber's reusable, application-neutral advanced web fixture.
 
 includes:
-  - folder: web/advanced
+  - folder: web/primitives
     case:
       - name: page-mock
       - name: choices

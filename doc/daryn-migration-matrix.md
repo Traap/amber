@@ -110,15 +110,15 @@ The names below are Amber factory paths, not Daryn runtime dependencies.
 
 | Generic intent | Amber case or coverage | Status |
 | --- | --- | --- |
-| Browser startup and teardown | `web/browser/navigation` | migrated |
-| Generic controls and element range | `web/browser/controls` | migrated |
-| Navigation and text assertions | `web/browser/navigation` | migrated |
-| Input and click interactions | `web/browser/interactions` | migrated |
-| Repeated screenshots and screenshot naming | `web/browser/screenshot-steps` | migrated |
-| Screenshot evidence scoped to a case/page | `web/browser/evidence` | migrated |
-| Download and copied-file evidence | `web/browser/evidence` | migrated |
-| PDF and screenshot evidence | `web/browser/evidence` | migrated |
-| YAML navigation and route input | `web/browser/teleport` | migrated |
+| Browser startup and teardown | `web/primitives/navigation` | migrated |
+| Generic controls and element range | `web/primitives/controls` | migrated |
+| Navigation and text assertions | `web/primitives/navigation` | migrated |
+| Input and click interactions | `web/primitives/interactions` | migrated |
+| Repeated screenshots and screenshot naming | per-action screenshots | migrated |
+| Screenshot evidence scoped to a case/page | `web/primitives/evidence` | migrated |
+| Download and copied-file evidence | `web/primitives/evidence` | migrated |
+| PDF and screenshot evidence | `web/primitives/evidence` | migrated |
+| YAML navigation and route input | `web/primitives/teleport` | migrated |
 | OCR/translation validation | injected OCR browser specs | migrated |
 | LaTeX string compatibility | existing LaTeX specs | migrated |
 | Environment evidence | existing CLI environment case | migrated |

@@ -89,13 +89,12 @@ namespace :validate do
     content = File.read(results)
     required = %w[
       factory/suite/web/browser/browser
-      factory/case/web/browser/navigation/navigation
-      factory/case/web/browser/evidence/evidence
+      factory/case/web/primitives/navigation/navigation
       factory/suite/web/advanced/advanced
-      factory/case/web/advanced/page-mock/page-mock
-      factory/case/web/advanced/choices/choices
-      factory/case/web/advanced/text-input/text-input
-      factory/case/web/advanced/date-range/date-range
+      factory/case/web/primitives/page-mock/page-mock
+      factory/case/web/primitives/choices/choices
+      factory/case/web/primitives/text-input/text-input
+      factory/case/web/primitives/date-range/date-range
     ]
     missing = required.reject { |path| content.include?(path) }
     abort "Web validation is missing from test-results.tex: #{missing.join(', ')}" unless missing.empty?

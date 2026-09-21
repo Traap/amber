@@ -12,7 +12,7 @@ RSpec.describe Amber::TestCase, browser: true do
 
     Dir.mktmpdir('amber-web') do
       test_case = described_class.new(
-        'factory/case/web/browser/navigation/navigation.yaml',
+        'factory/case/web/primitives/navigation/navigation.yaml',
         {
           'name' => 'local web fixture',
           'web' => { 'browser' => 'Chrome' },
@@ -33,7 +33,7 @@ RSpec.describe Amber::TestCase, browser: true do
       expect(File).to exist(
         File.join(
           Amber::TestEvidence::TEST_OUTPUT_DIR,
-          'factory/case/web/browser/navigation/navigation-003-001.png'
+          'factory/case/web/primitives/navigation/navigation-003-001.png'
         )
       )
     end
@@ -47,7 +47,7 @@ RSpec.describe Amber::TestCase, browser: true do
 
     Dir.mktmpdir('amber-web-evidence') do
       test_case = described_class.new(
-        'factory/case/web/browser/evidence/evidence.yaml',
+        'factory/case/web/primitives/evidence/evidence.yaml',
         {
           'name' => 'local evidence fixture',
           'web' => { 'browser' => 'Chrome' },
@@ -68,7 +68,7 @@ RSpec.describe Amber::TestCase, browser: true do
       expect(results[1].evidence.last[:type]).to eq(:download)
       expect(results[2].evidence.last[:type]).to eq(:pdf)
       output_dir = File.join(
-        Amber::TestEvidence::TEST_OUTPUT_DIR, 'factory/case/web/browser/evidence'
+        Amber::TestEvidence::TEST_OUTPUT_DIR, 'factory/case/web/primitives/evidence'
       )
       expect(File).to exist(File.join(output_dir, 'fixture.txt'))
       expect(File).to exist(File.join(output_dir, 'page.pdf'))
