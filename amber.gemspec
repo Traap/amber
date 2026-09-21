@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.5'
 
   s.add_dependency 'require_all'
+  s.add_dependency 'watir'
 
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'bundler-audit'

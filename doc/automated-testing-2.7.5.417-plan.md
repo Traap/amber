@@ -416,3 +416,7 @@ work progresses.
       screenshots, downloads, PDFs, OCR, and logs.
 - [x] Verified web-session and evidence contracts with 467 RSpec examples and
       focused RuboCop checks.
+- [x] Added the browser-factory contract for Chrome, Brave, Edge, and Firefox
+      with configurable driver paths and download directories.
+- [x] Verified browser-factory behavior with 471 RSpec examples and focused
+      RuboCop checks.
