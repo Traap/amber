@@ -102,7 +102,7 @@ end
 begin
   RSpec::Core::RakeTask.new(:spec)
   task 'spec:browser' do
-    sh 'AMBER_BROWSER_SPECS=1 bundle exec rspec spec/amber/execution/browser_integration_spec.rb'
+    sh 'AMBER_BROWSER_SPECS=1 bundle exec rspec spec/amber/execution/browser_integration_spec.rb spec/amber/tif/test/web_case_browser_spec.rb'
   end
   task default: :spec
 rescue StandardError

@@ -427,7 +427,7 @@ work progresses.
 - [x] Added separate `rake spec:browser` integration coverage using local
       browser fixtures for Chrome, Brave, Edge, and Firefox.
 - [x] Verified the deterministic suite passes 488 examples and the browser
-      suite passes 4 examples.
+      suite passes 5 examples.
 - [x] Added generic YAML browser actions for navigation, click, input, browser
       assertions, and screenshot evidence without application-specific logic.
 - [x] Verified the browser-action contract with focused unit coverage and
@@ -450,3 +450,5 @@ work progresses.
       while preserving custom adapter-factory and registry precedence.
 - [x] Added web dry-run and simulation protection: YAML and step types are
       validated while browser, adapter, OCR, and evidence execution is skipped.
+- [x] Added an application-neutral local HTML fixture and integrated browser
+      case coverage for YAML navigation, assertion, screenshot, and teardown.
