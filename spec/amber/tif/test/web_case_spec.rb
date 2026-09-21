@@ -5,7 +5,7 @@ RSpec.describe Amber::TestCase do
   let(:options) { Amber::Options.new }
   let(:browser_factory) { instance_double('browser_factory') }
   let(:adapter) { instance_double('web_adapter') }
-  let(:test_case) { described_class.new('fixture/web.yaml', data, options) }
+  let(:test_case) { described_class.new('factory/case/web/generic.yaml', data, options) }
   let(:data) do
     {
       'name' => 'generic web case',
@@ -57,7 +57,7 @@ RSpec.describe Amber::TestCase do
 
     expect(results).to all(be_passed)
     expect(ocr_engine).to have_received(:extract).with(
-      File.expand_path('test-output/fixture/page.png'), language: 'fr'
+      File.join(Amber::TestEvidence::TEST_OUTPUT_DIR, 'factory/case/web/page.png'), language: 'fr'
     )
   end
 

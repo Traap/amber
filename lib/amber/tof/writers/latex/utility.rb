@@ -99,17 +99,16 @@ module Amber
       #       << "\n"
 
       # Return a string repressenting full path to a file.
+      output_root = File.expand_path(TestEvidence::TEST_OUTPUT_DIR, pwd)
       if browser.nil? && code.nil?
         "{\
-          #{pwd}#{File::SEPARATOR}\
-          #{TestEvidence::TEST_OUTPUT_DIR}#{File::SEPARATOR}\
+          #{output_root}#{File::SEPARATOR}\
           #{File.dirname(decoratee.filename)}#{File::SEPARATOR}\
           #{File.basename(decoratee.filename, '.*')}\
         }\n".gsub(' ', '')
       else
         "{\
-          #{pwd}#{File::SEPARATOR}\
-          #{TestEvidence::TEST_OUTPUT_DIR}#{File::SEPARATOR}\
+          #{output_root}#{File::SEPARATOR}\
           #{browser}#{File::SEPARATOR}\
           #{code}#{File::SEPARATOR}\
           #{File.dirname(decoratee.filename)}#{File::SEPARATOR}\

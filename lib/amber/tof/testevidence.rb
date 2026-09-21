@@ -52,7 +52,13 @@ module Amber
     # rubocop:enable Metrics/ModuleLength -- legacy evidence API
     # {{{ Definitions.
 
-    TEST_OUTPUT_DIR = 'test-output'
+    REPOSITORY_REPORT_DIR = File.expand_path('../../../report', __dir__)
+    DEFAULT_TEST_OUTPUT_DIR = if File.directory?(REPOSITORY_REPORT_DIR)
+                               File.join(REPOSITORY_REPORT_DIR, 'test-output')
+                             else
+                               'test-output'
+                             end
+    TEST_OUTPUT_DIR = ENV.fetch('AMBER_TEST_OUTPUT_DIR', DEFAULT_TEST_OUTPUT_DIR).freeze
     TEST_OUTPUT = TestEvidence::TEST_OUTPUT_DIR + File::SEPARATOR
     RESULT_FILE_EXTENSION = '.txt'
     STEP_FILE = '-step-'
