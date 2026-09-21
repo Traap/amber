@@ -64,5 +64,30 @@ RSpec.describe Amber::Execution::BrowserActions do
     expect(result).to be_passed
     expect(session.evidence.items.first[:type]).to eq(:screenshot)
   end
+
+  it 'captures a downloaded file as evidence' do
+    path = '/tmp/amber-download.txt'
+    element = instance_double('element', click: nil)
+    allow(browser).to receive(:element).with(id: 'download').and_return(element)
+    allow(File).to receive(:file?).with(path).and_return(true)
+
+    result = actions.download(step('download', target: 'download', parameters: { path: path }), nil)
+
+    expect(element).to have_received(:click)
+    expect(result).to be_passed
+    expect(session.evidence.items.last[:type]).to eq(:download)
+  end
+
+  it 'captures a browser PDF as evidence' do
+    driver = instance_double('driver', print_page: Base64.strict_encode64('%PDF-fixture'))
+    allow(browser).to receive(:driver).and_return(driver)
+    path = '/tmp/amber-page.pdf'
+
+    result = actions.pdf(step('pdf', parameters: { path: path }), nil)
+
+    expect(File.binread(path)).to eq('%PDF-fixture')
+    expect(result).to be_passed
+    expect(session.evidence.items.last[:type]).to eq(:pdf)
+  end
 end
 # rubocop:enable Metrics/BlockLength

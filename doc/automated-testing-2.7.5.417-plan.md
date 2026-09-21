@@ -438,3 +438,7 @@ work progresses.
       the session even when a web action raises.
 - [x] Integrated explicit web cases into Amber's existing test-case lifecycle;
       legacy command cases retain their existing execution path.
+- [x] Added generic download and PDF browser actions that record typed evidence
+      without application-specific behavior.
+- [x] Verified download and PDF evidence actions with focused browser-action
+      contract tests.

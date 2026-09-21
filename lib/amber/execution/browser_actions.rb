@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require 'base64'
 require 'amber/execution/result'
 
 module Amber
@@ -17,7 +18,9 @@ module Amber
           click: method(:click),
           input: method(:input),
           assert: method(:assert),
-          screenshot: method(:screenshot)
+          screenshot: method(:screenshot),
+          download: method(:download),
+          pdf: method(:pdf)
         }
       end
 
@@ -44,13 +47,26 @@ module Amber
       end
 
       def screenshot(step, _context)
-        path = parameter(step, :path)
-        raise ArgumentError, 'Screenshot action requires parameters.path' if path.to_s.empty?
+        path = evidence_path(step, 'Screenshot')
 
-        FileUtils.mkdir_p(File.dirname(path))
         browser.screenshot.save(path)
-        @session.evidence.add(:screenshot, path, browser: @session.browser_name)
-        passed(evidence: [@session.evidence.items.last])
+        record_evidence(:screenshot, path)
+      end
+
+      def download(step, _context)
+        path = evidence_path(step, 'Download')
+        element(step).click
+        wait_for_file(path, parameter(step, :timeout) || 10)
+        record_evidence(:download, path)
+      end
+
+      def pdf(step, _context)
+        path = evidence_path(step, 'PDF')
+        driver = browser.driver
+        raise ArgumentError, 'PDF action requires a browser print driver' unless driver.respond_to?(:print_page)
+
+        File.binwrite(path, Base64.decode64(driver.print_page))
+        record_evidence(:pdf, path)
       end
 
       private
@@ -68,6 +84,29 @@ module Amber
 
       def parameter(step, name)
         step.parameters[name.to_s] || step.parameters[name.to_sym]
+      end
+
+      def evidence_path(step, label)
+        path = parameter(step, :path)
+        raise ArgumentError, "#{label} action requires parameters.path" if path.to_s.empty?
+
+        FileUtils.mkdir_p(File.dirname(path))
+        path
+      end
+
+      def record_evidence(type, path)
+        evidence = @session.evidence.add(type, path, browser: @session.browser_name)
+        passed(evidence: [evidence])
+      end
+
+      def wait_for_file(path, timeout)
+        deadline = Process.clock_gettime(Process::CLOCK_MONOTONIC) + timeout.to_f
+        return if File.file?(path)
+
+        sleep 0.1 until File.file?(path) || Process.clock_gettime(Process::CLOCK_MONOTONIC) >= deadline
+        return if File.file?(path)
+
+        raise ArgumentError, "Download did not create file: #{path}"
       end
 
       def assertion_result(condition, value, step)
