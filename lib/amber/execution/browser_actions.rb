@@ -11,6 +11,12 @@ module Amber
     class BrowserActions
       include EvidenceNaming
 
+      DATE_INPUT_SCRIPT = (<<~'JAVASCRIPT').freeze
+        arguments[0].value = arguments[1];
+        arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
+        arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
+      JAVASCRIPT
+
       def initialize(session, fixture_resolver: nil)
         @session = session
         @fixture_resolver = fixture_resolver
@@ -43,7 +49,7 @@ module Amber
       end
 
       def input(step, _context)
-        element(step).set(parameter(step, :value))
+        set_value(element(step), parameter(step, :value))
         passed
       end
 
@@ -51,7 +57,7 @@ module Amber
         values = parameter(step, :values)
         raise ArgumentError, 'Browser fill action requires parameters.values' unless values.is_a?(Hash)
 
-        values.each { |target, value| browser.element(id: target).set(value) }
+        values.each { |target, value| set_value(browser.element(id: target), value) }
         passed
       end
 
@@ -111,6 +117,14 @@ module Amber
 
       def browser
         @session.browser || raise(ArgumentError, 'Web session is not started')
+      end
+
+      def set_value(control, value)
+        if control.attribute_value('type').to_s == 'date'
+          browser.execute_script(DATE_INPUT_SCRIPT, control, value.to_s)
+        else
+          control.set(value)
+        end
       end
 
       def navigation_target(target)

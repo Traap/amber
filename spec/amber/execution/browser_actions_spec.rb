@@ -56,8 +56,8 @@ RSpec.describe Amber::Execution::BrowserActions do
   end
 
   it 'fills multiple controls by id' do
-    first = instance_double('element', set: nil)
-    second = instance_double('element', set: nil)
+    first = instance_double('element', set: nil, attribute_value: 'text')
+    second = instance_double('element', set: nil, attribute_value: 'text')
     allow(browser).to receive(:element).with(id: 'start-date').and_return(first)
     allow(browser).to receive(:element).with(id: 'end-date').and_return(second)
 
@@ -71,11 +71,12 @@ RSpec.describe Amber::Execution::BrowserActions do
   end
 
   it 'executes grouped actions and records one screenshot' do
-    first = instance_double('element', set: nil)
+    first = instance_double('element', attribute_value: 'date')
     submit = instance_double('element', enabled?: true)
     screenshot = instance_double('screenshot', save: nil)
     allow(browser).to receive(:element).with(id: 'start-date').and_return(first)
     allow(browser).to receive(:element).with(id: 'date-submit').and_return(submit)
+    allow(browser).to receive(:execute_script)
     allow(browser).to receive(:screenshot).and_return(screenshot)
 
     grouped = step(
@@ -93,7 +94,9 @@ RSpec.describe Amber::Execution::BrowserActions do
 
     result = actions.group(grouped, nil)
 
-    expect(first).to have_received(:set).with('2026-09-20')
+    expect(browser).to have_received(:execute_script).with(
+      a_string_including('arguments[0].value = arguments[1]'), first, '2026-09-20'
+    )
     expect(submit).to have_received(:enabled?)
     expect(screenshot).to have_received(:save)
     expect(result).to be_passed

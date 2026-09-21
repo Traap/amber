@@ -5,6 +5,7 @@
 require 'amber/tof/writers/latex/test'
 require 'amber/tof/writers/latex/string_to_latex'
 require 'time'
+require 'yaml'
 
 # -------------------------------------------------------------------------- }}}
 module Amber
@@ -64,20 +65,26 @@ module Amber
       abort msg
     end
 
-    # rubocop:disable Metrics/AbcSize -- preserves report record layout
     def record_evidence(time_start, time_end, output)
       @handle.write "\\item[Execution start:] #{toLaTeX(time_start.strftime('%b %d, %Y %T.%6N'))}\n"
       @handle.write "\\item[Execution end:] #{toLaTeX(time_end.strftime('%b %d, %Y %T.%6N'))}\n"
       @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
       evidence = @decoratee.runtime_evidence || @decoratee.evidence
-      @handle.write "\\item[Evidence:] #{toLaTeX(evidence.to_s)}\n"
+      write_evidence(evidence)
       @handle.write "\\end{description}\n"
       @handle.write "\\begin{lstlisting}[numbers=left]\n"
       @handle.write "#{output}\n"
       @handle.write "\\end{lstlisting}\n"
       @handle.flush
     end
-    # rubocop:enable Metrics/AbcSize -- preserves report record layout
+
+    def write_evidence(evidence)
+      return @handle.write "\\item[Evidence:] None\n" if evidence.empty?
+
+      @handle.write "\\item[Evidence:]\n\\begin{lstlisting}[numbers=none]\n"
+      formatted = evidence.to_yaml.lines.map { |line| toLaTeX(line.chomp) }.join("\n")
+      @handle.write "#{formatted}\n\\end{lstlisting}\n"
+    end
 
     # ---------------------------------------------------------------------- }}}
     # {{{ check_status
