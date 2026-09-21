@@ -42,6 +42,15 @@ module Amber
       @data[:writer] = Amber::Writer::DEFAULT
     end
 
+    # Adapter registry injected by the workflow or populated by the test step.
+    def adapter_registry
+      @data[:adapter_registry]
+    end
+
+    def adapter_registry=(registry)
+      @data[:adapter_registry] = registry
+    end
+
     # ---------------------------------------------------------------------- }}}
     # {{{ browser
 

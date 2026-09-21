@@ -12,7 +12,7 @@ module Amber
       def register(type, adapter)
         key = normalize_type(type)
         raise ArgumentError, "Adapter already registered: #{key}" if @adapters.key?(key)
-        raise ArgumentError, "Adapter must respond to execute" unless adapter.respond_to?(:execute)
+        raise ArgumentError, 'Adapter must respond to execute' unless adapter.respond_to?(:execute)
 
         @adapters[key] = adapter
       end

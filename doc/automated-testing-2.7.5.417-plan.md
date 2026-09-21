@@ -371,7 +371,7 @@ work progresses.
       compatibility.
 - [ ] Define and document the canonical option schema and precedence rules.
 - [ ] Design the generic web executor and evidence interfaces.
-- [ ] Integrate the neutral result model with existing command execution and
+- [x] Integrate the neutral result model with existing command execution and
       LaTeX/Ascii writers without changing output compatibility.
 - [ ] Decide and document the web case YAML/API representation.
 - [ ] Remove duplicated shared CLI concepts from the Amber design.
@@ -404,3 +404,7 @@ work progresses.
 - [x] Created this restartable implementation plan for Amber 2.7.5.417.
 - [x] Added the initial neutral execution result and YAML-selected adapter
       registry contracts with focused tests.
+- [x] Added the command adapter and compatibility bridge returning the existing
+      process tuple to LaTeX and ASCII writers.
+- [x] Verified the adapter bridge with 457 RSpec examples and focused RuboCop
+      checks.
