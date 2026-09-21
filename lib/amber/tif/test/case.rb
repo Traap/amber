@@ -34,12 +34,18 @@ module Amber
 
     def run_web_case
       definition = Amber::Execution::WebCase.from_yaml(@data)
+      steps = web_steps(definition)
+      return steps.map { Amber::Execution::Result.new(status: :skipped) } if simulation?
+
       session = web_session(definition)
       adapter = web_adapter(session)
-      steps = web_steps(definition)
 
       runner = Amber::Execution::WebCaseRunner.new(session: session, adapter: adapter)
       runner.run(steps, context: self)
+    end
+
+    def simulation?
+      @options.simulate? || @options.dryrun?
     end
 
     def web_session(definition)

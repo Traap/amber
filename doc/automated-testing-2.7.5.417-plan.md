@@ -426,7 +426,7 @@ work progresses.
       installed browser/driver matrix.
 - [x] Added separate `rake spec:browser` integration coverage using local
       browser fixtures for Chrome, Brave, Edge, and Firefox.
-- [x] Verified the deterministic suite passes 487 examples and the browser
+- [x] Verified the deterministic suite passes 488 examples and the browser
       suite passes 4 examples.
 - [x] Added generic YAML browser actions for navigation, click, input, browser
       assertions, and screenshot evidence without application-specific logic.
@@ -448,3 +448,5 @@ work progresses.
       without selecting an OCR or translation vendor.
 - [x] Made an injected OCR engine available to Amber's default web adapter
       while preserving custom adapter-factory and registry precedence.
+- [x] Added web dry-run and simulation protection: YAML and step types are
+      validated while browser, adapter, OCR, and evidence execution is skipped.

@@ -14,6 +14,11 @@ RSpec.describe Amber::TestCase do
     }
   end
 
+  before do
+    options.data[:dryrun] = false
+    allow(browser_factory).to receive(:start).and_return(instance_double('browser'))
+  end
+
   it 'runs an explicit web case through injected factories' do
     options.browser_factory = browser_factory
     options.web_adapter_factory = proc { |session| expect(session.browser_name).to eq('Firefox'); adapter }
@@ -52,6 +57,17 @@ RSpec.describe Amber::TestCase do
 
     expect(results).to all(be_passed)
     expect(ocr_engine).to have_received(:extract).with('/tmp/page.png', language: 'fr')
+  end
+
+  it 'validates web steps but does not start a browser during simulation' do
+    options.data[:simulate] = true
+    options.browser_factory = browser_factory
+    options.web_adapter_factory = proc { raise 'adapter must not be created' }
+
+    results = test_case.run_command
+
+    expect(results).to all(be_skipped)
+    expect(browser_factory).not_to have_received(:start)
   end
 end
 # rubocop:enable Metrics/BlockLength -- keeps web case fixtures readable
