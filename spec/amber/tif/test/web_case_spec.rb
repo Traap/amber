@@ -63,6 +63,24 @@ RSpec.describe Amber::TestCase do
     )
   end
 
+  it 'resolves case-local input by target id before execution' do
+    data['web']['input'] = { 'start-date' => '2026-09-20' }
+    data['steps'][0] = {
+      'type' => 'web', 'action' => 'input', 'target' => 'start-date'
+    }
+    options.browser_factory = browser_factory
+    options.web_adapter_factory = proc { adapter }
+    allow(adapter).to receive(:start)
+    allow(adapter).to receive(:execute).and_return(Amber::Execution::Result.new(status: :passed))
+    allow(adapter).to receive(:close)
+
+    test_case.run_command
+
+    expect(adapter).to have_received(:execute).with(
+      an_object_having_attributes(parameters: { 'value' => '2026-09-20' }), anything
+    )
+  end
+
   it 'validates web steps but does not start a browser during simulation' do
     options.data[:simulate] = true
     options.browser_factory = browser_factory

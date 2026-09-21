@@ -93,7 +93,7 @@ module Amber
     end
 
     def web_steps(definition)
-      definition.steps.each_with_index.map do |step_data, index|
+      resolved_web_steps(definition).each_with_index.map do |step_data, index|
         step = Amber::TestStep.new(
           @filename, @data, @options, step_data, index + 1, set_working_dir
         )
@@ -156,7 +156,7 @@ module Amber
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def web_writer_steps(definition, adapter)
-      definition.steps.each_with_index.map do |step_data, index|
+      resolved_web_steps(definition).each_with_index.map do |step_data, index|
         step = Amber::WriterFactory.get_test_step(
           @filename, @data, @options, step_data, index + 1, set_working_dir
         )
@@ -164,6 +164,21 @@ module Amber
         step
       end
     end
+
+    # rubocop:disable Metrics/AbcSize -- resolves one compact input contract
+    def resolved_web_steps(definition)
+      definition.steps.map do |step|
+        next step unless step['action'].to_s == 'input'
+        next step if (step['parameters'] || {}).key?('value')
+
+        target = step['target'].to_s
+        raise ArgumentError, "Web input is not defined for target: #{target}" unless definition.input.key?(target)
+
+        parameters = (step['parameters'] || {}).merge('value' => definition.input.fetch(target))
+        step.merge('parameters' => parameters)
+      end
+    end
+    # rubocop:enable Metrics/AbcSize
 
     def validate_web_step(step)
       return if step.adapter_type == 'web'

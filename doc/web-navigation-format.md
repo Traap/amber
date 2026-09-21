@@ -75,6 +75,32 @@ query: Amber framework
 The `${input.key}` notation is reserved for adapter-side substitution in route
 steps. Amber must not require a particular input schema.
 
+## Case-local web input
+
+A web case may define input values directly beneath its `web` mapping. The
+mapping key is the target control id used by an `input` step:
+
+```yaml
+web:
+  browser: Chrome
+  input:
+    start-date: '2026-09-20'
+    end-date: '2026-09-21'
+
+steps:
+  - type: web
+    action: input
+    target: start-date
+  - type: web
+    action: input
+    target: end-date
+```
+
+Amber resolves the value before browser execution. An explicit
+`parameters.value` takes precedence when a step needs to override the
+case-local value. Every case-local input target must identify a control id;
+an input step without a matching value is rejected before the browser starts.
+
 ## Validation rules
 
 - The top-level key must be `navigation`.

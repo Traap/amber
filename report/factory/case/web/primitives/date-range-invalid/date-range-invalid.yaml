@@ -1,13 +1,13 @@
 case:
   name: ${file}
 
-  purpose: Validate start and end date ordering.
+  purpose: Validate rejection of an end date before the start date.
 
   web:
     browser: Chrome
     input:
       start-date: '2026-09-20'
-      end-date: '2026-09-21'
+      end-date: '2026-09-19'
 
   steps:
     - type: web
@@ -18,7 +18,7 @@ case:
 
     - type: web
       action: screenshot
-      confirm: The date range page is captured.
+      confirm: The invalid date page is captured.
       expectation: The shared header, date body, and footer are recorded.
 
     - type: web
@@ -35,23 +35,37 @@ case:
     - type: web
       action: input
       target: end-date
-      confirm: An end date is entered.
-      expectation: The end date is accepted.
+      confirm: An earlier end date is entered.
+      expectation: The invalid ordering is detected.
 
     - type: web
       action: screenshot
-      confirm: The valid date state is captured.
+      confirm: The invalid ordering state is captured.
+      expectation: The shared header, date body, and footer are recorded.
+
+    - type: web
+      action: assert
+      target: date-status
+      parameters:
+        condition: contains
+        value: on or before
+      confirm: The date validation message is read.
+      expectation: The end date cannot precede the start date.
+
+    - type: web
+      action: screenshot
+      confirm: The validation message state is captured.
       expectation: The shared header, date body, and footer are recorded.
 
     - type: web
       action: assert
       target: date-submit
       parameters:
-        condition: enabled
-      confirm: The valid date button state is read.
-      expectation: The button is enabled for a valid range.
+        condition: disabled
+      confirm: The invalid date button state is read.
+      expectation: The button is disabled for an invalid range.
 
     - type: web
       action: screenshot
-      confirm: The enabled date state is captured.
+      confirm: The disabled date state is captured.
       expectation: The shared header, date body, and footer are recorded.

@@ -17,6 +17,18 @@ RSpec.describe Amber::Execution::WebCase do
       described_class.from_yaml('web' => {}, 'steps' => [])
     end.to raise_error(KeyError, /browser/)
   end
+
+  it 'accepts case-local input keyed by control id' do
+    definition = described_class.from_yaml(
+      'web' => {
+        'browser' => 'Chrome',
+        'input' => { 'start-date' => '2026-09-20' }
+      },
+      'steps' => []
+    )
+
+    expect(definition.input).to eq('start-date' => '2026-09-20')
+  end
 end
 
 RSpec.describe Amber::Execution::WebCaseRunner do
