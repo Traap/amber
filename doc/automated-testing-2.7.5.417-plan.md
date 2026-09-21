@@ -273,6 +273,29 @@ This keeps YAML as the source of truth and permits mixed CLI/web cases. The
 tradeoff is that a user cannot force a web-only mode without selecting a
 web-specific case or suite.
 
+## Canonical option schema and precedence
+
+Amber's command-line options remain the canonical workflow controls: files,
+plan/suite/case selection, writer, run mode, dry-run/simulation, logging, and
+environment reporting. A web case does not require a new CLI switch.
+
+The YAML `web` block owns web execution configuration. `web.browser` selects
+the browser capability, `web.configuration` supplies browser-factory settings,
+and each step's `type` selects its adapter. A web case cannot replace a
+`type: web` step with a command step.
+
+Injected runtime components have this precedence:
+
+1. `Options#web_adapter_factory`, when supplied, creates the case adapter.
+2. An injected `:web` adapter in `Options#adapter_registry` is used next.
+3. Amber's built-in browser actions are used otherwise; an injected
+   `Options#ocr_engine` adds the generic OCR action to that default adapter.
+
+The browser factory is injected through `Options#browser_factory` when
+supplied; otherwise Amber creates its default factory. YAML remains
+authoritative for test intent while applications can inject browser, OCR, and
+complex-action implementations without application logic in Amber.
+
 ## Arch Linux browser-driver baseline
 
 The current Arch Linux workstation reports:
@@ -369,17 +392,17 @@ work progresses.
 - [x] Record Amber's current CLI as the compatibility baseline.
 - [x] Record the neutral internal result model with mandatory LaTeX
       compatibility.
-- [ ] Define and document the canonical option schema and precedence rules.
-- [ ] Design the generic web executor and evidence interfaces.
+- [x] Define and document the canonical option schema and precedence rules.
+- [x] Design the generic web executor and evidence interfaces.
 - [x] Integrate the neutral result model with existing command execution and
       LaTeX/Ascii writers without changing output compatibility.
-- [ ] Decide and document the web case YAML/API representation.
+- [x] Decide and document the web case YAML/API representation.
 - [ ] Remove duplicated shared CLI concepts from the Amber design.
-- [ ] Add adapter injection and web lifecycle handling to Amber.
-- [ ] Add neutral local CLI and browser fixtures to Amber validation.
-- [ ] Implement the built-in web capabilities without application-specific
+- [x] Add adapter injection and web lifecycle handling to Amber.
+- [x] Add neutral local CLI and browser fixtures to Amber validation.
+- [x] Implement the built-in web capabilities without application-specific
       dependencies.
-- [ ] Add focused contract, failure, dry-run, and simulation tests.
+- [x] Add focused contract, failure, dry-run, and simulation tests.
 - [ ] Update version, gemspec, README, report metadata, and release notes.
 - [ ] Run deterministic tests, browser tests, lint, package checks, and report
       generation.
