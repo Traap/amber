@@ -424,3 +424,7 @@ work progresses.
       added Linux binary discovery for Brave and Edge.
 - [x] Started and cleanly closed Chrome, Brave, Edge, and Firefox using the
       installed browser/driver matrix.
+- [x] Added separate `rake spec:browser` integration coverage using local
+      browser fixtures for Chrome, Brave, Edge, and Firefox.
+- [x] Verified the deterministic suite remains at 471 examples and the browser
+      suite passes 4 examples.

@@ -45,9 +45,9 @@ end
 # -------------------------------------------------------------------------- }}}
 # {{{ Validate Amber.
 
-# rubocop:disable Metrics.BlockLength
+# rubocop:disable Metrics/BlockLength -- keeps validation task grouping readable
 namespace :validate do
-  # rubocop:enable Metrics.BlockLength
+  # rubocop:enable Metrics/BlockLength -- keeps validation task grouping readable
 
   task amber: %i[check_env save_wd report_dir do_validation restore_wd docbld]
 
@@ -101,6 +101,9 @@ end
 
 begin
   RSpec::Core::RakeTask.new(:spec)
+  task 'spec:browser' do
+    sh 'AMBER_BROWSER_SPECS=1 bundle exec rspec spec/amber/execution/browser_integration_spec.rb'
+  end
   task default: :spec
 rescue StandardError
   puts 'RSpec is not supported on this system.'
