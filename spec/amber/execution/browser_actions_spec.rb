@@ -55,6 +55,45 @@ RSpec.describe Amber::Execution::BrowserActions do
     expect(result.error.message).to match(/Browser assertion failed/)
   end
 
+  it 'asserts an enabled control' do
+    element = instance_double('element', enabled?: true)
+    allow(browser).to receive(:element).with(id: 'submit').and_return(element)
+
+    result = actions.assert(
+      step('assert', target: 'submit', parameters: { condition: 'enabled' }), nil
+    )
+
+    expect(result).to be_passed
+  end
+
+  it 'asserts a selected control value' do
+    element = instance_double('element', value: '5')
+    allow(browser).to receive(:element).with(id: 'integer').and_return(element)
+
+    result = actions.assert(
+      step('assert', target: 'integer', parameters: { condition: 'value', value: '5' }), nil
+    )
+
+    expect(result).to be_passed
+  end
+
+  it 'asserts checked and unchecked controls' do
+    checked = instance_double('element', checked?: true)
+    unchecked = instance_double('element', checked?: false)
+    allow(browser).to receive(:element).with(id: 'choice-a').and_return(checked)
+    allow(browser).to receive(:element).with(id: 'choice-b').and_return(unchecked)
+
+    checked_result = actions.assert(
+      step('assert', target: 'choice-a', parameters: { condition: 'checked' }), nil
+    )
+    unchecked_result = actions.assert(
+      step('assert', target: 'choice-b', parameters: { condition: 'unchecked' }), nil
+    )
+
+    expect(checked_result).to be_passed
+    expect(unchecked_result).to be_passed
+  end
+
   it 'captures a screenshot as evidence' do
     screenshot = instance_double('screenshot', save: nil)
     allow(browser).to receive(:screenshot).and_return(screenshot)

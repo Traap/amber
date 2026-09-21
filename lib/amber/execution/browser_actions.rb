@@ -120,15 +120,22 @@ module Amber
         raise ArgumentError, "Download did not create file: #{path}"
       end
 
+      # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
       def assertion_result(condition, value, step)
         case condition.to_s
         when 'visible' then element(step).present?
         when 'text' then element(step).text == value.to_s
         when 'contains' then element(step).text.include?(value.to_s)
         when 'title' then browser.title == value.to_s
+        when 'value' then element(step).value == value.to_s
+        when 'enabled' then element(step).enabled?
+        when 'disabled' then !element(step).enabled?
+        when 'checked' then element(step).checked?
+        when 'unchecked' then !element(step).checked?
         else raise ArgumentError, "Unsupported browser assertion: #{condition}"
         end
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength
 
       def symbolize(hash)
         hash.to_h { |key, value| [key.to_sym, value] }

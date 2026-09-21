@@ -1,0 +1,63 @@
+case:
+  name: ${file}
+
+  purpose: Validate start and end date ordering.
+
+  web:
+    browser: Chrome
+
+  steps:
+    - type: web
+      action: navigate
+      target: fixture://web/page_mock.html#date-range
+      confirm: The date range primitive is opened.
+      expectation: The date controls are available.
+
+    - type: web
+      action: input
+      target: start-date
+      parameters:
+        value: '2026-09-20'
+      confirm: A start date is entered.
+      expectation: The start date is accepted.
+
+    - type: web
+      action: input
+      target: end-date
+      parameters:
+        value: '2026-09-19'
+      confirm: An earlier end date is entered.
+      expectation: The invalid date ordering is detected.
+
+    - type: web
+      action: assert
+      target: date-status
+      parameters:
+        condition: contains
+        value: on or before
+      confirm: The date validation message is read.
+      expectation: The end date cannot precede the start date.
+
+    - type: web
+      action: assert
+      target: date-submit
+      parameters:
+        condition: disabled
+      confirm: The invalid date button state is read.
+      expectation: The button is disabled for an invalid range.
+
+    - type: web
+      action: input
+      target: end-date
+      parameters:
+        value: '2026-09-21'
+      confirm: A valid end date is entered.
+      expectation: The end date is on or after the start date.
+
+    - type: web
+      action: assert
+      target: date-submit
+      parameters:
+        condition: enabled
+      confirm: The valid date button state is read.
+      expectation: The button is enabled for a valid range.

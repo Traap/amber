@@ -9,7 +9,7 @@ case:
   steps:
     - type: web
       action: navigate
-      target: fixture://web/page_mock.html
+      target: fixture://web/page_mock.html#evidence
       confirm: The local evidence fixture is opened.
       expectation: The evidence links are available.
 

@@ -1,7 +1,7 @@
 case:
   name: ${file}
 
-  purpose: Validate local navigation routes and confined input loading.
+  purpose: Validate local navigation routes to reusable web primitives.
 
   web:
     browser: Chrome
@@ -11,9 +11,8 @@ case:
   steps:
     - type: web
       action: teleport
-      target: page
+      target: input-validation
       parameters:
         from: start
-        input: page.yaml
       confirm: The local navigation route is executed.
-      expectation: The page route and input file are accepted.
+      expectation: The input validation primitive is opened.

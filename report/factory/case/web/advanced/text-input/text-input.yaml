@@ -1,0 +1,47 @@
+case:
+  name: ${file}
+
+  purpose: Validate multiline input and its configured maximum length.
+
+  web:
+    browser: Chrome
+
+  steps:
+    - type: web
+      action: navigate
+      target: fixture://web/page_mock.html#text-input
+      confirm: The multiline primitive is opened.
+      expectation: The configured text area is available.
+
+    - type: web
+      action: assert
+      target: text-submit
+      parameters:
+        condition: disabled
+      confirm: The initial text button state is read.
+      expectation: The button is disabled before text is entered.
+
+    - type: web
+      action: input
+      target: multi-line
+      parameters:
+        value: A short multiline message.
+      confirm: A multiline message is entered.
+      expectation: The text area accepts content.
+
+    - type: web
+      action: assert
+      target: multi-line-count
+      parameters:
+        condition: text
+        value: 26 / 40
+      confirm: The configured length counter is read.
+      expectation: The counter reports the entered length.
+
+    - type: web
+      action: assert
+      target: text-submit
+      parameters:
+        condition: enabled
+      confirm: The enabled text button state is read.
+      expectation: The button is enabled for a non-empty valid message.

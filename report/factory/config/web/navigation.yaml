@@ -2,12 +2,30 @@ navigation:
   version: 1
   routes:
     - from: start
-      to: page
+      to: input-validation
       steps:
         - action: navigate
-          target: fixture://web/page_mock.html
+          target: fixture://web/page_mock.html#input-validation
         - action: assert
           target: heading
           parameters:
             condition: text
-            value: Amber framework
+            value: Amber web capability fixture
+
+    - from: start
+      to: choices
+      steps:
+        - action: navigate
+          target: fixture://web/page_mock.html#choices
+
+    - from: start
+      to: text-input
+      steps:
+        - action: navigate
+          target: fixture://web/page_mock.html#text-input
+
+    - from: start
+      to: date-range
+      steps:
+        - action: navigate
+          target: fixture://web/page_mock.html#date-range

@@ -6,17 +6,26 @@
     <title>Amber web capability fixture</title>
     <style>
       :root { color: #172033; background: #f4f7fb; font: 16px/1.5 system-ui, sans-serif; }
-      body { max-width: 960px; margin: 0 auto; padding: 2rem; }
-      header, section { margin-bottom: 1.5rem; padding: 1.5rem; background: #fff;
-        border: 1px solid #dfe5ee; border-radius: 12px; }
+      body { display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto;
+        max-width: 960px; margin: 0 auto; }
+      header, footer { padding: 1rem 2rem; color: #fff; background: #182b49; }
+      header { border-bottom: 4px solid #4f8bd6; }
+      footer { border-top: 4px solid #4f8bd6; font-size: .9rem; }
+      header p, footer p { margin: 0; }
+      main { padding: 2rem; }
+      .page { padding: 1.5rem; background: #fff; border: 1px solid #dfe5ee;
+        border-radius: 12px; }
       h1, h2 { margin-top: 0; color: #182b49; }
       .controls { display: grid; gap: 1rem; max-width: 34rem; }
       label { display: grid; gap: .35rem; font-weight: 700; }
       input, select, textarea, button { padding: .65rem .8rem; font: inherit; }
+      .choices { display: flex; gap: 1rem; flex-wrap: wrap; }
+      .choices label { display: inline-flex; align-items: center; flex-direction: row; }
       .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
       .status { color: #536174; }
       .status.success { color: #16805c; font-weight: 700; }
-      .reveal { color: #2458bb; }
+      .status.error { color: #a12d3a; font-weight: 700; }
+      .hint { color: #536174; font-size: .9rem; }
       [hidden] { display: none; }
       .long-content { min-height: 24rem; }
     </style>
@@ -25,54 +34,130 @@
     <header>
       <p id="fixture-kind">Local framework fixture</p>
       <h1 id="heading">Amber web capability fixture</h1>
-      <p id="description">A deterministic page for navigation, controls, state,
-        evidence, download, PDF, and OCR adapter validation.</p>
+      <p id="breadcrumb" aria-live="polite">Home</p>
     </header>
 
-    <section id="controls" aria-labelledby="controls-heading">
-      <h2 id="controls-heading">Controls</h2>
-      <div class="controls">
-        <label for="query">Query<input id="query" name="query"></label>
-        <label for="category">Category
-          <select id="category" name="category">
-            <option value="generic">Generic</option>
-            <option value="web">Web</option>
-          </select>
-        </label>
-        <label><input id="enabled" type="checkbox"> Enabled</label>
-        <div class="actions">
-          <button id="submit" type="button">Apply</button>
-          <button id="reveal-button" type="button">Reveal result</button>
+    <main>
+      <section class="page" data-page="home">
+        <h2>Primitive workbench</h2>
+        <p id="description">Deterministic pages for generic browser capability validation.</p>
+        <nav aria-label="Primitive pages">
+          <a id="input-validation-link" href="#input-validation">Input validation</a> |
+          <a id="choices-link" href="#choices">Choices</a> |
+          <a id="text-input-link" href="#text-input">Text input</a> |
+          <a id="date-range-link" href="#date-range">Date range</a>
+        </nav>
+      </section>
+
+      <section class="page" data-page="input-validation" hidden>
+        <h2>Input validation</h2>
+        <div class="controls">
+          <label for="integer">Integer (1–10)<input id="integer" type="number" min="1" max="10"></label>
+          <p id="integer-error" class="status" aria-live="polite"></p>
+          <label for="float">Float (0.5–9.5)<input id="float" type="number" min="0.5" max="9.5" step="0.1"></label>
+          <p id="float-error" class="status" aria-live="polite"></p>
+          <div class="actions"><button id="input-submit" type="button" disabled>Submit valid values</button></div>
+          <p id="input-status" class="status" aria-live="polite">Enter values in range.</p>
         </div>
-        <p id="status" class="status">Waiting for an action.</p>
-        <p id="reveal" class="reveal" hidden>Result is visible.</p>
-      </div>
-    </section>
+      </section>
 
-    <section id="evidence" aria-labelledby="evidence-heading">
-      <h2 id="evidence-heading">Evidence links</h2>
-      <div class="actions">
-        <a id="download" href="data:text/plain,Amber%20web%20fixture" download="fixture.txt">Download fixture</a>
-        <a id="document" href="data:application/pdf;base64,JVBERi0xLjQKJQ==" download="fixture.pdf">Download PDF fixture</a>
-      </div>
-    </section>
+      <section class="page" data-page="choices" hidden>
+        <h2>Mutually exclusive choices</h2>
+        <div class="choices" id="choice-group">
+          <label><input id="choice-a" name="choice" type="radio" value="a"> Choice A</label>
+          <label><input id="choice-b" name="choice" type="radio" value="b"> Choice B</label>
+        </div>
+        <p id="choice-status" class="status" aria-live="polite">Choose exactly one option.</p>
+        <button id="choice-submit" type="button" disabled>Continue</button>
+      </section>
 
-    <section class="long-content" id="long-content" aria-labelledby="long-heading">
-      <h2 id="long-heading">Long-page content</h2>
-      <p id="long-copy">This deterministic content provides a stable page surface
-        for screenshot and future scrolling coverage.</p>
-    </section>
+      <section class="page" data-page="text-input" hidden>
+        <h2>Multiline input</h2>
+        <label for="multi-line">Message (maximum 40 characters)</label>
+        <textarea id="multi-line" maxlength="40" rows="5"></textarea>
+        <p id="multi-line-count" class="hint">0 / 40</p>
+        <p id="multi-line-status" class="status" aria-live="polite">Enter a message.</p>
+        <button id="text-submit" type="button" disabled>Save message</button>
+      </section>
+
+      <section class="page" data-page="date-range" hidden>
+        <h2>Date range validation</h2>
+        <div class="controls">
+          <label for="start-date">Start date<input id="start-date" type="date"></label>
+          <label for="end-date">End date<input id="end-date" type="date"></label>
+          <p id="date-status" class="status" aria-live="polite">Select a start and end date.</p>
+          <button id="date-submit" type="button" disabled>Apply date range</button>
+        </div>
+      </section>
+
+      <section class="page" data-page="evidence" hidden>
+        <h2>Evidence links</h2>
+        <div class="actions">
+          <a id="download" href="data:text/plain,Amber%20web%20fixture" download="fixture.txt">Download fixture</a>
+          <a id="document" href="data:application/pdf;base64,JVBERi0xLjQKJQ==" download="fixture.pdf">Download PDF fixture</a>
+        </div>
+      </section>
+
+      <section class="page" data-page="long-content" hidden>
+        <h2>Long-page content</h2>
+        <p id="long-copy">This deterministic content provides a stable page surface for future scrolling coverage.</p>
+      </section>
+    </main>
+
+    <footer><p id="footer-status">Amber fixture • deterministic local validation</p></footer>
 
     <script>
-      document.getElementById('submit').addEventListener('click', function () {
-        const query = document.getElementById('query').value;
-        const status = document.getElementById('status');
-        status.textContent = query ? 'Applied: ' + query : 'Applied: empty query';
-        status.classList.add('success');
-      });
-      document.getElementById('reveal-button').addEventListener('click', function () {
-        document.getElementById('reveal').hidden = false;
-      });
+      (function () {
+        const pages = document.querySelectorAll('[data-page]');
+        const breadcrumb = document.getElementById('breadcrumb');
+        const names = { home: 'Home', 'input-validation': 'Input validation', choices: 'Choices',
+          'text-input': 'Text input', 'date-range': 'Date range', evidence: 'Evidence',
+          'long-content': 'Long content' };
+
+        function pageName() { return window.location.hash.slice(1) || 'home'; }
+        function showPage() {
+          const page = names[pageName()] ? pageName() : 'home';
+          pages.forEach(function (node) { node.hidden = node.dataset.page !== page; });
+          breadcrumb.textContent = names[page];
+        }
+        function validNumber(id, errorId, minimum, maximum, label) {
+          const value = Number(document.getElementById(id).value);
+          const valid = Number.isFinite(value) && value >= minimum && value <= maximum;
+          document.getElementById(errorId).textContent = valid ? '' : label + ' must be between ' + minimum + ' and ' + maximum + '.';
+          return valid;
+        }
+        function validateInputs() {
+          const valid = validNumber('integer', 'integer-error', 1, 10, 'Integer') &&
+            validNumber('float', 'float-error', 0.5, 9.5, 'Float');
+          document.getElementById('input-submit').disabled = !valid;
+          document.getElementById('input-status').textContent = valid ? 'Values are valid.' : 'Enter values in range.';
+        }
+        function validateChoices() {
+          const valid = document.querySelector('input[name="choice"]:checked') !== null;
+          document.getElementById('choice-submit').disabled = !valid;
+          document.getElementById('choice-status').textContent = valid ? 'One choice selected.' : 'Choose exactly one option.';
+        }
+        function validateText() {
+          const field = document.getElementById('multi-line');
+          const valid = field.value.length > 0 && field.value.length <= 40;
+          document.getElementById('multi-line-count').textContent = field.value.length + ' / 40';
+          document.getElementById('multi-line-status').textContent = valid ? 'Message is valid.' : 'Enter a message.';
+          document.getElementById('text-submit').disabled = !valid;
+        }
+        function validateDates() {
+          const start = document.getElementById('start-date').value;
+          const end = document.getElementById('end-date').value;
+          const valid = start !== '' && end !== '' && start <= end;
+          document.getElementById('date-status').textContent = valid ? 'Date range is valid.' : 'Start date must be on or before end date.';
+          document.getElementById('date-submit').disabled = !valid;
+        }
+        ['integer', 'float'].forEach(function (id) { document.getElementById(id).addEventListener('input', validateInputs); });
+        document.querySelectorAll('input[name="choice"]').forEach(function (node) { node.addEventListener('change', validateChoices); });
+        document.getElementById('multi-line').addEventListener('input', validateText);
+        ['start-date', 'end-date'].forEach(function (id) { document.getElementById(id).addEventListener('input', validateDates); });
+        window.addEventListener('hashchange', showPage);
+        showPage();
+      }());
     </script>
   </body>
 </html>

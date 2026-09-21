@@ -7,4 +7,7 @@ includes:
   - folder: web/advanced
     case:
       - name: page-mock
+      - name: choices
+      - name: text-input
+      - name: date-range
       - name: evidence

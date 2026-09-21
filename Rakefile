@@ -93,6 +93,9 @@ namespace :validate do
       factory/case/web/browser/evidence/evidence
       factory/suite/web/advanced/advanced
       factory/case/web/advanced/page-mock/page-mock
+      factory/case/web/advanced/choices/choices
+      factory/case/web/advanced/text-input/text-input
+      factory/case/web/advanced/date-range/date-range
     ]
     missing = required.reject { |path| content.include?(path) }
     abort "Web validation is missing from test-results.tex: #{missing.join(', ')}" unless missing.empty?
