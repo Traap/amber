@@ -1,7 +1,7 @@
 suite:
   name: ${file}
 
-  purpose: Validate Amber's reusable, application-neutral advanced web fixture.
+  purpose: Validate Amber's application-neutral web primitives.
 
 includes:
   - folder: web/primitives
@@ -11,3 +11,7 @@ includes:
       - name: text-input
       - name: date-range
       - name: evidence
+      - name: navigation
+      - name: interactions
+      - name: teleport
+      - name: controls

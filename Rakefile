@@ -88,9 +88,8 @@ namespace :validate do
 
     content = File.read(results)
     required = %w[
-      factory/suite/web/browser/browser
+      factory/suite/web/primitives/primitives
       factory/case/web/primitives/navigation/navigation
-      factory/suite/web/advanced/advanced
       factory/case/web/primitives/page-mock/page-mock
       factory/case/web/primitives/choices/choices
       factory/case/web/primitives/text-input/text-input

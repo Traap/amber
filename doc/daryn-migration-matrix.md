@@ -7,8 +7,8 @@ The migration target is Amber's application-neutral factory:
 
 ```text
 factory/plan/master
-factory/suite/web/browser
-factory/case/web/browser
+factory/suite/web/primitives
+factory/case/web/primitives
 factory/config
 ```
 
@@ -24,8 +24,8 @@ or has no Amber framework responsibility.
 | --- | --- | --- |
 | `plan/123-VNV-059523` | migrate | Merge its generic validation role into `factory/plan/master`. |
 | `suite/cli/options` | migrate | Merge generic browser/language option coverage into Amber's CLI suite; exclude Daryn username/password cases. |
-| `suite/actions` | rewrite | Merge generic browser lifecycle, file, YAML, environment, timing, and output behavior into `web/browser`. |
-| `suite/page` | rewrite | Merge generic navigation, assertion, screenshot, download, PDF, OCR, and failure-evidence behavior into `web/browser`. |
+| `suite/actions` | rewrite | Merge generic browser lifecycle, file, YAML, environment, timing, and output behavior into `web/primitives`. |
+| `suite/page` | rewrite | Merge generic navigation, assertion, screenshot, download, PDF, OCR, and failure-evidence behavior into `web/primitives`. |
 
 ## Cases
 
@@ -98,8 +98,8 @@ or has no Amber framework responsibility.
 
 1. Keep the matrix and report-directory behavior as the migration contract.
 2. Add neutral local web fixtures and rewrite the generic cases in small
-   groups under `factory/case/web/browser`.
-3. Merge each rewritten case into `factory/suite/web/browser` and then into
+   groups under `factory/case/web/primitives`.
+3. Merge each rewritten case into `factory/suite/web/primitives` and then into
    `factory/plan/master`.
 4. Run Amber's own `--report-dir=report` validation after each group.
 

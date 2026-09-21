@@ -129,9 +129,9 @@ consumer repository.
 ### Phase 1A — Migrate the Daryn factory contract
 
 1. Merge the Daryn plan into Amber's `factory/plan/master`.
-2. Merge Daryn's generic web suites into `factory/suite/web/browser`.
+2. Merge Daryn's generic web suites into `factory/suite/web/primitives`.
 3. Rewrite eligible Daryn cases as Amber-native web cases under
-   `factory/case/web/browser`.
+   `factory/case/web/primitives`.
 4. Record every Daryn plan, suite, case, and `factory/config` item in a
    migration matrix marked `migrate`, `rewrite`, or `exclude`.
 5. Exclude Daryn application-specific URLs, page objects, VCORE resources,
@@ -516,7 +516,7 @@ the TODO and completed lists below as work progresses.
       examples), and report workflow after release hygiene changes.
 - [x] Completed the final application-neutrality and CLI-duplication review;
       Amber core contains no Daryn dependency or product-specific workflow.
-- [x] Added the `web/browser` suite to the master validation plan with
+- [x] Added the `web/primitives` suite to the master validation plan with
       separate navigation/assertion and evidence test cases.
 - [x] Integrated web steps with the existing LaTeX/ASCII step writers so
       browser results and typed evidence appear in validation output.

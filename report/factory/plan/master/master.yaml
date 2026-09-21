@@ -15,10 +15,8 @@ plan:
           test maintenance.
     \item Test Suite tif/structure reveals concepts unique to a Test Input
            Factory
-    \item Test Suite web/browser validates the core web adapter and evidence
-           lifecycle.
-    \item Test Suite web/advanced validates the reusable local web capability
-           fixture and dynamic browser behavior.
+    \item Test Suite web/primitives validates the generic web adapter, browser
+           controls, navigation, and evidence lifecycle.
     \item Test Suite advanced-concept demonstrates embedded \LaTeX\ commands
           throughout.
     \end{itemize}
@@ -53,8 +51,7 @@ includes:
   # Generic web browser suite; report validation uses Chrome/ChromeDriver.
   - folder: web
     suite:
-      - name: browser
-      - name: advanced
+      - name: primitives
 
   # A placeholder for a future concepts that are partially implemented.
   - suite:
