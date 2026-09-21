@@ -396,7 +396,7 @@ work progresses.
 - [x] Integrate the neutral result model with existing command execution and
       LaTeX/Ascii writers without changing output compatibility.
 - [x] Decide and document the web case YAML/API representation.
-- [ ] Remove duplicated shared CLI concepts from the Amber design.
+- [x] Remove duplicated shared CLI concepts from the Amber design.
 - [x] Add adapter injection and web lifecycle handling to Amber.
 - [x] Add neutral local CLI and browser fixtures to Amber validation.
 - [x] Implement the built-in web capabilities without application-specific
@@ -404,9 +404,9 @@ work progresses.
 - [x] Add focused contract, failure, dry-run, and simulation tests.
 - [x] Update version, gemspec, README, and version-facing validation metadata
       for Amber 2.7.5.417 and Ruby 4.
-- [ ] Run deterministic tests, browser tests, lint, package checks, and report
+- [x] Run deterministic tests, browser tests, lint, package checks, and report
       generation.
-- [ ] Review the final diff for application-specific leakage and duplicated
+- [x] Review the final diff for application-specific leakage and duplicated
       commands.
 - [ ] Propose a release commit; commit/push only when explicitly requested.
 
@@ -485,3 +485,5 @@ work progresses.
       lint now passes across 99 files without offenses.
 - [x] Revalidated the deterministic suite (488 examples), browser suite (7
       examples), and report workflow after release hygiene changes.
+- [x] Completed the final application-neutrality and CLI-duplication review;
+      Amber core contains no Daryn dependency or product-specific workflow.
