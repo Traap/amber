@@ -18,9 +18,9 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ Initialzie
 
-    # rubocop:disable Metrics.AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength -- legacy option initialization
     def initialize
-      # rubocop:enable Metrics.AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength -- legacy option initialization
       @data = {}
       @data[:browser] = Amber::Browser::DEFAULT
       @data[:dryrun] = true
@@ -49,6 +49,22 @@ module Amber
 
     def adapter_registry=(registry)
       @data[:adapter_registry] = registry
+    end
+
+    def browser_factory
+      @data[:browser_factory]
+    end
+
+    def browser_factory=(factory)
+      @data[:browser_factory] = factory
+    end
+
+    def web_adapter_factory
+      @data[:web_adapter_factory]
+    end
+
+    def web_adapter_factory=(factory)
+      @data[:web_adapter_factory] = factory
     end
 
     # ---------------------------------------------------------------------- }}}

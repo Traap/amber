@@ -426,7 +426,7 @@ work progresses.
       installed browser/driver matrix.
 - [x] Added separate `rake spec:browser` integration coverage using local
       browser fixtures for Chrome, Brave, Edge, and Firefox.
-- [x] Verified the deterministic suite passes 475 examples and the browser
+- [x] Verified the deterministic suite passes 481 examples and the browser
       suite passes 4 examples.
 - [x] Added generic YAML browser actions for navigation, click, input, browser
       assertions, and screenshot evidence without application-specific logic.
@@ -436,3 +436,5 @@ work progresses.
       block and YAML `type: web` steps.
 - [x] Added an injected web case runner that preserves step order and closes
       the session even when a web action raises.
+- [x] Integrated explicit web cases into Amber's existing test-case lifecycle;
+      legacy command cases retain their existing execution path.

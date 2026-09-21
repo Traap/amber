@@ -17,7 +17,7 @@ module Amber
 
       def initialize(browser:, steps:, configuration: {})
         @browser = browser.to_s
-        @configuration = configuration.dup.freeze
+        @configuration = configuration.transform_keys(&:to_sym).freeze
         @steps = steps.map(&:dup).freeze
         validate!
       end

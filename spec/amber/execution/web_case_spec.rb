@@ -8,7 +8,7 @@ RSpec.describe Amber::Execution::WebCase do
     )
 
     expect(definition.browser).to eq('Firefox')
-    expect(definition.configuration).to eq('headless' => true)
+    expect(definition.configuration).to eq(headless: true)
     expect(definition.steps).to eq([{ 'type' => 'web', 'action' => 'navigate' }])
   end
 
