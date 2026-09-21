@@ -34,6 +34,7 @@ pwd = ''
 # {{{ Build Amber.
 
 namespace :build do
+  desc 'Build and install Amber'
   task :amber do
     sh 'bundle install'
     sh 'bundle exec rake'
@@ -49,6 +50,7 @@ end
 namespace :validate do
   # rubocop:enable Metrics/BlockLength -- keeps validation task grouping readable
 
+  desc 'Run Amber validation and build the report'
   task amber: %i[check_env save_wd report_dir do_validation restore_wd docbld]
 
   task run:   %i[check_env save_wd report_dir do_validation restore_wd]
