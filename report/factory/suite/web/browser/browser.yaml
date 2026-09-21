@@ -13,3 +13,5 @@ includes:
       - name: evidence
       - name: interactions
       - name: teleport
+      - name: screenshot-steps
+      - name: controls

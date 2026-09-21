@@ -428,7 +428,7 @@ the TODO and completed lists below as work progresses.
       root and pass parsed data to the injected adapter.
 - [x] Integrate the neutral page mock and navigation/input fixtures into the
       Amber master web validation plan.
-- [ ] Migrate the remaining generic Daryn cases as Amber-native cases,
+- [x] Migrate the remaining generic Daryn cases as Amber-native cases,
       excluding application-specific cases and SPN files.
 - [x] Add focused contract, failure, dry-run, and simulation tests.
 - [x] Update version, gemspec, README, and version-facing validation metadata
@@ -547,3 +547,6 @@ the TODO and completed lists below as work progresses.
       protection.
 - [x] Added navigation YAML validation, route selection, teleport execution,
       and injected navigation-adapter input delivery.
+- [x] Migrated the remaining supported generic Daryn intents into neutral
+      controls and repeated-screenshot Amber cases, with exclusions recorded
+      for product-specific, SPN, scroll, and deliberate-failure behavior.

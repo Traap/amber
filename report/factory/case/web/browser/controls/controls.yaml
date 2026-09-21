@@ -1,0 +1,36 @@
+case:
+  name: ${file}
+
+  purpose: Validate neutral control lookup, input, click, and assertions.
+
+  web:
+    browser: Chrome
+
+  steps:
+    - type: web
+      action: navigate
+      target: fixture://web/page_mock.html
+      confirm: The neutral controls fixture is opened.
+      expectation: The controls fixture is available.
+
+    - type: web
+      action: assert
+      target: query
+      parameters:
+        condition: visible
+      confirm: The query control is located.
+      expectation: The query control is visible.
+
+    - type: web
+      action: input
+      target: query
+      parameters:
+        value: Amber
+      confirm: Text is entered into the query control.
+      expectation: The generic input action completes.
+
+    - type: web
+      action: click
+      target: submit
+      confirm: The submit control is activated.
+      expectation: The generic click action completes.

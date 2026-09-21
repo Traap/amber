@@ -102,3 +102,35 @@ or has no Amber framework responsibility.
 3. Merge each rewritten case into `factory/suite/web/browser` and then into
    `factory/plan/master`.
 4. Run Amber's own `--report-dir=report` validation after each group.
+
+## Amber-native migration record
+
+The generic Daryn intents are represented by application-neutral Amber cases.
+The names below are Amber factory paths, not Daryn runtime dependencies.
+
+| Generic intent | Amber case or coverage | Status |
+| --- | --- | --- |
+| Browser startup and teardown | `web/browser/navigation` | migrated |
+| Generic controls and element range | `web/browser/controls` | migrated |
+| Navigation and text assertions | `web/browser/navigation` | migrated |
+| Input and click interactions | `web/browser/interactions` | migrated |
+| Repeated screenshots and screenshot naming | `web/browser/screenshot-steps` | migrated |
+| Screenshot evidence scoped to a case/page | `web/browser/evidence` | migrated |
+| Download and copied-file evidence | `web/browser/evidence` | migrated |
+| PDF and screenshot evidence | `web/browser/evidence` | migrated |
+| YAML navigation and route input | `web/browser/teleport` | migrated |
+| OCR/translation validation | injected OCR browser specs | migrated |
+| LaTeX string compatibility | existing LaTeX specs | migrated |
+| Environment evidence | existing CLI environment case | migrated |
+
+The following Daryn behavior remains intentionally excluded or outside the
+passing master validation plan:
+
+- Product credentials, translations, URLs, page objects, database/SQL data,
+  SPN teleport syntax, and product workflows remain excluded as recorded
+  above.
+- Scroll-specific screenshot cases remain excluded until scrolling is part of
+  the neutral web contract.
+- Deliberate exception cases remain covered by focused failure specs rather
+  than the passing master validation plan, so an expected failure cannot abort
+  unrelated Amber self-validation.
