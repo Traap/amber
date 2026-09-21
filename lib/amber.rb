@@ -60,7 +60,7 @@ module Amber
     # {{{ Obliterate test output
 
     def obliterate_test_output
-      Amber::TestEvidence.obliterate_test_output
+      Amber::TestEvidence.obliterate_test_output(@opts)
     end
 
     # ---------------------------------------------------------------------- }}}

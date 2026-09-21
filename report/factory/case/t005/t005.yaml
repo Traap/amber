@@ -4,18 +4,18 @@ case:
     This Test Case demonstrates embedded \LaTeX\ enumerate command.
   
     \begin{enumerate}
-    \item Step #1 bzless check 
+    \item Step #1 ls check
     \item Step #2 zip check 
     \end{enumerate}
   
   requirement: AMBER-IUR-006 
 
   steps:
-    - confirm: Program bzless has been installed.
-      expectation: bzless installation location is displayed.
+    - confirm: Program ls has been installed.
+      expectation: ls installation location is displayed.
       sudo: false 
       command: which
-      argument: bzless
+      argument: ls
       evidence: Starts on next line.
 
     - confirm: Program zip has been installed.

@@ -83,6 +83,7 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ append_filename
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength -- preserves legacy macro layout
     def self.append_filename(decoratee)
       pwd = FileUtils.pwd
       browser, code = Amber::LaTeXUtility.gather_browser_and_language(decoratee)
@@ -99,7 +100,9 @@ module Amber
       #       << "\n"
 
       # Return a string repressenting full path to a file.
-      output_root = File.expand_path(TestEvidence::TEST_OUTPUT_DIR, pwd)
+      output_root = File.expand_path(
+        TestEvidence.test_output_directory(decoratee.options), pwd
+      )
       if browser.nil? && code.nil?
         "{\
           #{output_root}#{File::SEPARATOR}\
@@ -116,6 +119,7 @@ module Amber
         }\n".gsub(' ', '')
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength -- preserves legacy macro layout
 
     # ---------------------------------------------------------------------- }}}
   end

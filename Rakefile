@@ -20,12 +20,14 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'shellwords'
 
+ENV['AMBER_TEST_OUTPUT_DIR'] ||= File.expand_path('report/test-output', __dir__)
+
 # -------------------------------------------------------------------------- }}}
 # {{{ Customize Amber build and validate variables.
 
 validate_cmd = lambda {
   [File.join(ENV.fetch('AMBERPATH'), 'bin', 'amber'),
-   '--nodryrun', '--log-environment', '--obliterate', '--plan=master']
+   '--nodryrun', '--log-environment', '--obliterate', '--report-dir=report', '--plan=master']
 }
 pdf_cmd = -> { ['rake', '--rakefile', File.join(ENV.fetch('DOCBLDPATH'), 'Rakefile'), '--build-all', 'deploy'] }
 pwd = ''
@@ -51,9 +53,9 @@ namespace :validate do
   # rubocop:enable Metrics/BlockLength -- keeps validation task grouping readable
 
   desc 'Run CLI and browser validation, then build the report'
-  task amber: %i[check_env spec spec:browser:chrome save_wd report_dir do_validation restore_wd docbld]
+  task amber: %i[check_env spec spec:browser:chrome save_wd do_validation docbld restore_wd]
 
-  task run:   %i[check_env save_wd report_dir do_validation restore_wd]
+  task run:   %i[check_env save_wd do_validation restore_wd]
 
   task :check_env do
     require_env('AMBERPATH')
@@ -78,7 +80,9 @@ namespace :validate do
   end
 
   task :docbld do
-    run_command!(pdf_cmd.call)
+    Dir.chdir File.join(ENV.fetch('AMBERPATH'), 'report') do
+      run_command!(pdf_cmd.call)
+    end
   end
 
   def require_env(name)

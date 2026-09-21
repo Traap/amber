@@ -33,6 +33,7 @@ module Amber
       @data[:log_requirement] = false
       @data[:obliterate] = false
       @data[:parser] = nil
+      @data[:report_dir] = nil
       @data[:simulate] = false
       @data[:test_case] = nil
       @data[:test_plan] = nil
@@ -73,6 +74,13 @@ module Amber
 
     def ocr_engine=(engine)
       @data[:ocr_engine] = engine
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ report_dir
+
+    def report_dir
+      @data[:report_dir]
     end
 
     # ---------------------------------------------------------------------- }}}

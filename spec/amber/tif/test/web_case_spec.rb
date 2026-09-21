@@ -57,7 +57,9 @@ RSpec.describe Amber::TestCase do
 
     expect(results).to all(be_passed)
     expect(ocr_engine).to have_received(:extract).with(
-      File.join(Amber::TestEvidence::TEST_OUTPUT_DIR, 'factory/case/web/page.png'), language: 'fr'
+      File.expand_path(
+        File.join(Amber::TestEvidence::TEST_OUTPUT_DIR, 'factory/case/web/page.png')
+      ), language: 'fr'
     )
   end
 

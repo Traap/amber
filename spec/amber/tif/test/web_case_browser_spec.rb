@@ -12,7 +12,7 @@ RSpec.describe Amber::TestCase, browser: true do
 
     Dir.mktmpdir('amber-web') do
       test_case = described_class.new(
-        'factory/case/web/browser/navigation.yaml',
+        'factory/case/web/browser/navigation/navigation.yaml',
         {
           'name' => 'local web fixture',
           'web' => { 'browser' => 'Chrome' },
@@ -32,7 +32,10 @@ RSpec.describe Amber::TestCase, browser: true do
       expect(results).to all(be_passed)
       expect(results.last.evidence.last[:type]).to eq(:screenshot)
       expect(File).to exist(
-        File.join(Amber::TestEvidence::TEST_OUTPUT_DIR, 'factory/case/web/browser/home.png')
+        File.join(
+          Amber::TestEvidence::TEST_OUTPUT_DIR,
+          'factory/case/web/browser/navigation/home.png'
+        )
       )
     end
   end
@@ -45,7 +48,7 @@ RSpec.describe Amber::TestCase, browser: true do
 
     Dir.mktmpdir('amber-web-evidence') do
       test_case = described_class.new(
-        'factory/case/web/browser/evidence.yaml',
+        'factory/case/web/browser/evidence/evidence.yaml',
         {
           'name' => 'local evidence fixture',
           'web' => { 'browser' => 'Chrome' },
@@ -65,7 +68,9 @@ RSpec.describe Amber::TestCase, browser: true do
       expect(results).to all(be_passed)
       expect(results[1].evidence.last[:type]).to eq(:download)
       expect(results[2].evidence.last[:type]).to eq(:pdf)
-      output_dir = File.join(Amber::TestEvidence::TEST_OUTPUT_DIR, 'factory/case/web/browser')
+      output_dir = File.join(
+        Amber::TestEvidence::TEST_OUTPUT_DIR, 'factory/case/web/browser/evidence'
+      )
       expect(File).to exist(File.join(output_dir, 'fixture.txt'))
       expect(File).to exist(File.join(output_dir, 'page.pdf'))
     end
@@ -81,7 +86,7 @@ RSpec.describe Amber::TestCase, browser: true do
     Dir.mktmpdir('amber-web-ocr') do
       screenshot = 'ocr.png'
       test_case = described_class.new(
-        'factory/case/web/browser/ocr.yaml',
+        'factory/case/web/browser/ocr/ocr.yaml',
         {
           'name' => 'local OCR fixture',
           'web' => { 'browser' => 'Chrome' },

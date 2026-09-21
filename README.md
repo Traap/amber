@@ -43,6 +43,16 @@ cd amber && rake build:amber
 cd amber && rake validate:amber
 ```
 
+Amber processes the report directory supplied by the consuming application.
+From a project root, the explicit form is:
+
+```bash
+amber --report-dir=report --plan=master
+```
+
+The input factory is `report/factory` and all generated output is written to
+`report/test-output`.
+
 The validation task fails when required environment variables are missing, when
 Amber cannot generate her evidence, or when docbld cannot rebuild and deploy the
 report.

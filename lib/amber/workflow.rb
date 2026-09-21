@@ -44,9 +44,15 @@ module Amber
     def parse_yaml_file(filename)
       @test = []
       @filename = filename
-      @yaml_file = YAML.safe_load_file(@filename)
+      @yaml_file = YAML.safe_load_file(input_path(@filename))
       validate_yaml_file
       process_yaml_file
+    end
+
+    def input_path(filename)
+      return filename if @options.report_dir.nil? || File.absolute_path(filename) == filename
+
+      File.join(@options.report_dir, filename)
     end
 
     # ---------------------------------------------------------------------- }}}

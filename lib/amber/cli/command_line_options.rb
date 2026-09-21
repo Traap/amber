@@ -73,6 +73,7 @@ module Amber
         log_requirement opts
         simulate opts
         obliterate opts
+        report_dir opts
         version opts
         writer opts
 
@@ -150,6 +151,15 @@ module Amber
               '--obliterate',
               'Obliterate Test Output directory before Test Execution') do |z|
         @clo.options.data[:obliterate] = z
+      end
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ Report directory option.
+
+    def self.report_dir(opts)
+      opts.on('--report-dir DIRECTORY', String, 'Report directory') do |directory|
+        @clo.options.data[:report_dir] = File.expand_path(directory)
       end
     end
 

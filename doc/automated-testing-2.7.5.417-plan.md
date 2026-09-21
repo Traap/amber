@@ -17,6 +17,9 @@ version reported by the current Amber checkout.
 
 - Amber owns the generic test input factory: plans, suites, cases, includes,
   steps, substitutions, evidence, writers, and report output.
+- The consuming application owns the report directory. Amber receives it with
+  `--report-dir`; its input is `<report-dir>/factory` and its output is
+  `<report-dir>/test-output`.
 - CLI parsing is centralized in `Amber::CommandLineOptions`, with shared
   concepts for browser, language, writer, plan, suite, case, file, dry-run,
   simulation, logging, and output cleanup.
@@ -120,6 +123,19 @@ consumer repository.
    status, and partial evidence.
 6. Define output naming and directory rules so CLI and web evidence can be
    consumed by the existing writers without browser/application assumptions.
+7. Define `--report-dir` as the boundary between Amber and the consuming
+   application's report factory.
+
+### Phase 1A — Migrate the Daryn factory contract
+
+1. Merge the Daryn plan into Amber's `factory/plan/master`.
+2. Merge Daryn's generic web suites into `factory/suite/web/browser`.
+3. Rewrite eligible Daryn cases as Amber-native web cases under
+   `factory/case/web/browser`.
+4. Record every Daryn plan, suite, case, and `factory/config` item in a
+   migration matrix marked `migrate`, `rewrite`, or `exclude`.
+5. Exclude Daryn application-specific URLs, page objects, VCORE resources,
+   credentials, database scripts, teleport routes, and product workflows.
 
 ### Phase 2 — Remove CLI duplication
 
@@ -501,3 +517,9 @@ work progresses.
       rejected.
 - [x] Added the master-plan browser evidence cases for navigation, screenshot,
       download, PDF, and injected OCR translation validation.
+- [x] Added the explicit `--report-dir` boundary so Amber can process an
+      application's `report/factory` and write only to its `report/test-output`.
+- [x] Updated Amber self-validation to invoke the same explicit report boundary
+      that Paperboy will use.
+- [x] Replaced the environment-dependent `bzless` validation command with the
+      standard Linux `ls` command.
