@@ -147,7 +147,6 @@ consumer repository.
    `dryrun_option`, `--Simulate` capitalization, dump behavior, and plan/suite/
    case storage differences.
 4. Add contract tests for the canonical parser and the integration entry point.
-   parser and the integration entry point.
 
 ### Phase 3 — Add generic web execution to Amber
 
@@ -165,7 +164,7 @@ consumer repository.
 
 ### Phase 4 — Add the built-in web implementation without application specifics
 
-1. Implement generic browser startup, page-object support, navigation,
+1. Implement generic browser startup, adapter-driven navigation,
    screenshot, download, PDF, and OCR translation-validation facilities behind
    the web executor contract.
 2. Keep application configuration, credentials, translation resources, and
@@ -192,8 +191,9 @@ consumer repository.
 
 ## Proposed neutral test model
 
-The exact YAML/API shape needs approval, but the model should distinguish the
-framework action from its adapter:
+The approved YAML/API shape is documented in
+`doc/web-navigation-format.md`. The model distinguishes the framework action
+from its adapter:
 
 ```yaml
 case:
@@ -201,7 +201,7 @@ case:
   steps:
     - type: web
       action: navigate
-      target: fixture://home
+      target: fixture://web/page_mock.html
     - type: web
       action: assert
       target: heading
@@ -211,9 +211,10 @@ case:
       evidence: screenshot
 ```
 
-`fixture://home`, `heading`, and the expected state above are framework test
-fixtures, not application implementation. A consuming application would
-register its own adapter and page/action vocabulary without changing Amber.
+`fixture://web/page_mock.html`, `heading`, and the expected state above are
+framework test fixtures, not application implementation. A consuming
+application registers its own adapter and page/action vocabulary without
+changing Amber.
 
 ## Acceptance criteria
 
@@ -355,9 +356,8 @@ the Arch `yay` helper because Brave, Edge, and EdgeDriver are AUR packages.
 ```text
 Resume the Amber 2.7.5.417 CLI and web automated-testing work.
 
-Repositories:
+Repository:
   Amber: /home/traap/soup/amber
-  Daryn: /home/traap/soup/daryn
 
 Read Amber/doc/automated-testing-2.7.5.417-plan.md first. Preserve existing
 user changes. Do not
@@ -367,14 +367,16 @@ database schemas, or product workflows to Amber.
 
 The goal is build 2.7.5.417: one reusable Amber framework validating both
 command-line and web testing. Amber owns the canonical CLI/options, test
-  plan-suite-case lifecycle, evidence, writers, and generic web adapter
-  contract. Daryn is obsolete and must not be added as a dependency.
+plan-suite-case lifecycle, evidence, writers, and generic web adapter
+contract. Daryn is obsolete and must not be added as a dependency or opened
+as a runtime source.
 
-All architecture decisions recorded so far are approved. Work phases 1
-through 5 in order. Use local deterministic
-fixtures, run focused tests after each change, and run the complete CLI and
-browser suites before release. Update the TODO and completed lists below as
-work progresses.
+All architecture decisions recorded so far are approved. Continue with the
+next unchecked TODO item. The next implementation point is the neutral
+`fixture://` resolver, YAML navigation/teleport runtime, and safe input-file
+loading. Use local deterministic fixtures, run focused tests after each
+change, and run the complete CLI and browser suites before release. Update
+the TODO and completed lists below as work progresses.
 ```
 
 ## TODO
@@ -417,6 +419,17 @@ work progresses.
 - [x] Add neutral local CLI and browser fixtures to Amber validation.
 - [x] Implement the built-in web capabilities without application-specific
       dependencies.
+- [ ] Adapt the generic page mock into
+      `report/factory/config/web/page_mock.html` without Daryn application
+      names, identifiers, URLs, or workflows.
+- [ ] Implement safe `fixture://` resolution below the report factory.
+- [ ] Implement the documented neutral YAML navigation and teleport runtime.
+- [ ] Implement safe YAML input-file resolution below the configured input
+      root and pass parsed data to the injected adapter.
+- [ ] Integrate the neutral page mock and navigation/input fixtures into the
+      Amber master web validation plan.
+- [ ] Migrate the remaining generic Daryn cases as Amber-native cases,
+      excluding application-specific cases and SPN files.
 - [x] Add focused contract, failure, dry-run, and simulation tests.
 - [x] Update version, gemspec, README, and version-facing validation metadata
       for Amber 2.7.5.417 and Ruby 4.
@@ -525,6 +538,6 @@ work progresses.
       standard Linux `ls` command.
 - [x] Added the Daryn migration matrix covering the plan, suites, 33 cases,
       and all `factory/config` entries.
-- [x] Defined a neutral YAML navigation and teleport format for consuming
-      applications such as Paperboy; Daryn SPN command strings are not part of
-      the Amber contract.
+- [x] Defined and documented a neutral YAML navigation and teleport format for
+      consuming applications such as Paperboy; Daryn SPN command strings are
+      not part of the Amber contract.
