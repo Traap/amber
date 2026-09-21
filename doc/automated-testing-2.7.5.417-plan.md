@@ -408,3 +408,7 @@ work progresses.
       process tuple to LaTeX and ASCII writers.
 - [x] Verified the adapter bridge with 457 RSpec examples and focused RuboCop
       checks.
+- [x] Added browser-independent YAML web-action dispatch with injected handlers
+      returning neutral execution results.
+- [x] Verified YAML web dispatch with 461 RSpec examples and focused RuboCop
+      checks.

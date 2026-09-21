@@ -10,14 +10,18 @@ module Amber
   # A test step executes a command.
   class TestStep < Amber::Test
     attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir,
-                :adapter_type
+                :adapter_type, :step_data, :action, :target, :parameters
 
     # {{{ Initialize TestStep
 
     def initialize(filename, data, options, step, number, workingdir)
       super('Test Step', filename, data, options)
 
+      @step_data = step.dup.freeze
       @adapter_type = (step['type'] || 'command').to_s
+      @action = step['action']
+      @target = step['target']
+      @parameters = (step['parameters'] || {}).dup.freeze
       register_default_adapters
       define_expectation(options, step, number)
       define_command(options, step, workingdir) if @adapter_type == 'command'
