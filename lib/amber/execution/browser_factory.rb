@@ -23,7 +23,7 @@ module Amber
       def start(browser, configuration = {})
         browser_name = normalize_browser(browser)
         require 'watir'
-        download_path = configuration[:download_path] || default_download_path
+        download_path = File.expand_path(configuration[:download_path] || default_download_path)
         FileUtils.mkdir_p(download_path)
         configure_driver(browser_name, configuration[:driver_path])
 

@@ -1,0 +1,13 @@
+suite:
+  name: ${file}
+
+  purpose: >
+    This suite validates Amber's application-neutral web browser actions using
+    local data pages and generated evidence. Report validation selects Chrome
+    and ChromeDriver for this suite.
+
+includes:
+  - folder: web/browser
+    case:
+      - name: navigation
+      - name: evidence

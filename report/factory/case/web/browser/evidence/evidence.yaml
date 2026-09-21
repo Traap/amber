@@ -1,0 +1,40 @@
+case:
+  name: ${file}
+
+  purpose: >
+    Validate generic screenshot, download, and PDF evidence through the
+    YAML-selected web adapter.
+
+  web:
+    browser: Chrome
+    configuration:
+      download_path: test-output/web/downloads
+
+  steps:
+    - type: web
+      action: navigate
+      target: 'data:text/html,<title>Amber evidence fixture</title><h1 id="heading">Amber</h1><a id="download" href="data:text/plain,Amber%20fixture" download="fixture.txt">Download</a>'
+      confirm: Local evidence fixture is opened.
+      expectation: The local evidence fixture is available.
+
+    - type: web
+      action: screenshot
+      parameters:
+        path: test-output/web/evidence.png
+      confirm: The browser page is captured.
+      expectation: Screenshot evidence is recorded.
+
+    - type: web
+      action: download
+      target: download
+      parameters:
+        path: test-output/web/downloads/fixture.txt
+      confirm: The fixture download link is activated.
+      expectation: Download evidence is recorded.
+
+    - type: web
+      action: pdf
+      parameters:
+        path: test-output/web/evidence.pdf
+      confirm: The browser page is printed.
+      expectation: PDF evidence is recorded.

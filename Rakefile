@@ -51,7 +51,7 @@ namespace :validate do
   # rubocop:enable Metrics/BlockLength -- keeps validation task grouping readable
 
   desc 'Run CLI and browser validation, then build the report'
-  task amber: %i[check_env spec spec:browser save_wd report_dir do_validation restore_wd docbld]
+  task amber: %i[check_env spec spec:browser:chrome save_wd report_dir do_validation restore_wd docbld]
 
   task run:   %i[check_env save_wd report_dir do_validation restore_wd]
 
@@ -105,6 +105,9 @@ begin
   RSpec::Core::RakeTask.new(:spec)
   task 'spec:browser' do
     sh 'AMBER_BROWSER_SPECS=1 bundle exec rspec spec/amber/execution/browser_integration_spec.rb spec/amber/tif/test/web_case_browser_spec.rb'
+  end
+  task 'spec:browser:chrome' do
+    sh 'AMBER_BROWSER_SPECS=1 AMBER_BROWSER_ONLY=Chrome bundle exec rspec spec/amber/execution/browser_integration_spec.rb spec/amber/tif/test/web_case_browser_spec.rb'
   end
   task default: :spec
 rescue StandardError

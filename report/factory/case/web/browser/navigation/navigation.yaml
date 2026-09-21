@@ -1,0 +1,25 @@
+case:
+  name: ${file}
+
+  purpose: >
+    Validate generic browser navigation and element assertions through the
+    YAML-selected web adapter.
+
+  web:
+    browser: Chrome
+
+  steps:
+    - type: web
+      action: navigate
+      target: 'data:text/html,<title>Amber web fixture</title><h1 id="heading">Amber</h1>'
+      confirm: Local web fixture is opened.
+      expectation: The local web fixture is available.
+
+    - type: web
+      action: assert
+      target: heading
+      parameters:
+        condition: text
+        value: Amber
+      confirm: The fixture heading is read.
+      expectation: The fixture heading contains Amber.

@@ -42,7 +42,13 @@ module Amber
 
       def run(steps, context: nil)
         adapter.start(session)
-        steps.map { |step| adapter.execute(step, context) }
+        steps.map do |step|
+          if block_given?
+            yield(step)
+          else
+            adapter.execute(step, context)
+          end
+        end
       ensure
         adapter.close(session)
       end

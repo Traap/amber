@@ -42,9 +42,9 @@ module Amber
     def echo_to_sysout
       @handle.write "\\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]\n"
       @handle.write "\\item[Step:] #{@decoratee.number}\n"
-      @handle.write "\\item[Confirm:] #{toLaTeX(@decoratee.confirm)}\n"
-      @handle.write "\\item[Expectation:] #{toLaTeX(@decoratee.expectation)}\n"
-      @handle.write "\\item[Command:] #{toLaTeX(@decoratee.command)}\n"
+      @handle.write "\\item[Confirm:] #{toLaTeX(@decoratee.confirm.to_s)}\n"
+      @handle.write "\\item[Expectation:] #{toLaTeX(@decoratee.expectation.to_s)}\n"
+      @handle.write "\\item[Command:] #{toLaTeX(@decoratee.description.to_s)}\n"
       @decoratee.echo_to_sysout
     end
 
@@ -64,17 +64,20 @@ module Amber
       abort msg
     end
 
+    # rubocop:disable Metrics/AbcSize -- preserves report record layout
     def record_evidence(time_start, time_end, output)
       @handle.write "\\item[Execution start:] #{toLaTeX(time_start.strftime('%b %d, %Y %T.%6N'))}\n"
       @handle.write "\\item[Execution end:] #{toLaTeX(time_end.strftime('%b %d, %Y %T.%6N'))}\n"
       @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
-      @handle.write "\\item[Evidence:] #{toLaTeX(@decoratee.evidence)}\n"
+      evidence = @decoratee.runtime_evidence || @decoratee.evidence
+      @handle.write "\\item[Evidence:] #{toLaTeX(evidence.to_s)}\n"
       @handle.write "\\end{description}\n"
       @handle.write "\\begin{lstlisting}[numbers=left]\n"
       @handle.write "#{output}\n"
       @handle.write "\\end{lstlisting}\n"
       @handle.flush
     end
+    # rubocop:enable Metrics/AbcSize -- preserves report record layout
 
     # ---------------------------------------------------------------------- }}}
     # {{{ check_status

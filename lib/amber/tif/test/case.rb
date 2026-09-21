@@ -32,6 +32,7 @@ module Amber
 
     private
 
+    # rubocop:disable Metrics/MethodLength -- keeps web lifecycle orchestration together
     def run_web_case
       definition = Amber::Execution::WebCase.from_yaml(@data)
       steps = web_steps(definition)
@@ -39,10 +40,15 @@ module Amber
 
       session = web_session(definition)
       adapter = web_adapter(session)
+      writer_steps = web_writer_steps(definition, adapter)
 
       runner = Amber::Execution::WebCaseRunner.new(session: session, adapter: adapter)
-      runner.run(steps, context: self)
+      runner.run(writer_steps, context: self) do |step|
+        step.process
+        step.decoratee.last_result
+      end
     end
+    # rubocop:enable Metrics/MethodLength -- keeps web lifecycle orchestration together
 
     def simulation?
       @options.simulate? || @options.dryrun?
@@ -75,6 +81,16 @@ module Amber
       handlers = Amber::Execution::BrowserActions.new(session).handlers
       handlers.merge!(Amber::Execution::OcrActions.new(session, @options.ocr_engine).handlers) if @options.ocr_engine
       Amber::Execution::WebAdapter.new(handlers)
+    end
+
+    def web_writer_steps(definition, adapter)
+      definition.steps.each_with_index.map do |step_data, index|
+        step = Amber::WriterFactory.get_test_step(
+          @filename, @data, @options, step_data, index + 1, set_working_dir
+        )
+        step.decoratee.execution_adapter = adapter
+        step
+      end
     end
 
     def validate_web_step(step)

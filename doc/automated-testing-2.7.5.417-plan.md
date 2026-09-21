@@ -487,3 +487,11 @@ work progresses.
       examples), and report workflow after release hygiene changes.
 - [x] Completed the final application-neutrality and CLI-duplication review;
       Amber core contains no Daryn dependency or product-specific workflow.
+- [x] Added the `web/browser` suite to the master validation plan with
+      separate navigation/assertion and evidence test cases.
+- [x] Integrated web steps with the existing LaTeX/ASCII step writers so
+      browser results and typed evidence appear in validation output.
+- [x] Limited `validate:amber` browser execution to Chrome/ChromeDriver while
+      retaining the all-browser matrix in the separate browser task.
+- [x] Completed `validate:amber`: deterministic tests, Chrome web validation,
+      master-plan execution, and LaTeX report build/deploy all passed.

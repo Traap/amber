@@ -34,6 +34,10 @@ module Amber
       def skipped?
         @status == :skipped
       end
+
+      def success?
+        passed?
+      end
     end
   end
 end

@@ -10,7 +10,9 @@ module Amber
   # A test step executes a command.
   class TestStep < Amber::Test
     attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir,
-                :adapter_type, :step_data, :action, :target, :parameters
+                :adapter_type, :step_data, :action, :target, :parameters,
+                :last_result, :runtime_evidence
+    attr_writer :execution_adapter
 
     # {{{ Initialize TestStep
 
@@ -76,15 +78,26 @@ module Amber
 
     # Returns the normalized result from the YAML-selected adapter.
     def run_result
-      adapter_registry.fetch(@adapter_type).execute(self, self)
+      adapter = @execution_adapter || adapter_registry.fetch(@adapter_type)
+      @last_result = adapter.execute(self, self)
+      @runtime_evidence = @last_result.evidence
+      @last_result
     end
 
     # Runs a command through the adapter API while preserving the legacy tuple
     # consumed by the existing LaTeX and ASCII writers.
     def run_command
       result = run_result
+      return web_result_tuple(result) if @adapter_type == 'web'
+
       process_status = result.metadata[:process_status]
       [result.stdout, result.stderr, process_status]
+    end
+
+    def description
+      return command if @adapter_type == 'command'
+
+      [action, target].compact.join(' ')
     end
 
     private
@@ -97,6 +110,12 @@ module Amber
       return if adapter_registry.registered?(:command)
 
       adapter_registry.register(:command, Amber::Execution::CommandAdapter.new)
+    end
+
+    def web_result_tuple(result)
+      stderr = result.stderr
+      stderr = result.error.message if stderr.empty? && result.error
+      [result.stdout, stderr, result]
     end
 
     # {{{ Set the working diectory.

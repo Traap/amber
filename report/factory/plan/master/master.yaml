@@ -46,6 +46,11 @@ includes:
     suite:
       - name: structure 
 
+  # Generic web browser suite; report validation uses Chrome/ChromeDriver.
+  - folder: web
+    suite:
+      - name: browser
+
   # A placeholder for a future concepts that are partially implemented.
   - suite:
        - name: advanced-concept 

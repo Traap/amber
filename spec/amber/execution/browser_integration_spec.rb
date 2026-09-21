@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe 'Amber browser integration', browser: true do
-  %w[Chrome Brave Edge Firefox].each do |browser_name|
+  browsers = ENV.fetch('AMBER_BROWSER_ONLY', 'Chrome Brave Edge Firefox').split
+  browsers.each do |browser_name|
     it "starts #{browser_name}, loads a local page, and shuts down" do
       browser = Amber::Execution::BrowserFactory.new.start(browser_name)
       browser.goto('data:text/html,<title>Amber browser fixture</title><h1>Amber</h1>')
