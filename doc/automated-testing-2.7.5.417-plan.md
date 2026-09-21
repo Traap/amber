@@ -426,7 +426,7 @@ work progresses.
       installed browser/driver matrix.
 - [x] Added separate `rake spec:browser` integration coverage using local
       browser fixtures for Chrome, Brave, Edge, and Firefox.
-- [x] Verified the deterministic suite passes 481 examples and the browser
+- [x] Verified the deterministic suite passes 486 examples and the browser
       suite passes 4 examples.
 - [x] Added generic YAML browser actions for navigation, click, input, browser
       assertions, and screenshot evidence without application-specific logic.
@@ -442,3 +442,7 @@ work progresses.
       without application-specific behavior.
 - [x] Verified download and PDF evidence actions with focused browser-action
       contract tests.
+- [x] Added an injected OCR action with language metadata and generic exact or
+      contains translation assertions.
+- [x] Verified OCR extraction, translation mismatch, and exact-match behavior
+      without selecting an OCR or translation vendor.
