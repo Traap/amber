@@ -6,6 +6,7 @@ require 'amber/execution/browser_actions'
 require 'amber/execution/browser_factory'
 require 'amber/execution/web_case'
 require 'amber/execution/web_session'
+require 'amber/execution/web_session_pool'
 require 'amber/execution/ocr_actions'
 require 'amber/execution/factory_file_resolver'
 require 'amber/execution/navigation'
@@ -65,7 +66,16 @@ module Amber
       @options.simulate? || @options.dryrun?
     end
 
+    # rubocop:disable Metrics/MethodLength -- selects pooled or owned lifecycle
     def web_session(definition)
+      if @options.web_session_pool
+        return @options.web_session_pool.session(
+          browser: definition.browser,
+          configuration: definition.configuration,
+          output_directory: web_output_directory
+        )
+      end
+
       Amber::Execution::WebSession.new(
         browser_factory: @options.browser_factory || Amber::Execution::BrowserFactory.new,
         browser: definition.browser,
@@ -73,6 +83,7 @@ module Amber
         output_directory: web_output_directory
       )
     end
+    # rubocop:enable Metrics/MethodLength
 
     def web_output_directory
       filename = File.expand_path(@filename)

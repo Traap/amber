@@ -68,6 +68,14 @@ module Amber
       @data[:web_adapter_factory] = factory
     end
 
+    def web_session_pool
+      @data[:web_session_pool]
+    end
+
+    def web_session_pool=(pool)
+      @data[:web_session_pool] = pool
+    end
+
     def ocr_engine
       @data[:ocr_engine]
     end

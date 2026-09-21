@@ -258,6 +258,9 @@ changing Amber.
 - Existing LaTeX output compatibility is required for 2.7.5.417.
 - Ruby 4 is the minimum supported Ruby version.
 - Arch Linux is the primary operating-system and CI target.
+- Web browser processes are reusable at suite scope; each case receives a
+  reset, case-scoped session view and evidence directory, and the suite owns
+  final browser teardown.
 - Amber's current CLI is the compatibility baseline. Its parser and options
   object remain the single source of truth; corrections to inconsistent
   behavior must be documented. Legacy YAML steps remain command steps by
