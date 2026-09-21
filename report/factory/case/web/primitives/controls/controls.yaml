@@ -1,7 +1,7 @@
 case:
   name: ${file}
 
-  purpose: Validate neutral control lookup, input, click, and assertions.
+  purpose: Validate control lookup, input, click, and assertions.
 
   web:
     browser: Chrome
@@ -9,28 +9,61 @@ case:
   steps:
     - type: web
       action: navigate
-      target: fixture://web/page_mock.html
-      confirm: The neutral controls fixture is opened.
-      expectation: The controls fixture is available.
+      target: fixture://web/page_mock.html#input-validation
+      confirm: The input validation primitive is opened.
+      expectation: The controls are available.
+
+    - type: web
+      action: screenshot
+      confirm: The controls page is captured.
+      expectation: The shared header, controls body, and footer are recorded.
 
     - type: web
       action: assert
-      target: query
+      target: integer
       parameters:
         condition: visible
-      confirm: The query control is located.
-      expectation: The query control is visible.
+      confirm: The integer control is located.
+      expectation: The integer control is visible.
+
+    - type: web
+      action: screenshot
+      confirm: The visible control state is captured.
+      expectation: The shared header, controls body, and footer are recorded.
 
     - type: web
       action: input
-      target: query
+      target: integer
       parameters:
-        value: Amber
-      confirm: Text is entered into the query control.
+        value: 5
+      confirm: A valid integer is entered.
       expectation: The generic input action completes.
 
     - type: web
+      action: screenshot
+      confirm: The entered control state is captured.
+      expectation: The shared header, controls body, and footer are recorded.
+
+    - type: web
+      action: input
+      target: float
+      parameters:
+        value: 4.5
+      confirm: A valid float is entered.
+      expectation: The generic input action completes.
+
+    - type: web
+      action: screenshot
+      confirm: The complete control state is captured.
+      expectation: The shared header, controls body, and footer are recorded.
+
+    - type: web
       action: click
-      target: submit
-      confirm: The submit control is activated.
+      target: input-submit
+      confirm: The enabled submit control is activated.
       expectation: The generic click action completes.
+
+    - type: web
+      action: screenshot
+      confirm: The clicked control state is captured.
+      expectation: The shared header, controls body, and footer are recorded.
