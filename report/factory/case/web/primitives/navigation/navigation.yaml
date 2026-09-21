@@ -3,7 +3,7 @@ case:
 
   purpose: >
     Validate generic browser navigation and element assertions through the
-    YAML-selected web adapter.
+    YAML-selected web adapter and page mock.
 
   web:
     browser: Chrome
@@ -11,20 +11,25 @@ case:
   steps:
     - type: web
       action: navigate
-      target: 'data:text/html,<title>Amber web fixture</title><h1 id="heading">Amber</h1>'
-      confirm: Local web fixture is opened.
-      expectation: The local web fixture is available.
+      target: fixture://web/page_mock.html#home
+      confirm: The page mock is opened.
+      expectation: The page mock is available.
+
+    - type: web
+      action: screenshot
+      confirm: The navigation page is captured.
+      expectation: The shared header, home body, and footer are recorded.
 
     - type: web
       action: assert
       target: heading
       parameters:
         condition: text
-        value: Amber
-      confirm: The fixture heading is read.
-      expectation: The fixture heading contains Amber.
+        value: Amber web capability fixture
+      confirm: The page mock heading is read.
+      expectation: The page mock heading is present.
 
     - type: web
       action: screenshot
-      confirm: The local fixture is captured.
-      expectation: Autodoc-compatible screenshot evidence is recorded.
+      confirm: The heading assertion state is captured.
+      expectation: The shared header, home body, and footer are recorded.

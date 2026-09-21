@@ -3,7 +3,7 @@ case:
 
   purpose: >
     Validate generic browser input, click, visibility, and text actions against
-    an application-neutral local data page.
+    an application-neutral page mock.
 
   web:
     browser: Chrome
@@ -11,28 +11,48 @@ case:
   steps:
     - type: web
       action: navigate
-      target: 'data:text/html,<title>Amber interaction fixture</title><label for="name">Name</label><input id="name"><button id="submit" type="button">Submit</button>'
-      confirm: The interaction fixture is opened.
-      expectation: The interaction fixture is available.
+      target: fixture://web/page_mock.html#text-input
+      confirm: The text input primitive is opened.
+      expectation: The interaction controls are available.
+
+    - type: web
+      action: screenshot
+      confirm: The interaction page is captured.
+      expectation: The shared header, text body, and footer are recorded.
 
     - type: web
       action: assert
-      target: name
+      target: multi-line
       parameters:
         condition: visible
-      confirm: The name input is located.
-      expectation: The name input is visible.
+      confirm: The multiline input is located.
+      expectation: The multiline input is visible.
+
+    - type: web
+      action: screenshot
+      confirm: The visible interaction control is captured.
+      expectation: The shared header, text body, and footer are recorded.
 
     - type: web
       action: input
-      target: name
+      target: multi-line
       parameters:
-        value: Amber
-      confirm: Amber text is entered.
+        value: Amber interaction text.
+      confirm: Interaction text is entered.
       expectation: The generic input action completes.
 
     - type: web
+      action: screenshot
+      confirm: The entered interaction state is captured.
+      expectation: The shared header, text body, and footer are recorded.
+
+    - type: web
       action: click
-      target: submit
-      confirm: The submit control is activated.
+      target: text-submit
+      confirm: The text submit control is activated.
       expectation: The generic click action completes.
+
+    - type: web
+      action: screenshot
+      confirm: The clicked interaction state is captured.
+      expectation: The shared header, text body, and footer are recorded.
