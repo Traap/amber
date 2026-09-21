@@ -19,6 +19,8 @@ module Amber
         path = parameter(step, :path)
         raise ArgumentError, 'OCR action requires parameters.path' if path.to_s.empty?
 
+        path = @session.evidence_path(path)
+
         language = parameter(step, :language)
         text = extract_text(path, language)
         evidence = record_ocr(path, language, text)

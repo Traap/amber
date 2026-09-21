@@ -45,7 +45,7 @@ RSpec.describe Amber::TestCase do
     data['steps'][0] = {
       'type' => 'web',
       'action' => 'ocr',
-      'parameters' => { 'path' => '/tmp/page.png', 'language' => 'fr', 'value' => 'Bonjour' }
+      'parameters' => { 'path' => 'page.png', 'language' => 'fr', 'value' => 'Bonjour' }
     }
     ocr_engine = instance_double('ocr_engine', extract: 'Bonjour le monde')
     browser = instance_double('browser')
@@ -56,7 +56,9 @@ RSpec.describe Amber::TestCase do
     results = test_case.run_command
 
     expect(results).to all(be_passed)
-    expect(ocr_engine).to have_received(:extract).with('/tmp/page.png', language: 'fr')
+    expect(ocr_engine).to have_received(:extract).with(
+      File.expand_path('test-output/fixture/page.png'), language: 'fr'
+    )
   end
 
   it 'validates web steps but does not start a browser during simulation' do

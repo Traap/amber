@@ -495,3 +495,9 @@ work progresses.
       retaining the all-browser matrix in the separate browser task.
 - [x] Completed `validate:amber`: deterministic tests, Chrome web validation,
       master-plan execution, and LaTeX report build/deploy all passed.
+- [x] Enforced the Rails-like factory transformation for all web artifacts:
+      relative YAML paths resolve beside the mirrored case log under
+      `test-output/factory/case/...`; absolute paths and directory escapes are
+      rejected.
+- [x] Added the master-plan browser evidence cases for navigation, screenshot,
+      download, PDF, and injected OCR translation validation.

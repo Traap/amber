@@ -12,7 +12,7 @@ RSpec.describe Amber::TestCase, browser: true do
 
     Dir.mktmpdir('amber-web') do |directory|
       test_case = described_class.new(
-        fixture,
+        'spec/fixtures/web/home.yaml',
         {
           'name' => 'local web fixture',
           'web' => { 'browser' => 'Chrome' },
@@ -21,7 +21,7 @@ RSpec.describe Amber::TestCase, browser: true do
             { 'type' => 'web', 'action' => 'assert', 'target' => 'heading',
               'parameters' => { 'condition' => 'text', 'value' => 'Amber' } },
             { 'type' => 'web', 'action' => 'screenshot',
-              'parameters' => { 'path' => File.join(directory, 'home.png') } }
+              'parameters' => { 'path' => 'home.png' } }
           ]
         },
         options
@@ -31,7 +31,7 @@ RSpec.describe Amber::TestCase, browser: true do
 
       expect(results).to all(be_passed)
       expect(results.last.evidence.last[:type]).to eq(:screenshot)
-      expect(File).to exist(File.join(directory, 'home.png'))
+      expect(File).to exist('test-output/spec/fixtures/web/home.png')
     end
   end
 
@@ -43,16 +43,16 @@ RSpec.describe Amber::TestCase, browser: true do
 
     Dir.mktmpdir('amber-web-evidence') do |directory|
       test_case = described_class.new(
-        fixture,
+        'spec/fixtures/web/home.yaml',
         {
           'name' => 'local evidence fixture',
-          'web' => { 'browser' => 'Chrome', 'configuration' => { 'download_path' => directory } },
+          'web' => { 'browser' => 'Chrome' },
           'steps' => [
             { 'type' => 'web', 'action' => 'navigate', 'target' => "file://#{fixture}" },
             { 'type' => 'web', 'action' => 'download', 'target' => 'download',
-              'parameters' => { 'path' => File.join(directory, 'fixture.txt') } },
+              'parameters' => { 'path' => 'fixture.txt' } },
             { 'type' => 'web', 'action' => 'pdf',
-              'parameters' => { 'path' => File.join(directory, 'page.pdf') } }
+              'parameters' => { 'path' => 'page.pdf' } }
           ]
         },
         options
@@ -63,8 +63,8 @@ RSpec.describe Amber::TestCase, browser: true do
       expect(results).to all(be_passed)
       expect(results[1].evidence.last[:type]).to eq(:download)
       expect(results[2].evidence.last[:type]).to eq(:pdf)
-      expect(File).to exist(File.join(directory, 'fixture.txt'))
-      expect(File).to exist(File.join(directory, 'page.pdf'))
+      expect(File).to exist('test-output/spec/fixtures/web/fixture.txt')
+      expect(File).to exist('test-output/spec/fixtures/web/page.pdf')
     end
   end
 
@@ -76,9 +76,9 @@ RSpec.describe Amber::TestCase, browser: true do
     fixture = File.expand_path('../../../fixtures/web/home.html', __dir__)
 
     Dir.mktmpdir('amber-web-ocr') do |directory|
-      screenshot = File.join(directory, 'ocr.png')
+      screenshot = 'ocr.png'
       test_case = described_class.new(
-        fixture,
+        'spec/fixtures/web/home.yaml',
         {
           'name' => 'local OCR fixture',
           'web' => { 'browser' => 'Chrome' },

@@ -7,8 +7,6 @@ case:
 
   web:
     browser: Chrome
-    configuration:
-      download_path: test-output/web/downloads
 
   steps:
     - type: web
@@ -20,7 +18,7 @@ case:
     - type: web
       action: screenshot
       parameters:
-        path: test-output/web/evidence.png
+        path: evidence.png
       confirm: The browser page is captured.
       expectation: Screenshot evidence is recorded.
 
@@ -28,13 +26,13 @@ case:
       action: download
       target: download
       parameters:
-        path: test-output/web/downloads/fixture.txt
+        path: fixture.txt
       confirm: The fixture download link is activated.
       expectation: Download evidence is recorded.
 
     - type: web
       action: pdf
       parameters:
-        path: test-output/web/evidence.pdf
+        path: evidence.pdf
       confirm: The browser page is printed.
       expectation: PDF evidence is recorded.

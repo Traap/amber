@@ -1,19 +1,35 @@
 # frozen_string_literal: true
 
+require 'fileutils'
 require 'amber/execution/evidence_collector'
 
 module Amber
   module Execution
     # Browser lifecycle boundary used by the web adapter.
     class WebSession
-      attr_reader :browser, :browser_name, :configuration, :evidence
+      attr_reader :browser, :browser_name, :configuration, :evidence, :output_directory
 
-      def initialize(browser_factory:, browser:, configuration: {}, evidence: nil)
+      def initialize(browser_factory:, browser:, configuration: {}, evidence: nil, output_directory: nil)
         @browser_factory = browser_factory
         @browser_name = browser.to_s
-        @configuration = configuration.dup.freeze
+        @output_directory = output_directory && File.expand_path(output_directory)
+        @configuration = configuration.dup
+        @configuration[:download_path] ||= @output_directory if @output_directory
+        @configuration.freeze
         @evidence = evidence || EvidenceCollector.new
         @browser = nil
+      end
+
+      def evidence_path(path)
+        raise ArgumentError, 'Evidence path must be relative' if Pathname.new(path.to_s).absolute?
+
+        root = @output_directory || Dir.pwd
+        candidate = File.expand_path(path, root)
+        prefix = "#{root}#{File::SEPARATOR}"
+        raise ArgumentError, 'Evidence path must remain in the case output directory' unless candidate.start_with?(prefix)
+
+        FileUtils.mkdir_p(File.dirname(candidate))
+        candidate
       end
 
       def start

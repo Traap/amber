@@ -11,6 +11,10 @@ RSpec.describe Amber::Execution::OcrActions do
   end
   let(:engine) { instance_double('ocr_engine') }
   let(:actions) { described_class.new(session, engine) }
+
+  before do
+    allow(session).to receive(:evidence_path) { |path| path }
+  end
   let(:step) do
     instance_double(
       Amber::TestStep,

@@ -90,9 +90,7 @@ module Amber
         path = parameter(step, :path)
         raise ArgumentError, "#{label} action requires parameters.path" if path.to_s.empty?
 
-        path = File.expand_path(path)
-        FileUtils.mkdir_p(File.dirname(path))
-        path
+        @session.evidence_path(path)
       end
 
       def record_evidence(type, path)

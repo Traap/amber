@@ -13,6 +13,10 @@ RSpec.describe Amber::Execution::BrowserActions do
   end
   let(:actions) { described_class.new(session) }
 
+  before do
+    allow(session).to receive(:evidence_path) { |path| path }
+  end
+
   def step(action, target: 'heading', parameters: {})
     instance_double(
       Amber::TestStep,

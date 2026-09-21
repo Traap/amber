@@ -58,8 +58,16 @@ module Amber
       Amber::Execution::WebSession.new(
         browser_factory: @options.browser_factory || Amber::Execution::BrowserFactory.new,
         browser: definition.browser,
-        configuration: definition.configuration
+        configuration: definition.configuration,
+        output_directory: web_output_directory
       )
+    end
+
+    def web_output_directory
+      filename = File.expand_path(@filename)
+      relative = filename.sub("#{Dir.pwd}#{File::SEPARATOR}", '')
+      root = Amber::TestEvidence.assemble_test_output_root(@options)
+      File.join(root, File.dirname(relative))
     end
 
     def web_steps(definition)
