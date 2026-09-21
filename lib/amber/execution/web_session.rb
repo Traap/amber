@@ -45,11 +45,17 @@ module Amber
       def reset
         return unless @browser
 
-        @browser.goto('about:blank') if @browser.respond_to?(:goto)
         @browser.cookies.clear if @browser.respond_to?(:cookies)
+        clear_storage
+        @browser.goto('about:blank') if @browser.respond_to?(:goto)
+      end
+
+      def clear_storage
         return unless @browser.respond_to?(:execute_script)
 
         @browser.execute_script('window.localStorage.clear(); window.sessionStorage.clear();')
+      rescue StandardError
+        # about:blank and file pages may deny Web Storage access.
       end
 
       def prepare_case(output_directory)
