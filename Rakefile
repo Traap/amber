@@ -53,7 +53,7 @@ namespace :validate do
   # rubocop:enable Metrics/BlockLength -- keeps validation task grouping readable
 
   desc 'Run CLI and browser validation, then build the report'
-  task amber: %i[check_env spec spec:browser:chrome save_wd do_validation docbld restore_wd]
+  task amber: %i[check_env spec spec:browser:chrome save_wd do_validation verify_report_inputs docbld restore_wd]
 
   task run:   %i[check_env save_wd do_validation restore_wd]
 
@@ -77,6 +77,23 @@ namespace :validate do
 
   task :do_validation do
     run_command!(validate_cmd.call)
+  end
+
+  task :verify_report_inputs do
+    report = File.join(ENV.fetch('AMBERPATH'), 'report')
+    output = File.join(report, 'test-output')
+    results = File.join(output, 'test-results.tex')
+    abort "Missing Amber report interface: #{results}" unless File.file?(results)
+    abort 'Amber output escaped report/test-output.' if File.directory?(File.join(report, 'home'))
+
+    content = File.read(results)
+    required = %w[
+      factory/suite/web/browser/browser
+      factory/case/web/browser/navigation/navigation
+      factory/case/web/browser/evidence/evidence
+    ]
+    missing = required.reject { |path| content.include?(path) }
+    abort "Web validation is missing from test-results.tex: #{missing.join(', ')}" unless missing.empty?
   end
 
   task :docbld do
