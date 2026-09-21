@@ -50,8 +50,8 @@ end
 namespace :validate do
   # rubocop:enable Metrics/BlockLength -- keeps validation task grouping readable
 
-  desc 'Run Amber validation and build the report'
-  task amber: %i[check_env save_wd report_dir do_validation restore_wd docbld]
+  desc 'Run CLI and browser validation, then build the report'
+  task amber: %i[check_env spec spec:browser save_wd report_dir do_validation restore_wd docbld]
 
   task run:   %i[check_env save_wd report_dir do_validation restore_wd]
 
