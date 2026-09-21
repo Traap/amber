@@ -1,0 +1,38 @@
+case:
+  name: ${file}
+
+  purpose: >
+    Validate generic browser input, click, visibility, and text actions against
+    an application-neutral local data page.
+
+  web:
+    browser: Chrome
+
+  steps:
+    - type: web
+      action: navigate
+      target: 'data:text/html,<title>Amber interaction fixture</title><label for="name">Name</label><input id="name"><button id="submit" type="button">Submit</button>'
+      confirm: The interaction fixture is opened.
+      expectation: The interaction fixture is available.
+
+    - type: web
+      action: assert
+      target: name
+      parameters:
+        condition: visible
+      confirm: The name input is located.
+      expectation: The name input is visible.
+
+    - type: web
+      action: input
+      target: name
+      parameters:
+        value: Amber
+      confirm: Amber text is entered.
+      expectation: The generic input action completes.
+
+    - type: web
+      action: click
+      target: submit
+      confirm: The submit control is activated.
+      expectation: The generic click action completes.

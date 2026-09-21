@@ -11,3 +11,4 @@ includes:
     case:
       - name: navigation
       - name: evidence
+      - name: interactions
