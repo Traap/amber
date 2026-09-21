@@ -4,7 +4,7 @@
 #
 # -------------------------------------------------------------------------- }}}
 module Amber
-  module StringToLaTeXMap # rubocop:disable Metrics.BlockLength
+  module StringToLaTeXMap # rubocop:disable Metrics/ModuleLength -- legacy character map
     # {{{ List each support mapping.
     #
     #     template: 'a' => '\\a'

@@ -57,11 +57,11 @@ module Amber
     # {{{ record_results
 
     def record_results(time_start, time_end, output)
-      @handle.write  "  Execution start: #{time_start.strftime('%b %d, %Y %T.%6N')}\n"
-      @handle.write  "  Execution end: #{time_end.strftime('%b %d, %Y %T.%6N')}\n"
-      @handle.write  "  Test Result: #{@test_result}\n"
-      @handle.write  "     Evidence: #{@decoratee.evidence}\n"
-      @handle.write  "#{output}\n"
+      @handle.write "  Execution start: #{time_start.strftime('%b %d, %Y %T.%6N')}\n"
+      @handle.write "  Execution end: #{time_end.strftime('%b %d, %Y %T.%6N')}\n"
+      @handle.write "  Test Result: #{@test_result}\n"
+      @handle.write "     Evidence: #{@decoratee.evidence}\n"
+      @handle.write "#{output}\n"
       @handle.flush
     end
 

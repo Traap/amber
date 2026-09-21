@@ -481,3 +481,7 @@ work progresses.
       an injected, vendor-neutral OCR engine.
 - [x] Verified `amber --version`, executable help, gem version and Ruby
       requirement, and unpacked gem contents for 2.7.5.417.
+- [x] Normalized legacy RuboCop directives and style issues; full repository
+      lint now passes across 99 files without offenses.
+- [x] Revalidated the deterministic suite (488 examples), browser suite (7
+      examples), and report workflow after release hygiene changes.

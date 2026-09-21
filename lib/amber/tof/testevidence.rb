@@ -47,9 +47,9 @@ require 'fileutils'
 # -------------------------------------------------------------------------- }}}
 
 module Amber
-  # rubocop:disable Metrics.ModuleLength
+  # rubocop:disable Metrics/ModuleLength -- legacy evidence API
   module TestEvidence
-    # rubocop:enable Metrics.ModuleLength
+    # rubocop:enable Metrics/ModuleLength -- legacy evidence API
     # {{{ Definitions.
 
     TEST_OUTPUT_DIR = 'test-output'
@@ -58,12 +58,12 @@ module Amber
     STEP_FILE = '-step-'
     STEP_LOG = '-log'
     STEP_STATUS = '-status'
-    ENVIRONMENT_LOG = "#{TestEvidence::TEST_OUTPUT}environment"
-    TEST_RESULTS_LOG = "#{TestEvidence::TEST_OUTPUT}test-results"
+    ENVIRONMENT_LOG = "#{TestEvidence::TEST_OUTPUT}environment".freeze
+    TEST_RESULTS_LOG = "#{TestEvidence::TEST_OUTPUT}test-results".freeze
     LATEX_FILE_EXTENSION = '.tex'
     ASCII_FILE_EXTENSION = '.txt'
-    REQUIREMENTS_LOG = "#{TestEvidence::TEST_OUTPUT}requirements.csv"
-    COMMAND_LOG = "#{TestEvidence::TEST_OUTPUT}commands.log"
+    REQUIREMENTS_LOG = "#{TestEvidence::TEST_OUTPUT}requirements.csv".freeze
+    COMMAND_LOG = "#{TestEvidence::TEST_OUTPUT}commands.log".freeze
 
     # ---------------------------------------------------------------------- }}}
     # {{{ obliterate_test_output
@@ -175,7 +175,7 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ record_test_case_status
 
-    # rubocop:disable Metrics.MethodLength
+    # rubocop:disable Metrics/MethodLength -- legacy evidence API
     def self.record_test_case_status(input, nbr, test_result, options)
       handle =
         TestEvidence.open_file(
@@ -191,7 +191,7 @@ module Amber
       handle.write(test_result)
       TestEvidence.close_file(handle)
     end
-    # rubocop:enable Metrics.MethodLength
+    # rubocop:enable Metrics/MethodLength -- legacy evidence API
 
     # ---------------------------------------------------------------------- }}}
     # {{{ close_file

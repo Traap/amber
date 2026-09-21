@@ -14,7 +14,7 @@ require 'amber'
 # -------------------------------------------------------------------------- }}}
 # {{{ Browser tests.
 
-# rubocop:disable Metrics.BlockLength
+# rubocop:disable Metrics/BlockLength -- legacy CLI fixture
 describe 'Amber CLO Browser' do
   describe '--browser=Chrome' do
     it 'has been used from the command line.' do
@@ -112,6 +112,6 @@ describe 'Amber CLO Browser' do
     end
   end
 end
-# rubocop:enable Metrics.BlockLength
+# rubocop:enable Metrics/BlockLength -- legacy CLI fixture
 
 # -------------------------------------------------------------------------- }}}

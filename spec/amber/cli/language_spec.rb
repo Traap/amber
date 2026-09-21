@@ -11,9 +11,9 @@ require 'amber'
 # -------------------------------------------------------------------------- }}}
 # {{{ 5 possible language option permutations:
 
-# rubocop:disable Metrics.BlockLength
+# rubocop:disable Metrics/BlockLength -- legacy CLI fixture
 shared_examples 'Amber CLO language parameter' do |code, language_name|
-  # rubocop:enable Metrics.BlockLength
+  # rubocop:enable Metrics/BlockLength -- legacy CLI fixture
   context "--language=#{code}" do
     it "returns #{language_name} when run with double dash and equal sign" do
       ARGV.replace ["--language=#{code}"]
@@ -57,9 +57,9 @@ end
 # -------------------------------------------------------------------------- }}}
 # {{{ The acutal Amber CLO Language tests.
 
-# rubocop:disable Metrics.BlockLength
+# rubocop:disable Metrics/BlockLength -- legacy CLI fixture
 describe 'Amber CLO Language' do
-  # rubocop:enable Metrics.BlockLength
+  # rubocop:enable Metrics/BlockLength -- legacy CLI fixture
   context 'no -l' do
     it 'has not been used.' do
       options = Amber::CommandLineOptions.parse(ARGV)
@@ -68,9 +68,9 @@ describe 'Amber CLO Language' do
     end
   end
 
-  # rubocop:disable Metrics.BlockLength
+  # rubocop:disable Metrics/BlockLength -- legacy CLI fixture
   describe 'with unknown language' do
-    # rubocop:enable Metrics.BlockLength
+    # rubocop:enable Metrics/BlockLength -- legacy CLI fixture
     context '--language XX' do
       it 'raises an invalid argument exception' do
         ARGV.replace ['--language', 'XX']
