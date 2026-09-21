@@ -67,5 +67,41 @@ RSpec.describe Amber::TestCase, browser: true do
       expect(File).to exist(File.join(directory, 'page.pdf'))
     end
   end
+
+  it 'validates translated OCR text through an injected engine' do
+    options = Amber::Options.new
+    options.data[:dryrun] = false
+    options.browser_factory = Amber::Execution::BrowserFactory.new
+    options.ocr_engine = instance_double('ocr_engine', extract: 'Bonjour fixture')
+    fixture = File.expand_path('../../../fixtures/web/home.html', __dir__)
+
+    Dir.mktmpdir('amber-web-ocr') do |directory|
+      screenshot = File.join(directory, 'ocr.png')
+      test_case = described_class.new(
+        fixture,
+        {
+          'name' => 'local OCR fixture',
+          'web' => { 'browser' => 'Chrome' },
+          'steps' => [
+            { 'type' => 'web', 'action' => 'navigate', 'target' => "file://#{fixture}" },
+            { 'type' => 'web', 'action' => 'screenshot', 'parameters' => { 'path' => screenshot } },
+            { 'type' => 'web', 'action' => 'ocr',
+              'parameters' => {
+                'path' => screenshot, 'language' => 'fr', 'value' => 'Bonjour',
+                'condition' => 'contains'
+              } }
+          ]
+        },
+        options
+      )
+
+      results = test_case.run_command
+
+      expect(results).to all(be_passed)
+      expect(results.last.stdout).to eq('Bonjour fixture')
+      expect(results.last.evidence.last[:type]).to eq(:ocr)
+      expect(results.last.evidence.last[:metadata][:language]).to eq('fr')
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength -- keeps the local web fixture readable

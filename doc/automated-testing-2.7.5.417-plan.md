@@ -427,7 +427,7 @@ work progresses.
 - [x] Added separate `rake spec:browser` integration coverage using local
       browser fixtures for Chrome, Brave, Edge, and Firefox.
 - [x] Verified the deterministic suite passes 488 examples and the browser
-      suite passes 6 examples.
+      suite passes 7 examples.
 - [x] Added generic YAML browser actions for navigation, click, input, browser
       assertions, and screenshot evidence without application-specific logic.
 - [x] Verified the browser-action contract with focused unit coverage and
@@ -454,3 +454,5 @@ work progresses.
       case coverage for YAML navigation, assertion, screenshot, and teardown.
 - [x] Added local browser coverage for generic download and PDF evidence
       actions using temporary output directories.
+- [x] Added browser-path OCR translation coverage using a local screenshot and
+      an injected, vendor-neutral OCR engine.
