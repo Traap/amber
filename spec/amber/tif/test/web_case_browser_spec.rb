@@ -85,7 +85,7 @@ RSpec.describe Amber::TestCase, browser: true do
     Dir.mktmpdir('amber-web-ocr') do
       screenshot = 'ocr.png'
       test_case = described_class.new(
-        'factory/case/web/browser/ocr/ocr.yaml',
+        'factory/case/web/primitives/ocr/ocr.yaml',
         {
           'name' => 'local OCR fixture',
           'web' => { 'browser' => 'Chrome' },
