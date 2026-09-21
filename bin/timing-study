@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'open3'
+require 'tmpdir'
+
+CASES = %w[
+  page-mock
+  choices
+  text-input
+  date-range
+  evidence
+  navigation
+  interactions
+  teleport
+  controls
+].freeze
+
+root = File.expand_path('..', __dir__)
+amber = File.join(root, 'bin', 'amber')
+selected_cases = ARGV.empty? ? CASES : ARGV
+unknown_cases = selected_cases - CASES
+
+abort "Unknown case(s): #{unknown_cases.join(', ')}" unless unknown_cases.empty?
+
+Dir.mktmpdir('amber-timing-study') do |output_dir|
+  failed = false
+  puts format('%-16s %10s %s', 'case', 'seconds', 'status')
+  puts '-' * 42
+
+  selected_cases.each do |case_name|
+    command = [
+      amber, '--nodryrun', '--verbose', '--report-dir=report',
+      "--case=web/primitives/#{case_name}"
+    ]
+    started_at = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+    stdout, stderr, status = Open3.capture3(
+      { 'AMBER_TEST_OUTPUT_DIR' => output_dir }, *command, chdir: root
+    )
+    elapsed = Process.clock_gettime(Process::CLOCK_MONOTONIC) - started_at
+    result = status.success? ? 'PASS' : "FAIL (#{status.exitstatus})"
+
+    puts format('%-16s %10.3f %s', case_name, elapsed, result)
+    next if status.success?
+
+    failed = true
+    warn stdout unless stdout.empty?
+    warn stderr unless stderr.empty?
+  end
+
+  exit 1 if failed
+end
