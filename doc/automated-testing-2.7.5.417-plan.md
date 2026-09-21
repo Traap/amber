@@ -525,3 +525,6 @@ work progresses.
       standard Linux `ls` command.
 - [x] Added the Daryn migration matrix covering the plan, suites, 33 cases,
       and all `factory/config` entries.
+- [x] Defined a neutral YAML navigation and teleport format for consuming
+      applications such as Paperboy; Daryn SPN command strings are not part of
+      the Amber contract.
