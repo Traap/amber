@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.license       = 'BSD-3-Clause'
 
   s.require_paths = ['lib']
-  s.files         = Dir['lib/**/*']
+  s.files         = Dir['lib/**/*', 'bin/*']
   s.test_files    = Dir['spec/**/*.rb']
 
   s.executables   = %w[amber]
