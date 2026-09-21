@@ -432,3 +432,7 @@ work progresses.
       assertions, and screenshot evidence without application-specific logic.
 - [x] Verified the browser-action contract with focused unit coverage and
       neutral result/evidence assertions.
+- [x] Defined the generic web case representation with a `web` browser/configuration
+      block and YAML `type: web` steps.
+- [x] Added an injected web case runner that preserves step order and closes
+      the session even when a web action raises.
