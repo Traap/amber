@@ -8,7 +8,7 @@ RSpec.describe Amber::TestCase, browser: true do
     options = Amber::Options.new
     options.data[:dryrun] = false
     options.browser_factory = Amber::Execution::BrowserFactory.new
-    fixture = File.expand_path('../../../fixtures/web/home.html', __dir__)
+    target = 'data:text/html,<title>Amber local web fixture</title><h1 id="heading">Amber</h1>'
 
     Dir.mktmpdir('amber-web') do
       test_case = described_class.new(
@@ -17,7 +17,7 @@ RSpec.describe Amber::TestCase, browser: true do
           'name' => 'local web fixture',
           'web' => { 'browser' => 'Chrome' },
           'steps' => [
-            { 'type' => 'web', 'action' => 'navigate', 'target' => "file://#{fixture}" },
+            { 'type' => 'web', 'action' => 'navigate', 'target' => target },
             { 'type' => 'web', 'action' => 'assert', 'target' => 'heading',
               'parameters' => { 'condition' => 'text', 'value' => 'Amber' } },
             { 'type' => 'web', 'action' => 'screenshot' }
@@ -43,7 +43,7 @@ RSpec.describe Amber::TestCase, browser: true do
     options = Amber::Options.new
     options.data[:dryrun] = false
     options.browser_factory = Amber::Execution::BrowserFactory.new
-    fixture = File.expand_path('../../../fixtures/web/home.html', __dir__)
+    target = 'data:text/html,<title>Amber evidence fixture</title><a id="download" href="data:text/plain,Amber%20fixture" download="fixture.txt">Download</a>'
 
     Dir.mktmpdir('amber-web-evidence') do
       test_case = described_class.new(
@@ -52,7 +52,7 @@ RSpec.describe Amber::TestCase, browser: true do
           'name' => 'local evidence fixture',
           'web' => { 'browser' => 'Chrome' },
           'steps' => [
-            { 'type' => 'web', 'action' => 'navigate', 'target' => "file://#{fixture}" },
+            { 'type' => 'web', 'action' => 'navigate', 'target' => target },
             { 'type' => 'web', 'action' => 'download', 'target' => 'download',
               'parameters' => { 'path' => 'fixture.txt' } },
             { 'type' => 'web', 'action' => 'pdf',
@@ -80,7 +80,7 @@ RSpec.describe Amber::TestCase, browser: true do
     options.data[:dryrun] = false
     options.browser_factory = Amber::Execution::BrowserFactory.new
     options.ocr_engine = instance_double('ocr_engine', extract: 'Bonjour fixture')
-    fixture = File.expand_path('../../../fixtures/web/home.html', __dir__)
+    target = 'data:text/html,<title>Amber OCR fixture</title><p>Bonjour fixture</p>'
 
     Dir.mktmpdir('amber-web-ocr') do
       screenshot = 'ocr.png'
@@ -90,7 +90,7 @@ RSpec.describe Amber::TestCase, browser: true do
           'name' => 'local OCR fixture',
           'web' => { 'browser' => 'Chrome' },
           'steps' => [
-            { 'type' => 'web', 'action' => 'navigate', 'target' => "file://#{fixture}" },
+            { 'type' => 'web', 'action' => 'navigate', 'target' => target },
             { 'type' => 'web', 'action' => 'screenshot', 'parameters' => { 'path' => screenshot } },
             { 'type' => 'web', 'action' => 'ocr',
               'parameters' => {
