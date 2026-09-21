@@ -55,6 +55,21 @@ RSpec.describe Amber::Execution::BrowserActions do
     expect(result.error.message).to match(/Browser assertion failed/)
   end
 
+  it 'fills multiple controls by id' do
+    first = instance_double('element', set: nil)
+    second = instance_double('element', set: nil)
+    allow(browser).to receive(:element).with(id: 'start-date').and_return(first)
+    allow(browser).to receive(:element).with(id: 'end-date').and_return(second)
+
+    values = { 'start-date' => '2026-07-01', 'end-date' => '2026-07-31' }
+    fill_step = step('fill', target: 'date-range-form', parameters: { values: values })
+    result = actions.fill(fill_step, nil)
+
+    expect(first).to have_received(:set).with('2026-07-01')
+    expect(second).to have_received(:set).with('2026-07-31')
+    expect(result).to be_passed
+  end
+
   it 'asserts an enabled control' do
     element = instance_double('element', enabled?: true)
     allow(browser).to receive(:element).with(id: 'submit').and_return(element)

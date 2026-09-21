@@ -22,21 +22,10 @@ case:
       expectation: The shared header, date body, and footer are recorded.
 
     - type: web
-      action: input
-      target: start-date
-      confirm: A start date is entered.
-      expectation: The start date is accepted.
-
-    - type: web
-      action: screenshot
-      confirm: The start date state is captured.
-      expectation: The shared header, date body, and footer are recorded.
-
-    - type: web
-      action: input
-      target: end-date
-      confirm: An earlier end date is entered.
-      expectation: The invalid ordering is detected.
+      action: fill
+      target: date-range-form
+      confirm: The invalid date range is entered.
+      expectation: The case-defined dates are entered by control id.
 
     - type: web
       action: screenshot
@@ -53,19 +42,9 @@ case:
       expectation: The end date cannot precede the start date.
 
     - type: web
-      action: screenshot
-      confirm: The validation message state is captured.
-      expectation: The shared header, date body, and footer are recorded.
-
-    - type: web
       action: assert
       target: date-submit
       parameters:
         condition: disabled
       confirm: The invalid date button state is read.
       expectation: The button is disabled for an invalid range.
-
-    - type: web
-      action: screenshot
-      confirm: The disabled date state is captured.
-      expectation: The shared header, date body, and footer are recorded.

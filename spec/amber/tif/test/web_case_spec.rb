@@ -81,6 +81,26 @@ RSpec.describe Amber::TestCase do
     )
   end
 
+  it 'resolves all case-local input for a fill action' do
+    data['web']['input'] = { 'start-date' => '2026-09-20', 'end-date' => '2026-09-21' }
+    data['steps'][0] = {
+      'type' => 'web', 'action' => 'fill', 'target' => 'date-range-form'
+    }
+    options.browser_factory = browser_factory
+    options.web_adapter_factory = proc { adapter }
+    allow(adapter).to receive(:start)
+    allow(adapter).to receive(:execute).and_return(Amber::Execution::Result.new(status: :passed))
+    allow(adapter).to receive(:close)
+
+    test_case.run_command
+
+    expect(adapter).to have_received(:execute).with(
+      an_object_having_attributes(
+        parameters: { 'values' => { 'start-date' => '2026-09-20', 'end-date' => '2026-09-21' } }
+      ), anything
+    )
+  end
+
   it 'validates web steps but does not start a browser during simulation' do
     options.data[:simulate] = true
     options.browser_factory = browser_factory

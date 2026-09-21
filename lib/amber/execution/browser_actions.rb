@@ -21,6 +21,7 @@ module Amber
           navigate: method(:navigate),
           click: method(:click),
           input: method(:input),
+          fill: method(:fill),
           assert: method(:assert),
           screenshot: method(:screenshot),
           download: method(:download),
@@ -40,6 +41,14 @@ module Amber
 
       def input(step, _context)
         element(step).set(parameter(step, :value))
+        passed
+      end
+
+      def fill(step, _context)
+        values = parameter(step, :values)
+        raise ArgumentError, 'Browser fill action requires parameters.values' unless values.is_a?(Hash)
+
+        values.each { |target, value| browser.element(id: target).set(value) }
         passed
       end
 

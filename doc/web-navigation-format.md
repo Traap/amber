@@ -101,6 +101,18 @@ Amber resolves the value before browser execution. An explicit
 case-local value. Every case-local input target must identify a control id;
 an input step without a matching value is rejected before the browser starts.
 
+To enter all case-local values as one reported action, use `fill` with a
+logical form target. The values are still applied by their control ids:
+
+```yaml
+- type: web
+  action: fill
+  target: search-form
+```
+
+`fill` is equivalent to one input operation for each key in `web.input` and
+does not require a screenshot after every individual control.
+
 ## Validation rules
 
 - The top-level key must be `navigation`.

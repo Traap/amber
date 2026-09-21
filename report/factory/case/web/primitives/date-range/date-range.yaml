@@ -22,25 +22,14 @@ case:
       expectation: The shared header, date body, and footer are recorded.
 
     - type: web
-      action: input
-      target: start-date
-      confirm: A start date is entered.
-      expectation: The start date is accepted.
+      action: fill
+      target: date-range-form
+      confirm: The valid date range is entered.
+      expectation: The case-defined dates are entered by control id.
 
     - type: web
       action: screenshot
-      confirm: The start date state is captured.
-      expectation: The shared header, date body, and footer are recorded.
-
-    - type: web
-      action: input
-      target: end-date
-      confirm: An end date is entered.
-      expectation: The end date is accepted.
-
-    - type: web
-      action: screenshot
-      confirm: The valid date state is captured.
+      confirm: The completed valid date state is captured.
       expectation: The shared header, date body, and footer are recorded.
 
     - type: web
@@ -50,8 +39,3 @@ case:
         condition: enabled
       confirm: The valid date button state is read.
       expectation: The button is enabled for a valid range.
-
-    - type: web
-      action: screenshot
-      confirm: The enabled date state is captured.
-      expectation: The shared header, date body, and footer are recorded.

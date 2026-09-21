@@ -165,11 +165,18 @@ module Amber
       end
     end
 
-    # rubocop:disable Metrics/AbcSize -- resolves one compact input contract
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
     def resolved_web_steps(definition)
       definition.steps.map do |step|
-        next step unless step['action'].to_s == 'input'
-        next step if (step['parameters'] || {}).key?('value')
+        action = step['action'].to_s
+        parameters = step['parameters'] || {}
+        if action == 'fill'
+          next step if parameters.key?('values')
+
+          next step.merge('parameters' => parameters.merge('values' => definition.input))
+        end
+        next step unless action == 'input'
+        next step if parameters.key?('value')
 
         target = step['target'].to_s
         raise ArgumentError, "Web input is not defined for target: #{target}" unless definition.input.key?(target)
@@ -178,7 +185,7 @@ module Amber
         step.merge('parameters' => parameters)
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
     def validate_web_step(step)
       return if step.adapter_type == 'web'
