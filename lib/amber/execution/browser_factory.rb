@@ -13,6 +13,12 @@ module Amber
         'Edge' => 'AMBER_EDGEDRIVER_PATH',
         'Firefox' => 'AMBER_GECKODRIVER_PATH'
       }.freeze
+      DRIVER_COMMAND = {
+        'Chrome' => 'chromedriver',
+        'Brave' => 'chromedriver',
+        'Edge' => 'msedgedriver',
+        'Firefox' => 'geckodriver'
+      }.freeze
 
       def start(browser, configuration = {})
         browser_name = normalize_browser(browser)
@@ -41,10 +47,19 @@ module Amber
       end
 
       def configure_driver(browser, configured_path)
-        path = configured_path || ENV[DRIVER_ENV.fetch(browser)]
+        path = configured_path || ENV[DRIVER_ENV.fetch(browser)] ||
+               executable_path(DRIVER_COMMAND.fetch(browser))
         return if path.to_s.empty?
 
         driver_service(browser).driver_path = path
+      end
+
+      def executable_path(command)
+        ENV.fetch('PATH', '').split(File::PATH_SEPARATOR).map do |directory|
+          path = File.join(directory, command)
+          return path if File.file?(path) && File.executable?(path)
+        end
+        nil
       end
 
       def driver_service(browser)
@@ -72,7 +87,16 @@ module Amber
       end
 
       def browser_binary(browser)
-        return ENV['AMBER_BRAVE_BINARY'] if browser == 'Brave'
+        if browser == 'Brave'
+          return ENV['AMBER_BRAVE_BINARY'] unless ENV['AMBER_BRAVE_BINARY'].to_s.empty?
+          return '/opt/brave-bin/brave' if File.executable?('/opt/brave-bin/brave')
+        end
+
+        if browser == 'Edge'
+          return ENV['AMBER_EDGE_BINARY'] unless ENV['AMBER_EDGE_BINARY'].to_s.empty?
+          return '/opt/microsoft/msedge/microsoft-edge' if
+            File.executable?('/opt/microsoft/msedge/microsoft-edge')
+        end
 
         ''
       end

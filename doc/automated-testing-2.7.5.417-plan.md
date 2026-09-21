@@ -420,3 +420,7 @@ work progresses.
       with configurable driver paths and download directories.
 - [x] Verified browser-factory behavior with 471 RSpec examples and focused
       RuboCop checks.
+- [x] Discovered installed Arch Linux drivers before Selenium Manager and
+      added Linux binary discovery for Brave and Edge.
+- [x] Started and cleanly closed Chrome, Brave, Edge, and Firefox using the
+      installed browser/driver matrix.
