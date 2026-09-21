@@ -78,6 +78,8 @@ module Amber
     def self.test_output_directory(options = nil)
       return TestEvidence::TEST_OUTPUT_DIR if options.nil? || options.report_dir.nil?
 
+      return TestEvidence::TEST_OUTPUT_DIR if File.absolute_path(TestEvidence::TEST_OUTPUT_DIR) == TestEvidence::TEST_OUTPUT_DIR
+
       File.join(options.report_dir, TestEvidence::TEST_OUTPUT_DIR)
     end
 
