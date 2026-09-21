@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+require 'tmpdir'
+
+rspec_output_dir = ENV['AMBER_TEST_OUTPUT_DIR']
+unless rspec_output_dir
+  rspec_output_dir = Dir.mktmpdir('amber-rspec-test-output')
+  ENV['AMBER_TEST_OUTPUT_DIR'] = rspec_output_dir
+  at_exit { FileUtils.remove_entry(rspec_output_dir) }
+end
+
 require 'amber'
 
 # Test Coverage
