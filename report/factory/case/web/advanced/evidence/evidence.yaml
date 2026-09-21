@@ -1,0 +1,34 @@
+case:
+  name: ${file}
+
+  purpose: Validate screenshot, download, and PDF evidence on the local fixture.
+
+  web:
+    browser: Chrome
+
+  steps:
+    - type: web
+      action: navigate
+      target: fixture://web/page_mock.html
+      confirm: The local evidence fixture is opened.
+      expectation: The evidence links are available.
+
+    - type: web
+      action: screenshot
+      confirm: The fixture is captured.
+      expectation: Autodoc-compatible screenshot evidence is recorded.
+
+    - type: web
+      action: download
+      target: download
+      parameters:
+        path: fixture.txt
+      confirm: The text fixture is downloaded.
+      expectation: The downloaded fixture is retained.
+
+    - type: web
+      action: pdf
+      parameters:
+        path: fixture.pdf
+      confirm: The fixture page is printed.
+      expectation: PDF evidence is retained.

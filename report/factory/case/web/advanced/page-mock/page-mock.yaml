@@ -1,0 +1,60 @@
+case:
+  name: ${file}
+
+  purpose: Validate the reusable local web capability fixture and dynamic state.
+
+  web:
+    browser: Chrome
+
+  steps:
+    - type: web
+      action: navigate
+      target: fixture://web/page_mock.html
+      confirm: The reusable local web fixture is opened.
+      expectation: The fixture heading is visible.
+
+    - type: web
+      action: assert
+      target: heading
+      parameters:
+        condition: text
+        value: Amber web capability fixture
+      confirm: The fixture heading is read.
+      expectation: The expected heading is present.
+
+    - type: web
+      action: input
+      target: query
+      parameters:
+        value: advanced web test
+      confirm: Test input is entered.
+      expectation: The query control accepts input.
+
+    - type: web
+      action: click
+      target: submit
+      confirm: The apply control is activated.
+      expectation: The fixture reports the applied value.
+
+    - type: web
+      action: assert
+      target: status
+      parameters:
+        condition: contains
+        value: advanced web test
+      confirm: The dynamic status is read.
+      expectation: The applied value is displayed.
+
+    - type: web
+      action: click
+      target: reveal-button
+      confirm: The reveal control is activated.
+      expectation: The hidden result is shown.
+
+    - type: web
+      action: assert
+      target: reveal
+      parameters:
+        condition: visible
+      confirm: The revealed result is located.
+      expectation: The dynamic result is visible.

@@ -550,3 +550,6 @@ the TODO and completed lists below as work progresses.
 - [x] Migrated the remaining supported generic Daryn intents into neutral
       controls and repeated-screenshot Amber cases, with exclusions recorded
       for product-specific, SPN, scroll, and deliberate-failure behavior.
+- [x] Expanded the neutral local page fixture into a reusable web capability
+      workbench and added an advanced web suite for dynamic controls and
+      evidence actions.

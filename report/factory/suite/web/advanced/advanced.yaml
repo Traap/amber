@@ -1,0 +1,10 @@
+suite:
+  name: ${file}
+
+  purpose: Validate Amber's reusable, application-neutral advanced web fixture.
+
+includes:
+  - folder: web/advanced
+    case:
+      - name: page-mock
+      - name: evidence
