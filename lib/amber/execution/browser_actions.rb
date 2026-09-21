@@ -11,7 +11,9 @@ module Amber
     class BrowserActions
       include EvidenceNaming
 
-      DATE_INPUT_SCRIPT = (<<~'JAVASCRIPT').freeze
+      attr_writer :adapter
+
+      DATE_INPUT_SCRIPT = <<~'JAVASCRIPT'
         arguments[0].value = arguments[1];
         arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
         arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
@@ -66,18 +68,21 @@ module Amber
         actions = parameter(step, :actions)
         raise ArgumentError, 'Grouped web step requires parameters.actions' unless actions.is_a?(Array)
 
+        evidence = []
         actions.each do |action|
           nested = ActionStep.new(
             action: action.fetch('action'), target: action['target'],
             parameters: action.fetch('parameters', {})
           )
-          result = handlers.fetch(nested.action.to_sym).call(nested, context)
+          result = execute_nested(nested, context)
           return result if result.failed?
+
+          evidence.concat(result.evidence)
         end
 
-        return screenshot(step, context) if parameter(step, :record).to_s == 'screenshot'
+        evidence.concat(screenshot(step, context).evidence) if parameter(step, :record).to_s == 'screenshot'
 
-        passed
+        passed(evidence: evidence)
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength -- executes a logical step
 
@@ -117,6 +122,12 @@ module Amber
 
       def browser
         @session.browser || raise(ArgumentError, 'Web session is not started')
+      end
+
+      def execute_nested(step, context)
+        return @adapter.execute(step, context) if @adapter
+
+        handlers.fetch(step.action.to_sym).call(step, context)
       end
 
       def set_value(control, value)

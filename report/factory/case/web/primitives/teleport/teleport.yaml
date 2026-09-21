@@ -10,14 +10,10 @@ case:
 
   steps:
     - type: web
-      action: teleport
-      target: input-validation
-      parameters:
-        from: start
       confirm: The local navigation route is executed.
-      expectation: The input validation primitive is opened.
-
-    - type: web
-      action: screenshot
-      confirm: The teleported page is captured.
-      expectation: The shared header, input body, and footer are recorded.
+      actions:
+        - action: teleport
+          target: input-validation
+          parameters:
+            from: start
+      record: screenshot

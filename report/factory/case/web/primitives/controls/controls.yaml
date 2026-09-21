@@ -5,65 +5,25 @@ case:
 
   web:
     browser: Chrome
+    target: fixture://web/page_mock.html#input-validation
 
   steps:
     - type: web
-      action: navigate
-      target: fixture://web/page_mock.html#input-validation
-      confirm: The input validation primitive is opened.
-      expectation: The controls are available.
-
-    - type: web
-      action: screenshot
-      confirm: The controls page is captured.
-      expectation: The shared header, controls body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: integer
-      parameters:
-        condition: visible
-      confirm: The integer control is located.
-      expectation: The integer control is visible.
-
-    - type: web
-      action: screenshot
-      confirm: The visible control state is captured.
-      expectation: The shared header, controls body, and footer are recorded.
-
-    - type: web
-      action: input
-      target: integer
-      parameters:
-        value: 5
-      confirm: A valid integer is entered.
-      expectation: The generic input action completes.
-
-    - type: web
-      action: screenshot
-      confirm: The entered control state is captured.
-      expectation: The shared header, controls body, and footer are recorded.
-
-    - type: web
-      action: input
-      target: float
-      parameters:
-        value: 4.5
-      confirm: A valid float is entered.
-      expectation: The generic input action completes.
-
-    - type: web
-      action: screenshot
-      confirm: The complete control state is captured.
-      expectation: The shared header, controls body, and footer are recorded.
-
-    - type: web
-      action: click
-      target: input-submit
-      confirm: The enabled submit control is activated.
-      expectation: The generic click action completes.
-
-    - type: web
-      action: screenshot
-      confirm: The clicked control state is captured.
-      expectation: The shared header, controls body, and footer are recorded.
+      input:
+        integer: 5
+        float: 4.5
+      confirm: Valid integer and float values are entered and submitted.
+      actions:
+        - action: assert
+          target: integer
+          parameters:
+            condition: visible
+        - action: fill
+          target: input-validation-form
+        - action: assert
+          target: input-submit
+          parameters:
+            condition: enabled
+        - action: click
+          target: input-submit
+      record: screenshot

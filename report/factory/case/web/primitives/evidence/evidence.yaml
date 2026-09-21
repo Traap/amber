@@ -5,40 +5,17 @@ case:
 
   web:
     browser: Chrome
+    target: fixture://web/page_mock.html#evidence
 
   steps:
     - type: web
-      action: navigate
-      target: fixture://web/page_mock.html#evidence
-      confirm: The local evidence fixture is opened.
-      expectation: The evidence links are available.
-
-    - type: web
-      action: screenshot
-      confirm: The evidence page is captured.
-      expectation: The shared header, evidence body, and footer are recorded.
-
-    - type: web
-      action: download
-      target: download
-      parameters:
-        path: fixture.txt
-      confirm: The text fixture is downloaded.
-      expectation: The downloaded fixture is retained.
-
-    - type: web
-      action: screenshot
-      confirm: The download state is captured.
-      expectation: The shared header, evidence body, and footer are recorded.
-
-    - type: web
-      action: pdf
-      parameters:
-        path: fixture.pdf
-      confirm: The fixture page is printed.
-      expectation: PDF evidence is retained.
-
-    - type: web
-      action: screenshot
-      confirm: The printed evidence state is captured.
-      expectation: The shared header, evidence body, and footer are recorded.
+      confirm: The local evidence links are downloaded and printed.
+      actions:
+        - action: download
+          target: download
+          parameters:
+            path: fixture.txt
+        - action: pdf
+          parameters:
+            path: fixture.pdf
+      record: screenshot

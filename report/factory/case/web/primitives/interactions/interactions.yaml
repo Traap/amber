@@ -7,52 +7,20 @@ case:
 
   web:
     browser: Chrome
+    target: fixture://web/page_mock.html#text-input
 
   steps:
     - type: web
-      action: navigate
-      target: fixture://web/page_mock.html#text-input
-      confirm: The text input primitive is opened.
-      expectation: The interaction controls are available.
-
-    - type: web
-      action: screenshot
-      confirm: The interaction page is captured.
-      expectation: The shared header, text body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: multi-line
-      parameters:
-        condition: visible
-      confirm: The multiline input is located.
-      expectation: The multiline input is visible.
-
-    - type: web
-      action: screenshot
-      confirm: The visible interaction control is captured.
-      expectation: The shared header, text body, and footer are recorded.
-
-    - type: web
-      action: input
-      target: multi-line
-      parameters:
-        value: Amber interaction text.
-      confirm: Interaction text is entered.
-      expectation: The generic input action completes.
-
-    - type: web
-      action: screenshot
-      confirm: The entered interaction state is captured.
-      expectation: The shared header, text body, and footer are recorded.
-
-    - type: web
-      action: click
-      target: text-submit
-      confirm: The text submit control is activated.
-      expectation: The generic click action completes.
-
-    - type: web
-      action: screenshot
-      confirm: The clicked interaction state is captured.
-      expectation: The shared header, text body, and footer are recorded.
+      input:
+        multi-line: Amber interaction text.
+      confirm: Interaction text is entered and submitted.
+      actions:
+        - action: assert
+          target: multi-line
+          parameters:
+            condition: visible
+        - action: input
+          target: multi-line
+        - action: click
+          target: text-submit
+      record: screenshot

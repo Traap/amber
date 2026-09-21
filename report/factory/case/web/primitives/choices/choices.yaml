@@ -5,102 +5,36 @@ case:
 
   web:
     browser: Chrome
+    target: fixture://web/page_mock.html#choices
 
   steps:
     - type: web
-      action: navigate
-      target: fixture://web/page_mock.html#choices
-      confirm: The choices primitive is opened.
-      expectation: The mutually exclusive choices are available.
-
-    - type: web
-      action: screenshot
-      confirm: The choices page is captured.
-      expectation: The shared header, choices body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: choice-submit
-      parameters:
-        condition: disabled
-      confirm: The initial choice button state is read.
-      expectation: The button is disabled before a choice is selected.
-
-    - type: web
-      action: screenshot
-      confirm: The initial disabled state is captured.
-      expectation: The shared header, choices body, and footer are recorded.
-
-    - type: web
-      action: click
-      target: choice-a
-      confirm: Choice A is selected.
-      expectation: The first choice can be selected.
-
-    - type: web
-      action: screenshot
-      confirm: The first choice state is captured.
-      expectation: The shared header, choices body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: choice-a
-      parameters:
-        condition: checked
-      confirm: Choice A selection is read.
-      expectation: Choice A is selected.
-
-    - type: web
-      action: screenshot
-      confirm: The selected choice state is captured.
-      expectation: The shared header, choices body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: choice-submit
-      parameters:
-        condition: enabled
-      confirm: The enabled choice button state is read.
-      expectation: The button is enabled after a choice is selected.
-
-    - type: web
-      action: screenshot
-      confirm: The enabled choice state is captured.
-      expectation: The shared header, choices body, and footer are recorded.
-
-    - type: web
-      action: click
-      target: choice-b
-      confirm: Choice B is selected.
-      expectation: The second choice can replace the first.
-
-    - type: web
-      action: screenshot
-      confirm: The replacement choice state is captured.
-      expectation: The shared header, choices body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: choice-a
-      parameters:
-        condition: unchecked
-      confirm: Choice A selection is read again.
-      expectation: Choice A is no longer selected.
-
-    - type: web
-      action: screenshot
-      confirm: The unselected choice state is captured.
-      expectation: The shared header, choices body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: choice-b
-      parameters:
-        condition: checked
-      confirm: Choice B selection is read.
-      expectation: Choice B is selected.
-
-    - type: web
-      action: screenshot
-      confirm: The final choice state is captured.
-      expectation: The shared header, choices body, and footer are recorded.
+      confirm: >
+        Choice A is selected, then replaced by Choice B while the submit
+        control reflects the mutually exclusive selection state.
+      actions:
+        - action: assert
+          target: choice-submit
+          parameters:
+            condition: disabled
+        - action: click
+          target: choice-a
+        - action: assert
+          target: choice-a
+          parameters:
+            condition: checked
+        - action: assert
+          target: choice-submit
+          parameters:
+            condition: enabled
+        - action: click
+          target: choice-b
+        - action: assert
+          target: choice-a
+          parameters:
+            condition: unchecked
+        - action: assert
+          target: choice-b
+          parameters:
+            condition: checked
+      record: screenshot

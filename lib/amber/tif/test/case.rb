@@ -110,9 +110,11 @@ module Amber
       return registry.fetch(:web) if registry&.registered?(:web)
 
       resolver = factory_file_resolver
-      handlers = Amber::Execution::BrowserActions.new(session, fixture_resolver: resolver).handlers
+      browser_actions = Amber::Execution::BrowserActions.new(session, fixture_resolver: resolver)
+      handlers = browser_actions.handlers
       handlers.merge!(Amber::Execution::OcrActions.new(session, @options.ocr_engine).handlers) if @options.ocr_engine
       adapter = Amber::Execution::WebAdapter.new(handlers)
+      browser_actions.adapter = adapter
       return adapter unless definition_navigation_file(session)
 
       navigation = Amber::Execution::Navigation.load(

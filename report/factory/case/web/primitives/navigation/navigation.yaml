@@ -7,29 +7,15 @@ case:
 
   web:
     browser: Chrome
+    target: fixture://web/page_mock.html#home
 
   steps:
     - type: web
-      action: navigate
-      target: fixture://web/page_mock.html#home
-      confirm: The page mock is opened.
-      expectation: The page mock is available.
-
-    - type: web
-      action: screenshot
-      confirm: The navigation page is captured.
-      expectation: The shared header, home body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: heading
-      parameters:
-        condition: text
-        value: Amber web capability fixture
-      confirm: The page mock heading is read.
-      expectation: The page mock heading is present.
-
-    - type: web
-      action: screenshot
-      confirm: The heading assertion state is captured.
-      expectation: The shared header, home body, and footer are recorded.
+      confirm: The page mock heading is available on the home page.
+      actions:
+        - action: assert
+          target: heading
+          parameters:
+            condition: text
+            value: Amber web capability fixture
+      record: screenshot
