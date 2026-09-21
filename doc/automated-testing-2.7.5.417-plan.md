@@ -479,3 +479,5 @@ work progresses.
       actions using temporary output directories.
 - [x] Added browser-path OCR translation coverage using a local screenshot and
       an injected, vendor-neutral OCR engine.
+- [x] Verified `amber --version`, executable help, gem version and Ruby
+      requirement, and unpacked gem contents for 2.7.5.417.
