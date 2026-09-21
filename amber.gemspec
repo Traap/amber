@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
 
   s.executables   = %w[amber]
 
-  s.required_ruby_version = '>= 2.5'
+  s.required_ruby_version = '>= 4.0'
 
   s.add_dependency 'require_all'
   s.add_dependency 'watir'

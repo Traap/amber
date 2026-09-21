@@ -8,9 +8,8 @@ remain reusable by unrelated applications. No application name, URL, page
 object, credential, database schema, translation set, or product workflow may
 be required by Amber itself.
 
-The target build is **2.7.5.417**. The current Amber checkout reports
-`1.6.4.415`; the version change is therefore part of the implementation, not
-just a documentation update.
+The target build is **2.7.5.417**, including the release metadata and runtime
+version reported by the current Amber checkout.
 
 ## Review completed
 
@@ -403,7 +402,8 @@ work progresses.
 - [x] Implement the built-in web capabilities without application-specific
       dependencies.
 - [x] Add focused contract, failure, dry-run, and simulation tests.
-- [ ] Update version, gemspec, README, report metadata, and release notes.
+- [x] Update version, gemspec, README, and version-facing validation metadata
+      for Amber 2.7.5.417 and Ruby 4.
 - [ ] Run deterministic tests, browser tests, lint, package checks, and report
       generation.
 - [ ] Review the final diff for application-specific leakage and duplicated
