@@ -35,5 +35,23 @@ RSpec.describe Amber::TestCase do
     expect { test_case.run_command }
       .to raise_error(ArgumentError, /must have type: web/)
   end
+
+  it 'adds the injected OCR engine to the default web adapter' do
+    data['steps'][0] = {
+      'type' => 'web',
+      'action' => 'ocr',
+      'parameters' => { 'path' => '/tmp/page.png', 'language' => 'fr', 'value' => 'Bonjour' }
+    }
+    ocr_engine = instance_double('ocr_engine', extract: 'Bonjour le monde')
+    browser = instance_double('browser')
+    allow(browser_factory).to receive(:start).and_return(browser)
+    options.browser_factory = browser_factory
+    options.ocr_engine = ocr_engine
+
+    results = test_case.run_command
+
+    expect(results).to all(be_passed)
+    expect(ocr_engine).to have_received(:extract).with('/tmp/page.png', language: 'fr')
+  end
 end
 # rubocop:enable Metrics/BlockLength -- keeps web case fixtures readable

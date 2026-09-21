@@ -67,6 +67,14 @@ module Amber
       @data[:web_adapter_factory] = factory
     end
 
+    def ocr_engine
+      @data[:ocr_engine]
+    end
+
+    def ocr_engine=(engine)
+      @data[:ocr_engine] = engine
+    end
+
     # ---------------------------------------------------------------------- }}}
     # {{{ browser
 

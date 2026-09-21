@@ -6,6 +6,7 @@ require 'amber/execution/browser_actions'
 require 'amber/execution/browser_factory'
 require 'amber/execution/web_case'
 require 'amber/execution/web_session'
+require 'amber/execution/ocr_actions'
 require 'amber/tof/writers/writer_factory'
 
 module Amber
@@ -65,9 +66,9 @@ module Amber
       registry = @options.adapter_registry
       return registry.fetch(:web) if registry&.registered?(:web)
 
-      Amber::Execution::WebAdapter.new(
-        Amber::Execution::BrowserActions.new(session).handlers
-      )
+      handlers = Amber::Execution::BrowserActions.new(session).handlers
+      handlers.merge!(Amber::Execution::OcrActions.new(session, @options.ocr_engine).handlers) if @options.ocr_engine
+      Amber::Execution::WebAdapter.new(handlers)
     end
 
     def validate_web_step(step)
