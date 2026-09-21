@@ -44,7 +44,7 @@ module Amber
       @handle.write "\\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]\n"
       @handle.write "\\item[Step:] #{@decoratee.number}\n"
       @handle.write "\\item[Confirm:] #{toLaTeX(@decoratee.confirm.to_s)}\n"
-      @handle.write "\\item[Expectation:] #{toLaTeX(@decoratee.expectation.to_s)}\n"
+      write_yaml_item('Input', @decoratee.input) if @decoratee.input
       @handle.write "\\item[Command:] #{toLaTeX(@decoratee.description.to_s)}\n"
       @decoratee.echo_to_sysout
     end
@@ -81,8 +81,12 @@ module Amber
     def write_evidence(evidence)
       return @handle.write "\\item[Evidence:] None\n" if evidence.empty?
 
-      @handle.write "\\item[Evidence:]\n\\begin{lstlisting}[numbers=none]\n"
-      formatted = evidence.to_yaml.lines.map { |line| toLaTeX(line.chomp) }.join("\n")
+      write_yaml_item('Evidence', evidence)
+    end
+
+    def write_yaml_item(label, value)
+      @handle.write "\\item[#{label}:]\n\\begin{lstlisting}[numbers=none]\n"
+      formatted = value.to_yaml.lines.map { |line| toLaTeX(line.chomp) }.join("\n")
       @handle.write "#{formatted}\n\\end{lstlisting}\n"
     end
 

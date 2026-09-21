@@ -11,7 +11,7 @@ module Amber
   class TestStep < Amber::Test
     attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir,
                 :adapter_type, :step_data, :action, :target, :parameters,
-                :last_result, :runtime_evidence
+                :input, :last_result, :runtime_evidence
     attr_writer :execution_adapter
 
     # {{{ Initialize TestStep
@@ -24,6 +24,7 @@ module Amber
       @action = step['action']
       @target = step['target']
       @parameters = (step['parameters'] || {}).dup.freeze
+      @input = step['input']
       register_default_adapters
       define_expectation(options, step, number)
       define_command(options, step, workingdir) if @adapter_type == 'command'

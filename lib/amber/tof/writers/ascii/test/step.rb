@@ -26,7 +26,7 @@ module Amber
     def echo_to_sysout
       @handle.write "         Step: #{@decoratee.number}\n"
       @handle.write "      Confirm: #{@decoratee.confirm}\n"
-      @handle.write "  Expectation: #{@decoratee.expectation}\n"
+      @handle.write "         Input: #{@decoratee.input}\n" if @decoratee.input
       @handle.write "      Command: #{@decoratee.description}\n"
       @decoratee.echo_to_sysout
     end
