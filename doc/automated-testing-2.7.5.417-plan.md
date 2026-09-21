@@ -523,3 +523,5 @@ work progresses.
       that Paperboy will use.
 - [x] Replaced the environment-dependent `bzless` validation command with the
       standard Linux `ls` command.
+- [x] Added the Daryn migration matrix covering the plan, suites, 33 cases,
+      and all `factory/config` entries.
