@@ -5,46 +5,26 @@ case:
 
   web:
     browser: Chrome
-    input:
-      start-date: '2026-09-20'
-      end-date: '2026-09-19'
+    target: fixture://web/page_mock.html#date-range
 
   steps:
     - type: web
-      action: navigate
-      target: fixture://web/page_mock.html#date-range
-      confirm: The date range primitive is opened.
-      expectation: The date controls are available.
-
-    - type: web
-      action: screenshot
-      confirm: The invalid date page is captured.
-      expectation: The shared header, date body, and footer are recorded.
-
-    - type: web
-      action: fill
-      target: date-range-form
-      confirm: The invalid date range is entered.
-      expectation: The case-defined dates are entered by control id.
-
-    - type: web
-      action: screenshot
-      confirm: The invalid ordering state is captured.
-      expectation: The shared header, date body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: date-status
-      parameters:
-        condition: contains
-        value: on or before
-      confirm: The date validation message is read.
-      expectation: The end date cannot precede the start date.
-
-    - type: web
-      action: assert
-      target: date-submit
-      parameters:
-        condition: disabled
-      confirm: The invalid date button state is read.
-      expectation: The button is disabled for an invalid range.
+      input:
+        start-date: '2026-09-20'
+        end-date: '2026-09-19'
+      confirm: >
+        An invalid date range has been entered and the date-submit button
+        remains disabled.
+      actions:
+        - action: fill
+          target: date-range-form
+        - action: assert
+          target: date-status
+          parameters:
+            condition: contains
+            value: on or before
+        - action: assert
+          target: date-submit
+          parameters:
+            condition: disabled
+      record: screenshot

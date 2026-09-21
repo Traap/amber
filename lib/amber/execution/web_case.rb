@@ -4,13 +4,14 @@ module Amber
   module Execution
     # Immutable, application-neutral representation of a YAML web case.
     class WebCase
-      attr_reader :browser, :configuration, :steps, :input, :navigation_file, :input_root
+      attr_reader :browser, :configuration, :steps, :target, :input, :navigation_file, :input_root
 
       def self.from_yaml(data)
         web = data.fetch('web')
         new(
           browser: web.fetch('browser'),
           configuration: web.fetch('configuration', {}),
+          target: web['target'],
           input: web.fetch('input', {}),
           steps: data.fetch('steps'),
           navigation_file: web['navigation_file'],
@@ -18,10 +19,11 @@ module Amber
         )
       end
 
-      def initialize(browser:, steps:, configuration: {}, input: {}, navigation_file: nil,
+      def initialize(browser:, steps:, configuration: {}, target: nil, input: {}, navigation_file: nil,
                      input_root: 'config/input')
         @browser = browser.to_s
         @configuration = configuration.transform_keys(&:to_sym).freeze
+        @target = target
         @input = input.dup.freeze
         @steps = steps.map(&:dup).freeze
         @navigation_file = navigation_file

@@ -16,18 +16,21 @@ module Amber
         @fixture_resolver = fixture_resolver
       end
 
+      # rubocop:disable Metrics/MethodLength -- keeps action registration together
       def handlers
         {
           navigate: method(:navigate),
           click: method(:click),
           input: method(:input),
           fill: method(:fill),
+          group: method(:group),
           assert: method(:assert),
           screenshot: method(:screenshot),
           download: method(:download),
           pdf: method(:pdf)
         }
       end
+      # rubocop:enable Metrics/MethodLength -- keeps action registration together
 
       def navigate(step, _context)
         browser.goto(navigation_target(step.target))
@@ -51,6 +54,26 @@ module Amber
         values.each { |target, value| browser.element(id: target).set(value) }
         passed
       end
+
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength -- executes a logical step
+      def group(step, context)
+        actions = parameter(step, :actions)
+        raise ArgumentError, 'Grouped web step requires parameters.actions' unless actions.is_a?(Array)
+
+        actions.each do |action|
+          nested = ActionStep.new(
+            action: action.fetch('action'), target: action['target'],
+            parameters: action.fetch('parameters', {})
+          )
+          result = handlers.fetch(nested.action.to_sym).call(nested, context)
+          return result if result.failed?
+        end
+
+        return screenshot(step, context) if parameter(step, :record).to_s == 'screenshot'
+
+        passed
+      end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength -- executes a logical step
 
       def assert(step, _context)
         condition = parameter(step, :condition) || 'visible'
@@ -83,6 +106,8 @@ module Amber
       end
 
       private
+
+      ActionStep = Struct.new(:action, :target, :parameters, keyword_init: true)
 
       def browser
         @session.browser || raise(ArgumentError, 'Web session is not started')

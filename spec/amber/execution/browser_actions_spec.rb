@@ -70,6 +70,36 @@ RSpec.describe Amber::Execution::BrowserActions do
     expect(result).to be_passed
   end
 
+  it 'executes grouped actions and records one screenshot' do
+    first = instance_double('element', set: nil)
+    submit = instance_double('element', enabled?: true)
+    screenshot = instance_double('screenshot', save: nil)
+    allow(browser).to receive(:element).with(id: 'start-date').and_return(first)
+    allow(browser).to receive(:element).with(id: 'date-submit').and_return(submit)
+    allow(browser).to receive(:screenshot).and_return(screenshot)
+
+    grouped = step(
+      'group',
+      parameters: {
+        actions: [
+          { 'action' => 'fill', 'parameters' => { 'values' => { 'start-date' => '2026-09-20' } } },
+          { 'action' => 'assert', 'target' => 'date-submit',
+            'parameters' => { 'condition' => 'enabled' } }
+        ],
+        record: 'screenshot',
+        path: '/tmp/amber-grouped.png'
+      }
+    )
+
+    result = actions.group(grouped, nil)
+
+    expect(first).to have_received(:set).with('2026-09-20')
+    expect(submit).to have_received(:enabled?)
+    expect(screenshot).to have_received(:save)
+    expect(result).to be_passed
+    expect(session.evidence.items.last[:type]).to eq(:screenshot)
+  end
+
   it 'asserts an enabled control' do
     element = instance_double('element', enabled?: true)
     allow(browser).to receive(:element).with(id: 'submit').and_return(element)

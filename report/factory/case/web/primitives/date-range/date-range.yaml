@@ -5,37 +5,21 @@ case:
 
   web:
     browser: Chrome
-    input:
-      start-date: '2026-09-20'
-      end-date: '2026-09-21'
+    target: fixture://web/page_mock.html#date-range
 
   steps:
     - type: web
-      action: navigate
-      target: fixture://web/page_mock.html#date-range
-      confirm: The date range primitive is opened.
-      expectation: The date controls are available.
-
-    - type: web
-      action: screenshot
-      confirm: The date range page is captured.
-      expectation: The shared header, date body, and footer are recorded.
-
-    - type: web
-      action: fill
-      target: date-range-form
-      confirm: The valid date range is entered.
-      expectation: The case-defined dates are entered by control id.
-
-    - type: web
-      action: screenshot
-      confirm: The completed valid date state is captured.
-      expectation: The shared header, date body, and footer are recorded.
-
-    - type: web
-      action: assert
-      target: date-submit
-      parameters:
-        condition: enabled
-      confirm: The valid date button state is read.
-      expectation: The button is enabled for a valid range.
+      input:
+        start-date: '2026-09-20'
+        end-date: '2026-09-21'
+      confirm: >
+        Valid start and end dates have been entered and the date-submit
+        button is active.
+      actions:
+        - action: fill
+          target: date-range-form
+        - action: assert
+          target: date-submit
+          parameters:
+            condition: enabled
+      record: screenshot

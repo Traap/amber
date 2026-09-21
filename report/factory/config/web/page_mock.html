@@ -51,7 +51,7 @@
 
       <section class="page" data-page="input-validation" hidden>
         <h2>Input validation</h2>
-        <div id="date-range-form" class="controls">
+        <div class="controls">
           <label for="integer">Integer (1–10)<input id="integer" type="number" min="1" max="10"></label>
           <p id="integer-error" class="status" aria-live="polite"></p>
           <label for="float">Float (0.5–9.5)<input id="float" type="number" min="0.5" max="9.5" step="0.1"></label>
@@ -82,7 +82,7 @@
 
       <section class="page" data-page="date-range" hidden>
         <h2>Date range validation</h2>
-        <div class="controls">
+        <div id="date-range-form" class="controls">
           <label for="start-date">Start date<input id="start-date" type="date"></label>
           <label for="end-date">End date<input id="end-date" type="date"></label>
           <p id="date-status" class="status" aria-live="polite">Select a start and end date.</p>

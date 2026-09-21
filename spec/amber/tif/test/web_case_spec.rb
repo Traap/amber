@@ -101,6 +101,45 @@ RSpec.describe Amber::TestCase do
     )
   end
 
+  it 'resolves step-local grouped input and prepends the web target' do
+    data['web']['target'] = 'fixture://date-range'
+    data['steps'][0] = {
+      'type' => 'web',
+      'input' => { 'start-date' => '2026-09-20', 'end-date' => '2026-09-21' },
+      'actions' => [
+        { 'action' => 'fill', 'target' => 'date-range-form' },
+        { 'action' => 'assert', 'target' => 'date-submit',
+          'parameters' => { 'condition' => 'enabled' } }
+      ],
+      'record' => 'screenshot'
+    }
+    options.browser_factory = browser_factory
+    options.web_adapter_factory = proc { adapter }
+    allow(adapter).to receive(:start)
+    allow(adapter).to receive(:execute).and_return(Amber::Execution::Result.new(status: :passed))
+    allow(adapter).to receive(:close)
+
+    results = test_case.run_command
+
+    expect(results).to all(be_passed)
+    expect(adapter).to have_received(:execute).with(
+      an_object_having_attributes(
+        action: 'group',
+        target: nil,
+        parameters: hash_including(
+          'record' => 'screenshot',
+          'actions' => include(
+            hash_including('action' => 'navigate', 'target' => 'fixture://date-range'),
+            hash_including(
+              'action' => 'fill',
+              'parameters' => { 'values' => { 'start-date' => '2026-09-20', 'end-date' => '2026-09-21' } }
+            )
+          )
+        )
+      ), anything
+    )
+  end
+
   it 'validates web steps but does not start a browser during simulation' do
     options.data[:simulate] = true
     options.browser_factory = browser_factory

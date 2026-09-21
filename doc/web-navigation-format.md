@@ -75,34 +75,39 @@ query: Amber framework
 The `${input.key}` notation is reserved for adapter-side substitution in route
 steps. Amber must not require a particular input schema.
 
-## Case-local web input
+## Step-local web input
 
-A web case may define input values directly beneath its `web` mapping. The
-mapping key is the target control id used by an `input` step:
+A grouped web step may define input values next to the actions that consume
+them. Each mapping key is the target control id:
 
 ```yaml
 web:
   browser: Chrome
-  input:
-    start-date: '2026-09-20'
-    end-date: '2026-09-21'
+  target: fixture://web/page_mock.html#date-range
 
 steps:
   - type: web
-    action: input
-    target: start-date
-  - type: web
-    action: input
-    target: end-date
+    input:
+      start-date: '2026-09-20'
+      end-date: '2026-09-21'
+    actions:
+      - action: fill
+        target: date-range-form
+      - action: assert
+        target: date-submit
+        parameters:
+          condition: enabled
+    record: screenshot
 ```
 
-Amber resolves the value before browser execution. An explicit
-`parameters.value` takes precedence when a step needs to override the
-case-local value. Every case-local input target must identify a control id;
-an input step without a matching value is rejected before the browser starts.
+Amber navigates to the step target, resolves the input before browser
+execution, and runs the nested actions in order. The grouped step produces one
+reported result and can record one screenshot after all assertions pass.
+Different grouped steps can reuse the same page target with different input.
+An explicit `parameters.value` still takes precedence for a flat `input` step.
 
-To enter all case-local values as one reported action, use `fill` with a
-logical form target. The values are still applied by their control ids:
+To enter all step-local values as one action, use `fill` with a logical form
+target. The values are still applied by their control ids:
 
 ```yaml
 - type: web
@@ -110,7 +115,8 @@ logical form target. The values are still applied by their control ids:
   target: search-form
 ```
 
-`fill` is equivalent to one input operation for each key in `web.input` and
+`fill` is equivalent to one input operation for each key in the grouped
+step's `input` mapping and
 does not require a screenshot after every individual control.
 
 ## Validation rules

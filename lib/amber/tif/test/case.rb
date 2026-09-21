@@ -167,23 +167,48 @@ module Amber
 
     # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
     def resolved_web_steps(definition)
-      definition.steps.map do |step|
-        action = step['action'].to_s
-        parameters = step['parameters'] || {}
-        if action == 'fill'
-          next step if parameters.key?('values')
-
-          next step.merge('parameters' => parameters.merge('values' => definition.input))
+      definition.steps.each_with_index.map do |step, index|
+        if step['actions']
+          resolve_group_step(definition, step, index.zero?)
+        else
+          resolve_flat_step(definition, step)
         end
-        next step unless action == 'input'
-        next step if parameters.key?('value')
-
-        target = step['target'].to_s
-        raise ArgumentError, "Web input is not defined for target: #{target}" unless definition.input.key?(target)
-
-        parameters = (step['parameters'] || {}).merge('value' => definition.input.fetch(target))
-        step.merge('parameters' => parameters)
       end
+    end
+
+    def resolve_group_step(definition, step, add_target)
+      input = step.fetch('input', {})
+      raise ArgumentError, 'Grouped web step input must be a mapping' unless input.is_a?(Hash)
+
+      actions = step.fetch('actions').map do |action|
+        resolve_flat_step({ input: input }, action)
+      end
+      actions.unshift('action' => 'navigate', 'target' => definition.target) if add_target && definition.target
+
+      parameters = (step['parameters'] || {}).merge(
+        'actions' => actions,
+        'record' => step['record']
+      )
+      step.merge('action' => 'group', 'parameters' => parameters)
+    end
+
+    def resolve_flat_step(definition, step)
+      action = step['action'].to_s
+      parameters = step['parameters'] || {}
+      input = definition.respond_to?(:input) ? definition.input : definition.fetch(:input)
+      if action == 'fill'
+        return step if parameters.key?('values')
+
+        return step.merge('parameters' => parameters.merge('values' => input))
+      end
+      return step unless action == 'input'
+      return step if parameters.key?('value')
+
+      target = step['target'].to_s
+      raise ArgumentError, "Web input is not defined for target: #{target}" unless input.key?(target)
+
+      parameters = (step['parameters'] || {}).merge('value' => input.fetch(target))
+      step.merge('parameters' => parameters)
     end
     # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
