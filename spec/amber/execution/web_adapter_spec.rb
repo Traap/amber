@@ -11,6 +11,16 @@ RSpec.describe Amber::Execution::WebAdapter do
     expect(adapter.execute(step, :context)).to equal(result)
   end
 
+  it 'delegates browser lifecycle to the injected session' do
+    session = instance_double('web session', start: :browser, close: nil)
+    adapter = described_class.new
+
+    expect(adapter.start(session)).to eq(:browser)
+    adapter.close(session)
+    expect(session).to have_received(:start).once
+    expect(session).to have_received(:close).once
+  end
+
   it 'rejects an unknown action' do
     adapter = described_class.new
 

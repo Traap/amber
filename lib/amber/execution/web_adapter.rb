@@ -19,6 +19,14 @@ module Amber
         @actions[key] = handler
       end
 
+      def start(session)
+        session.start
+      end
+
+      def close(session)
+        session.close
+      end
+
       def execute(step, context = nil)
         handler = @actions.fetch(normalize_action(step.action)) do
           raise KeyError, "No web action registered: #{step.action}"

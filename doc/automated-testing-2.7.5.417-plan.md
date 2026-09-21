@@ -412,3 +412,7 @@ work progresses.
       returning neutral execution results.
 - [x] Verified YAML web dispatch with 461 RSpec examples and focused RuboCop
       checks.
+- [x] Added injected web-session lifecycle and neutral evidence collection for
+      screenshots, downloads, PDFs, OCR, and logs.
+- [x] Verified web-session and evidence contracts with 467 RSpec examples and
+      focused RuboCop checks.
