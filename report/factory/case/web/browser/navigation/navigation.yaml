@@ -23,3 +23,8 @@ case:
         value: Amber
       confirm: The fixture heading is read.
       expectation: The fixture heading contains Amber.
+
+    - type: web
+      action: screenshot
+      confirm: The local fixture is captured.
+      expectation: Autodoc-compatible screenshot evidence is recorded.

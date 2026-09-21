@@ -3,11 +3,14 @@
 require 'fileutils'
 require 'base64'
 require 'amber/execution/result'
+require 'amber/execution/evidence_naming'
 
 module Amber
   module Execution
     # Generic browser actions usable by YAML web steps.
     class BrowserActions
+      include EvidenceNaming
+
       def initialize(session, fixture_resolver: nil)
         @session = session
         @fixture_resolver = fixture_resolver
@@ -78,7 +81,7 @@ module Amber
 
       def navigation_target(target)
         return target unless target.to_s.start_with?('fixture://')
-        raise ArgumentError, 'fixture:// navigation requires a factory resolver' unless @fixture_resolver
+        return target unless @fixture_resolver
 
         "file://#{@fixture_resolver.resolve_fixture(target)}"
       end
@@ -96,6 +99,7 @@ module Amber
 
       def evidence_path(step, label)
         path = parameter(step, :path)
+        return default_evidence_path(@session, step, 'png') if path.to_s.empty? && label == 'Screenshot'
         raise ArgumentError, "#{label} action requires parameters.path" if path.to_s.empty?
 
         @session.evidence_path(path)

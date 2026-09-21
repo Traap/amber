@@ -20,8 +20,7 @@ RSpec.describe Amber::TestCase, browser: true do
             { 'type' => 'web', 'action' => 'navigate', 'target' => "file://#{fixture}" },
             { 'type' => 'web', 'action' => 'assert', 'target' => 'heading',
               'parameters' => { 'condition' => 'text', 'value' => 'Amber' } },
-            { 'type' => 'web', 'action' => 'screenshot',
-              'parameters' => { 'path' => 'home.png' } }
+            { 'type' => 'web', 'action' => 'screenshot' }
           ]
         },
         options
@@ -34,7 +33,7 @@ RSpec.describe Amber::TestCase, browser: true do
       expect(File).to exist(
         File.join(
           Amber::TestEvidence::TEST_OUTPUT_DIR,
-          'factory/case/web/browser/navigation/home.png'
+          'factory/case/web/browser/navigation/navigation-003-001.png'
         )
       )
     end

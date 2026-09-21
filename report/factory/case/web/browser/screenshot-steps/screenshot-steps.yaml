@@ -15,8 +15,6 @@ case:
 
     - type: web
       action: screenshot
-      parameters:
-        path: screenshots/before.png
       confirm: The first page screenshot is captured.
       expectation: The first screenshot is retained.
 
@@ -30,7 +28,5 @@ case:
 
     - type: web
       action: screenshot
-      parameters:
-        path: screenshots/after.png
       confirm: The second page screenshot is captured.
       expectation: The second screenshot is retained separately.

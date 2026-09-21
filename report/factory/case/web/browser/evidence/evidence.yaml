@@ -17,8 +17,6 @@ case:
 
     - type: web
       action: screenshot
-      parameters:
-        path: evidence.png
       confirm: The browser page is captured.
       expectation: Screenshot evidence is recorded.
 
