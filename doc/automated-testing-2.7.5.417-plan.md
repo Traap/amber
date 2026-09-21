@@ -192,29 +192,37 @@ consumer repository.
 ## Proposed neutral test model
 
 The approved YAML/API shape is documented in
-`doc/web-navigation-format.md`. The model distinguishes the framework action
-from its adapter:
+`doc/web-navigation-format.md`. A web case selects a target, and a grouped
+web step associates input with the actions that consume it:
 
 ```yaml
 case:
   name: local web capability
+  web:
+    browser: Chrome
+    target: fixture://web/page_mock.html#date-range
   steps:
     - type: web
-      action: navigate
-      target: fixture://web/page_mock.html
-    - type: web
-      action: assert
-      target: heading
-      expectation: visible
-    - type: web
-      action: capture
-      evidence: screenshot
+      input:
+        start-date: '2026-09-20'
+        end-date: '2026-09-21'
+      actions:
+        - action: fill
+          target: date-range-form
+        - action: assert
+          target: date-submit
+          parameters:
+            condition: enabled
+      record: screenshot
 ```
 
-`fixture://web/page_mock.html`, `heading`, and the expected state above are
-framework test fixtures, not application implementation. A consuming
-application registers its own adapter and page/action vocabulary without
-changing Amber.
+Step-local input permits multiple grouped steps to reuse one page target with
+different control values. The grouped result records one final screenshot,
+while nested download, PDF, OCR, and other typed evidence remains attached to
+the same report step. `fixture://web/page_mock.html`, control identifiers,
+and the expected state above are framework test fixtures, not application
+implementation. A consuming application registers its own adapter and
+page/action vocabulary without changing Amber.
 
 ## Acceptance criteria
 
@@ -375,11 +383,11 @@ contract. Daryn is obsolete and must not be added as a dependency or opened
 as a runtime source.
 
 All architecture decisions recorded so far are approved. Continue with the
-next unchecked TODO item. The next implementation point is the neutral
-`fixture://` resolver, YAML navigation/teleport runtime, and safe input-file
-loading. Use local deterministic fixtures, run focused tests after each
-change, and run the complete CLI and browser suites before release. Update
-the TODO and completed lists below as work progresses.
+next unchecked TODO item. The implementation work is complete; validate the
+current checkout and prepare the release commit. Use local deterministic
+fixtures, run focused tests after each change, and run the complete CLI and
+browser suites before release. Update the TODO and completed lists below as
+work progresses.
 ```
 
 ## TODO
@@ -556,3 +564,5 @@ the TODO and completed lists below as work progresses.
 - [x] Expanded the neutral local page fixture into a reusable web capability
       workbench and added an advanced web suite for dynamic controls and
       evidence actions.
+- [x] Standardized all web YAML cases on grouped actions with step-local input,
+      final screenshot recording, and consolidated report evidence.

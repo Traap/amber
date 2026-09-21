@@ -114,7 +114,7 @@ The names below are Amber factory paths, not Daryn runtime dependencies.
 | Generic controls and element range | `web/primitives/controls` | migrated |
 | Navigation and text assertions | `web/primitives/navigation` | migrated |
 | Input and click interactions | `web/primitives/interactions` | migrated |
-| Repeated screenshots and screenshot naming | per-action screenshots | migrated |
+| Screenshot naming and report noise | one final screenshot per grouped step | migrated |
 | Screenshot evidence scoped to a case/page | `web/primitives/evidence` | migrated |
 | Download and copied-file evidence | `web/primitives/evidence` | migrated |
 | PDF and screenshot evidence | `web/primitives/evidence` | migrated |
