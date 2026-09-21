@@ -419,14 +419,14 @@ the TODO and completed lists below as work progresses.
 - [x] Add neutral local CLI and browser fixtures to Amber validation.
 - [x] Implement the built-in web capabilities without application-specific
       dependencies.
-- [ ] Adapt the generic page mock into
+- [x] Adapt the generic page mock into
       `report/factory/config/web/page_mock.html` without Daryn application
       names, identifiers, URLs, or workflows.
-- [ ] Implement safe `fixture://` resolution below the report factory.
-- [ ] Implement the documented neutral YAML navigation and teleport runtime.
-- [ ] Implement safe YAML input-file resolution below the configured input
+- [x] Implement safe `fixture://` resolution below the report factory.
+- [x] Implement the documented neutral YAML navigation and teleport runtime.
+- [x] Implement safe YAML input-file resolution below the configured input
       root and pass parsed data to the injected adapter.
-- [ ] Integrate the neutral page mock and navigation/input fixtures into the
+- [x] Integrate the neutral page mock and navigation/input fixtures into the
       Amber master web validation plan.
 - [ ] Migrate the remaining generic Daryn cases as Amber-native cases,
       excluding application-specific cases and SPN files.
@@ -541,3 +541,9 @@ the TODO and completed lists below as work progresses.
 - [x] Defined and documented a neutral YAML navigation and teleport format for
       consuming applications such as Paperboy; Daryn SPN command strings are
       not part of the Amber contract.
+- [x] Added a neutral report-factory page fixture, navigation document, and
+      input fixture for local teleport validation.
+- [x] Added confined factory-file and `fixture://` resolution with traversal
+      protection.
+- [x] Added navigation YAML validation, route selection, teleport execution,
+      and injected navigation-adapter input delivery.

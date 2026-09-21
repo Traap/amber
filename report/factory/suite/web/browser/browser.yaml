@@ -12,3 +12,4 @@ includes:
       - name: navigation
       - name: evidence
       - name: interactions
+      - name: teleport

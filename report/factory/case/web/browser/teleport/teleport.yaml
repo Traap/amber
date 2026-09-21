@@ -1,0 +1,19 @@
+case:
+  name: ${file}
+
+  purpose: Validate local navigation routes and confined input loading.
+
+  web:
+    browser: Chrome
+    navigation_file: config/web/navigation.yaml
+    input_root: config/input
+
+  steps:
+    - type: web
+      action: teleport
+      target: page
+      parameters:
+        from: start
+        input: page.yaml
+      confirm: The local navigation route is executed.
+      expectation: The page route and input file are accepted.

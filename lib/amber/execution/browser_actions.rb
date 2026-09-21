@@ -8,8 +8,9 @@ module Amber
   module Execution
     # Generic browser actions usable by YAML web steps.
     class BrowserActions
-      def initialize(session)
+      def initialize(session, fixture_resolver: nil)
         @session = session
+        @fixture_resolver = fixture_resolver
       end
 
       def handlers
@@ -25,7 +26,7 @@ module Amber
       end
 
       def navigate(step, _context)
-        browser.goto(step.target)
+        browser.goto(navigation_target(step.target))
         passed
       end
 
@@ -73,6 +74,13 @@ module Amber
 
       def browser
         @session.browser || raise(ArgumentError, 'Web session is not started')
+      end
+
+      def navigation_target(target)
+        return target unless target.to_s.start_with?('fixture://')
+        raise ArgumentError, 'fixture:// navigation requires a factory resolver' unless @fixture_resolver
+
+        "file://#{@fixture_resolver.resolve_fixture(target)}"
       end
 
       def element(step)

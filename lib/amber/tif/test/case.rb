@@ -7,6 +7,8 @@ require 'amber/execution/browser_factory'
 require 'amber/execution/web_case'
 require 'amber/execution/web_session'
 require 'amber/execution/ocr_actions'
+require 'amber/execution/factory_file_resolver'
+require 'amber/execution/navigation'
 require 'amber/tof/writers/writer_factory'
 
 module Amber
@@ -30,12 +32,21 @@ module Amber
       end
     end
 
+    # Loads consumer-owned YAML input below the configured factory input root.
+    def navigation_input(filename)
+      definition = Amber::Execution::WebCase.from_yaml(@data)
+      resolver = factory_file_resolver
+      path = resolver.resolve(File.join(definition.input_root, filename.to_s))
+      YAML.safe_load_file(path) || {}
+    end
+
     private
 
     # rubocop:disable Metrics/MethodLength -- keeps web lifecycle orchestration together
     def run_web_case
       definition = Amber::Execution::WebCase.from_yaml(@data)
       steps = web_steps(definition)
+      validate_web_navigation(definition, steps)
       return steps.map { Amber::Execution::Result.new(status: :skipped) } if simulation?
 
       session = web_session(definition)
@@ -80,16 +91,58 @@ module Amber
       end
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength -- adapter precedence and setup
     def web_adapter(session)
       return @options.web_adapter_factory.call(session) if @options.web_adapter_factory
 
       registry = @options.adapter_registry
       return registry.fetch(:web) if registry&.registered?(:web)
 
-      handlers = Amber::Execution::BrowserActions.new(session).handlers
+      resolver = factory_file_resolver
+      handlers = Amber::Execution::BrowserActions.new(session, fixture_resolver: resolver).handlers
       handlers.merge!(Amber::Execution::OcrActions.new(session, @options.ocr_engine).handlers) if @options.ocr_engine
-      Amber::Execution::WebAdapter.new(handlers)
+      adapter = Amber::Execution::WebAdapter.new(handlers)
+      return adapter unless definition_navigation_file(session)
+
+      navigation = Amber::Execution::Navigation.load(
+        resolver.resolve(definition_navigation_file(session))
+      )
+      adapter.register(
+        :teleport,
+        Amber::Execution::NavigationRunner.new(
+          navigation: navigation,
+          action_adapter: adapter,
+          navigation_adapter: @options.navigation_adapter
+        ).method(:execute)
+      )
+      adapter
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+    def definition_navigation_file(_session)
+      Amber::Execution::WebCase.from_yaml(@data).navigation_file
+    end
+
+    def factory_file_resolver
+      Amber::Execution::FactoryFileResolver.new(report_dir: @options.report_dir)
+    end
+
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength -- validates one navigation contract
+    def validate_web_navigation(definition, steps)
+      return unless definition.navigation_file
+
+      resolver = factory_file_resolver
+      navigation = Amber::Execution::Navigation.load(resolver.resolve(definition.navigation_file))
+      steps.select { |step| step.action.to_s == 'teleport' }.each do |step|
+        navigation.route(
+          from: step.parameters['from'] || step.parameters[:from],
+          to: step.target
+        )
+        input = step.parameters['input'] || step.parameters[:input]
+        resolver.resolve(File.join(definition.input_root, input.to_s)) if input
+      end
+    end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def web_writer_steps(definition, adapter)
       definition.steps.each_with_index.map do |step_data, index|

@@ -1,0 +1,13 @@
+navigation:
+  version: 1
+  routes:
+    - from: start
+      to: page
+      steps:
+        - action: navigate
+          target: fixture://web/page_mock.html
+        - action: assert
+          target: heading
+          parameters:
+            condition: text
+            value: Amber framework

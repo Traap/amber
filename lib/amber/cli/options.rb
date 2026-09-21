@@ -76,6 +76,14 @@ module Amber
       @data[:ocr_engine] = engine
     end
 
+    def navigation_adapter
+      @data[:navigation_adapter]
+    end
+
+    def navigation_adapter=(adapter)
+      @data[:navigation_adapter] = adapter
+    end
+
     # ---------------------------------------------------------------------- }}}
     # {{{ report_dir
 
