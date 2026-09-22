@@ -13,49 +13,69 @@ module Amber
         @configuration = nil
       end
 
-      # rubocop:disable Metrics/MethodLength -- creates a case-scoped session view
       def session(browser:, configuration: {}, output_directory: nil)
-        start(browser, configuration)
-        case_session = WebSession.new(
+        configure(browser, configuration)
+        reset if @browser
+        WebSession.new(
           browser_factory: @browser_factory,
           browser: browser,
           configuration: configuration,
           output_directory: output_directory,
-          shared_browser: @browser
+          shared_pool: self
         )
-        case_session.reset if @browser_name_was_set
-        case_session.prepare_case(output_directory)
-        @browser_name_was_set = true
-        case_session
       end
-      # rubocop:enable Metrics/MethodLength
 
-      # rubocop:disable Metrics/MethodLength -- always releases the pooled browser
-      def close
+      attr_reader :browser
+
+      def start
+        return @browser if @browser
+
+        @browser = @browser_factory.start(@browser_name, @configuration)
+      end
+
+      def close_browser
         return unless @browser
 
+        quit_browser
+      ensure
+        @browser = nil
+      end
+
+      def new_browser
+        raise ArgumentError, 'Cannot start a new browser while one is active; close_browser first' if @browser
+
+        start
+      end
+
+      def close
+        close_browser
+      ensure
+        @browser = nil
+        @browser_name = nil
+        @configuration = nil
+      end
+
+      private
+
+      def configure(browser, configuration)
+        raise ArgumentError, 'Cannot change browser while one is active; close_browser first' if
+          @browser && !compatible?(browser, configuration)
+
+        @browser_name = browser.to_s
+        @configuration = configuration.dup
+      end
+
+      def reset
+        WebSession.new(browser_factory: @browser_factory, browser: @browser_name,
+                       configuration: @configuration, shared_browser: @browser).reset
+      end
+
+      def quit_browser
         if @browser.respond_to?(:quit)
           @browser.quit
         elsif @browser.respond_to?(:close)
           @browser.close
         end
-      ensure
-        @browser = nil
-        @browser_name = nil
-        @configuration = nil
-        @browser_name_was_set = false
-      end
-      # rubocop:enable Metrics/MethodLength
-
-      private
-
-      def start(browser, configuration)
-        return if compatible?(browser, configuration)
-
-        close if @browser
-        @browser_name = browser.to_s
-        @configuration = configuration.dup
-        @browser = @browser_factory.start(@browser_name, @configuration)
       end
 
       def compatible?(browser, configuration)

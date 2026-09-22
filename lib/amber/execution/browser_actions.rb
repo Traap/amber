@@ -28,6 +28,8 @@ module Amber
       def handlers
         {
           navigate: method(:navigate),
+          close_browser: method(:close_browser),
+          new_browser: method(:new_browser),
           click: method(:click),
           input: method(:input),
           fill: method(:fill),
@@ -42,6 +44,16 @@ module Amber
 
       def navigate(step, _context)
         browser.goto(navigation_target(step.target))
+        passed
+      end
+
+      def close_browser(_step, _context)
+        @session.close_browser
+        passed
+      end
+
+      def new_browser(_step, _context)
+        @session.new_browser
         passed
       end
 
