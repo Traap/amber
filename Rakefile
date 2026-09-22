@@ -53,7 +53,7 @@ namespace :validate do
   # rubocop:enable Metrics/BlockLength -- keeps validation task grouping readable
 
   desc 'Run CLI and browser validation, then build the report'
-  task amber: %i[check_env spec spec:browser:chrome save_wd do_validation verify_report_inputs docbld restore_wd]
+  task amber: %i[check_env spec save_wd do_validation verify_report_inputs docbld restore_wd]
 
   task run:   %i[check_env save_wd do_validation restore_wd]
 

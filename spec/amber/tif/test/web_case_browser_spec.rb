@@ -4,6 +4,20 @@ require 'tmpdir'
 
 # rubocop:disable Metrics/BlockLength -- keeps the local web fixture readable
 RSpec.describe Amber::TestCase, browser: true do
+  it 'keeps the shared header and footer on every fixture page' do
+    browser = Amber::Execution::BrowserFactory.new.start('Chrome')
+    fixture = File.expand_path('report/factory/config/web/page_mock.html')
+
+    %w[home input-validation choices text-input date-range evidence long-content].each do |page|
+      browser.goto("file://#{fixture}##{page}")
+
+      expect(browser.element(id: 'fixture-kind')).to be_present
+      expect(browser.element(id: 'footer-status')).to be_present
+    end
+  ensure
+    browser&.quit
+  end
+
   it 'executes a YAML-shaped web case against a local fixture' do
     options = Amber::Options.new
     options.data[:dryrun] = false

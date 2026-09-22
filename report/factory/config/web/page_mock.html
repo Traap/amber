@@ -5,29 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Amber web capability fixture</title>
     <style>
-      :root { color: #172033; background: #f4f7fb; font: 16px/1.5 system-ui, sans-serif; }
-      body { display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto;
-        max-width: 960px; margin: 0 auto; }
-      header, footer { padding: 1rem 2rem; color: #fff; background: #182b49; }
+      :root {
+        color: #172033;
+        background: #eef3f8;
+        font: 16px/1.5 system-ui, sans-serif;
+        --ink: #172033;
+        --muted: #536174;
+        --navy: #182b49;
+        --blue: #2867a8;
+        --line: #d7e0eb;
+        --surface: #fff;
+        --surface-soft: #f7faff;
+        --radius: .75rem;
+      }
+      * { box-sizing: border-box; }
+      html { min-width: 320px; }
+      body { display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto; margin: 0; }
+      header, footer { color: #fff; background: var(--navy); }
       header { border-bottom: 4px solid #4f8bd6; }
       footer { border-top: 4px solid #4f8bd6; font-size: .9rem; }
+      header > div, footer > div, main { width: min(100% - 2rem, 80rem); margin-inline: auto; }
+      header > div, footer > div { padding-block: 1rem; }
       header p, footer p { margin: 0; }
-      main { padding: 2rem; }
-      .page { padding: 1.5rem; background: #fff; border: 1px solid #dfe5ee;
-        border-radius: 12px; }
-      h1, h2 { margin-top: 0; color: #182b49; }
-      .controls { display: grid; gap: 1rem; max-width: 34rem; }
+      header h1 { margin: .25rem 0; font-size: clamp(1.5rem, 4vw, 2.5rem); }
+      main { padding-block: clamp(1rem, 4vw, 3rem); }
+      .page { min-height: clamp(20rem, 55vh, 36rem); padding: clamp(1rem, 3vw, 2.5rem);
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        box-shadow: 0 .25rem 1rem rgb(24 43 73 / 7%); }
+      h1, h2 { margin-top: 0; color: var(--navy); }
+      h2 { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+      nav { margin-block: 1.5rem; }
+      nav ul { display: grid; gap: .65rem; padding: 0; margin: 0; list-style: none; }
+      nav a, .actions a { color: var(--blue); font-weight: 700; }
+      nav a { display: block; padding: .7rem .8rem; border: 1px solid var(--line);
+        border-radius: .5rem; background: var(--surface-soft); text-decoration: none; }
+      nav a:hover, nav a:focus-visible { border-color: var(--blue); background: #edf5ff; }
+      .controls { display: grid; gap: 1rem; max-width: 42rem; }
       label { display: grid; gap: .35rem; font-weight: 700; }
-      input, select, textarea, button { padding: .65rem .8rem; font: inherit; }
-      .choices { display: flex; gap: 1rem; flex-wrap: wrap; }
-      .choices label { display: inline-flex; align-items: center; flex-direction: row; }
-      .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
-      .status { color: #536174; }
+      input, select, textarea, button { width: 100%; padding: .65rem .8rem; border: 1px solid #aebdce;
+        border-radius: .45rem; font: inherit; }
+      button { width: auto; color: #fff; background: var(--blue); border-color: var(--blue); cursor: pointer; }
+      button:disabled { color: #718096; background: #e7edf4; border-color: #cbd5e1; cursor: not-allowed; }
+      .choices { display: grid; gap: .75rem; }
+      .choices label { display: flex; align-items: center; gap: .5rem; }
+      .choices input { width: auto; }
+      .actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+      .status { color: var(--muted); }
       .status.success { color: #16805c; font-weight: 700; }
       .status.error { color: #a12d3a; font-weight: 700; }
-      .hint { color: #536174; font-size: .9rem; }
+      .hint { color: var(--muted); font-size: .9rem; }
+      .route-note { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+        padding-top: 1.5rem; margin-top: 2rem; border-top: 1px solid var(--line); }
+      .route-note a { color: var(--blue); font-weight: 700; }
       [hidden] { display: none; }
-      .long-content { min-height: 24rem; }
+      .long-content { min-height: 60rem; }
+
+      @media (min-width: 30rem) {
+        header > div, footer > div, main { width: min(100% - 3rem, 80rem); }
+        nav ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (min-width: 48rem) {
+        .choices { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 32rem; }
+        .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .controls > .actions, .controls > .status { grid-column: 1 / -1; }
+      }
+
+      @media (min-width: 64rem) {
+        header > div, footer > div, main { width: min(100% - 4rem, 80rem); }
+        main { padding-block: 3rem; }
+        nav ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
     </style>
   </head>
   <body>
@@ -42,11 +90,16 @@
         <h2>Primitive workbench</h2>
         <p id="description">Deterministic pages for generic browser capability validation.</p>
         <nav aria-label="Primitive pages">
-          <a id="input-validation-link" href="#input-validation">Input validation</a> |
-          <a id="choices-link" href="#choices">Choices</a> |
-          <a id="text-input-link" href="#text-input">Text input</a> |
-          <a id="date-range-link" href="#date-range">Date range</a>
+          <ul>
+            <li><a id="input-validation-link" href="#input-validation">Input validation</a></li>
+            <li><a id="choices-link" href="#choices">Choices</a></li>
+            <li><a id="text-input-link" href="#text-input">Text input</a></li>
+            <li><a id="date-range-link" href="#date-range">Date range</a></li>
+            <li><a id="evidence-link" href="#evidence">Evidence links</a></li>
+            <li><a id="long-content-link" href="#long-content">Long content</a></li>
+          </ul>
         </nav>
+        <p class="status">Responsive fixture sizes: 320, 375, 768, 1280, and 1440 CSS pixels.</p>
       </section>
 
       <section class="page" data-page="input-validation" hidden>
@@ -101,6 +154,7 @@
       <section class="page" data-page="long-content" hidden>
         <h2>Long-page content</h2>
         <p id="long-copy">This deterministic content provides a stable page surface for future scrolling coverage.</p>
+        <div class="long-content" aria-hidden="true"></div>
       </section>
     </main>
 
