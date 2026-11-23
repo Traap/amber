@@ -20,12 +20,14 @@ require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'shellwords'
 
+ENV['AMBER_TEST_OUTPUT_DIR'] ||= File.expand_path('report/test-output', __dir__)
+
 # -------------------------------------------------------------------------- }}}
 # {{{ Customize Amber build and validate variables.
 
 validate_cmd = lambda {
   [File.join(ENV.fetch('AMBERPATH'), 'bin', 'amber'),
-   '--nodryrun', '--log-environment', '--obliterate', '--plan=master']
+   '--nodryrun', '--log-environment', '--obliterate', '--report-dir=report', '--plan=master']
 }
 pdf_cmd = -> { ['rake', '--rakefile', File.join(ENV.fetch('DOCBLDPATH'), 'Rakefile'), '--build-all', 'deploy'] }
 pwd = ''
@@ -34,6 +36,7 @@ pwd = ''
 # {{{ Build Amber.
 
 namespace :build do
+  desc 'Build and install Amber'
   task :amber do
     sh 'bundle install'
     sh 'bundle exec rake'
@@ -45,13 +48,14 @@ end
 # -------------------------------------------------------------------------- }}}
 # {{{ Validate Amber.
 
-# rubocop:disable Metrics.BlockLength
+# rubocop:disable Metrics/BlockLength -- keeps validation task grouping readable
 namespace :validate do
-  # rubocop:enable Metrics.BlockLength
+  # rubocop:enable Metrics/BlockLength -- keeps validation task grouping readable
 
-  task amber: %i[check_env save_wd report_dir do_validation restore_wd docbld]
+  desc 'Run CLI and browser validation, then build the report'
+  task amber: %i[check_env spec save_wd do_validation verify_report_inputs docbld restore_wd]
 
-  task run:   %i[check_env save_wd report_dir do_validation restore_wd]
+  task run:   %i[check_env save_wd do_validation restore_wd]
 
   task :check_env do
     require_env('AMBERPATH')
@@ -75,8 +79,31 @@ namespace :validate do
     run_command!(validate_cmd.call)
   end
 
+  task :verify_report_inputs do
+    report = File.join(ENV.fetch('AMBERPATH'), 'report')
+    output = File.join(report, 'test-output')
+    results = File.join(output, 'test-results.tex')
+    abort "Missing Amber report interface: #{results}" unless File.file?(results)
+    abort 'Amber output escaped report/test-output.' if File.directory?(File.join(report, 'home'))
+
+    content = File.read(results)
+    required = %w[
+      factory/suite/web/primitives/primitives
+      factory/case/web/primitives/navigation/navigation
+      factory/case/web/primitives/page-mock/page-mock
+      factory/case/web/primitives/choices/choices
+      factory/case/web/primitives/text-input/text-input
+      factory/case/web/primitives/date-range/date-range
+      factory/case/web/primitives/date-range-invalid/date-range-invalid
+    ]
+    missing = required.reject { |path| content.include?(path) }
+    abort "Web validation is missing from test-results.tex: #{missing.join(', ')}" unless missing.empty?
+  end
+
   task :docbld do
-    run_command!(pdf_cmd.call)
+    Dir.chdir File.join(ENV.fetch('AMBERPATH'), 'report') do
+      run_command!(pdf_cmd.call)
+    end
   end
 
   def require_env(name)
@@ -101,6 +128,12 @@ end
 
 begin
   RSpec::Core::RakeTask.new(:spec)
+  task 'spec:browser' do
+    sh 'AMBER_BROWSER_SPECS=1 bundle exec rspec spec/amber/execution/browser_integration_spec.rb spec/amber/tif/test/web_case_browser_spec.rb'
+  end
+  task 'spec:browser:chrome' do
+    sh 'AMBER_BROWSER_SPECS=1 AMBER_BROWSER_ONLY=Chrome bundle exec rspec spec/amber/execution/browser_integration_spec.rb spec/amber/tif/test/web_case_browser_spec.rb'
+  end
   task default: :spec
 rescue StandardError
   puts 'RSpec is not supported on this system.'

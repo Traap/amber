@@ -18,9 +18,9 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ Initialzie
 
-    # rubocop:disable Metrics.AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength -- legacy option initialization
     def initialize
-      # rubocop:enable Metrics.AbcSize
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength -- legacy option initialization
       @data = {}
       @data[:browser] = Amber::Browser::DEFAULT
       @data[:dryrun] = true
@@ -33,6 +33,7 @@ module Amber
       @data[:log_requirement] = false
       @data[:obliterate] = false
       @data[:parser] = nil
+      @data[:report_dir] = nil
       @data[:simulate] = false
       @data[:test_case] = nil
       @data[:test_plan] = nil
@@ -40,6 +41,62 @@ module Amber
       @data[:verbose] = false
       @data[:version] = Amber::VERSION
       @data[:writer] = Amber::Writer::DEFAULT
+    end
+
+    # Adapter registry injected by the workflow or populated by the test step.
+    def adapter_registry
+      @data[:adapter_registry]
+    end
+
+    def adapter_registry=(registry)
+      @data[:adapter_registry] = registry
+    end
+
+    def browser_factory
+      @data[:browser_factory]
+    end
+
+    def browser_factory=(factory)
+      @data[:browser_factory] = factory
+    end
+
+    def web_adapter_factory
+      @data[:web_adapter_factory]
+    end
+
+    def web_adapter_factory=(factory)
+      @data[:web_adapter_factory] = factory
+    end
+
+    def web_session_pool
+      @data[:web_session_pool]
+    end
+
+    def web_session_pool=(pool)
+      @data[:web_session_pool] = pool
+    end
+
+    def ocr_engine
+      @data[:ocr_engine]
+    end
+
+    def ocr_engine=(engine)
+      @data[:ocr_engine] = engine
+    end
+
+    def navigation_adapter
+      @data[:navigation_adapter]
+    end
+
+    def navigation_adapter=(adapter)
+      @data[:navigation_adapter] = adapter
+    end
+
+    # ---------------------------------------------------------------------- }}}
+    # {{{ report_dir
+
+    def report_dir
+      @data[:report_dir]
     end
 
     # ---------------------------------------------------------------------- }}}

@@ -1,0 +1,29 @@
+case:
+  name: ${file}
+
+  purpose: Validate control lookup, input, click, and assertions.
+
+  web:
+    browser: Chrome
+    target: fixture://web/page_mock.html#input-validation
+
+  steps:
+    - type: web
+      input:
+        integer: 5
+        float: 4.5
+      confirm: Valid integer and float values are entered and submitted.
+      actions:
+        - action: assert
+          target: integer
+          parameters:
+            condition: visible
+        - action: fill
+          target: input-validation-form
+        - action: assert
+          target: input-submit
+          parameters:
+            condition: enabled
+        - action: click
+          target: input-submit
+      record: screenshot

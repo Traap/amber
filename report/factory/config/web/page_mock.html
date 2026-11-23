@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amber web capability fixture</title>
+    <style>
+      :root {
+        color: #172033;
+        background: #eef3f8;
+        font: 16px/1.5 system-ui, sans-serif;
+        --ink: #172033;
+        --muted: #536174;
+        --navy: #182b49;
+        --blue: #2867a8;
+        --line: #d7e0eb;
+        --surface: #fff;
+        --surface-soft: #f7faff;
+        --radius: .75rem;
+      }
+      * { box-sizing: border-box; }
+      html { min-width: 320px; }
+      body { display: grid; min-height: 100vh; grid-template-rows: auto 1fr auto; margin: 0; }
+      header, footer { color: #fff; background: var(--navy); }
+      header { border-bottom: 4px solid #4f8bd6; }
+      footer { border-top: 4px solid #4f8bd6; font-size: .9rem; }
+      header > div, footer > div, main { width: min(100% - 2rem, 80rem); margin-inline: auto; }
+      header > div, footer > div { padding-block: 1rem; }
+      header p, footer p { margin: 0; }
+      header h1 { margin: .25rem 0; font-size: clamp(1.5rem, 4vw, 2.5rem); }
+      main { padding-block: clamp(1rem, 4vw, 3rem); }
+      .page { min-height: clamp(20rem, 55vh, 36rem); padding: clamp(1rem, 3vw, 2.5rem);
+        background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+        box-shadow: 0 .25rem 1rem rgb(24 43 73 / 7%); }
+      h1, h2 { margin-top: 0; color: var(--navy); }
+      h2 { font-size: clamp(1.25rem, 3vw, 1.75rem); }
+      nav { margin-block: 1.5rem; }
+      nav ul { display: grid; gap: .65rem; padding: 0; margin: 0; list-style: none; }
+      nav a, .actions a { color: var(--blue); font-weight: 700; }
+      nav a { display: block; padding: .7rem .8rem; border: 1px solid var(--line);
+        border-radius: .5rem; background: var(--surface-soft); text-decoration: none; }
+      nav a:hover, nav a:focus-visible { border-color: var(--blue); background: #edf5ff; }
+      .controls { display: grid; gap: 1rem; max-width: 42rem; }
+      label { display: grid; gap: .35rem; font-weight: 700; }
+      input, select, textarea, button { width: 100%; padding: .65rem .8rem; border: 1px solid #aebdce;
+        border-radius: .45rem; font: inherit; }
+      button { width: auto; color: #fff; background: var(--blue); border-color: var(--blue); cursor: pointer; }
+      button:disabled { color: #718096; background: #e7edf4; border-color: #cbd5e1; cursor: not-allowed; }
+      .choices { display: grid; gap: .75rem; }
+      .choices label { display: flex; align-items: center; gap: .5rem; }
+      .choices input { width: auto; }
+      .actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+      .status { color: var(--muted); }
+      .status.success { color: #16805c; font-weight: 700; }
+      .status.error { color: #a12d3a; font-weight: 700; }
+      .hint { color: var(--muted); font-size: .9rem; }
+      .route-note { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+        padding-top: 1.5rem; margin-top: 2rem; border-top: 1px solid var(--line); }
+      .route-note a { color: var(--blue); font-weight: 700; }
+      [hidden] { display: none; }
+      .long-content { min-height: 60rem; }
+
+      @media (min-width: 30rem) {
+        header > div, footer > div, main { width: min(100% - 3rem, 80rem); }
+        nav ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+
+      @media (min-width: 48rem) {
+        .choices { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 32rem; }
+        .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .controls > .actions, .controls > .status { grid-column: 1 / -1; }
+      }
+
+      @media (min-width: 64rem) {
+        header > div, footer > div, main { width: min(100% - 4rem, 80rem); }
+        main { padding-block: 3rem; }
+        nav ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p id="fixture-kind">Local framework fixture</p>
+      <h1 id="heading">Amber web capability fixture</h1>
+      <p id="breadcrumb" aria-live="polite">Home</p>
+    </header>
+
+    <main>
+      <section class="page" data-page="home">
+        <h2>Primitive workbench</h2>
+        <p id="description">Deterministic pages for generic browser capability validation.</p>
+        <nav aria-label="Primitive pages">
+          <ul>
+            <li><a id="input-validation-link" href="#input-validation">Input validation</a></li>
+            <li><a id="choices-link" href="#choices">Choices</a></li>
+            <li><a id="text-input-link" href="#text-input">Text input</a></li>
+            <li><a id="date-range-link" href="#date-range">Date range</a></li>
+            <li><a id="evidence-link" href="#evidence">Evidence links</a></li>
+            <li><a id="long-content-link" href="#long-content">Long content</a></li>
+          </ul>
+        </nav>
+        <p class="status">Responsive fixture sizes: 320, 375, 768, 1280, and 1440 CSS pixels.</p>
+      </section>
+
+      <section class="page" data-page="input-validation" hidden>
+        <h2>Input validation</h2>
+        <div id="input-validation-form" class="controls">
+          <label for="integer">Integer (1–10)<input id="integer" type="number" min="1" max="10"></label>
+          <p id="integer-error" class="status" aria-live="polite"></p>
+          <label for="float">Float (0.5–9.5)<input id="float" type="number" min="0.5" max="9.5" step="0.1"></label>
+          <p id="float-error" class="status" aria-live="polite"></p>
+          <div class="actions"><button id="input-submit" type="button" disabled>Submit valid values</button></div>
+          <p id="input-status" class="status" aria-live="polite">Enter values in range.</p>
+        </div>
+      </section>
+
+      <section class="page" data-page="choices" hidden>
+        <h2>Mutually exclusive choices</h2>
+        <div class="choices" id="choice-group">
+          <label><input id="choice-a" name="choice" type="radio" value="a"> Choice A</label>
+          <label><input id="choice-b" name="choice" type="radio" value="b"> Choice B</label>
+        </div>
+        <p id="choice-status" class="status" aria-live="polite">Choose exactly one option.</p>
+        <button id="choice-submit" type="button" disabled>Continue</button>
+      </section>
+
+      <section class="page" data-page="text-input" hidden>
+        <h2>Multiline input</h2>
+        <label for="multi-line">Message (maximum 40 characters)</label>
+        <textarea id="multi-line" maxlength="40" rows="5"></textarea>
+        <p id="multi-line-count" class="hint">0 / 40</p>
+        <p id="multi-line-status" class="status" aria-live="polite">Enter a message.</p>
+        <button id="text-submit" type="button" disabled>Save message</button>
+      </section>
+
+      <section class="page" data-page="date-range" hidden>
+        <h2>Date range validation</h2>
+        <div id="date-range-form" class="controls">
+          <label for="start-date">Start date<input id="start-date" type="date"></label>
+          <label for="end-date">End date<input id="end-date" type="date"></label>
+          <p id="date-status" class="status" aria-live="polite">Select a start and end date.</p>
+          <button id="date-submit" type="button" disabled>Apply date range</button>
+        </div>
+      </section>
+
+      <section class="page" data-page="evidence" hidden>
+        <h2>Evidence links</h2>
+        <div class="actions">
+          <a id="download" href="data:text/plain,Amber%20web%20fixture" download="fixture.txt">Download fixture</a>
+          <a id="document" href="data:application/pdf;base64,JVBERi0xLjQKJQ==" download="fixture.pdf">Download PDF fixture</a>
+        </div>
+      </section>
+
+      <section class="page" data-page="long-content" hidden>
+        <h2>Long-page content</h2>
+        <p id="long-copy">This deterministic content provides a stable page surface for future scrolling coverage.</p>
+        <div class="long-content" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <footer><p id="footer-status">Amber fixture • deterministic local validation</p></footer>
+
+    <script>
+      (function () {
+        const pages = document.querySelectorAll('[data-page]');
+        const breadcrumb = document.getElementById('breadcrumb');
+        const names = { home: 'Home', 'input-validation': 'Input validation', choices: 'Choices',
+          'text-input': 'Text input', 'date-range': 'Date range', evidence: 'Evidence',
+          'long-content': 'Long content' };
+
+        function pageName() { return window.location.hash.slice(1) || 'home'; }
+        function showPage() {
+          const page = names[pageName()] ? pageName() : 'home';
+          pages.forEach(function (node) { node.hidden = node.dataset.page !== page; });
+          breadcrumb.textContent = names[page];
+        }
+        function validNumber(id, errorId, minimum, maximum, label) {
+          const value = Number(document.getElementById(id).value);
+          const valid = Number.isFinite(value) && value >= minimum && value <= maximum;
+          document.getElementById(errorId).textContent = valid ? '' : label + ' must be between ' + minimum + ' and ' + maximum + '.';
+          return valid;
+        }
+        function validateInputs() {
+          const valid = validNumber('integer', 'integer-error', 1, 10, 'Integer') &&
+            validNumber('float', 'float-error', 0.5, 9.5, 'Float');
+          document.getElementById('input-submit').disabled = !valid;
+          document.getElementById('input-status').textContent = valid ? 'Values are valid.' : 'Enter values in range.';
+        }
+        function validateChoices() {
+          const valid = document.querySelector('input[name="choice"]:checked') !== null;
+          document.getElementById('choice-submit').disabled = !valid;
+          document.getElementById('choice-status').textContent = valid ? 'One choice selected.' : 'Choose exactly one option.';
+        }
+        function validateText() {
+          const field = document.getElementById('multi-line');
+          const valid = field.value.length > 0 && field.value.length <= 40;
+          document.getElementById('multi-line-count').textContent = field.value.length + ' / 40';
+          document.getElementById('multi-line-status').textContent = valid ? 'Message is valid.' : 'Enter a message.';
+          document.getElementById('text-submit').disabled = !valid;
+        }
+        function validateDates() {
+          const start = document.getElementById('start-date').value;
+          const end = document.getElementById('end-date').value;
+          const valid = start !== '' && end !== '' && start <= end;
+          document.getElementById('date-status').textContent = valid ? 'Date range is valid.' : 'Start date must be on or before end date.';
+          document.getElementById('date-submit').disabled = !valid;
+        }
+        ['integer', 'float'].forEach(function (id) { document.getElementById(id).addEventListener('input', validateInputs); });
+        document.querySelectorAll('input[name="choice"]').forEach(function (node) { node.addEventListener('change', validateChoices); });
+        document.getElementById('multi-line').addEventListener('input', validateText);
+        ['start-date', 'end-date'].forEach(function (id) { document.getElementById(id).addEventListener('input', validateDates); });
+        window.addEventListener('hashchange', showPage);
+        showPage();
+      }());
+    </script>
+  </body>
+</html>

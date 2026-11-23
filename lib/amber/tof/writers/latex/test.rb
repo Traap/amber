@@ -81,12 +81,12 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ toLaTeX
 
-    # rubocop:disable Naming.MethodName
+    # rubocop:disable Naming/MethodName -- legacy writer API
 
     def toLaTeX(string)
       Amber::StringToLaTeX.convert(string)
     end
-    # rubocop:enable Naming.MethodName
+    # rubocop:enable Naming/MethodName -- legacy writer API
 
     # ---------------------------------------------------------------------- }}}
   end

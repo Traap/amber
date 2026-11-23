@@ -7,17 +7,13 @@ require 'amber'
 # -------------------------------------------------------------------------- }}}
 # {{{ Default option tests.
 
-# rubocop:disable Metrics.BlockLength
+# rubocop:disable Metrics/BlockLength -- legacy CLI fixture
 describe 'Amber CLO Default' do
-  # rubocop:enable Metrics.BlockLength
-
   before(:all) do
     @options = Amber::Options.new
   end
 
-  # rubocop:disable Metrics.BlockLength
   describe 'values' do
-    # rubocop:enable Metrics.BlockLength
     it "browser is #{Amber::Browser::DEFAULT}" do
       expect(@options.browser).to eq(Amber::Browser::DEFAULT)
     end
@@ -107,5 +103,6 @@ describe 'Amber CLO Default' do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength -- legacy CLI fixture
 
 # -------------------------------------------------------------------------- }}}

@@ -1,0 +1,26 @@
+case:
+  name: ${file}
+
+  purpose: >
+    Validate generic browser input, click, visibility, and text actions against
+    an application-neutral page mock.
+
+  web:
+    browser: Chrome
+    target: fixture://web/page_mock.html#text-input
+
+  steps:
+    - type: web
+      input:
+        multi-line: Amber interaction text.
+      confirm: Interaction text is entered and submitted.
+      actions:
+        - action: assert
+          target: multi-line
+          parameters:
+            condition: visible
+        - action: input
+          target: multi-line
+        - action: click
+          target: text-submit
+      record: screenshot

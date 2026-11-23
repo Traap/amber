@@ -1,0 +1,21 @@
+case:
+  name: ${file}
+
+  purpose: >
+    Validate generic browser navigation and element assertions through the
+    YAML-selected web adapter and page mock.
+
+  web:
+    browser: Chrome
+    target: fixture://web/page_mock.html#home
+
+  steps:
+    - type: web
+      confirm: The page mock heading is available on the home page.
+      actions:
+        - action: assert
+          target: heading
+          parameters:
+            condition: text
+            value: Amber web capability fixture
+      record: screenshot

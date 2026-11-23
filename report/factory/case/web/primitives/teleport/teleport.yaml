@@ -1,0 +1,19 @@
+case:
+  name: ${file}
+
+  purpose: Validate local navigation routes to reusable web primitives.
+
+  web:
+    browser: Chrome
+    navigation_file: config/web/navigation.yaml
+    input_root: config/input
+
+  steps:
+    - type: web
+      confirm: The local navigation route is executed.
+      actions:
+        - action: teleport
+          target: input-validation
+          parameters:
+            from: start
+      record: screenshot

@@ -26,8 +26,8 @@ module Amber
     def echo_to_sysout
       @handle.write "         Step: #{@decoratee.number}\n"
       @handle.write "      Confirm: #{@decoratee.confirm}\n"
-      @handle.write "  Expectation: #{@decoratee.expectation}\n"
-      @handle.write "      Command: #{@decoratee.command}\n"
+      @handle.write "         Input: #{@decoratee.input}\n" if @decoratee.input
+      @handle.write "      Command: #{@decoratee.description}\n"
       @decoratee.echo_to_sysout
     end
 
@@ -57,11 +57,12 @@ module Amber
     # {{{ record_results
 
     def record_results(time_start, time_end, output)
-      @handle.write  "  Execution start: #{time_start.strftime('%b %d, %Y %T.%6N')}\n"
-      @handle.write  "  Execution end: #{time_end.strftime('%b %d, %Y %T.%6N')}\n"
-      @handle.write  "  Test Result: #{@test_result}\n"
-      @handle.write  "     Evidence: #{@decoratee.evidence}\n"
-      @handle.write  "#{output}\n"
+      @handle.write "  Execution start: #{time_start.strftime('%b %d, %Y %T.%6N')}\n"
+      @handle.write "  Execution end: #{time_end.strftime('%b %d, %Y %T.%6N')}\n"
+      @handle.write "  Test Result: #{@test_result}\n"
+      evidence = @decoratee.runtime_evidence || @decoratee.evidence
+      @handle.write "     Evidence: #{evidence}\n"
+      @handle.write "#{output}\n"
       @handle.flush
     end
 

@@ -47,41 +47,50 @@ require 'fileutils'
 # -------------------------------------------------------------------------- }}}
 
 module Amber
-  # rubocop:disable Metrics.ModuleLength
+  # rubocop:disable Metrics/ModuleLength -- legacy evidence API
   module TestEvidence
-    # rubocop:enable Metrics.ModuleLength
+    # rubocop:enable Metrics/ModuleLength -- legacy evidence API
     # {{{ Definitions.
 
-    TEST_OUTPUT_DIR = 'test-output'
+    TEST_OUTPUT_DIR = ENV.fetch('AMBER_TEST_OUTPUT_DIR', 'test-output').freeze
     TEST_OUTPUT = TestEvidence::TEST_OUTPUT_DIR + File::SEPARATOR
     RESULT_FILE_EXTENSION = '.txt'
     STEP_FILE = '-step-'
     STEP_LOG = '-log'
     STEP_STATUS = '-status'
-    ENVIRONMENT_LOG = "#{TestEvidence::TEST_OUTPUT}environment"
-    TEST_RESULTS_LOG = "#{TestEvidence::TEST_OUTPUT}test-results"
+    ENVIRONMENT_LOG = "#{TestEvidence::TEST_OUTPUT}environment".freeze
+    TEST_RESULTS_LOG = "#{TestEvidence::TEST_OUTPUT}test-results".freeze
     LATEX_FILE_EXTENSION = '.tex'
     ASCII_FILE_EXTENSION = '.txt'
-    REQUIREMENTS_LOG = "#{TestEvidence::TEST_OUTPUT}requirements.csv"
-    COMMAND_LOG = "#{TestEvidence::TEST_OUTPUT}commands.log"
+    REQUIREMENTS_LOG = "#{TestEvidence::TEST_OUTPUT}requirements.csv".freeze
+    COMMAND_LOG = "#{TestEvidence::TEST_OUTPUT}commands.log".freeze
 
     # ---------------------------------------------------------------------- }}}
     # {{{ obliterate_test_output
 
-    def self.obliterate_test_output
-      FileUtils.remove_dir(TestEvidence::TEST_OUTPUT_DIR, true)
+    def self.obliterate_test_output(options = nil)
+      FileUtils.remove_dir(test_output_directory(options), true)
     end
 
     # ---------------------------------------------------------------------- }}}
     # {{{ assemble_test_output_root
 
+    def self.test_output_directory(options = nil)
+      return TestEvidence::TEST_OUTPUT_DIR if options.nil? || options.report_dir.nil?
+
+      return TestEvidence::TEST_OUTPUT_DIR if File.absolute_path(TestEvidence::TEST_OUTPUT_DIR) == TestEvidence::TEST_OUTPUT_DIR
+
+      File.join(options.report_dir, TestEvidence::TEST_OUTPUT_DIR)
+    end
+
     def self.assemble_test_output_root(options)
+      output = test_output_directory(options) + File::SEPARATOR
       if options.browser? && options.language?
-        TestEvidence::TEST_OUTPUT +
+        output +
           options.browser + File::SEPARATOR +
           Amber::Language::CODE.key(options.language) + File::SEPARATOR
       else
-        TestEvidence::TEST_OUTPUT
+        output
       end
     end
 
@@ -140,8 +149,8 @@ module Amber
 
     def self.open_environment_log_file(options)
       TestEvidence.open_file(
-        TestEvidence::ENVIRONMENT_LOG +
-        TestEvidence.use_file_extension(options)
+        "#{TestEvidence.test_output_directory(options)}#{File::SEPARATOR}environment" \
+          "#{TestEvidence.use_file_extension(options)}"
       )
     end
 
@@ -151,8 +160,8 @@ module Amber
     def self.record_test_name(name, options)
       handle =
         TestEvidence.open_file(
-          TestEvidence::TEST_RESULTS_LOG +
-          TestEvidence.use_file_extension(options)
+          "#{TestEvidence.test_output_directory(options)}#{File::SEPARATOR}test-results" \
+            "#{TestEvidence.use_file_extension(options)}"
         )
       handle.write(name)
       TestEvidence.close_file(handle)
@@ -175,7 +184,7 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ record_test_case_status
 
-    # rubocop:disable Metrics.MethodLength
+    # rubocop:disable Metrics/MethodLength -- legacy evidence API
     def self.record_test_case_status(input, nbr, test_result, options)
       handle =
         TestEvidence.open_file(
@@ -191,7 +200,7 @@ module Amber
       handle.write(test_result)
       TestEvidence.close_file(handle)
     end
-    # rubocop:enable Metrics.MethodLength
+    # rubocop:enable Metrics/MethodLength -- legacy evidence API
 
     # ---------------------------------------------------------------------- }}}
     # {{{ close_file
@@ -215,12 +224,13 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ record_requirement_tested
 
-    def self.record_requirement_tested(name, requirements)
+    def self.record_requirement_tested(name, requirements, options = nil)
       reqs = Amber::Requirement.to_array(requirements)
       return if reqs.nil?
 
-      skip_header = File.file?(TestEvidence::REQUIREMENTS_LOG)
-      handle = TestEvidence.open_file(TestEvidence::REQUIREMENTS_LOG)
+      file = "#{TestEvidence.test_output_directory(options)}#{File::SEPARATOR}requirements.csv"
+      skip_header = File.file?(file)
+      handle = TestEvidence.open_file(file)
       handle.write "requirement | test\n" unless skip_header
       reqs.each do |req|
         handle.write("#{req} | #{name}\n")
@@ -231,8 +241,9 @@ module Amber
     # ---------------------------------------------------------------------- }}}
     # {{{ record_amber_command
 
-    def self.record_amber_command(name)
-      handle = TestEvidence.open_file(TestEvidence::COMMAND_LOG)
+    def self.record_amber_command(name, options = nil)
+      file = "#{TestEvidence.test_output_directory(options)}#{File::SEPARATOR}commands.log"
+      handle = TestEvidence.open_file(file)
       handle.write("#{name}\n")
       TestEvidence.close_file(handle)
     end

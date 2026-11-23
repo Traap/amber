@@ -14,7 +14,9 @@ plan:
           values found in Test Plans, Test Suites, and Test Cases to simplify
           test maintenance.
     \item Test Suite tif/structure reveals concepts unique to a Test Input
-          Factory
+           Factory
+    \item Test Suite web/primitives validates the generic web adapter, browser
+           controls, navigation, and evidence lifecycle.
     \item Test Suite advanced-concept demonstrates embedded \LaTeX\ commands
           throughout.
     \end{itemize}
@@ -45,6 +47,11 @@ includes:
   - folder: tif 
     suite:
       - name: structure 
+
+  # Generic web browser suite; report validation uses Chrome/ChromeDriver.
+  - folder: web
+    suite:
+      - name: primitives
 
   # A placeholder for a future concepts that are partially implemented.
   - suite:

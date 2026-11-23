@@ -5,6 +5,7 @@
 require 'amber/tof/writers/latex/test'
 require 'amber/tof/writers/latex/string_to_latex'
 require 'time'
+require 'yaml'
 
 # -------------------------------------------------------------------------- }}}
 module Amber
@@ -42,9 +43,9 @@ module Amber
     def echo_to_sysout
       @handle.write "\\begin{description}[align=right,leftmargin=3.2cm,labelindent=3.0cm]\n"
       @handle.write "\\item[Step:] #{@decoratee.number}\n"
-      @handle.write "\\item[Confirm:] #{toLaTeX(@decoratee.confirm)}\n"
-      @handle.write "\\item[Expectation:] #{toLaTeX(@decoratee.expectation)}\n"
-      @handle.write "\\item[Command:] #{toLaTeX(@decoratee.command)}\n"
+      @handle.write "\\item[Confirm:] #{toLaTeX(@decoratee.confirm.to_s)}\n"
+      write_yaml_item('Input', @decoratee.input) if @decoratee.input
+      @handle.write "\\item[Command:] #{toLaTeX(@decoratee.description.to_s)}\n"
       @decoratee.echo_to_sysout
     end
 
@@ -68,12 +69,25 @@ module Amber
       @handle.write "\\item[Execution start:] #{toLaTeX(time_start.strftime('%b %d, %Y %T.%6N'))}\n"
       @handle.write "\\item[Execution end:] #{toLaTeX(time_end.strftime('%b %d, %Y %T.%6N'))}\n"
       @handle.write "\\item[Test Result:] #{toLaTeX(@test_result)}\n"
-      @handle.write "\\item[Evidence:] #{toLaTeX(@decoratee.evidence)}\n"
+      evidence = @decoratee.runtime_evidence || @decoratee.evidence
+      write_evidence(evidence)
       @handle.write "\\end{description}\n"
       @handle.write "\\begin{lstlisting}[numbers=left]\n"
       @handle.write "#{output}\n"
       @handle.write "\\end{lstlisting}\n"
       @handle.flush
+    end
+
+    def write_evidence(evidence)
+      return @handle.write "\\item[Evidence:] None\n" if evidence.empty?
+
+      write_yaml_item('Evidence', evidence)
+    end
+
+    def write_yaml_item(label, value)
+      @handle.write "\\item[#{label}:]\n\\begin{lstlisting}[numbers=none]\n"
+      formatted = value.to_yaml.lines.map { |line| toLaTeX(line.chomp) }.join("\n")
+      @handle.write "#{formatted}\n\\end{lstlisting}\n"
     end
 
     # ---------------------------------------------------------------------- }}}

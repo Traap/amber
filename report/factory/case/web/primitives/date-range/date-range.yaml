@@ -1,0 +1,25 @@
+case:
+  name: ${file}
+
+  purpose: Validate start and end date ordering.
+
+  web:
+    browser: Chrome
+    target: fixture://web/page_mock.html#date-range
+
+  steps:
+    - type: web
+      input:
+        start-date: '2026-09-20'
+        end-date: '2026-09-21'
+      confirm: >
+        Valid start and end dates have been entered and the date-submit
+        button is active.
+      actions:
+        - action: fill
+          target: date-range-form
+        - action: assert
+          target: date-submit
+          parameters:
+            condition: enabled
+      record: screenshot

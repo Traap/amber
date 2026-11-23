@@ -12,14 +12,15 @@ Gem::Specification.new do |s|
   s.license       = 'BSD-3-Clause'
 
   s.require_paths = ['lib']
-  s.files         = Dir['lib/**/*']
+  s.files         = Dir['lib/**/*', 'bin/*']
   s.test_files    = Dir['spec/**/*.rb']
 
   s.executables   = %w[amber]
 
-  s.required_ruby_version = '>= 2.5'
+  s.required_ruby_version = '>= 4.0'
 
   s.add_dependency 'require_all'
+  s.add_dependency 'watir'
 
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'bundler-audit'

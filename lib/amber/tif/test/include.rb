@@ -102,7 +102,7 @@ module Amber
       cmd << tof_writer
       cmd << browser_and_language
       cmd << " #{opt_and_files}"
-      Amber::TestEvidence.record_amber_command(cmd) if @options.log_command?
+      Amber::TestEvidence.record_amber_command(cmd, @options) if @options.log_command?
       cmd
     end
 
@@ -132,6 +132,7 @@ module Amber
     def simulate_run
       cmd = ''.dup
       cmd << ' --simulate' if @options.simulate?
+      cmd << " --report-dir=#{@options.report_dir.shellescape}" if @options.report_dir
       cmd
     end
 

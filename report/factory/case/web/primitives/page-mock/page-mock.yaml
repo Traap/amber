@@ -1,0 +1,52 @@
+case:
+  name: ${file}
+
+  purpose: Validate integer and float range validation and button state.
+
+  web:
+    browser: Chrome
+    target: fixture://web/page_mock.html#input-validation
+
+  steps:
+    - type: web
+      input:
+        integer: 0
+        float: 4.5
+      confirm: The input validation controls enforce range and button state.
+      actions:
+        - action: assert
+          target: heading
+          parameters:
+            condition: text
+            value: Amber web capability fixture
+        - action: input
+          target: integer
+        - action: assert
+          target: integer-error
+          parameters:
+            condition: contains
+            value: between 1 and 10
+        - action: input
+          target: integer
+          parameters:
+            value: 5
+        - action: input
+          target: float
+        - action: assert
+          target: input-submit
+          parameters:
+            condition: enabled
+        - action: assert
+          target: integer
+          parameters:
+            condition: value
+            value: 5
+        - action: input
+          target: float
+          parameters:
+            value: 10
+        - action: assert
+          target: input-submit
+          parameters:
+            condition: disabled
+      record: screenshot

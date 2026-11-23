@@ -99,7 +99,7 @@ module Amber
     # {{{ record_requirements
 
     def record_requirements
-      Amber::TestEvidence.record_requirement_tested(filename, requirement) unless requirement.nil?
+      Amber::TestEvidence.record_requirement_tested(filename, requirement, @options) unless requirement.nil?
     end
 
     # ---------------------------------------------------------------------- }}}

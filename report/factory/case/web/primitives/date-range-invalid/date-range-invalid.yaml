@@ -1,0 +1,30 @@
+case:
+  name: ${file}
+
+  purpose: Validate rejection of an end date before the start date.
+
+  web:
+    browser: Chrome
+    target: fixture://web/page_mock.html#date-range
+
+  steps:
+    - type: web
+      input:
+        start-date: '2026-09-20'
+        end-date: '2026-09-19'
+      confirm: >
+        An invalid date range has been entered and the date-submit button
+        remains disabled.
+      actions:
+        - action: fill
+          target: date-range-form
+        - action: assert
+          target: date-status
+          parameters:
+            condition: contains
+            value: on or before
+        - action: assert
+          target: date-submit
+          parameters:
+            condition: disabled
+      record: screenshot

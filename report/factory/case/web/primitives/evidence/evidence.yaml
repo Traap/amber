@@ -1,0 +1,21 @@
+case:
+  name: ${file}
+
+  purpose: Validate screenshot, download, and PDF evidence on the local fixture.
+
+  web:
+    browser: Chrome
+    target: fixture://web/page_mock.html#evidence
+
+  steps:
+    - type: web
+      confirm: The local evidence links are downloaded and printed.
+      actions:
+        - action: download
+          target: download
+          parameters:
+            path: fixture.txt
+        - action: pdf
+          parameters:
+            path: fixture.pdf
+      record: screenshot

@@ -17,7 +17,7 @@ module Amber
     # {{{ initialize
 
     def initialize(decoratee)
-      super
+      super(decoratee.type, decoratee.filename, decoratee.data, decoratee.options)
       @handle = nil
       @decoratee = decoratee
       define_macro

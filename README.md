@@ -22,7 +22,7 @@ been provided to demonstrate the automation framework components amber,
 
 ### TL;DR
 #### Released version
-1.6.4.415
+2.7.5.417
 
 #### Working with source
 Copy the text below and paste into a shell.
@@ -43,16 +43,26 @@ cd amber && rake build:amber
 cd amber && rake validate:amber
 ```
 
+Amber processes the report directory supplied by the consuming application.
+From a project root, the explicit form is:
+
+```bash
+amber --report-dir=report --plan=master
+```
+
+The input factory is `report/factory` and all generated output is written to
+`report/test-output`.
+
 The validation task fails when required environment variables are missing, when
 Amber cannot generate her evidence, or when docbld cannot rebuild and deploy the
 report.
 
 
 ### Supported Systems
-**amber** is targeted to work seamlessly with Linux distributions.
+**amber** is targeted to work seamlessly with Linux distributions and Ruby 4.
 
 ### Prerequisites
-1. [Ruby](https://www.ruby-lang.org/en)
+1. [Ruby 4.0 or newer](https://www.ruby-lang.org/en)
 2. [Bundler](https://bundler.io)
 3. [Rake](https://github.com/ruby/rake)
 
@@ -264,7 +274,7 @@ Specific options:
 ##### --help
 Show this message.
 
-1.6.0.367 is the current version.
+2.7.5.417 is the current version.
 
 #### --verbose
 Log the commands that will be run when --nodryrun is used.  **NOTE:** This

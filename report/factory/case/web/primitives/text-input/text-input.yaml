@@ -1,0 +1,33 @@
+case:
+  name: ${file}
+
+  purpose: Validate multiline input and its configured maximum length.
+
+  web:
+    browser: Chrome
+    target: fixture://web/page_mock.html#text-input
+
+  steps:
+    - type: web
+      input:
+        multi-line: A short multiline message.
+      confirm: A valid multiline message is entered and accepted.
+      actions:
+        - action: assert
+          target: text-submit
+          parameters:
+            condition: disabled
+        - action: input
+          target: multi-line
+        - action: assert
+          target: multi-line-count
+          parameters:
+            condition: text
+            value: 26 / 40
+        - action: assert
+          target: text-submit
+          parameters:
+            condition: enabled
+        - action: click
+          target: text-submit
+      record: screenshot

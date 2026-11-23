@@ -3,19 +3,31 @@
 require 'amber/tif/test'
 require 'amber/tof/testevidence'
 require 'amber/utility/substitute'
+require 'amber/execution/adapter_registry'
+require 'amber/execution/command_adapter'
 
 module Amber
   # A test step executes a command.
   class TestStep < Amber::Test
-    attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir
+    attr_reader :number, :confirm, :expectation, :command, :evidence, :workingdir,
+                :adapter_type, :step_data, :action, :target, :parameters,
+                :input, :last_result, :runtime_evidence
+    attr_writer :execution_adapter
 
     # {{{ Initialize TestStep
 
     def initialize(filename, data, options, step, number, workingdir)
       super('Test Step', filename, data, options)
 
+      @step_data = step.dup.freeze
+      @adapter_type = (step['type'] || 'command').to_s
+      @action = step['action']
+      @target = step['target']
+      @parameters = (step['parameters'] || {}).dup.freeze
+      @input = step['input']
+      register_default_adapters
       define_expectation(options, step, number)
-      define_command(options, step, workingdir)
+      define_command(options, step, workingdir) if @adapter_type == 'command'
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -32,7 +44,7 @@ module Amber
     # {{{ define_command
 
     def define_command(options, step, workingdir)
-      @workingdir  = set_working_dir(step, workingdir)
+      @workingdir = set_working_dir(step, workingdir)
 
       command = Amber::Substitute.expand_path(
         Amber::Substitute.strings(@filename, options, step['command'])
@@ -65,19 +77,51 @@ module Amber
 
     def echo_to_sysout; end
 
-    # {{{ Run a command
-
-    def run_command
-      _o, _e, _s = TestEvidence.run_from_temp_directory(@command, @workingdir) if @options.run?
+    # Returns the normalized result from the YAML-selected adapter.
+    def run_result
+      adapter = @execution_adapter || adapter_registry.fetch(@adapter_type)
+      @last_result = adapter.execute(self, self)
+      @runtime_evidence = @last_result.evidence
+      @last_result
     end
 
-    # ---------------------------------------------------------------------- }}}
+    # Runs a command through the adapter API while preserving the legacy tuple
+    # consumed by the existing LaTeX and ASCII writers.
+    def run_command
+      result = run_result
+      return web_result_tuple(result) if @adapter_type == 'web'
+
+      process_status = result.metadata[:process_status]
+      [result.stdout, result.stderr, process_status]
+    end
+
+    def description
+      return command if @adapter_type == 'command'
+
+      [action, target].compact.join(' ')
+    end
 
     private
 
+    def adapter_registry
+      @options.adapter_registry ||= Amber::Execution::AdapterRegistry.new
+    end
+
+    def register_default_adapters
+      return if adapter_registry.registered?(:command)
+
+      adapter_registry.register(:command, Amber::Execution::CommandAdapter.new)
+    end
+
+    def web_result_tuple(result)
+      stderr = result.stderr
+      stderr = result.error.message if stderr.empty? && result.error
+      [result.stdout, stderr, result]
+    end
+
     # {{{ Set the working diectory.
 
-    # rubocop:disable Metrics.MethodLength
+    # rubocop:disable Metrics/MethodLength -- legacy working-directory rules
     def set_working_dir(step, workingdir)
       wd = step['workingdir']
       wd = Amber::Substitute.expand_path(wd) unless wd.nil?
@@ -105,7 +149,7 @@ module Amber
 
       wdir.strip
     end
-    # rubocop:enable Metrics.MethodLength
+    # rubocop:enable Metrics/MethodLength -- legacy working-directory rules
 
     # ---------------------------------------------------------------------- }}}
   end

@@ -13,6 +13,7 @@ require 'amber/tif/test/case'
 require 'amber/tif/test/include'
 require 'amber/tif/test/plan'
 require 'amber/tif/test/suite'
+require 'amber/execution/web_session_pool'
 require 'amber/tof/writers/writer_factory'
 require 'amber/workflow'
 
@@ -32,10 +33,16 @@ module Amber
     # {{{ orchestrate
 
     def orchestrate
+      @options.web_session_pool = Amber::Execution::WebSessionPool.new(
+        browser_factory: @options.browser_factory || Amber::Execution::BrowserFactory.new
+      )
       @options.data[:files].each do |f|
         parse_yaml_file f
         @test.each(&:process)
       end
+    ensure
+      @options.web_session_pool&.close
+      @options.web_session_pool = nil
     end
 
     # ---------------------------------------------------------------------- }}}
@@ -44,9 +51,15 @@ module Amber
     def parse_yaml_file(filename)
       @test = []
       @filename = filename
-      @yaml_file = YAML.safe_load_file(@filename)
+      @yaml_file = YAML.safe_load_file(input_path(@filename))
       validate_yaml_file
       process_yaml_file
+    end
+
+    def input_path(filename)
+      return filename if @options.report_dir.nil? || File.absolute_path(filename) == filename
+
+      File.join(@options.report_dir, filename)
     end
 
     # ---------------------------------------------------------------------- }}}

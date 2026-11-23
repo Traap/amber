@@ -1,0 +1,175 @@
+#!/usr/bin/env bash
+
+# Update Arch Linux browsers and WebDriver binaries, then verify compatibility.
+# This script intentionally follows the current Arch packages instead of
+# pinning browser or driver versions.
+
+set -euo pipefail
+
+readonly PACMAN_PACKAGES=(chromium firefox geckodriver)
+readonly AUR_PACKAGES=(brave-bin microsoft-edge-stable-bin msedgedriver-stable-bin)
+
+check_only=false
+if [[ "${1:-}" == "--check-only" ]]; then
+  check_only=true
+elif [[ $# -gt 0 ]]; then
+  echo "Usage: $0 [--check-only]" >&2
+  exit 2
+fi
+
+require_command() {
+  command -v "$1" >/dev/null 2>&1 || {
+    echo "Required command not found: $1" >&2
+    exit 1
+  }
+}
+
+version_line() {
+  local executable=$1
+  "$executable" --version 2>&1 | head -n 1
+}
+
+version_number() {
+  printf '%s\n' "$1" | grep -Eo '[0-9]+(\.[0-9]+)+' | head -n 1
+}
+
+version_prefix() {
+  printf '%s\n' "$(version_number "$1")" | cut -d. -f1-3
+}
+
+update_packages() {
+  if [[ "$check_only" == true ]]; then
+    return
+  fi
+
+  require_command yay
+  echo "Updating Arch Linux browsers and WebDriver packages..."
+  yay -Syu --noconfirm --needed "${PACMAN_PACKAGES[@]}" "${AUR_PACKAGES[@]}"
+}
+
+report_versions() {
+  local browser driver browser_version driver_version
+
+  echo
+  echo "Browser and WebDriver versions"
+
+  for browser in chromium brave microsoft-edge-stable firefox; do
+    if command -v "$browser" >/dev/null 2>&1; then
+      echo "  $browser: $(version_line "$browser")"
+    else
+      echo "  $browser: NOT FOUND"
+    fi
+  done
+
+  for driver in chromedriver msedgedriver geckodriver; do
+    if command -v "$driver" >/dev/null 2>&1; then
+      echo "  $driver: $(version_line "$driver")"
+    else
+      echo "  $driver: NOT FOUND"
+    fi
+  done
+}
+
+verify_chromium() {
+  local browser_version driver_version
+  browser_version=$(version_prefix "$(version_line chromium)")
+  driver_version=$(version_prefix "$(version_line chromedriver)")
+  [[ "$browser_version" == "$driver_version" ]] || {
+    echo "Chromium/ChromeDriver mismatch: $browser_version != $driver_version" >&2
+    return 1
+  }
+}
+
+verify_brave() {
+  local browser_major driver_major
+  browser_major=$(version_number "$(version_line brave)" | cut -d. -f1)
+  driver_major=$(version_number "$(version_line chromedriver)" | cut -d. -f1)
+  [[ "$browser_major" == "$driver_major" ]] || {
+    echo "Brave/ChromeDriver major mismatch: $browser_major != $driver_major" >&2
+    echo "Verify Brave's embedded Chromium version before overriding this result." >&2
+    return 1
+  }
+}
+
+verify_edge() {
+  local browser_version driver_version
+  browser_version=$(version_prefix "$(version_line microsoft-edge-stable)")
+  driver_version=$(version_prefix "$(version_line msedgedriver)")
+  [[ "$browser_version" == "$driver_version" ]] || {
+    echo "Edge/EdgeDriver mismatch: $browser_version != $driver_version" >&2
+    return 1
+  }
+}
+
+install_matching_edge_driver() {
+  local browser_version browser_major driver_version download_url temp_dir archive driver_path selector response
+  require_command curl
+  require_command unzip
+  require_command sudo
+
+  browser_version=$(version_prefix "$(version_line microsoft-edge-stable)")
+  browser_major=${browser_version%%.*}
+  driver_version=''
+  for selector in "$browser_version" "$browser_major"; do
+    if response=$(curl --fail --silent --show-error \
+      "https://msedgedriver.microsoft.com/LATEST_RELEASE_${selector}" 2>/dev/null); then
+      driver_version=$(printf '%s' "$response" | tr -d '\r\000' |
+        grep -Eo '[0-9]+(\.[0-9]+){3}' | head -n 1 || true)
+      [[ -n "$driver_version" ]] && break
+    fi
+  done
+  [[ -n "$driver_version" ]] || {
+    echo "Microsoft has no EdgeDriver release for Edge ${browser_version}." >&2
+    return 1
+  }
+  [[ "$(version_prefix "$driver_version")" == "$browser_version" ]] || {
+    echo "Microsoft returned EdgeDriver ${driver_version}, which does not match Edge ${browser_version}." >&2
+    return 1
+  }
+  download_url="https://msedgedriver.microsoft.com/${driver_version}/edgedriver_linux64.zip"
+  temp_dir=$(mktemp -d)
+  trap 'rm -rf -- "$temp_dir"' RETURN
+  archive="${temp_dir}/edgedriver.zip"
+
+  echo "Installing EdgeDriver ${driver_version} for Edge ${browser_version}..."
+  curl --fail --silent --show-error --location "$download_url" --output "$archive"
+  unzip -q "$archive" -d "$temp_dir"
+  driver_path=$(find "$temp_dir" -type f -name msedgedriver -print -quit)
+  [[ -n "$driver_path" ]] || {
+    echo "Downloaded EdgeDriver archive did not contain msedgedriver." >&2
+    return 1
+  }
+  sudo install -m 0755 "$driver_path" /usr/local/bin/msedgedriver
+}
+
+verify_firefox() {
+  require_command firefox
+  require_command geckodriver
+  echo "Firefox/geckodriver: versions reported; geckodriver compatibility is managed by Arch packages."
+}
+
+verify_all() {
+  local failures=0
+  for check in verify_chromium verify_brave verify_edge verify_firefox; do
+    "$check" || failures=$((failures + 1))
+  done
+  return "$failures"
+}
+
+update_packages
+require_command chromium
+require_command chromedriver
+require_command brave
+require_command microsoft-edge-stable
+if ! verify_edge; then
+  if [[ "$check_only" == true ]]; then
+    echo "EdgeDriver is stale; rerun without --check-only to repair it." >&2
+  else
+    install_matching_edge_driver
+  fi
+fi
+require_command msedgedriver
+report_versions
+verify_all
+echo
+echo "Browser and WebDriver compatibility checks passed."

@@ -1,0 +1,18 @@
+suite:
+  name: ${file}
+
+  purpose: Validate Amber's application-neutral web primitives.
+
+includes:
+  - folder: web/primitives
+    case:
+      - name: page-mock
+      - name: choices
+      - name: text-input
+      - name: date-range
+      - name: date-range-invalid
+      - name: evidence
+      - name: navigation
+      - name: interactions
+      - name: teleport
+      - name: controls
